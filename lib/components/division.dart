@@ -13,7 +13,8 @@ class Division extends StatelessWidget {
     'minHeight': 0.0,
     'maxHeight': double.infinity,
     'minWidth': 0.0,
-    'maxWidth': double.infinity
+    'maxWidth': double.infinity,
+    'alignment' : Alignment.center
   };
 
   final Map<String, Function> finalGestures = {};
