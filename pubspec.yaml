@@ -1,6 +1,6 @@
 name: division
-description: A widget inspired by the HTML/CSS code structure. The purpose of this package is mainty to make styling in flutter easier espessialy those who are coming from web development.
-version: 0.1.0+2
+description: A common use Widget inspired by HTML/ CSS. The goal of this widget is to simplify styling and facilitate for reusability. The styling syntax is heavily inspired by CSS.
+version: 0.1.0+4
 author: Rein Gundersen Bentdal<rein.bent@gmail.com>
 homepage: https://github.com/ReinBentdal/division
 

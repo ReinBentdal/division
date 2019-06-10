@@ -1,6 +1,6 @@
 # Example 1
 
-```
+```dart
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
 # Example 2
 Reusing styling
 
-```
+```dart
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
