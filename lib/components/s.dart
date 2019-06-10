@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../functions/hex_color.dart';
 
+// A class containing all styling for the Division widget
 class S {
+  // Alignment of the Division widget
   static Map align(String alignmentInput) {
     final String property = 'align';
     Alignment alignment = Alignment.center;
@@ -33,6 +35,7 @@ class S {
     return output;
   }
 
+  // Alignment of the Division child widget
   static Map alignChild(String alignmentInput) {
     final String property = 'alignChild';
     Alignment alignment = Alignment.center;

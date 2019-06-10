@@ -46,7 +46,8 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  //what we in CSS would call a class
+
+  //generic button styling
   final List buttonStyle = [
     S.width(300.0),
     S.padding(horizontal: 15.0, vertical: 20.0),
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
     S.backgroundColor(hex: 'eeeeee')
   ];
 
-  //tweaks of the main colorStyle
+  //customized generic button styling
   final List button2 = [
     S.backgroundColor(color: Colors.blue[700]),
     S.boxShadow(
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
         offset: [0.0, 15.0]),
   ];
 
-  //another tweaked button style
+  //customized generic button styling
   final List button3 = [
     S.borderRadius(all: 3.0),
     S.backgroundColor(color: Colors.red[300]),
@@ -91,12 +92,12 @@ class MyApp extends StatelessWidget {
             //blue button with shadow
             Division(
                 style: List.from(buttonStyle)..addAll(button2),
-                child: text(title: 'Blue button', color: Colors.white)),
+                child: text(title: 'Blue button with shadow', color: Colors.white)),
 
             //shadow button
             Division(
                 style: List.from(buttonStyle)..addAll(button3),
-                child: text(title: 'Button with shadow', color: Colors.white)),
+                child: text(title: 'Red button with shadow', color: Colors.white)),
           ],
         ),
       ),

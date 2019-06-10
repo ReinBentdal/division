@@ -19,6 +19,7 @@ class Division extends StatelessWidget {
 
   final Map<String, Function> finalGestures = {};
 
+  // fetches the style properties from List<S>
   void fetchStyle() {
     if (style != null) {
       for (dynamic parameter in style) {
@@ -67,6 +68,7 @@ class Division extends StatelessWidget {
     }
   }
 
+  // Fetching the gesture properties from List<G>
   void fetchGesture() {
     if (gesture != null) {
       for (dynamic parameter in gesture) {
