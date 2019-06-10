@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
             S.margin(horizontal: 30.0),
             S.backgroundColor(hex: '55ffff'),
             S.borderRadius(all: 20.0),
-            S.boxShadow(
-                hex: '55ffff', spread: -10.0, blur: 20.0, offset: [0.0, 15.0]),
+            S.boxShadow(hex: '55ffff', spread: -10.0, blur: 20.0, offset: [0.0, 15.0]),
           ],
           gesture: [
             G.onTap(() => print('Division widget pressed!')),
