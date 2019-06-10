@@ -43,11 +43,13 @@ The division widget combines all the styling properties under one `style` proper
 
 ### Style Property
 
+The `S` class is responsible for everything stylingwise
+
 - `S.height(), S.minHeight(), S.maxHeight(), S.width(), S.minWidth(), S.maxWidth` - Expects a double
 
-- `S.align()` - Alignment of the Division widget. Expects a String: `['center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']`
+- `S.align()` - Alignment of the Division widget. Expects a String. Valid values: `['center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']`
 
-- `S.alignChild()` - Alignment of the child widget. Expects a String: `['center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']`
+- `S.alignChild()` - Alignment of the child widget. Expects a String. Valid values: `['center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']`
 
 - `S.padding` - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
 
@@ -65,6 +67,8 @@ What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['wid
 
   
 ### gesture Property
+
+The `G` class is responsible for all the gestures
 
 - `G.onTap()` - onTap function
 
