@@ -61,6 +61,7 @@ The division widget combines all the styling properties under one `style` proper
 
 Future features
 - `S.animate` - Animates between a old and new style property. Expects a `duration` parameter in milliseconds, a `curve` parameter and a `only` parameter witch contains a list of the style properties the animation is going to get applied to.
+What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['width', 'margin'])`
 
   
 ### gesture Property
