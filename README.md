@@ -28,6 +28,9 @@ Division(
     S.backgroundColor(hex: '55ffff'),
     S.borderRadius(all: 20.0),
     S.boxShadow(hex: '55ffff', spread: -10.0, blur: 20.0, offset: [0.0, 15.0]),
+
+    //instead of S.boxShadow()
+    // S.elevation(10.0),
   ],
   gesture: [
     G.onTap(() => print('Division widget pressed!')),
@@ -75,10 +78,6 @@ What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['wid
 
 Future features
 - Other useful gesture functions
-
-### GestureStyle (not implemented yet)
-
-Style to be applied while a gesture is taking place. For example button style when button is beeing pressed.
 
 ### Child Property
 
