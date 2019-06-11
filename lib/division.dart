@@ -6,7 +6,7 @@ export 'src/s.dart';
 
 //  Models for more robust code
 //
-//  # Example 
+//  # Example
 //
 //  List<StyleItem> = [ S.margin(all: 10.0) ]
 //

@@ -6,14 +6,13 @@ import 'get_color.dart';
 
 // A class containing all styling for the Division widget
 class S {
-
   // Alignment of the Division widget
   //
   //  # Example
-  //  
-  //   
+  //
+  //
   //  S.align('topLeft')  - Possible values: 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft' and 'bottomRight'
-  // 
+  //
   //
   static StyleItem align(String alignmentInput) {
     Alignment alignment = Alignment.center;
@@ -59,7 +58,7 @@ class S {
 
   // Alignment of the Division child widget
   //
-  //  # Example 
+  //  # Example
   //
   //  S.alignChild('topLeft') - Possible values: 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft' and 'bottomRight'
   //
@@ -102,8 +101,8 @@ class S {
     return StyleItem(property: 'alignChild', style: alignment);
   }
 
-  // Padding for the Division widget   
-  // 
+  // Padding for the Division widget
+  //
   //  # Example
   //
   //  S.padding(top: 20.0, left: 5.0) or
@@ -137,7 +136,7 @@ class S {
   }
 
   // # Example
-  //   
+  //
   //  S.margin(top: 20.0, left: 5.0) or
   //  S.margin(horizontal: 10.0, vertical: 20.0) or
   //  S.margin(all: 10.0)
@@ -169,7 +168,7 @@ class S {
   }
 
   // # Example
-  // 
+  //
   //  S.backgroundColor(hex: 'f5f5f5') or
   //  S.backgroundColor(hex: '#f5f5f5') or
   //  S.backgroundColor(rgba: [34, 52, 16, 0.5]) or
@@ -177,7 +176,9 @@ class S {
   //
   static StyleItem backgroundColor({String hex, List rgba, Color color}) {
     Color backgroundColor = getColor(hex: hex, rgba: rgba, color: color);
-    if(backgroundColor == null) { backgroundColor = Color(0xFFEEEEEE); }
+    if (backgroundColor == null) {
+      backgroundColor = Color(0xFFEEEEEE);
+    }
 
     return StyleItem(property: 'backgroundColor', style: backgroundColor);
   }
@@ -260,7 +261,7 @@ class S {
       String hex,
       List rgba,
       Color color = Colors.black}) {
-    if(elevation < 0) {
+    if (elevation < 0) {
       return null;
     }
     final double offsetX = angled ? elevation : 0.0;
@@ -272,10 +273,13 @@ class S {
     double opacity = 0.2 - (sqrt(elevation) / 90);
 
     //prevent negative values for the opacity
-    if (opacity < 0.0) { opacity = 0.0; }
+    if (opacity < 0.0) {
+      opacity = 0.0;
+    }
 
     //find which color format used: hex, rgba or color
-    final Color shadowColor = getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
+    final Color shadowColor =
+        getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
 
     final List<BoxShadow> boxShadow = [
       BoxShadow(
