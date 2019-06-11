@@ -18,9 +18,11 @@ class Division extends StatelessWidget {
   // fetches the style properties from List<S>
   void fetchStyle() {
     if (style != null) {
-      for (StyleItem styleItem in style) {
+      for (dynamic styleItem in style) {
         if(styleItem is StyleItem) {
-          finalStyle[styleItem.property] = styleItem.style;
+          finalStyle[styleItem.property] = styleItem?.style;
+        } else {
+          throw('$styleItem is not of type StyleItem. It is recomended to define your style lists as List<StyleItem>. You may have typed List.from(List)..add(List) instead of List<StyleItem>.from(List)..addAll(List)');
         }
       }
     }
@@ -29,8 +31,12 @@ class Division extends StatelessWidget {
   // Fetching the gesture properties from List<G>
   void fetchGesture() {
     if (gesture != null) {
-      for (GestureItem gestureItem in gesture) {
-        finalGestures[gestureItem.property] = gestureItem.function;
+      for (dynamic gestureItem in gesture) {
+        if (gestureItem is GestureItem) {
+          finalGestures[gestureItem?.property ?? null] = gestureItem?.function ?? null;
+        } else {
+          throw('$gestureItem is not of type GestureItem');
+        }
       }
     }
   }
@@ -42,6 +48,44 @@ class Division extends StatelessWidget {
 
     return GestureDetector(
       onTap: finalGestures['onTap'] ?? null,
+      onTapUp: finalGestures['onTapUp'] ?? null,
+      onTapCancel: finalGestures['onTapCancel'] ?? null,
+      onDoubleTap: finalGestures['onDoubleTap'] ?? null,
+      onTapDown: finalGestures['onTapDown'] ?? null,
+
+      onLongPress: finalGestures['onLongPress'] ?? null,
+      onLongPressStart: finalGestures['onLongPressStart'] ?? null,
+      onLongPressEnd: finalGestures['onLongPressEnd'] ?? null,
+      onLongPressMoveUpdate: finalGestures['onLongPressMoveUpdate'] ?? null,
+      onLongPressUp: finalGestures['onLongPressUp'] ?? null,
+  
+      onVerticalDragStart: finalGestures['onVerticalDragStart'] ?? null,
+      onVerticalDragEnd: finalGestures['onVerticalDragEnd'] ?? null,
+      onVerticalDragDown: finalGestures['onVerticalDragDown'] ?? null,
+      onVerticalDragCancel: finalGestures['onVerticalDragCancel'] ?? null,
+      onVerticalDragUpdate: finalGestures['onVerticalDragUpdate'] ?? null,
+
+      onHorizontalDragStart: finalGestures['onHorizontalDragStart'] ?? null,
+      onHorizontalDragEnd: finalGestures['onHorizontalDragEnd'] ?? null,
+      onHorizontalDragCancel: finalGestures['onHorizontalDragCancel'] ?? null,
+      onHorizontalDragUpdate: finalGestures['onHorizontalDragUpdate'] ?? null,
+      onHorizontalDragDown: finalGestures['onHorizontalDragDown'] ?? null,
+
+      onForcePressStart: finalGestures['onForcePressStart'] ?? null,
+      onForcePressEnd: finalGestures['onForcePressEnd'] ?? null,
+      onForcePressPeak: finalGestures['onForcePressPeak'] ?? null,
+      onForcePressUpdate: finalGestures['onForcePressUpdate'] ?? null,
+      
+      onPanStart: finalGestures['onPanStart'] ?? null,
+      onPanEnd: finalGestures['onPanEnd'] ?? null,
+      onPanCancel: finalGestures['onPanCancel'] ?? null,
+      onPanDown: finalGestures['onPanDown'] ?? null,
+      onPanUpdate: finalGestures['onPanUpdate'] ?? null,
+
+      onScaleStart: finalGestures['onScaleStart'] ?? null,
+      onScaleEnd: finalGestures['onScaleEnd'] ?? null,
+      onScaleUpdate: finalGestures['onScaleUpdate'] ?? null,
+
       child: Align(
         alignment: finalStyle['align'] ?? Alignment.center,
         child: Container(
