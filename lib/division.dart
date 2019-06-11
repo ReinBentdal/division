@@ -1,5 +1,5 @@
 library division;
 
-export 'components/division.dart';
-export 'components/g.dart';
-export 'components/s.dart';
+export 'src/division.dart';
+export 'src/g.dart';
+export 'src/s.dart';

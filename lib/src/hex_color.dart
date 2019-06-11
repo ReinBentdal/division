@@ -1,4 +1,3 @@
-// File for common used functions
 import 'package:flutter/material.dart';
 
 // from '#123456' or '123456' -> Color(0xFF123456)

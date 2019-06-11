@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-import '../functions/hex_color.dart';
-import '../model/style_item.dart';
+import 'style_item.dart';
+import 'get_color.dart';
 
 // A class containing all styling for the Division widget
 class S {
+
   // Alignment of the Division widget
-  // Desired: S.align.topLeft
+  //
+  //  # Example
+  //  
+  //   
+  //  S.align('topLeft')  - Possible values: 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft' and 'bottomRight'
+  // 
+  //
   static StyleItem align(String alignmentInput) {
     Alignment alignment = Alignment.center;
 
@@ -29,12 +37,32 @@ class S {
       case 'bottom':
         alignment = Alignment.bottomCenter;
         break;
+      case 'topLeft':
+        alignment = Alignment.topLeft;
+        break;
+      case 'topRight':
+        alignment = Alignment.topRight;
+        break;
+      case 'bottomLeft':
+        alignment = Alignment.bottomLeft;
+        break;
+      case 'bottomRight':
+        alignment = Alignment.bottomRight;
+        break;
     }
 
     return StyleItem(property: 'align', style: alignment);
   }
 
+  // may implement this:
+  // static StyleItem alignTop() => StyleItem(property: 'align', style: Alignment.topCenter);
+
   // Alignment of the Division child widget
+  //
+  //  # Example 
+  //
+  //  S.alignChild('topLeft') - Possible values: 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft' and 'bottomRight'
+  //
   static StyleItem alignChild(String alignmentInput) {
     Alignment alignment = Alignment.center;
 
@@ -57,11 +85,31 @@ class S {
       case 'bottom':
         alignment = Alignment.bottomCenter;
         break;
+      case 'topLeft':
+        alignment = Alignment.topLeft;
+        break;
+      case 'topRight':
+        alignment = Alignment.topRight;
+        break;
+      case 'bottomLeft':
+        alignment = Alignment.bottomLeft;
+        break;
+      case 'bottomRight':
+        alignment = Alignment.bottomRight;
+        break;
     }
 
     return StyleItem(property: 'alignChild', style: alignment);
   }
 
+  // Padding for the Division widget   
+  // 
+  //  # Example
+  //
+  //  S.padding(top: 20.0, left: 5.0) or
+  //  S.padding(horizontal: 10.0, vertical: 20.0) or
+  //  S.padding(all: 10.0)
+  //
   static StyleItem padding(
       {double all,
       double horizontal,
@@ -88,6 +136,12 @@ class S {
     return StyleItem(property: 'padding', style: padding);
   }
 
+  // # Example
+  //   
+  //  S.margin(top: 20.0, left: 5.0) or
+  //  S.margin(horizontal: 10.0, vertical: 20.0) or
+  //  S.margin(all: 10.0)
+  //
   static StyleItem margin(
       {double all,
       double horizontal,
@@ -114,20 +168,25 @@ class S {
     return StyleItem(property: 'margin', style: margin);
   }
 
+  // # Example
+  // 
+  //  S.backgroundColor(hex: 'f5f5f5') or
+  //  S.backgroundColor(hex: '#f5f5f5') or
+  //  S.backgroundColor(rgba: [34, 52, 16, 0.5]) or
+  //  S.backgroundColor(color: Colors.teal)
+  //
   static StyleItem backgroundColor({String hex, List rgba, Color color}) {
-    Color backgroundColor = Colors.transparent;
-
-    if (hex != null) {
-      backgroundColor = HexColor(hex);
-    } else if (rgba != null && rgba.length == 4) {
-      backgroundColor = Color.fromRGBO(rgba[0], rgba[1], rgba[2], rgba[3]);
-    } else if (color != null) {
-      backgroundColor = color;
-    }
+    Color backgroundColor = getColor(hex: hex, rgba: rgba, color: color);
+    if(backgroundColor == null) { backgroundColor = Color(0xFFEEEEEE); }
 
     return StyleItem(property: 'backgroundColor', style: backgroundColor);
   }
 
+  //  # Example
+  //
+  //  S.borderRadius(all: 30.0) or
+  //  S.borderRadius(topLeft: 5.0, topRight: 10.0, bottomLeft: 5.0, bottomRight: 10.0)
+  //
   static StyleItem borderRadius(
       {double all,
       double topLeft,
@@ -153,6 +212,15 @@ class S {
     return StyleItem(property: 'borderRadius', style: borderRadius);
   }
 
+  //  # Example
+  //
+  //  S.boxShadow(
+  //    hex: 'eeeeee',
+  //    blur: 20.0,
+  //    spread: 10.0,
+  //    offset: [0.0, 10.0] - the first index is the x value and the second is the y value
+  //  ),
+  //
   static StyleItem boxShadow(
       {String hex,
       List rgba,
@@ -161,15 +229,7 @@ class S {
       List<double> offset,
       double spread}) {
     Offset finalOffset;
-    Color finalColor;
-
-    if (hex != null) {
-      finalColor = HexColor(hex);
-    } else if (rgba != null && rgba.length == 4) {
-      finalColor = Color.fromRGBO(rgba[0], rgba[1], rgba[2], rgba[3]);
-    } else if (color != null) {
-      finalColor = color;
-    }
+    Color shadowColor = getColor(hex: hex, rgba: rgba, color: color);
 
     if (offset.length == 1) {
       finalOffset = Offset(offset[0], offset[0]);
@@ -179,10 +239,50 @@ class S {
 
     List<BoxShadow> boxShadow = [
       BoxShadow(
-          color: finalColor ?? const Color(0xFF000000),
+          color: shadowColor ?? const Color(0xFF000000).withOpacity(0.2),
           blurRadius: blur ?? 0.0,
           spreadRadius: spread ?? 0.0,
           offset: finalOffset ?? Offset(0.0, 0.0))
+    ];
+
+    return StyleItem(property: 'boxShadow', style: boxShadow);
+  }
+
+  //  A prebuilt boxShadow method for fast standarised presets
+  //  It is recomended to not use values higher than 50.0. The lowest allowed value is 0.0 (Which will give no shadow)
+  //
+  //  # Example
+  //
+  //  S.elevation(10.0)
+  //
+  static StyleItem elevation(double elevation,
+      {bool angled = false,
+      String hex,
+      List rgba,
+      Color color = Colors.black}) {
+    if(elevation < 0) {
+      return null;
+    }
+    final double offsetX = angled ? elevation : 0.0;
+    final double offsetY = elevation;
+    final double spread = 0.0;
+    final double blur = elevation;
+
+    //custom curve defining the opacity
+    double opacity = 0.2 - (sqrt(elevation) / 90);
+
+    //prevent negative values for the opacity
+    if (opacity < 0.0) { opacity = 0.0; }
+
+    //find which color format used: hex, rgba or color
+    final Color shadowColor = getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
+
+    final List<BoxShadow> boxShadow = [
+      BoxShadow(
+          color: shadowColor ?? Colors.black.withOpacity(0.2),
+          blurRadius: blur,
+          spreadRadius: spread,
+          offset: Offset(offsetX, offsetY))
     ];
 
     return StyleItem(property: 'boxShadow', style: boxShadow);
@@ -209,6 +309,7 @@ class S {
   }
 
   static StyleItem maxHeight(double maxHeight) {
-    return StyleItem(property: 'maxHeight', style: maxHeight ?? double.infinity);
+    return StyleItem(
+        property: 'maxHeight', style: maxHeight ?? double.infinity);
   }
 }
