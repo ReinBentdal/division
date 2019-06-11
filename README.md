@@ -29,8 +29,7 @@ Division(
     S.borderRadius(all: 20.0),
     S.boxShadow(hex: '55ffff', spread: -10.0, blur: 20.0, offset: [0.0, 15.0]),
 
-    //instead of S.boxShadow()
-    // S.elevation(10.0),
+    //instead of S.boxShadow() you can use S.elevation(double)
   ],
   gesture: [
     G.onTap(() => print('Division widget pressed!')),
@@ -74,10 +73,7 @@ What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['wid
 
 *The `G` class is responsible for all the gestures*
 
-- **`G.onTap()`** - onTap function
-
-Future features
-- Other useful gesture functions
+Contains all the properties found in the GestureDetector widget, working as expected
 
 ### Child Property
 
