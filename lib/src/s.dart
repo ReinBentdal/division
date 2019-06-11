@@ -48,6 +48,9 @@ class S {
       case 'bottomRight':
         alignment = Alignment.bottomRight;
         break;
+      default:
+        print('invalid S.align property');
+        break;
     }
 
     return StyleItem(property: 'align', style: alignment);
@@ -95,6 +98,9 @@ class S {
         break;
       case 'bottomRight':
         alignment = Alignment.bottomRight;
+        break;
+      default:
+        print('invalid S.alignChild property');
         break;
     }
 
