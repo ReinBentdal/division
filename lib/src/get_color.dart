@@ -8,7 +8,7 @@ Color getColor({@required String hex, @required List rgba, @required Color color
   if (hex != null) {
       finalColor = HexColor(hex);
     } else if (rgba != null && rgba.length == 4) {
-      finalColor = Color.fromRGBO(rgba[0].toInt(), rgba[1].toInt(), rgba[2].toInt(), double.parse(rgba[3]));
+      finalColor = Color.fromRGBO(rgba[0].toInt() ?? 0, rgba[1].toInt() ?? 0, rgba[2].toInt() ?? 0, rgba[3].toDouble() ?? 1);
     } else if (color != null) {
       finalColor = color;
     }
