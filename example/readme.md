@@ -47,8 +47,9 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
+  //it is highly recomended to define your List as List<StyleItem> instead of just List
   //generic button styling
-  final List buttonStyle = [
+  final List<StyleItem> buttonStyle = [
     S.width(300.0),
     S.padding(horizontal: 15.0, vertical: 20.0),
     S.margin(top: 20.0),
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
   ];
 
   //customized generic button styling
-  final List button2 = [
+  final List<StyleItem> button2 = [
     S.backgroundColor(color: Colors.blue[700]),
     S.boxShadow(
         color: Colors.black.withOpacity(0.2),
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
   ];
 
   //customized generic button styling
-  final List button3 = [
+  final List<StyleItem> button3 = [
     S.borderRadius(all: 3.0),
     S.backgroundColor(color: Colors.red[300]),
     S.boxShadow(
@@ -91,12 +92,12 @@ class MyApp extends StatelessWidget {
 
             //blue button with shadow
             Division(
-                style: List.from(buttonStyle)..addAll(button2),
+                style: List<StyleItem>.from(buttonStyle)..addAll(button2),
                 child: text(title: 'Blue button with shadow', color: Colors.white)),
 
             //shadow button
             Division(
-                style: List.from(buttonStyle)..addAll(button3),
+                style: List<StyleItem>.from(buttonStyle)..addAll(button3),
                 child: text(title: 'Red button with shadow', color: Colors.white)),
           ],
         ),

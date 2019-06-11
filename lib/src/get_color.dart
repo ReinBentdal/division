@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'hex_color.dart';
 
-//takes different styles of color inputs, finds out which is uesd and returns it as a color
+//returns the color property that is valid. Hex is preffered, then rgba and last color
 Color getColor({@required String hex, @required List rgba, @required Color color}) {
   Color finalColor;
   if (hex != null) {
