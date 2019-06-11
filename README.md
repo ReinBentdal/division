@@ -88,8 +88,8 @@ Widget child
 
 ### Different elevation settings
 
-![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png)
+![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png | width=150)
 
 ### Animated elevation
 
-![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif)
+![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif | width=150)
