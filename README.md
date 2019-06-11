@@ -75,7 +75,7 @@ What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['wid
 
 Contains all the properties found in the GestureDetector widget, works as expected
 
-## Gesture property example
+#### Gesture property example
 
 ```dart
 Division(
