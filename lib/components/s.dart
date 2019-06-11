@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../functions/hex_color.dart';
+import '../model/style_item.dart';
 
 // A class containing all styling for the Division widget
 class S {
   // Alignment of the Division widget
-  static Map align(String alignmentInput) {
-    final String property = 'align';
+  // Desired: S.align.topLeft
+  static StyleItem align(String alignmentInput) {
     Alignment alignment = Alignment.center;
 
     switch (alignmentInput) {
@@ -30,14 +31,11 @@ class S {
         break;
     }
 
-    final Map output = {'property': property, 'style': alignment};
-
-    return output;
+    return StyleItem(property: 'align', style: alignment);
   }
 
   // Alignment of the Division child widget
-  static Map alignChild(String alignmentInput) {
-    final String property = 'alignChild';
+  static StyleItem alignChild(String alignmentInput) {
     Alignment alignment = Alignment.center;
 
     switch (alignmentInput) {
@@ -61,12 +59,10 @@ class S {
         break;
     }
 
-    final Map output = {'property': property, 'style': alignment};
-
-    return output;
+    return StyleItem(property: 'alignChild', style: alignment);
   }
 
-  static Map padding(
+  static StyleItem padding(
       {double all,
       double horizontal,
       double vertical,
@@ -74,7 +70,6 @@ class S {
       double bottom,
       double left,
       double right}) {
-    final String property = 'padding';
     EdgeInsetsGeometry padding = EdgeInsets.all(0.0);
 
     if (all != null) {
@@ -90,12 +85,10 @@ class S {
           right: right ?? 0.0);
     }
 
-    final Map output = {'property': property, 'style': padding};
-
-    return output;
+    return StyleItem(property: 'padding', style: padding);
   }
 
-  static Map margin(
+  static StyleItem margin(
       {double all,
       double horizontal,
       double vertical,
@@ -103,7 +96,6 @@ class S {
       double bottom,
       double left,
       double right}) {
-    final String property = 'margin';
     EdgeInsetsGeometry margin = EdgeInsets.all(0.0);
 
     if (all != null) {
@@ -119,13 +111,10 @@ class S {
           right: right ?? 0.0);
     }
 
-    final Map output = {'property': property, 'style': margin};
-
-    return output;
+    return StyleItem(property: 'margin', style: margin);
   }
 
-  static Map backgroundColor({String hex, List rgba, Color color}) {
-    final String property = 'backgroundColor';
+  static StyleItem backgroundColor({String hex, List rgba, Color color}) {
     Color backgroundColor = Colors.transparent;
 
     if (hex != null) {
@@ -136,18 +125,15 @@ class S {
       backgroundColor = color;
     }
 
-    final Map output = {'property': property, 'style': backgroundColor};
-
-    return output;
+    return StyleItem(property: 'backgroundColor', style: backgroundColor);
   }
 
-  static Map borderRadius(
+  static StyleItem borderRadius(
       {double all,
       double topLeft,
       double topRight,
       double bottomLeft,
       double bottomRight}) {
-    final String property = 'borderRadius';
     BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(0.0));
 
     if (all != null) {
@@ -164,22 +150,16 @@ class S {
       );
     }
 
-    final Map output = {
-      'property': property,
-      'style': borderRadius,
-    };
-
-    return output;
+    return StyleItem(property: 'borderRadius', style: borderRadius);
   }
 
-  static Map boxShadow(
+  static StyleItem boxShadow(
       {String hex,
       List rgba,
       Color color,
       double blur,
       List<double> offset,
       double spread}) {
-    final String property = 'boxShadow';
     Offset finalOffset;
     Color finalColor;
 
@@ -205,61 +185,30 @@ class S {
           offset: finalOffset ?? Offset(0.0, 0.0))
     ];
 
-    final Map output = {'property': property, 'style': boxShadow};
-
-    return output;
+    return StyleItem(property: 'boxShadow', style: boxShadow);
   }
 
-  static Map width(double width) {
-    final Map output = {
-      'property': 'width',
-      'style': width ?? null,
-    };
-    return output;
+  static StyleItem width(double width) {
+    return StyleItem(property: 'width', style: width ?? null);
   }
 
-  static Map minWidth(double minWidth) {
-    final Map output = {
-      'property': 'minWidth',
-      'style': minWidth ?? 0.0,
-    };
-    return output;
+  static StyleItem minWidth(double minWidth) {
+    return StyleItem(property: 'minWidth', style: minWidth ?? 0.0);
   }
 
-  static Map maxWidth(double maxWidth) {
-    final Map output = {
-      'property': 'maxWidth',
-      'style': maxWidth ?? double.infinity,
-    };
-    return output;
+  static StyleItem maxWidth(double maxWidth) {
+    return StyleItem(property: 'maxWidth', style: maxWidth ?? double.infinity);
   }
 
-  static Map height(double height) {
-    final Map output = {
-      'property': 'height',
-      'style': height ?? null,
-    };
-    return output;
+  static StyleItem height(double height) {
+    return StyleItem(property: 'height', style: height ?? null);
   }
 
-  static Map minHeight(double minHeight) {
-    final Map output = {
-      'property': 'minHeight',
-      'style': minHeight ?? 0.0,
-    };
-    return output;
+  static StyleItem minHeight(double minHeight) {
+    return StyleItem(property: 'minHeight', style: minHeight ?? 0.0);
   }
 
-  static Map maxHeight(double maxHeight) {
-    final Map output = {
-      'property': 'maxHeight',
-      'style': maxHeight ?? double.infinity,
-    };
-    return output;
+  static StyleItem maxHeight(double maxHeight) {
+    return StyleItem(property: 'maxHeight', style: maxHeight ?? double.infinity);
   }
-
-  // static Map animate({@required int duration, String curve, List only}) {
-  //
-  //   return {};
-  // }
 }
