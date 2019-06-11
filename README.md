@@ -73,7 +73,18 @@ What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['wid
 
 *The `G` class is responsible for all the gestures*
 
-Contains all the properties found in the GestureDetector widget, working as expected
+Contains all the properties found in the GestureDetector widget, works as expected
+
+## Gesture property example
+
+```dart
+Division(
+  gesture: [
+    G.onTap(() => print('pressed')),
+    G.onLongPressStart((details) => print(details.globalPosition))
+  ]
+)
+```
 
 ### Child Property
 
