@@ -36,7 +36,7 @@ Division(
 )
 ```
 
-![App demo](https://drive.google.com/uc?id=1yULs_-2BpocAPPSLjxWLr6zCbMjjwqo7)
+![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/Nexus6P_example1.png)
 
 Having one list of all styling improves readability. But maybe more important, it makes it very easy to store the style in variables and share the same style accross many widgets.
 
@@ -50,18 +50,20 @@ Having one list of all styling improves readability. But maybe more important, i
 
 - **`S.alignChild()`** - Alignment of the child widget. Expects a String. Valid values: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
 
-- **`S.padding`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
+- **`S.padding()`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
 
-- **`S.margin`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
+- **`S.margin()`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
 
-- **`S.backgroundColor`** - Expects eighter the `hex` parameter as a 6 digit hex color, `rgba` parameter in the [r,g,b,a] format or the normal flutter `Color` format.
+- **`S.backgroundColor()`** - Expects eighter the `hex` parameter as a 6 digit hex color, `rgba` parameter in the [r,g,b,a] format or the normal flutter `Color` format.
 
-- **`S.borderRadius`** - Expects eighter the `all` parameter as a double or `topLeft`, `topRight`, `bottomLeft` and `bottomRight` parameters as a double
+- **`S.borderRadius()`** - Expects eighter the `all` parameter as a double or `topLeft`, `topRight`, `bottomLeft` and `bottomRight` parameters as a double
 
-- **`S.boxShadow`** - Expects a `color` parameter in the form of eighter the `hex` parameter, the `rgba` parameter or the standart `color` parameter. Expects `spread` parameter as a double, the `blur` parameter as a double. The `offset` parameter can eighter be specified as a `List` with one item. That single item will apply on both the horizontal and the vertical axis. The `offset` parameter can also be specified with a `List` of 2 items, which will apply on the horizontal and vertical axis.
+- **`S.boxShadow()`** - Expects a `color` parameter in the form of eighter the `hex` parameter, the `rgba` parameter or the standart `color` parameter. Expects `spread` parameter as a double, the `blur` parameter as a double. The `offset` parameter can eighter be specified as a `List` with one item. That single item will apply on both the horizontal and the vertical axis. The `offset` parameter can also be specified with a `List` of 2 items, which will apply on the horizontal and vertical axis.
+
+- **`S.elevation()`** - An alternative to `S.boxShadow()` with prestyled shadow effect. The elevation is controlled by a double as the first parametr. `aligned` and `color` are both optional parameters.
 
 Future features
-- **`S.animate`** - Animates between a old and new style property. Expects a `duration` parameter in milliseconds, a `curve` parameter and a `only` parameter witch contains a list of the style properties the animation is going to get applied to.
+- **`S.animate()`** - Animates between a old and new style property. Expects a `duration` parameter in milliseconds, a `curve` parameter and a `only` parameter witch contains a list of the style properties the animation is going to get applied to.
 What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['width', 'margin'])`
 
   
@@ -81,3 +83,13 @@ Style to be applied while a gesture is taking place. For example button style wh
 ### Child Property
 
 Widget child
+
+## Demo
+
+### Different elevation settings
+
+![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png)
+
+### Animated elevation
+
+![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif)
