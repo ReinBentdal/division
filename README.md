@@ -64,6 +64,12 @@ Having one list of all styling improves readability. But maybe more important, i
 
 - **`S.elevation()`** - An alternative to `S.boxShadow()` with prestyled shadow effect. The elevation is controlled by a double as the first parametr. `aligned` and `color` are both optional parameters.
 
+- **`S.rotate()`** - Rotates the widget. Values from `0.0` to `1.0` makes up one full circle. Expects a double.
+
+- **`S.scale()`** - Scales the widget. `1.0` is the normal scale. `2.0` is double the size. Expects a double.
+
+- **`S.offset()`** - Offsets the widget horizontal and vertical. Expects two doubles as the vertical and horizontal offset.
+
 Future features
 - **`S.animate()`** - Animates between a old and new style property. Expects a `duration` parameter in milliseconds, a `curve` parameter and a `only` parameter witch contains a list of the style properties the animation is going to get applied to.
 What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['width', 'margin'])`
