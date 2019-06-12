@@ -1,3 +1,7 @@
+## 0.3.0
+* Added `S.rotate`, `S.scale` and `S.offset` as a style property
+* Changed style property from List<dynamic> to List<StyleItem> and gesture property from List<dynamic> to List<GestureItem>
+
 ## 0.2.0
 * Added all gesture properties found in the GestureDetector widget
 * Added elevation style property containing boxShadow presets.
