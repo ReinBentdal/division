@@ -322,4 +322,16 @@ class S {
     return StyleItem(
         property: 'maxHeight', style: maxHeight ?? double.infinity);
   }
+
+  static StyleItem scale(double scale) {
+    return StyleItem(property: 'scale', style: scale);
+  }
+
+  static StyleItem offset(double dx, double dy) {
+    return StyleItem(property: 'offset', style: Offset(dx, dy));
+  }
+
+  static StyleItem rotate(double rotate) {
+    return StyleItem(property: 'rotate', style: rotate);
+  }
 }
