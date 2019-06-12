@@ -98,4 +98,4 @@ Widget child
 
 ## Demo
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png" width="200"><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif" width="200"><div>Elevation, scale and rotate in action!<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevation_scale_rotate_demo.gif"></div>
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png" width="200"><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif" width="200"><div><b>Elevation, scale and rotate in action!</b><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevation_scale_rotate_demo.gif" width="200"></div>
