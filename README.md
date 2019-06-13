@@ -109,6 +109,7 @@ If the `all` property is defined, the other properties will have no effect.
 ```
 Choose between the `hex`, `rgba` and `color` format to give a boxShadow color to your widget.
 If defined while the elevation property is defined, the last one defined will be the style applied.
+`offset` is given in the format `[double dx, double dy]`
 
 #### Elevation
 ```dart
