@@ -70,6 +70,7 @@ class Division extends StatelessWidget {
             ),
             decoration: BoxDecoration(
                 color: style?.getBackgroundColor,
+                border: style?.getBorder,
                 borderRadius: style?.getBorderRadius,
                 boxShadow: style?.getBoxShadow),
           ),

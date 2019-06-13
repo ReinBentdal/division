@@ -25,6 +25,7 @@ class StyleClass {
   EdgeInsetsGeometry _padding;
   EdgeInsetsGeometry _margin;
   Color _backgroundColor;
+  BoxBorder _border;
   BorderRadiusGeometry _borderRadius;
   List<BoxShadow> _boxShadow;
   double _width;
@@ -61,6 +62,9 @@ class StyleClass {
 
   /// used to get the final style property
   Color get getBackgroundColor => _backgroundColor;
+
+  /// used to get the final style property
+  BoxBorder get getBorder => _border;
 
   /// used to get the final style property
   BorderRadiusGeometry get getBorderRadius => _borderRadius;
@@ -131,10 +135,10 @@ class StyleClass {
       double right}) {
     if (all != null) {
       _padding = EdgeInsets.all(all);
-    } else if (horizontal != null || vertical != null) {
+    } else if ((horizontal ?? vertical) != null) {
       _padding = EdgeInsets.symmetric(
           horizontal: horizontal ?? 0.0, vertical: vertical ?? 0.0);
-    } else if (top != null || bottom != null || left != null || right != null) {
+    } else if ((top ?? bottom ?? left ?? right) != null) {
       _padding = EdgeInsets.only(
           top: top ?? 0.0,
           bottom: bottom ?? 0.0,
@@ -156,15 +160,16 @@ class StyleClass {
       double right}) {
     if (all != null) {
       _margin = EdgeInsets.all(all);
-    } else if (horizontal != null || vertical != null) {
+    } else if ((horizontal ?? vertical) != null) {
       _margin = EdgeInsets.symmetric(
           horizontal: horizontal ?? 0.0, vertical: vertical ?? 0.0);
-    } else if (top != null || bottom != null || left != null || right != null) {
+    } else if ((top ?? bottom ?? left ?? right) != null) {
       _margin = EdgeInsets.only(
-          top: top ?? 0.0,
-          bottom: bottom ?? 0.0,
-          left: left ?? 0.0,
-          right: right ?? 0.0);
+        top: top ?? 0.0,
+        bottom: bottom ?? 0.0,
+        left: left ?? 0.0,
+        right: right ?? 0.0,
+      );
     }
   }
 
@@ -172,6 +177,47 @@ class StyleClass {
   void backgroundColor({String hex, List rgba, Color color}) {
     _backgroundColor =
         getColor(hex: hex, rgba: rgba, color: color) ?? _backgroundColor;
+  }
+
+  /// Border for the widget
+  ///
+  /// Choose between the `hex`, `rgba` and `color` format to give a border color to your widget.
+  /// If `all` is declared, `left`, `right`, `top`, and `bottom` will have no effect. These parameters define the width.
+  /// `style` define the border style.
+  ///
+  /// ```dart
+  /// ..border(all: 3.0, hex: '#55ffff', style: BorderStyle.solid)
+  /// ```
+  ///
+  void border(
+      {double all,
+      double left,
+      double right,
+      double top,
+      double bottom,
+      Color color = const Color(0xFF000000),
+      String hex,
+      List<double> rgba,
+      BorderStyle style = BorderStyle.solid}) {
+    Color finalColor = getColor(hex: hex, rgba: rgba, color: color);
+    if (all != null) {
+      _border = Border.all(color: finalColor, width: all, style: style);
+    } else if ((left ?? right ?? top ?? bottom) != null) {
+      _border = Border(
+        left: left == null
+            ? BorderSide.none
+            : BorderSide(color: finalColor, width: left, style: style),
+        right: right == null
+            ? BorderSide.none
+            : BorderSide(color: finalColor, width: right, style: style),
+        top: top == null
+            ? BorderSide.none
+            : BorderSide(color: finalColor, width: top, style: style),
+        bottom: bottom == null
+            ? BorderSide.none
+            : BorderSide(color: finalColor, width: bottom, style: style),
+      );
+    }
   }
 
   /// Eigther use the `all` property to apply to all corners, or user `topLeft`, `topRight`, `bottomLeft` and `bottomRight`.
