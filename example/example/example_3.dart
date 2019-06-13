@@ -15,7 +15,6 @@ class Main extends StatelessWidget {
 }
 
 class ElevationDemo extends StatelessWidget {
-
   final StyleClass boxStyle = StyleClass()
     ..width(300)
     ..height(50)
@@ -32,7 +31,9 @@ class ElevationDemo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Division(
-          style: StyleClass()..elevation(0)..add(boxStyle),
+          style: StyleClass()
+            ..elevation(0)
+            ..add(boxStyle),
           child: text('Elevation: 0'),
         ),
         Division(

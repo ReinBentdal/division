@@ -32,7 +32,10 @@ class _AnimationDemoState extends State<AnimationDemo> {
 
   void animateBox() {
     setState(() {
-      boxStyle..width(250)..height(350)..elevation(0);
+      boxStyle
+        ..width(250)
+        ..height(350)
+        ..elevation(0);
     });
   }
 

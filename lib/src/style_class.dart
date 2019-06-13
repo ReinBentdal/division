@@ -5,7 +5,7 @@ import 'dart:math';
 import 'get_color.dart';
 
 /// Holds all the styling for the `Division` widget
-/// 
+///
 /// ```dart
 /// Division(
 ///   style: StyleClass()
@@ -105,21 +105,21 @@ class StyleClass {
   // StyleClass get getOnly => _only;
 
   /// Alignment of the widget.
-  /// 
+  ///
   /// Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
   void align(String alignment) {
     _alignment = formatAlignment(alignment);
   }
 
   /// Alignment of the [child]
-  /// 
+  ///
   /// Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
   void alignChild(String alignment) {
     _alignmentChild = formatAlignment(alignment);
   }
 
   /// If `all` is defined, non of the other properties will have an effect.
-  /// 
+  ///
   /// If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
   void padding(
       {double all,
@@ -129,7 +129,6 @@ class StyleClass {
       double bottom,
       double left,
       double right}) {
-
     if (all != null) {
       _padding = EdgeInsets.all(all);
     } else if (horizontal != null || vertical != null) {
@@ -145,7 +144,7 @@ class StyleClass {
   }
 
   /// If `all` is defined, non of the other properties will have an effect.
-  /// 
+  ///
   /// If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
   void margin(
       {double all,
@@ -171,7 +170,8 @@ class StyleClass {
 
   /// Choose between the `hex`, `rgba` and `color` format to give a background color to your widget.
   void backgroundColor({String hex, List rgba, Color color}) {
-    _backgroundColor = getColor(hex: hex, rgba: rgba, color: color) ?? _backgroundColor;
+    _backgroundColor =
+        getColor(hex: hex, rgba: rgba, color: color) ?? _backgroundColor;
   }
 
   /// Eigther use the `all` property to apply to all corners, or user `topLeft`, `topRight`, `bottomLeft` and `bottomRight`.
@@ -182,7 +182,6 @@ class StyleClass {
       double topRight,
       double bottomLeft,
       double bottomRight}) {
-
     if (all != null) {
       _borderRadius = BorderRadius.all(Radius.circular(all));
     } else if (topLeft != null ||
@@ -225,18 +224,17 @@ class StyleClass {
     ];
   }
 
-
   /// Elevates the widget with a boxShadow.
   /// If the elevation property is used at the same time as the boxShadow property, the last one
   /// defined will be the applied style.
-  /// 
+  ///
   /// For the shadow color, you can choose between the `hex`, `rgba`, `color` and `bgColor` format.
-  /// 
+  ///
   /// `bgColor` makes the shadow the same color as the background color of the widget with a 0.5 opacity. Elevation then has to be defined
   /// after `backgroundColor`
-  /// 
+  ///
   /// If the `angled` property is true, the shadow will be att 45 degrees.
-  /// 
+  ///
   /// ```dart
   /// StyleClass..elevation(30, true);
   /// ```
@@ -246,10 +244,9 @@ class StyleClass {
       List rgba,
       Color color = const Color(0x33000000),
       bool bgColor = false}) {
-
     // prevent negative values
     if (elevation < 0) {
-      throw('Elevation cant be negative. Recieved a value of $elevation');
+      throw ('Elevation cant be negative. Recieved a value of $elevation');
     }
 
     //No shadow if elevation == 0
@@ -257,7 +254,6 @@ class StyleClass {
       _boxShadow = null;
       return;
     }
-
 
     final double offsetX = angled ? elevation : 0.0;
     final double offsetY = elevation;
@@ -276,15 +272,15 @@ class StyleClass {
 
     //find which color format used: hex, rgba or color
     if (bgColor == true) {
-      if(_backgroundColor == null) {
-        print('Warning [Division]: Elevation has to be defined after backgrounColor for the `bgColor` property to work');
+      if (_backgroundColor == null) {
+        print(
+            'Warning [Division]: Elevation has to be defined after backgrounColor for the `bgColor` property to work');
       }
       shadowColor = _backgroundColor?.withOpacity(0.5);
     } else {
       shadowColor =
-        getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
+          getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
     }
-    
 
     _boxShadow = [
       BoxShadow(
@@ -362,11 +358,11 @@ class StyleClass {
   }
 
   /// `Duration` is given in milliseconds.
-  /// 
+  ///
   /// ```dart
   /// StyleClass()..animate(
-  ///     400, 
-  ///     Curves.easeInOut, 
+  ///     400,
+  ///     Curves.easeInOut,
   ///     StyleClass()
   ///       ..width(100));
   /// ```
@@ -377,8 +373,8 @@ class StyleClass {
   }
 
   /// Adds a `StyleClass` to a `StyleClass`.
-  /// The add property does not override already defined properties, just adds new ones. 
-  /// 
+  /// The add property does not override already defined properties, just adds new ones.
+  ///
   /// ```dart
   /// StyleClass()..add(StyleClass..width(100));
   /// ```
@@ -392,67 +388,67 @@ class StyleClass {
     // blueButton..add(buttonClass)
     //
 
-    if(_alignment == null) {
+    if (_alignment == null) {
       _alignment = styleClass?._alignment;
     }
 
-    if(_alignmentChild == null) {
+    if (_alignmentChild == null) {
       _alignmentChild = styleClass?._alignmentChild;
     }
 
-    if(_padding == null) {
+    if (_padding == null) {
       _padding = styleClass?.getPadding;
     }
 
-    if(_margin == null) {
+    if (_margin == null) {
       _margin = styleClass?.getMargin;
     }
 
-    if(_backgroundColor == null) {
+    if (_backgroundColor == null) {
       _backgroundColor = styleClass?.getBackgroundColor;
     }
 
-    if(_borderRadius == null) {
+    if (_borderRadius == null) {
       _borderRadius = styleClass?.getBorderRadius;
     }
 
-    if(_boxShadow == null) {
+    if (_boxShadow == null) {
       _boxShadow = styleClass?.getBoxShadow;
     }
 
-    if(_width == null) {
+    if (_width == null) {
       _width = styleClass?.getWidth;
     }
 
-    if(_minWidth == null) {
+    if (_minWidth == null) {
       _minWidth = styleClass?.getMinWidth;
     }
 
-    if(_maxWidth == null) {
+    if (_maxWidth == null) {
       _maxWidth = styleClass?.getMaxWidth;
     }
 
-    if(_height == null) {
+    if (_height == null) {
       _height = styleClass?.getHeight;
     }
 
-    if(_minHeight == null) {
+    if (_minHeight == null) {
       _minHeight = styleClass?.getMinHeight;
     }
 
-    if(_maxHeight == null) {
+    if (_maxHeight == null) {
       _maxHeight = styleClass?.getMaxHeight;
     }
 
-    if(_scale == null) {
+    if (_scale == null) {
       _scale = styleClass?.getScale;
     }
 
-    if(_rotate == null) {
+    if (_rotate == null) {
       _rotate = styleClass?.getRotate;
     }
 
-    if(_offset == null) {
+    if (_offset == null) {
       _offset = styleClass?.getOffset;
     }
   }

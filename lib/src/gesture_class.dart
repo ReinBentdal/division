@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// Holds all the gestures for the `Division` widget
-/// 
+///
 /// ```dart
 /// Division(
 ///   style: StyleClass()
@@ -62,28 +62,38 @@ class GestureClass {
   void Function() get getOnDoubleTap => _onDoubleTap;
 
   void Function() get getOnLongPress => _onLongPress;
-  void Function(LongPressStartDetails) get getOnLongPressStart => _onLongPressStart;
+  void Function(LongPressStartDetails) get getOnLongPressStart =>
+      _onLongPressStart;
   void Function(LongPressEndDetails) get getOnLongPressEnd => _onLongPressEnd;
-  void Function(LongPressMoveUpdateDetails) get getOnLongPressMoveUpdate => _onLongPressMoveUpdate;
+  void Function(LongPressMoveUpdateDetails) get getOnLongPressMoveUpdate =>
+      _onLongPressMoveUpdate;
   void Function() get getOnLongPressUp => _onLongPressUp;
 
-  void Function(ForcePressDetails) get getOnForcePressStart => _onForcePressStart;
+  void Function(ForcePressDetails) get getOnForcePressStart =>
+      _onForcePressStart;
   void Function(ForcePressDetails) get getOnForcePressEnd => _onForcePressEnd;
   void Function(ForcePressDetails) get getOnForcePressPeak => _onForcePressPeak;
-  void Function(ForcePressDetails) get getOnForcePressUpdate => _onForcePressUpdate;
+  void Function(ForcePressDetails) get getOnForcePressUpdate =>
+      _onForcePressUpdate;
 
-
-  void Function(DragStartDetails) get getOnVerticalDragStart => _onVerticalDragStart;
+  void Function(DragStartDetails) get getOnVerticalDragStart =>
+      _onVerticalDragStart;
   void Function(DragEndDetails) get getOnVerticalDragEnd => _onVerticalDragEnd;
-  void Function(DragDownDetails) get getOnVerticalDragDown => _onVerticalDragDown;
+  void Function(DragDownDetails) get getOnVerticalDragDown =>
+      _onVerticalDragDown;
   void Function() get getOnVerticalDragCancel => _onVerticalDragCancel;
-  void Function(DragUpdateDetails) get getOnVerticalDragUpdate => _onVerticalDragUpdate;
+  void Function(DragUpdateDetails) get getOnVerticalDragUpdate =>
+      _onVerticalDragUpdate;
 
-  void Function(DragStartDetails) get getOnHorizontalDragStart => _onHorizontalDragStart;
-  void Function(DragEndDetails) get getOnHorizontalDragEnd => _onHorizontalDragEnd;
-  void Function(DragDownDetails) get getOnHorizontalDragDown => _onHorizontalDragDown;
+  void Function(DragStartDetails) get getOnHorizontalDragStart =>
+      _onHorizontalDragStart;
+  void Function(DragEndDetails) get getOnHorizontalDragEnd =>
+      _onHorizontalDragEnd;
+  void Function(DragDownDetails) get getOnHorizontalDragDown =>
+      _onHorizontalDragDown;
   void Function() get getOnHorizontalDragCancel => _onHorizontalDragCancel;
-  void Function(DragUpdateDetails) get getOnHorizontalDragUpdate => _onHorizontalDragUpdate;
+  void Function(DragUpdateDetails) get getOnHorizontalDragUpdate =>
+      _onHorizontalDragUpdate;
 
   void Function(DragStartDetails) get getOnPanStart => _onPanStart;
   void Function(DragEndDetails) get getOnPanEnd => _onPanEnd;
@@ -99,7 +109,8 @@ class GestureClass {
 
   void onTapUp(void Function(TapUpDetails) function) => _onTapUp = function;
 
-  void onTapDown(void Function(TapDownDetails) function) => _onTapDown = function;
+  void onTapDown(void Function(TapDownDetails) function) =>
+      _onTapDown = function;
 
   void onTapCancel(void Function() function) => _onTapCancel = function;
 
@@ -107,67 +118,79 @@ class GestureClass {
 
   void onLongPress(void Function() function) => _onLongPress = function;
 
-  void onLongPressStart(
-          void Function(LongPressStartDetails) function) => _onLongPressStart = function;
+  void onLongPressStart(void Function(LongPressStartDetails) function) =>
+      _onLongPressStart = function;
 
-  void onLongPressEnd(
-          void Function(LongPressEndDetails) function) => _onLongPressEnd = function;
+  void onLongPressEnd(void Function(LongPressEndDetails) function) =>
+      _onLongPressEnd = function;
 
   void onLongPressMoveUpdate(
-          void Function(LongPressMoveUpdateDetails) function) => _onLongPressMoveUpdate = function;
+          void Function(LongPressMoveUpdateDetails) function) =>
+      _onLongPressMoveUpdate = function;
 
   void onLongPressUp(void Function() function) => _onLongPressUp = function;
 
-  void onVerticalDragStart(
-          void Function(DragStartDetails) function) => _onVerticalDragStart = function;
+  void onVerticalDragStart(void Function(DragStartDetails) function) =>
+      _onVerticalDragStart = function;
 
-  void onVerticalDragEnd(
-          void Function(DragEndDetails) function) => _onVerticalDragEnd = function;
+  void onVerticalDragEnd(void Function(DragEndDetails) function) =>
+      _onVerticalDragEnd = function;
 
-  void onVerticalDragDown(
-          void Function(DragDownDetails) function) => _onVerticalDragDown = function;
+  void onVerticalDragDown(void Function(DragDownDetails) function) =>
+      _onVerticalDragDown = function;
 
-  void onVerticalDragCancel(void Function() function) => _onVerticalDragCancel = function;
+  void onVerticalDragCancel(void Function() function) =>
+      _onVerticalDragCancel = function;
 
-  void onVerticalDragUpdate(
-          void Function(DragUpdateDetails) function) => _onVerticalDragUpdate = function;
+  void onVerticalDragUpdate(void Function(DragUpdateDetails) function) =>
+      _onVerticalDragUpdate = function;
 
-  void onHorizontalDragStart(
-          void Function(DragStartDetails) function) => _onHorizontalDragStart = function;
+  void onHorizontalDragStart(void Function(DragStartDetails) function) =>
+      _onHorizontalDragStart = function;
 
-  void onHorizontalDragEnd(
-          void Function(DragEndDetails) function) => _onHorizontalDragEnd = function;
+  void onHorizontalDragEnd(void Function(DragEndDetails) function) =>
+      _onHorizontalDragEnd = function;
 
-  void onHorizontalDragDown(
-          void Function(DragDownDetails) function) => _onHorizontalDragDown = function;
+  void onHorizontalDragDown(void Function(DragDownDetails) function) =>
+      _onHorizontalDragDown = function;
 
-  void onHorizontalDragCancel(void Function() function) => _onHorizontalDragCancel = function;
+  void onHorizontalDragCancel(void Function() function) =>
+      _onHorizontalDragCancel = function;
 
-  void onHorizontalDragUpdate(
-          void Function(DragUpdateDetails) function) => _onHorizontalDragUpdate = function;
+  void onHorizontalDragUpdate(void Function(DragUpdateDetails) function) =>
+      _onHorizontalDragUpdate = function;
 
-  void onForcePressStart(void Function(ForcePressDetails) function) => _onForcePressStart = function;
+  void onForcePressStart(void Function(ForcePressDetails) function) =>
+      _onForcePressStart = function;
 
-  void onForcePressEnd(void Function(ForcePressDetails) function) => _onForcePressEnd = function;
+  void onForcePressEnd(void Function(ForcePressDetails) function) =>
+      _onForcePressEnd = function;
 
-  void onForcePressPeak(void Function(ForcePressDetails) function) => _onForcePressPeak = function;
+  void onForcePressPeak(void Function(ForcePressDetails) function) =>
+      _onForcePressPeak = function;
 
-  void onForcePressUpdate(void Function(ForcePressDetails) function) => _onForcePressUpdate = function;
+  void onForcePressUpdate(void Function(ForcePressDetails) function) =>
+      _onForcePressUpdate = function;
 
-  void onPanStart(void Function(DragStartDetails) function) => _onPanStart = function;
+  void onPanStart(void Function(DragStartDetails) function) =>
+      _onPanStart = function;
 
   void onPanEnd(void Function(DragEndDetails) function) => _onPanEnd = function;
 
   void onPanCancel(void Function() function) => _onPanCancel = function;
 
-  void onPanDown(void Function(DragDownDetails) function) => _onPanDown = function;
+  void onPanDown(void Function(DragDownDetails) function) =>
+      _onPanDown = function;
 
-  void onPanUpdate(void Function(DragUpdateDetails) function) => _onPanUpdate = function;
+  void onPanUpdate(void Function(DragUpdateDetails) function) =>
+      _onPanUpdate = function;
 
-  void onScaleStart(void Function(ScaleStartDetails) function) => _onScaleStart = function;
+  void onScaleStart(void Function(ScaleStartDetails) function) =>
+      _onScaleStart = function;
 
-  void onScaleEnd(void Function(ScaleEndDetails) function) => _onScaleEnd = function;
+  void onScaleEnd(void Function(ScaleEndDetails) function) =>
+      _onScaleEnd = function;
 
-  void onScaleUpdate(
-          void Function(ScaleUpdateDetails) function) => _onScaleUpdate = function;
+  void onScaleUpdate(void Function(ScaleUpdateDetails) function) =>
+      _onScaleUpdate = function;
 }
