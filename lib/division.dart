@@ -1,19 +1,6 @@
 library division;
 
 export 'src/division.dart';
-export 'src/g.dart';
-export 'src/s.dart';
+export 'src/style_class.dart';
+export 'src/gesture_class.dart';
 
-//  Models for more robust code
-//
-//  # Example
-//
-//  List<StyleItem> = [ S.margin(all: 10.0) ]
-//
-//  instead of
-//
-//  List<StyleItem> = [ S.margin(all: 10.0) ]
-//
-//  This prevents unnessesary errors with the wrong values inside a List
-export 'src/style_item.dart';
-export 'src/gesture_item.dart';

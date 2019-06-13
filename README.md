@@ -1,105 +1,183 @@
 # division
 
-A flutter widget inspired by HTML/CSS
+A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
+
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/framed/demo_app_framed.png" width="250">
 
 ## Getting Started
 
-This package is all about giving a simple common use widget inspired by HTML/ CSS. The widget has 3 main parameters. Style: everything related to styling, gesture: all gesture functions and child. As simple as that!
+The `Division` widget has 3 properties. A `style` property, a `gesture` property and a `child` property. As simple as that!
 
-### The basic widget
+`Division(style: StyleClass, gesture: GestureClass, child, Widget);`
 
+### Simple example
+
+#### Import
 ```dart
-Division(style: [], gesture: [], child: Widget);
-```
-### Example
-
-```dart
-import 'package:division/division.dart'
-
-Division(
-  style: [
-    S.height(100.0),
-    S.width(500.0),
-    S.minWidth(500.0),
-    S.align('center'),
-    S.alignChild('center'),
-    S.padding(vertical: 20.0, horizontal: 10.0),
-    S.margin(horizontal: 30.0),
-    S.backgroundColor(hex: '55ffff'),
-    S.borderRadius(all: 20.0),
-    S.boxShadow(hex: '55ffff', spread: -10.0, blur: 20.0, offset: [0.0, 15.0]),
-
-    //instead of S.boxShadow() you can use S.elevation(double)
-  ],
-  gesture: [
-    G.onTap(() => print('Division widget pressed!')),
-  ],
-  child: Text('Centered text inside the division widget'),
-)
+import 'package:division/division.dart';
 ```
 
-![App demo](https://raw.githubusercontent.com/ReinBentdal/division/master/doc/Nexus6P_example1.png)
-
-Having one list of all styling improves readability. But maybe more important, it makes it very easy to store the style in variables and share the same style accross many widgets.
-
-### Style Property
-
-*The `S` class is responsible for everything stylingwise*
-
-- **`S.height(), S.minHeight(), S.maxHeight(), S.width(), S.minWidth(), S.maxWidth()`** - Expects a double
-
-- **`S.align()`** - Alignment of the Division widget. Expects a String. Valid values: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
-
-- **`S.alignChild()`** - Alignment of the child widget. Expects a String. Valid values: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
-
-- **`S.padding()`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
-
-- **`S.margin()`** - You can choose how you want your padding to work. Eighter specify the `all` parameter with a double, the `horizontal` and `vertical` parameter with a double or `top`, `bottom`, `left` and `right` parameter with a double.
-
-- **`S.backgroundColor()`** - Expects eighter the `hex` parameter as a 6 digit hex color, `rgba` parameter in the [r,g,b,a] format or the normal flutter `Color` format.
-
-- **`S.borderRadius()`** - Expects eighter the `all` parameter as a double or `topLeft`, `topRight`, `bottomLeft` and `bottomRight` parameters as a double
-
-- **`S.boxShadow()`** - Expects a `color` parameter in the form of eighter the `hex` parameter, the `rgba` parameter or the standart `color` parameter. Expects `spread` parameter as a double, the `blur` parameter as a double. The `offset` parameter can eighter be specified as a `List` with one item. That single item will apply on both the horizontal and the vertical axis. The `offset` parameter can also be specified with a `List` of 2 items, which will apply on the horizontal and vertical axis.
-
-- **`S.elevation()`** - An alternative to `S.boxShadow()` with prestyled shadow effect. The elevation is controlled by a double as the first parametr. `aligned` and `color` are both optional parameters.
-
-- **`S.rotate()`** - Rotates the widget. Values from `0.0` to `1.0` makes up one full circle. Expects a double.
-
-- **`S.scale()`** - Scales the widget. `1.0` is the normal scale. `2.0` is double the size. Expects a double.
-
-- **`S.offset()`** - Offsets the widget horizontal and vertical. Expects two doubles as the vertical and horizontal offset.
-
-Future features
-- **`S.animate()`** - Animates between a old and new style property. Expects a `duration` parameter in milliseconds, a `curve` parameter and a `only` parameter witch contains a list of the style properties the animation is going to get applied to.
-What it might look like: `S.animate(duration: 500, curve: 'ease-in', only: ['width', 'margin'])`
-
-  
-### Gesture Property
-
-*The `G` class is responsible for all the gestures*
-
-Contains all the properties found in the GestureDetector widget, works as expected
-
-#### Gesture property example
+#### Simple usage
 
 ```dart
 Division(
-  gesture: [
-    G.onTap(() => print('pressed')),
-    G.onLongPressStart((details) => print(details.globalPosition))
-  ]
-)
+  style: StyleClass()
+    ..width(200)
+    ..height(100)
+    ..backgroundColor(hex: 'eeeeee')
+    ..borderRadius(all: 30.0)
+    ..elevation(30)
+    ..align('center')
+    ..alignChild('center'),
+  gesture: GestureClass()
+    ..onTap(() => print('Widget pressed')),
+  child: Text('Some text'),
+);
 ```
 
-### Child Property
+#### The result
+
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.png" width="300">
+
+## Style property
+
+**The style property expects a `StyleClass` which is a class holding all the styling for the widget.**
+
+### StyleClass
+
+To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is used to not return [style], but the `StyleClass`
+
+#### Align
+```dart
+..align(String alignment)
+```
+Aligns the widget itself. Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`.
+
+#### Align child
+```dart
+..alignChild(String alignment)
+```
+Aligns the child  widget. Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`.
+
+#### Padding
+```dart
+..padding({double all, double horizontal, double vertical, double top, double bottom, double left, double right})
+```
+If `all` is defined, non of the other properties will have an effect.
+If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+
+#### Margin
+```dart
+..margin({double all,
+      double horizontal,
+      double vertical,
+      double top,
+      double bottom,
+      double left,
+      double right})
+```
+If `all` is defined, non of the other properties will have an effect.
+If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+
+#### Background color
+```dart
+..backgroundColor({String hex, List rgba, Color color})
+```
+Choose between the `hex`, `rgba` and `color` format to give a background color to your widget.
+
+#### Border radius
+```dart
+..borderRadius(
+      {double all,
+      double topLeft,
+      double topRight,
+      double bottomLeft,
+      double bottomRight})
+```
+Eigther use the `all` property to apply to all corners, or user `topLeft`, `topRight`, `bottomLeft` and `bottomRight`.
+If the `all` property is defined, the other properties will have no effect.
+
+#### Box shadow
+```dart
+..boxShadow(
+      {String hex,
+      List rgba,
+      Color color,
+      double blur,
+      List<double> offset,
+      double spread})
+```
+Choose between the `hex`, `rgba` and `color` format to give a boxShadow color to your widget.
+If defined while the elevation property is defined, the last one defined will be the style applied.
+
+#### Elevation
+```dart
+..elevation(double elevation,
+      {bool angled,
+      String hex,
+      List rgba,
+      Color color,
+      bool bgColor})
+```
+Elevates the widget with a boxShadow.
+If the elevation property is used at the same time as the boxShadow property, the last one
+defined will be the applied style.
+For the shadow color, you can choose between the `hex`, `rgba`, `color` and `bgColor` format.
+`bgColor` makes the shadow the same color as the background color of the widget with a 0.5 opacity. Elevation then has to be defined after `backgroundColor`
+If the `angled` property is true, the shadow will be att 45 degrees.
+
+#### Scale
+```dart
+..scale(double scale)
+```
+Scale the widget
+
+#### Offset
+```dart
+..offset([double dx, double dy])
+```
+Offsets the widget
+
+#### Rotate
+```dart
+..rotate(double rotate)
+```
+Rotates the widget. 1 equals one full turn.
+
+#### Animate
+```dart
+..animate([int duration, Curve curve = Curves.linear])
+```
+Animates the widget when one of its style properties changes.
+`duration` is given in milliseconds.
+I am considering to implement a `only` parameter to choose to only animate certain properties.
+
+#### Add
+```dart
+..add(StyleClass styleClass)
+```
+Adds a `StyleClass` to a `StyleClass`.
+The add property does not override already defined properties, just adds new ones. 
+
+#### Width, minWidth, maxWidth, Height, minHeight, maxHeight
+```dart
+..[type](double length)
+```
+
+## Gesture property
+
+**The gesture property expects a `GestureClass` which is a class holding all the gestures for the widget.**
+
+### GestureClass
+
+To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`
+
+The `GestureClass` takes all the same parameters as the `GestureDetector` widget.
+
+```dart
+..[gesture](function)
+```
+
+## Child property
 
 Widget child
-
-## Demo
-
-### Elevation demonstration
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.png" width="200"><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevationDemo.gif" width="200">
-
-### Elevation, scale and rotate in action!
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/doc/elevation_scale_rotate_demo.gif" width="200">
