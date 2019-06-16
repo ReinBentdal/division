@@ -1,7 +1,7 @@
 # Example 1
 
 ## Preview
-App designer[Link](https://dribbble.com/shots/6459693-Creative-layout-design);
+App designer: [Link](https://dribbble.com/shots/6459693-Creative-layout-design)
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="400">
 
