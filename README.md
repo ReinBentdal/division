@@ -89,7 +89,7 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 ```dart
 ..backgroundColor({dynamic color})
 ```
-`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 
 #### Gradient
 ```dart
@@ -117,7 +117,7 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 Choose between 3 gradient variants. 
 `sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
 To change to use radians do: `StyleClass(useRadians: true)..`.
-`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 `align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
 
 ### Border
@@ -132,7 +132,7 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
       BorderStyle style = BorderStyle.solid})
 ```
 Choose between `all` or `left`, `right`, `top` and `bottom`. 
-`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 
 #### Border radius
 ```dart
@@ -154,7 +154,7 @@ If the `all` property is defined, the other properties will have no effect.
       List<double> offset,
       double spread})
 ```
-`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 If defined while the elevation property is defined, the last one defined will be the style applied.
 `offset` is given in the format `[double dx, double dy]`
 
@@ -168,7 +168,7 @@ If defined while the elevation property is defined, the last one defined will be
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
 defined will be the applied style.
-`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 If the `angled` property is true, the shadow will be att 45 degrees.
 
 #### Scale
