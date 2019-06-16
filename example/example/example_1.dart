@@ -2,7 +2,6 @@
 
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 void main() => runApp(Main());
 
@@ -61,7 +60,9 @@ class UserCard extends StatelessWidget {
               'Rein Gundersen Bentdal',
               style: nameTextStyle,
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Text(
               'Creative builder',
               style: nameDescriptionTextStyle,
@@ -119,7 +120,7 @@ class UserCard extends StatelessWidget {
   //Styling
 
   final StyleClass userCardStyle = StyleClass()
-    ..height(150)
+    ..height(175)
     ..padding(horizontal: 20.0, vertical: 10)
     ..align('center')
     ..backgroundColor('#3977FF')
@@ -168,7 +169,7 @@ class ActionsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         _buildActionsItem('Wallet', Icons.attach_money),
         _buildActionsItem('Delivery', Icons.card_giftcard),
@@ -179,8 +180,10 @@ class ActionsRow extends StatelessWidget {
   }
 
   final StyleClass actionsItemIconStyle = StyleClass()
-    ..width(45)
-    ..height(45)
+    ..ripple(enable: true)
+    ..alignChild('center')
+    ..width(50)
+    ..height(50)
     ..margin(bottom: 5)
     ..borderRadius(all: 30)
     ..backgroundColor('#F6F5F8');
@@ -255,14 +258,16 @@ class Settings extends StatelessWidget {
   final StyleClass settingsStyle = StyleClass();
 
   final StyleClass settingsItemStyle = StyleClass()
+    ..ripple(enable: true)
+    ..alignChild('center')
     ..height(70)
     ..margin(vertical: 10)
-    ..padding(left: 15)
     ..borderRadius(all: 15)
     ..backgroundColor('#ffffff')
     ..elevation(50, color: Colors.grey);
 
   final StyleClass settingsItemIconStyle = StyleClass()
+    ..margin(left: 15)
     ..padding(all: 12)
     ..borderRadius(all: 30);
 
