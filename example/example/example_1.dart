@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
     ..width(200)
     ..height(200)
     ..borderRadius(all: 15.0)
-    ..backgroundColor(hex: 'ffffff')
+    ..backgroundColor(color: '#ffffff')
     ..elevation(25)
     ..align('top')
     ..margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
         ..borderRadius(all: 10.0)
         ..align('center')
         ..elevation(15, color: Colors.grey)
-        ..backgroundColor(hex: 'ffffff'),
+        ..backgroundColor(color: '#ffffff'),
       child: Text(
         'Search..',
         style: TextStyle(
@@ -81,8 +81,7 @@ class Home extends StatelessWidget {
       style: StyleClass()
         ..backgroundColor(color: color)
         ..elevation(20,
-            bgColor:
-                true) // if bgColor is true, elevation has to be defined after backgroundColor
+            color: color.withOpacity(0.5))
         ..add(tasksCard),
     );
   }

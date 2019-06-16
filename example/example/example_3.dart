@@ -22,7 +22,7 @@ class ElevationDemo extends StatelessWidget {
     ..align('center')
     ..alignChild('center')
     ..borderRadius(all: 15.0)
-    ..backgroundColor(hex: 'eeeeee')
+    ..backgroundColor(color: '#eeeeee')
     ..animate(2000, Curves.easeInOut);
 
   @override

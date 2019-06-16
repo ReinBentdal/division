@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+Color formatColor(dynamic color, {bool acceptNull = false}) {
+  Color formattedColor;
+  if (color is Color) {
+    formattedColor = color;
+  } else if (color is String) {
+    formattedColor = HexColor(color);
+  } else if (color is List<dynamic>) {
+    if (color.length == 4) {
+      if (color[0] is int &&
+          color[1] is int &&
+          color[2] is int &&
+          color[3] is double) {
+        formattedColor = Color.fromRGBO(color[0], color[1], color[2], color[3]);
+      } else {
+        throw ('Unsupported rgba color format. Expected [int, int, int, double] but recieved $color');
+      }
+    }
+    if (color.length == 3) {
+      if (color is List<int>) {
+        formattedColor = Color.fromRGBO(color[0], color[1], color[2], 1);
+      } else {
+        throw ('Unsupported rgb color format. Expected [int, int, int] but recieved $color');
+      }
+    }
+  } else if (color == null && acceptNull == true) {
+    // do nothing: return null
+  } else {
+    throw ('Unsupported color format $color');
+  }
+  return formattedColor;
+}
+
+// from '#123456' or '123456' -> Color(0xFF123456)
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+}

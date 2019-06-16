@@ -20,9 +20,10 @@ class AnimationDemo extends StatefulWidget {
 }
 
 class _AnimationDemoState extends State<AnimationDemo> {
+  bool pressed = false;
+
   StyleClass boxStyle = StyleClass()
-    ..backgroundColor(hex: 'eeeeee')
-    ..elevation(30)
+    ..backgroundColor(color: '#eeeeee')
     ..width(300)
     ..height(400)
     ..borderRadius(all: 30.0)
@@ -30,20 +31,15 @@ class _AnimationDemoState extends State<AnimationDemo> {
     ..alignChild('center')
     ..animate(1500, Curves.easeInOut);
 
-  void animateBox() {
-    setState(() {
-      boxStyle
-        ..width(250)
-        ..height(350)
-        ..elevation(0);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Division(
-      style: boxStyle,
-      gesture: GestureClass()..onTap(() => animateBox()),
+      style: boxStyle
+        ..elevation(pressed ? 0 : 30)
+        ..scale(pressed ? 0.9 : 1.0),
+      gesture: GestureClass()
+        ..onTapDown((details) => setState(() => pressed = true))
+        ..onTapUp((details) => setState(() => pressed = false)),
       child: Text('Some text'),
     );
   }

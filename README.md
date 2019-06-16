@@ -51,17 +51,23 @@ To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is us
 ```dart
 ..align(String alignment)
 ```
-Aligns the widget itself. Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`.
+`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
 
 #### Align child
 ```dart
 ..alignChild(String alignment)
 ```
-Aligns the child  widget. Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`.
+`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
 
 #### Padding
 ```dart
-..padding({double all, double horizontal, double vertical, double top, double bottom, double left, double right})
+..padding({double all, 
+      double horizontal, 
+      double vertical, 
+      double top, 
+      double bottom, 
+      double left, 
+      double right})
 ```
 If `all` is defined, non of the other properties will have an effect.
 If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
@@ -83,7 +89,25 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 ```dart
 ..backgroundColor({String hex, List rgba, Color color})
 ```
-Choose between the `hex`, `rgba` and `color` format to give a background color to your widget.
+`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+
+#### Gradient
+```dart
+..linearGradient(colors: [Colors.blue, '#FFCA28'], startAlign: [-1.0, 0.0], endAlign: 'right') // hex color in use. Showcases different alignment formats
+..radialGradient(colors: [Colors.amber, Colors.blue], centerAlign: 'top')
+..sweepGradient(colors: [[255,202,40], Colors.blue, Colors.amber], endAngle: 0.01) // rgb color
+```
+Choose between 3 gradient variants. 
+`sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
+To change to use radians do: `StyleClass(useRadians: true)..`.
+`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
+
+### Border
+```dart
+..border(left: 2.0, top: 1.5, color: [0,0,0,0.1], style: BorderStyle.solid)
+```
+Choose between `all` or `left`, `right`, `top` and `bottom`. `color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
 
 #### Border radius
 ```dart
@@ -107,24 +131,20 @@ If the `all` property is defined, the other properties will have no effect.
       List<double> offset,
       double spread})
 ```
-Choose between the `hex`, `rgba` and `color` format to give a boxShadow color to your widget.
+`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
 If defined while the elevation property is defined, the last one defined will be the style applied.
 `offset` is given in the format `[double dx, double dy]`
 
 #### Elevation
 ```dart
 ..elevation(double elevation,
-      {bool angled,
-      String hex,
-      List rgba,
-      Color color,
-      bool bgColor})
+      {bool angled = false,
+      Color color})
 ```
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
 defined will be the applied style.
-For the shadow color, you can choose between the `hex`, `rgba`, `color` and `bgColor` format.
-`bgColor` makes the shadow the same color as the background color of the widget with a 0.5 opacity. Elevation then has to be defined after `backgroundColor`
+`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
 If the `angled` property is true, the shadow will be att 45 degrees.
 
 #### Scale
@@ -143,7 +163,15 @@ Offsets the widget
 ```dart
 ..rotate(double rotate)
 ```
-Rotates the widget. 1 equals one full turn.
+Rotates the widget.
+By default one turn equals 1. To change to radians: `StyleClass(useRadians: true)..`
+
+#### Ripple
+Material ripple effect
+```dart
+..ripple({bool enable = false, dynamic splashColor, dynamic highlightColor})
+```
+Still a [beta] feature with known issues.
 
 #### Animate
 ```dart
@@ -155,10 +183,10 @@ I am considering to implement a `only` parameter to choose to only animate certa
 
 #### Add
 ```dart
-..add(StyleClass styleClass)
+..add(StyleClass styleClass, override = true)
 ```
 Adds a `StyleClass` to a `StyleClass`.
-The add property does not override already defined properties, just adds new ones. 
+By default the added `StyleClass` does not override already set style. Change override to true, to override already set style.
 
 #### Width, minWidth, maxWidth, Height, minHeight, maxHeight
 ```dart

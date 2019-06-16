@@ -1,14 +1,17 @@
 import 'package:division/src/format_alignment.dart';
+import 'package:division/src/format_color.dart';
+import 'model/ripple.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'get_color.dart';
-
 /// Holds all the styling for the `Division` widget
+///
+/// If `useRadians` parameter is false, one full circle equals 1. If true one full circle equals 2 * pi.
+/// Applies to the style properties which by default in flutter uses radians, like ..rotate() nad ..sweepGradient()
 ///
 /// ```dart
 /// Division(
-///   style: StyleClass()
+///   style: StyleClass(useRadians = false)
 ///     ..width(100)
 ///     ..height(150)
 ///     ..borderRadius(all: 30.0)
@@ -20,11 +23,22 @@ import 'get_color.dart';
 /// )
 /// ```
 class StyleClass {
+  //Choose to calculate using radians or from 0 to 1
+  final bool useRadians;
+
+  BuildContext context;
+
+  //May include context as a required parameter if needed.
+  // BuildContext context;
+
+  StyleClass({this.useRadians = false});
+
   AlignmentGeometry _alignment;
   AlignmentGeometry _alignmentChild;
   EdgeInsetsGeometry _padding;
   EdgeInsetsGeometry _margin;
   Color _backgroundColor;
+  Gradient _gradient;
   BoxBorder _border;
   BorderRadiusGeometry _borderRadius;
   List<BoxShadow> _boxShadow;
@@ -37,6 +51,7 @@ class StyleClass {
   double _scale;
   double _rotate;
   Offset _offset;
+  DivisionRippleModel _ripple;
 
   //Animation duration in milliseconds
   int _duration;
@@ -62,6 +77,9 @@ class StyleClass {
 
   /// used to get the final style property
   Color get getBackgroundColor => _backgroundColor;
+
+  /// used t get the final style property
+  Gradient get getGradient => _gradient;
 
   /// used to get the final style property
   BoxBorder get getBorder => _border;
@@ -106,19 +124,68 @@ class StyleClass {
   Curve get getCurve => _curve;
 
   /// used to get the final style property
+  DivisionRippleModel get getRipple => _ripple;
+
+  /// used to get the final style property
   // StyleClass get getOnly => _only;
 
   /// Alignment of the widget.
   ///
-  /// Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
-  void align(String alignment) {
+  /// ### Supported alignment formats
+  /// #### Alignment
+  /// Built in Alignment method. For example
+  /// ```dart
+  /// Alignment.center
+  /// ```
+  ///
+  /// #### String
+  /// ```dart
+  /// 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
+  /// ```
+  /// #### List<double>
+  ///
+  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
+  ///```dart
+  /// [double dx, double dy]
+  /// ```
+  /// #### double
+  ///
+  /// Same value for dx and dy
+  /// ```dart
+  /// double align
+  /// ```
+  ///
+  void align(dynamic alignment) {
     _alignment = formatAlignment(alignment);
   }
 
-  /// Alignment of the [child]
+  /// Alignment of the child widget.
   ///
-  /// Valid alignments: `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'topLeft'`, `'topRight'`, `'bottomLeft'` and `'bottomRight'`
-  void alignChild(String alignment) {
+  /// ### Supported alignment formats
+  /// #### Alignment
+  /// Built in Alignment method. For example
+  /// ```dart
+  /// Alignment.center
+  /// ```
+  ///
+  /// #### String
+  /// ```dart
+  /// 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
+  /// ```
+  /// #### List<double>
+  ///
+  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
+  ///```dart
+  /// [double dx, double dy]
+  /// ```
+  /// #### double
+  ///
+  /// Same value for dx and dy
+  /// ```dart
+  /// double align
+  /// ```
+  ///
+  void alignChild(dynamic alignment) {
     _alignmentChild = formatAlignment(alignment);
   }
 
@@ -173,33 +240,200 @@ class StyleClass {
     }
   }
 
-  /// Choose between the `hex`, `rgba` and `color` format to give a background color to your widget.
-  void backgroundColor({String hex, List rgba, Color color}) {
-    _backgroundColor =
-        getColor(hex: hex, rgba: rgba, color: color) ?? _backgroundColor;
+  /// ### Supported color formats
+  /// #### Color
+  /// Built in Color method. For example
+  /// ```dart
+  /// Color(0xFFEEEEEE) or Colors.blue
+  /// ```
+  /// #### HEX String
+  /// 6 digit hex color. Optional to use # or not
+  /// ```dart
+  /// '#eeeeee' or 'eeeeee'
+  /// ```
+  /// #### RGBA List<dynamic>
+  /// Formatted as [int, int, int, double]
+  /// ```dart
+  /// [43, 120, 32, 0.6]
+  /// ```
+  /// #### RGB List<int>
+  /// ```dart
+  /// [43, 120, 32]
+  /// ```
+  void backgroundColor({dynamic color}) {
+    _backgroundColor = formatColor(color);
+  }
+
+  /// ### Supported alignment formats
+  /// #### Alignment
+  /// Built in Alignment method. For example
+  /// ```dart
+  /// Alignment.center
+  /// ```
+  ///
+  /// #### String
+  /// ```dart
+  /// 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
+  /// ```
+  /// #### List<double>
+  ///
+  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
+  ///```dart
+  /// [double dx, double dy]
+  /// ```
+  /// #### double
+  ///
+  /// Same value for dx and dy
+  /// ```dart
+  /// double align
+  /// ```
+  ///
+  void linearGradient(
+      {dynamic beginAlign = 'left',
+      dynamic endAlign = 'right',
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops}) {
+    AlignmentGeometry begin = formatAlignment(beginAlign);
+    AlignmentGeometry end = formatAlignment(endAlign);
+
+    // Converts the dynamic list of colors to a List<Color>
+    List<Color> finalColors = [];
+    for (dynamic color in colors) {
+      finalColors.add(formatColor(color));
+    }
+
+    _gradient = LinearGradient(
+        begin: begin,
+        end: end,
+        colors: finalColors,
+        tileMode: tileMode,
+        stops: stops);
+  }
+
+  /// ### Supported alignment formats
+  /// #### Alignment
+  /// Built in Alignment method. For example
+  /// ```dart
+  /// Alignment.center
+  /// ```
+  ///
+  /// #### String
+  /// ```dart
+  /// 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
+  /// ```
+  /// #### List<double>
+  ///
+  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
+  ///```dart
+  /// [double dx, double dy]
+  /// ```
+  /// #### double
+  ///
+  /// Same value for dx and dy
+  /// ```dart
+  /// double align
+  /// ```
+  ///
+  void radialGradient(
+      {dynamic centerAlign = 'center',
+      double radius = 0.5,
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops}) {
+    AlignmentGeometry center = formatAlignment(centerAlign);
+
+    // Converts the dynamic list of colors to a List<Color>
+    List<Color> finalColors = [];
+    for (dynamic color in colors) {
+      finalColors.add(formatColor(color));
+    }
+
+    _gradient = RadialGradient(
+      center: center,
+      radius: radius,
+      colors: finalColors,
+      tileMode: tileMode,
+      stops: stops,
+    );
+  }
+
+  /// ### Supported alignment formats
+  /// #### Alignment
+  /// Built in Alignment method. For example
+  /// ```dart
+  /// Alignment.center
+  /// ```
+  ///
+  /// #### String
+  /// ```dart
+  /// 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
+  /// ```
+  /// #### List<double>
+  ///
+  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
+  ///```dart
+  /// [double dx, double dy]
+  /// ```
+  /// #### double
+  ///
+  /// Same value for dx and dy
+  /// ```dart
+  /// double align
+  /// ```
+  ///
+  void sweepGradient(
+      {dynamic centerAlign = 'center',
+      double startAngle = 0.0,
+      double endAngle,
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops}) {
+    AlignmentGeometry center = formatAlignment(centerAlign);
+
+    if (useRadians == false) {
+      startAngle = startAngle * pi * 2;
+    }
+
+    if (endAngle == null) {
+      //default value
+      endAngle = pi * 2;
+    } else if (useRadians == false) {
+      //converts value to radians
+      endAngle = endAngle * pi * 2;
+    }
+
+    // Converts the dynamic list of colors to a List<Color>
+    List<Color> finalColors = [];
+    for (dynamic color in colors) {
+      finalColors.add(color);
+    }
+
+    _gradient = SweepGradient(
+      center: center,
+      startAngle: startAngle,
+      endAngle: endAngle,
+      colors: finalColors,
+      stops: stops,
+      tileMode: tileMode,
+    );
   }
 
   /// Border for the widget
-  ///
-  /// Choose between the `hex`, `rgba` and `color` format to give a border color to your widget.
+  /// ```dart
+  /// ..border(all: 3.0, color: '#55ffff', style: BorderStyle.solid)
+  /// ```
   /// If `all` is declared, `left`, `right`, `top`, and `bottom` will have no effect. These parameters define the width.
   /// `style` define the border style.
-  ///
-  /// ```dart
-  /// ..border(all: 3.0, hex: '#55ffff', style: BorderStyle.solid)
-  /// ```
-  ///
   void border(
       {double all,
       double left,
       double right,
       double top,
       double bottom,
-      Color color = const Color(0xFF000000),
-      String hex,
-      List<double> rgba,
+      dynamic color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
-    Color finalColor = getColor(hex: hex, rgba: rgba, color: color);
+    Color finalColor = formatColor(color);
     if (all != null) {
       _border = Border.all(color: finalColor, width: all, style: style);
     } else if ((left ?? right ?? top ?? bottom) != null) {
@@ -243,17 +477,34 @@ class StyleClass {
     }
   }
 
-  /// Choose between the `hex`, `rgba` and `color` format to give a boxShadow color to your widget.
   /// If defined while the elevation property is defined, the last one defined will be the style applied.
+  /// ### Supported color formats
+  /// #### Color
+  /// Built in Color method. For example
+  /// ```dart
+  /// Color(0xFFEEEEEE) or Colors.blue
+  /// ```
+  /// #### HEX String
+  /// 6 digit hex color. Optional to use # or not
+  /// ```dart
+  /// '#eeeeee' or 'eeeeee'
+  /// ```
+  /// #### RGBA List<dynamic>
+  /// Formatted as [int, int, int, double]
+  /// ```dart
+  /// [43, 120, 32, 0.6]
+  /// ```
+  /// #### RGB List<int>
+  /// ```dart
+  /// [43, 120, 32]
+  /// ```
   void boxShadow(
-      {String hex,
-      List rgba,
-      Color color,
+      {dynamic color = const Color(0x33000000),
       double blur,
       List<double> offset,
       double spread}) {
     Offset finalOffset;
-    Color shadowColor = getColor(hex: hex, rgba: rgba, color: color);
+    Color shadowColor = formatColor(color);
 
     if (offset.length == 1) {
       finalOffset = Offset(offset[0] ?? 0.0, offset[0] ?? 0.0);
@@ -263,7 +514,7 @@ class StyleClass {
 
     _boxShadow = [
       BoxShadow(
-          color: shadowColor ?? const Color(0xFF000000).withOpacity(0.2),
+          color: shadowColor,
           blurRadius: blur ?? 0.0,
           spreadRadius: spread ?? 0.0,
           offset: finalOffset ?? Offset(0.0, 0.0))
@@ -271,25 +522,15 @@ class StyleClass {
   }
 
   /// Elevates the widget with a boxShadow.
+  /// 
   /// If the elevation property is used at the same time as the boxShadow property, the last one
   /// defined will be the applied style.
-  ///
-  /// For the shadow color, you can choose between the `hex`, `rgba`, `color` and `bgColor` format.
-  ///
-  /// `bgColor` makes the shadow the same color as the background color of the widget with a 0.5 opacity. Elevation then has to be defined
-  /// after `backgroundColor`
-  ///
   /// If the `angled` property is true, the shadow will be att 45 degrees.
-  ///
   /// ```dart
-  /// StyleClass..elevation(30, true);
+  /// StyleClass..elevation(30.0, '#f5f5f5')
   /// ```
   void elevation(double elevation,
-      {bool angled = false,
-      String hex,
-      List rgba,
-      Color color = const Color(0x33000000),
-      bool bgColor = false}) {
+      {bool angled = false, dynamic color = const Color(0x33000000)}) {
     // prevent negative values
     if (elevation < 0) {
       throw ('Elevation cant be negative. Recieved a value of $elevation');
@@ -305,7 +546,7 @@ class StyleClass {
     final double offsetY = elevation;
     final double spread = 0.0;
     final double blur = elevation;
-    Color shadowColor; // opacity 0.2
+    Color shadowColor;
 
     //custom curve defining the opacity
     // double opacity = 0.2 - (sqrt(elevation) / 90);
@@ -317,20 +558,11 @@ class StyleClass {
     }
 
     //find which color format used: hex, rgba or color
-    if (bgColor == true) {
-      if (_backgroundColor == null) {
-        print(
-            'Warning [Division]: Elevation has to be defined after backgrounColor for the `bgColor` property to work');
-      }
-      shadowColor = _backgroundColor?.withOpacity(0.5);
-    } else {
-      shadowColor =
-          getColor(hex: hex, rgba: rgba, color: color).withOpacity(opacity);
-    }
+    shadowColor = formatColor(color).withOpacity(opacity);
 
     _boxShadow = [
       BoxShadow(
-          color: shadowColor ?? Color(0x33000000),
+          color: shadowColor,
           blurRadius: blur,
           spreadRadius: spread,
           offset: Offset(offsetX, offsetY))
@@ -387,115 +619,132 @@ class StyleClass {
     _scale = scale ?? _scale;
   }
 
+  /// Offsetts the widget.
   /// ```dart
   /// StyleClass()..offset(10.0, 5.0);
   /// ```
-  void offset([double dx, double dy]) {
+  void offset(double dx, double dy) {
     // Offsets the object. The offset direction changes with the rotation
-    _offset = Offset(dx ?? 0.0, dy ?? 0.0);
+    _offset = Offset(dx, dy);
   }
 
-  /// Object rotation. 1 equals 1 turn.
+  /// Widget rotation
   /// ```dart
-  /// StyleClass()..rotate(0.75);
+  /// StyleClass(userRadians = false)..rotate(0.75);
+  /// 
+  /// StyleClass(useRadians = true)..rotate(0.75 * pi * 2)
   /// ```
+  /// 
+  /// Choose between using radians or not.
   void rotate(double rotate) {
-    _rotate = rotate ?? _rotate;
+    if (useRadians == true) {
+      _rotate = rotate;
+    } else {
+      _rotate = rotate * pi * 2;
+    }
   }
 
   /// `Duration` is given in milliseconds.
+  /// 
+  /// Currenty does not support align, scale, rotate and offset
   ///
   /// ```dart
-  /// StyleClass()..animate(
-  ///     400,
-  ///     Curves.easeInOut,
-  ///     StyleClass()
-  ///       ..width(100));
+  /// StyleClass()..animate(400, Curves.easeInOut);
   /// ```
   void animate([int duration = 500, Curve curve = Curves.linear]) {
+    // TODO: animate delay
+
+    if (duration < 0) {
+      throw ('Duration cannot be negative');
+    }
     _duration = duration;
     _curve = curve;
     // _only = only;
   }
 
+  /// Material ripple effect
+  /// ```dart
+  /// ..ripple(enable: true)
+  /// ```
+  /// Still a [beta] feature.
+  /// 
+  /// /// ### Supported color formats
+  /// #### Color
+  /// Built in Color method. For example
+  /// ```dart
+  /// Color(0xFFEEEEEE) or Colors.blue
+  /// ```
+  /// #### HEX String
+  /// 6 digit hex color. Optional to use # or not
+  /// ```dart
+  /// '#eeeeee' or 'eeeeee'
+  /// ```
+  /// #### RGBA List<dynamic>
+  /// Formatted as [int, int, int, double]
+  /// ```dart
+  /// [43, 120, 32, 0.6]
+  /// ```
+  /// #### RGB List<int>
+  /// ```dart
+  /// [43, 120, 32]
+  /// ```
+  void ripple({@required bool enable, dynamic splashColor, dynamic highlightColor}) {
+    _ripple = DivisionRippleModel(enable: enable, splashColor: formatColor(splashColor, acceptNull: true), highlightColor: formatColor(highlightColor, acceptNull: true));
+  }
+
   /// Adds a `StyleClass` to a `StyleClass`.
-  /// The add property does not override already defined properties, just adds new ones.
-  ///
   /// ```dart
   /// StyleClass()..add(StyleClass..width(100));
   /// ```
-  void add(StyleClass styleClass) {
-    // does not override already defined style, just adds new style
-    // Adds another StyleClass to this class
-    //
-    // # Example
-    //
-    // StyleClass blueButton = StyleClass()..backgroundColor(color: Colors.blue);
-    // blueButton..add(buttonClass)
-    //
+  /// 
+  /// The add property does not override already defined properties, just adds new ones.
+  void add(StyleClass styleClass, {bool override = false}) {
 
-    if (_alignment == null) {
-      _alignment = styleClass?._alignment;
-    }
-
-    if (_alignmentChild == null) {
-      _alignmentChild = styleClass?._alignmentChild;
-    }
-
-    if (_padding == null) {
-      _padding = styleClass?.getPadding;
-    }
-
-    if (_margin == null) {
-      _margin = styleClass?.getMargin;
-    }
-
-    if (_backgroundColor == null) {
-      _backgroundColor = styleClass?.getBackgroundColor;
-    }
-
-    if (_borderRadius == null) {
-      _borderRadius = styleClass?.getBorderRadius;
-    }
-
-    if (_boxShadow == null) {
-      _boxShadow = styleClass?.getBoxShadow;
-    }
-
-    if (_width == null) {
-      _width = styleClass?.getWidth;
-    }
-
-    if (_minWidth == null) {
-      _minWidth = styleClass?.getMinWidth;
-    }
-
-    if (_maxWidth == null) {
-      _maxWidth = styleClass?.getMaxWidth;
-    }
-
-    if (_height == null) {
-      _height = styleClass?.getHeight;
-    }
-
-    if (_minHeight == null) {
-      _minHeight = styleClass?.getMinHeight;
-    }
-
-    if (_maxHeight == null) {
-      _maxHeight = styleClass?.getMaxHeight;
-    }
-
-    if (_scale == null) {
-      _scale = styleClass?.getScale;
-    }
-
-    if (_rotate == null) {
-      _rotate = styleClass?.getRotate;
-    }
-
-    if (_offset == null) {
-      _offset = styleClass?.getOffset;
+    // if override is true, all style from the added class will override current style
+    if (override == true) {
+      _alignment = styleClass?.getAlignment ?? _alignment;
+      _alignmentChild = styleClass?.getAlignmentChild ?? _alignmentChild;
+      _padding = styleClass?.getPadding ?? _padding;
+      _margin = styleClass?.getMargin ?? _margin;
+      _backgroundColor = styleClass?.getBackgroundColor ?? _backgroundColor;
+      _gradient = styleClass?.getGradient ?? _gradient;
+      _border = styleClass?.getBorder ?? _border;
+      _borderRadius = styleClass?.getBorderRadius ?? _borderRadius;
+      _boxShadow = styleClass?.getBoxShadow ?? _boxShadow;
+      _width = styleClass?.getWidth ?? _width;
+      _minWidth = styleClass?.getMinWidth ?? _minWidth;
+      _maxWidth = styleClass?.getMaxWidth ?? _maxWidth;
+      _height = styleClass?.getHeight ?? _height;
+      _minHeight = styleClass?.getMinHeight ?? _minHeight;
+      _maxHeight = styleClass?.getMaxHeight ?? _minHeight;
+      _scale = styleClass?.getScale ?? _scale;
+      _rotate = styleClass?.getRotate ?? _rotate;
+      _offset = styleClass?.getOffset ?? _offset;
+      _duration = styleClass?.getDuration ?? _duration;
+      _curve = styleClass?.getCurve ?? _curve;
+      _ripple = styleClass?.getRipple ?? _ripple;
+    } else {
+      _alignment = _alignment ?? styleClass?.getAlignment;
+      _alignmentChild = _alignmentChild ?? styleClass?.getAlignmentChild;
+      _padding = _padding ?? styleClass?.getPadding;
+      _margin = _margin ?? styleClass?.getMargin;
+      _backgroundColor = _backgroundColor ?? styleClass?.getBackgroundColor;
+      _gradient = _gradient ?? styleClass?.getGradient;
+      _border = _border ?? styleClass?.getBorder;
+      _borderRadius = _borderRadius ?? styleClass?.getBorderRadius;
+      _boxShadow = _boxShadow ?? styleClass?.getBoxShadow;
+      _width = _width ?? styleClass?.getWidth;
+      _minWidth = _minWidth ?? styleClass?.getMinWidth;
+      _maxWidth = _maxWidth ?? styleClass?.getMaxWidth;
+      _height = _height ?? styleClass?.getHeight;
+      _minHeight = _minHeight ?? styleClass?.getMinHeight;
+      _maxHeight = _maxHeight ?? styleClass?.getMaxHeight;
+      _scale = _scale ?? styleClass?.getScale;
+      _rotate = _rotate ?? styleClass?.getRotate;
+      _offset = _offset ?? styleClass?.getOffset;
+      _duration = _duration ?? styleClass?.getDuration;
+      _curve = _curve ?? styleClass?.getCurve;
+      _ripple = _ripple ?? styleClass?.getRipple;
     }
   }
 }
