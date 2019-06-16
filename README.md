@@ -49,13 +49,13 @@ To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is us
 
 #### Align
 ```dart
-..align(String alignment)
+..align(dynamic alignment)
 ```
 `align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
 
 #### Align child
 ```dart
-..alignChild(String alignment)
+..alignChild(dynamic alignment)
 ```
 `align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
 
@@ -87,15 +87,32 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 
 #### Background color
 ```dart
-..backgroundColor({String hex, List rgba, Color color})
+..backgroundColor({dynamic color})
 ```
 `color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
 
 #### Gradient
 ```dart
-..linearGradient(colors: [Colors.blue, '#FFCA28'], startAlign: [-1.0, 0.0], endAlign: 'right') // hex color in use. Showcases different alignment formats
-..radialGradient(colors: [Colors.amber, Colors.blue], centerAlign: 'top')
-..sweepGradient(colors: [[255,202,40], Colors.blue, Colors.amber], endAngle: 0.01) // rgb color
+..linearGradient({dynamic beginAlign = 'left',
+      dynamic endAlign = 'right',
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops})
+
+..radialGradient(
+      {dynamic centerAlign = 'center',
+      double radius = 0.5,
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops})
+
+..sweepGradient(
+      {dynamic centerAlign = 'center',
+      double startAngle = 0.0,
+      double endAngle,
+      @required List<dynamic> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double> stops})
 ```
 Choose between 3 gradient variants. 
 `sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
@@ -105,9 +122,17 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
 
 ### Border
 ```dart
-..border(left: 2.0, top: 1.5, color: [0,0,0,0.1], style: BorderStyle.solid)
+..border(
+      {double all,
+      double left,
+      double right,
+      double top,
+      double bottom,
+      dynamic color = const Color(0xFF000000),
+      BorderStyle style = BorderStyle.solid})
 ```
-Choose between `all` or `left`, `right`, `top` and `bottom`. `color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
+Choose between `all` or `left`, `right`, `top` and `bottom`. 
+`color` parameter supports HEX ('#xxxxxx'), RGB [int, int, int], RGBA [int, int, int, double] and [Color].
 
 #### Border radius
 ```dart
@@ -124,9 +149,7 @@ If the `all` property is defined, the other properties will have no effect.
 #### Box shadow
 ```dart
 ..boxShadow(
-      {String hex,
-      List rgba,
-      Color color,
+      {dynamic color,
       double blur,
       List<double> offset,
       double spread})
@@ -137,7 +160,8 @@ If defined while the elevation property is defined, the last one defined will be
 
 #### Elevation
 ```dart
-..elevation(double elevation,
+..elevation(
+      double elevation,
       {bool angled = false,
       Color color})
 ```
@@ -183,7 +207,7 @@ I am considering to implement a `only` parameter to choose to only animate certa
 
 #### Add
 ```dart
-..add(StyleClass styleClass, override = true)
+..add(StyleClass styleClass, {bool override = false})
 ```
 Adds a `StyleClass` to a `StyleClass`.
 By default the added `StyleClass` does not override already set style. Change override to true, to override already set style.
