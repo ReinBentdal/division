@@ -3,7 +3,7 @@
 ## Preview
 App designer: [Link](https://dribbble.com/shots/6459693-Creative-layout-design)
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="400">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="400">
 
 ## Code
 

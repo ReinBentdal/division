@@ -5,7 +5,7 @@ A flutter widget with the goal of simplifying styling and to reduce nesting, ins
 ## Built with Division in less than 1 hour
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
 
 ### [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
