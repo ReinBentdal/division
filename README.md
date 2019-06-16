@@ -2,7 +2,7 @@
 
 A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
 
-## Built with Division less than 1 hour
+## Built with Division in less than 1 hour
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
@@ -50,19 +50,21 @@ Division(
 
 ### StyleClass
 
-To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is used to not return [style], but the `StyleClass`
+To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is used to not return [style], but the `StyleClass`.
+
+On construction, choose to use radians or not when giving circular values. `Styleclass({bool useRadians = false})`.
 
 #### Align
 ```dart
 ..align(dynamic alignment)
 ```
-`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
+`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Align child
 ```dart
 ..alignChild(dynamic alignment)
 ```
-`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
+`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Padding
 ```dart
@@ -122,8 +124,10 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 Choose between 3 gradient variants. 
 `sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
 To change to use radians do: `StyleClass(useRadians: true)..`.
+
 `color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
-`align` parameters support [String] value ('center', 'left', 'bottomRight'...), [List<double>] value ([dx, dy]), [double] value (same value for dx and dy) and [Alignment].
+
+`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 ### Border
 ```dart
@@ -193,7 +197,7 @@ Offsets the widget
 ..rotate(double rotate)
 ```
 Rotates the widget.
-By default one turn equals 1. To change to radians: `StyleClass(useRadians: true)..`
+By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)..`.
 
 #### Ripple
 Material ripple effect
@@ -208,7 +212,6 @@ Still a [beta] feature with known issues.
 ```
 Animates the widget when one of its style properties changes.
 `duration` is given in milliseconds.
-I am considering to implement a `only` parameter to choose to only animate certain properties.
 
 #### Add
 ```dart
