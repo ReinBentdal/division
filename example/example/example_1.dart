@@ -10,7 +10,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: UserPage(),
+        body: SafeArea(child: UserPage()),
       ),
     );
   }
@@ -20,7 +20,7 @@ class UserPage extends StatelessWidget {
   Widget _buildTitle(String title) {
     return Division(
       style: StyleClass()
-        ..margin(vertical: 20.0)
+        ..margin(bottom: 20.0)
         ..alignChild('left'),
       child: Text(
         title,
@@ -31,15 +31,17 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Division(
-      style: StyleClass()..margin(left: 20, right: 20, top: 30),
-      child: ListView(
-        children: <Widget>[
-          _buildTitle('User settings'),
-          UserCard(),
-          ActionsRow(),
-          Settings(),
-        ],
+    return SingleChildScrollView(
+          child: Division(
+        style: StyleClass()..margin(vertical: 30, horizontal: 20),
+        child: Column(
+          children: <Widget>[
+            _buildTitle('User settings'),
+            UserCard(),
+            ActionsRow(),
+            Settings(),
+          ],
+        ),
       ),
     );
   }
@@ -77,7 +79,7 @@ class UserCard extends StatelessWidget {
     return Division(
       style: userStatsStyle,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           _buildUserStatsItem(846, 'Collect'),
           _buildUserStatsItem(51, 'Attention'),
@@ -210,6 +212,7 @@ class Settings extends StatelessWidget {
               Icons.menu, '#FEC85C', 'General', 'Basic functional settings'),
           SettingsItem(Icons.notifications, '#5FD0D3', 'Notifications',
               'Take over the news in time'),
+          SettingsItem(Icons.question_answer, '#BFACAA', 'Support', 'We are here to help'),
         ],
       ),
     );

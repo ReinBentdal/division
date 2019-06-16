@@ -113,6 +113,7 @@ class Division extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
+              excludeFromSemantics: true,
               borderRadius: style?.getBorderRadius,
               onTap: () {},
             ),

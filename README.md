@@ -1,4 +1,4 @@
-# division
+# Division
 
 A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
 
