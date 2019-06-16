@@ -129,10 +129,10 @@ class Division extends StatelessWidget {
 
     Widget widgetTree = this.child;
 
-    if(style?.getRipple?.enable == true) {
+    if (style?.getRipple?.enable == true) {
       widgetTree = _buildRipple(widgetTree);
     }
-    
+
     // style with or without animation
     if (style != null) {
       if (style?.getDuration != null) {

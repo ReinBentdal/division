@@ -80,8 +80,7 @@ class Home extends StatelessWidget {
     return Division(
       style: StyleClass()
         ..backgroundColor(color)
-        ..elevation(20,
-            color: color.withOpacity(0.5))
+        ..elevation(20, color: color.withOpacity(0.5))
         ..add(tasksCard),
     );
   }

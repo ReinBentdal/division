@@ -5,34 +5,39 @@ class CustomAnimatedContainer extends ImplicitlyAnimatedWidget {
   /// Creates a container that animates its parameters implicitly.
   ///
   /// The [curve] and [duration] arguments must not be null.
-  CustomAnimatedContainer({
-    @required this.style,
-    this.child
-  }) : decoration = BoxDecoration(
-      color: style?.getBackgroundColor,
-      gradient: style?.getGradient,
-      border: style?.getBorder,
-      borderRadius: style?.getBorderRadius,
-      boxShadow: style?.getBoxShadow,
-    ),
-    constraints = (style?.getWidth != null || style?.getHeight != null) 
-    ? BoxConstraints(
-      maxHeight: style?.getMaxHeight ?? double.infinity,
-      minHeight: style?.getMinHeight ?? 0.0,
-      maxWidth: style?.getMaxWidth ?? double.infinity,
-      minWidth: style?.getMinWidth ?? 0.0,
-    ).tighten(width: style?.getWidth, height: style?.getHeight)
-    ?? BoxConstraints.tightFor(width: style?.getWidth, height: style?.getHeight)
-    : BoxConstraints(
-      maxHeight: style?.getMaxHeight ?? double.infinity,
-      minHeight: style?.getMinHeight ?? 0.0,
-      maxWidth: style?.getMaxWidth ?? double.infinity,
-      minWidth: style?.getMinWidth ?? 0.0,
-    ),
-    transform = ((style?.getScale ?? style?.getRotate ?? style?.getOffset) != null) 
-    ? (Matrix4.rotationZ(style?.getRotate ?? 0.0)..scale(style?.getScale ?? 1.0)..translate(style?.getOffset?.dx ?? 0.0, style?.getOffset?.dy ?? 0.0))
-    : null,
-      super(curve: style?.getCurve, duration: Duration(milliseconds: style?.getDuration));
+  CustomAnimatedContainer({@required this.style, this.child})
+      : decoration = BoxDecoration(
+          color: style?.getBackgroundColor,
+          gradient: style?.getGradient,
+          border: style?.getBorder,
+          borderRadius: style?.getBorderRadius,
+          boxShadow: style?.getBoxShadow,
+        ),
+        constraints = (style?.getWidth != null || style?.getHeight != null)
+            ? BoxConstraints(
+                  maxHeight: style?.getMaxHeight ?? double.infinity,
+                  minHeight: style?.getMinHeight ?? 0.0,
+                  maxWidth: style?.getMaxWidth ?? double.infinity,
+                  minWidth: style?.getMinWidth ?? 0.0,
+                ).tighten(width: style?.getWidth, height: style?.getHeight) ??
+                BoxConstraints.tightFor(
+                    width: style?.getWidth, height: style?.getHeight)
+            : BoxConstraints(
+                maxHeight: style?.getMaxHeight ?? double.infinity,
+                minHeight: style?.getMinHeight ?? 0.0,
+                maxWidth: style?.getMaxWidth ?? double.infinity,
+                minWidth: style?.getMinWidth ?? 0.0,
+              ),
+        transform =
+            ((style?.getScale ?? style?.getRotate ?? style?.getOffset) != null)
+                ? (Matrix4.rotationZ(style?.getRotate ?? 0.0)
+                  ..scale(style?.getScale ?? 1.0)
+                  ..translate(
+                      style?.getOffset?.dx ?? 0.0, style?.getOffset?.dy ?? 0.0))
+                : null,
+        super(
+            curve: style?.getCurve,
+            duration: Duration(milliseconds: style?.getDuration));
 
   /// The [child] contained by the container.
   ///
@@ -68,7 +73,6 @@ class _CustomAnimatedContainerState
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-
     _alignment = visitor(_alignment, widget.style?.getAlignment,
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _alignmentChild = visitor(_alignmentChild, widget.style?.getAlignmentChild,
@@ -98,7 +102,8 @@ class _CustomAnimatedContainerState
     );
 
     if (_alignment != null) {
-      widgetTree = Align(alignment: _alignment?.evaluate(animation), child: widgetTree);
+      widgetTree =
+          Align(alignment: _alignment?.evaluate(animation), child: widgetTree);
     }
 
     if (_transform != null) {

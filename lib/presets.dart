@@ -11,8 +11,7 @@ StyleClass cardStyle = StyleClass()
   ..alignChild('center')
   ..margin(horizontal: 20.0, vertical: 10.0)
   ..padding(all: 20.0)
-  ..height(300)
-  ;
+  ..height(300);
 
 StyleClass rasiedButtonStyle = StyleClass()
   ..width(150)
@@ -21,5 +20,4 @@ StyleClass rasiedButtonStyle = StyleClass()
   ..elevation(5.0)
   ..backgroundColor('#03A9F4')
   ..align('center')
-  ..alignChild('center')
-  ;
+  ..alignChild('center');

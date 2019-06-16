@@ -522,7 +522,7 @@ class StyleClass {
   }
 
   /// Elevates the widget with a boxShadow.
-  /// 
+  ///
   /// If the elevation property is used at the same time as the boxShadow property, the last one
   /// defined will be the applied style.
   /// If the `angled` property is true, the shadow will be att 45 degrees.
@@ -631,10 +631,10 @@ class StyleClass {
   /// Widget rotation
   /// ```dart
   /// StyleClass(userRadians = false)..rotate(0.75);
-  /// 
+  ///
   /// StyleClass(useRadians = true)..rotate(0.75 * pi * 2)
   /// ```
-  /// 
+  ///
   /// Choose between using radians or not.
   void rotate(double rotate) {
     if (useRadians == true) {
@@ -645,7 +645,7 @@ class StyleClass {
   }
 
   /// `Duration` is given in milliseconds.
-  /// 
+  ///
   /// Currenty does not support align, scale, rotate and offset
   ///
   /// ```dart
@@ -667,7 +667,7 @@ class StyleClass {
   /// ..ripple(enable: true)
   /// ```
   /// Still a [beta] feature.
-  /// 
+  ///
   /// /// ### Supported color formats
   /// #### Color
   /// Built in Color method. For example
@@ -688,18 +688,21 @@ class StyleClass {
   /// ```dart
   /// [43, 120, 32]
   /// ```
-  void ripple({@required bool enable, dynamic splashColor, dynamic highlightColor}) {
-    _ripple = DivisionRippleModel(enable: enable, splashColor: formatColor(splashColor, acceptNull: true), highlightColor: formatColor(highlightColor, acceptNull: true));
+  void ripple(
+      {@required bool enable, dynamic splashColor, dynamic highlightColor}) {
+    _ripple = DivisionRippleModel(
+        enable: enable,
+        splashColor: formatColor(splashColor, acceptNull: true),
+        highlightColor: formatColor(highlightColor, acceptNull: true));
   }
 
   /// Adds a `StyleClass` to a `StyleClass`.
   /// ```dart
   /// StyleClass()..add(StyleClass..width(100));
   /// ```
-  /// 
+  ///
   /// The add property does not override already defined properties, just adds new ones.
   void add(StyleClass styleClass, {bool override = false}) {
-
     // if override is true, all style from the added class will override current style
     if (override == true) {
       _alignment = styleClass?.getAlignment ?? _alignment;

@@ -35,21 +35,21 @@ AlignmentGeometry formatAlignment(align) {
         alignment = Alignment.bottomRight;
         break;
       default:
-        throw('Unsupported alignment String value $align');
+        throw ('Unsupported alignment String value $align');
         break;
     }
   } else if (align is List<double>) {
-    if(align.length == 2) {
+    if (align.length == 2) {
       alignment = Alignment(align[0], align[1]);
     } else {
-      throw('Unsupported alignment format $align. Expected [double dx, double dy]');
+      throw ('Unsupported alignment format $align. Expected [double dx, double dy]');
     }
   } else if (align is double) {
     alignment = Alignment(align, align);
   } else if (align is AlignmentGeometry) {
     alignment = align;
   } else {
-    throw('Unsuported alignment format $align');
+    throw ('Unsuported alignment format $align');
   }
   return alignment;
 }
