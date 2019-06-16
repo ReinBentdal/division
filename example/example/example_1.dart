@@ -33,7 +33,7 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Division(
       style: StyleClass()..margin(left: 20, right: 20, top: 30),
-      child: Column(
+      child: ListView(
         children: <Widget>[
           _buildTitle('User settings'),
           UserCard(),
@@ -195,18 +195,64 @@ class ActionsRow extends StatelessWidget {
 }
 
 class Settings extends StatelessWidget {
-  Widget _buildSettingsItem(
-      IconData icon, dynamic iconBgColor, String title, String description) {
+  
+  @override
+  Widget build(BuildContext context) {
     return Division(
-      style: settingsItemStyle,
+      style: settingsStyle,
+      child: Column(
+        children: <Widget>[
+          SettingsItem(Icons.location_on, '#8D7AEE', 'Address',
+              'Ensure your harvesting address'),
+          SettingsItem(
+              Icons.lock, '#F468B7', 'Privacy', 'System permission change'),
+          SettingsItem(
+              Icons.menu, '#FEC85C', 'General', 'Basic functional settings'),
+          SettingsItem(Icons.notifications, '#5FD0D3', 'Notifications',
+              'Take over the news in time'),
+        ],
+      ),
+    );
+  }
+
+  final StyleClass settingsStyle = StyleClass();
+}
+
+class SettingsItem extends StatefulWidget {
+
+  final IconData icon;
+  final String iconBgColor;
+  final String title;
+  final String description;
+
+  SettingsItem(this.icon, this.iconBgColor, this.title, this.description);
+
+  @override
+  _SettingsItemState createState() => _SettingsItemState();
+}
+
+class _SettingsItemState extends State<SettingsItem> {
+  bool pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Division(
+      style: settingsItemStyle
+        ..elevation(pressed ? 0 : 50, color: Colors.grey)
+        ..scale(pressed ? 0.95 : 1.0),
+      gesture: GestureClass()
+        ..onTapDown((details) => setState(() => pressed = true))
+        ..onTapUp((details) => setState(() => pressed = false))
+        ..onTapCancel(() => setState(() => pressed = false))
+        ,
       child: Row(
         children: <Widget>[
           Division(
             style: StyleClass()
-              ..backgroundColor(iconBgColor)
+              ..backgroundColor(widget.iconBgColor)
               ..add(settingsItemIconStyle),
             child: Icon(
-              icon,
+              widget.icon,
               color: Colors.white,
               size: 20,
             ),
@@ -219,43 +265,23 @@ class Settings extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                title,
+                widget.title,
                 style: itemTitleTextStyle,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                description,
+                widget.description,
                 style: itemDescriptionTextStyle,
               ),
             ],
           )
         ],
-      ),
+      )
     );
+  
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Division(
-      style: settingsStyle,
-      child: Column(
-        children: <Widget>[
-          _buildSettingsItem(Icons.location_on, '#8D7AEE', 'Address',
-              'Ensure your harvesting address'),
-          _buildSettingsItem(
-              Icons.lock, '#F468B7', 'Privacy', 'System permission change'),
-          _buildSettingsItem(
-              Icons.menu, '#FEC85C', 'General', 'Basic functional settings'),
-          _buildSettingsItem(Icons.notifications, '#5FD0D3', 'Notifications',
-              'Take over the news in time'),
-        ],
-      ),
-    );
-  }
-
-  final StyleClass settingsStyle = StyleClass();
 
   final StyleClass settingsItemStyle = StyleClass()
     ..ripple(enable: true)
@@ -264,7 +290,7 @@ class Settings extends StatelessWidget {
     ..margin(vertical: 10)
     ..borderRadius(all: 15)
     ..backgroundColor('#ffffff')
-    ..elevation(50, color: Colors.grey);
+    ..animate(300, Curves.easeOut);
 
   final StyleClass settingsItemIconStyle = StyleClass()
     ..margin(left: 15)
