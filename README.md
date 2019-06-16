@@ -149,7 +149,7 @@ If the `all` property is defined, the other properties will have no effect.
 #### Box shadow
 ```dart
 ..boxShadow(
-      {dynamic color,
+      {dynamic color = const Color(0x33000000),
       double blur,
       List<double> offset,
       double spread})
@@ -163,7 +163,7 @@ If defined while the elevation property is defined, the last one defined will be
 ..elevation(
       double elevation,
       {bool angled = false,
-      Color color})
+      dynamic color = const Color(0x33000000)})
 ```
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
