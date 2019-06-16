@@ -2,7 +2,7 @@
 
 A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
 
-## Built with Division in 1 hour
+## Built with Division less than 1 hour
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
