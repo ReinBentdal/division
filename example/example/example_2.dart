@@ -23,7 +23,7 @@ class _AnimationDemoState extends State<AnimationDemo> {
   bool pressed = false;
 
   StyleClass boxStyle = StyleClass()
-    ..backgroundColor(color: '#eeeeee')
+    ..backgroundColor('#eeeeee')
     ..width(300)
     ..height(400)
     ..borderRadius(all: 30.0)

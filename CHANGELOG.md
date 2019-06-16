@@ -7,6 +7,7 @@
 * Added animation support for `scale()`, `rotate()`, `offset` and `align()`. All styling properties now support animation.
 * [Breaking] Added the ability to change between using radians or values between 0 to 1 in the `StyleClass`. Change by: `StyleClass(useRadians: true)..[style]`. Breaking because your values may be written in radians but now is interpreted as not.
 * [Breaking] Removed elevation `bgColor` parameter.
+* [Breaking] `backgroundColor` changed from named parameter to unnamed.
 * [beta] Added `ripple()` method to the `StyleClass`. Known issues: Doesnt cover the whole area when `border` and `borderRadius` is in use. Problems with gestures.
 * [beta] Added some custom presets. `import 'package:division/presets.dart'`.
 

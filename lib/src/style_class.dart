@@ -260,7 +260,7 @@ class StyleClass {
   /// ```dart
   /// [43, 120, 32]
   /// ```
-  void backgroundColor({dynamic color}) {
+  void backgroundColor(dynamic color) {
     _backgroundColor = formatColor(color);
   }
 

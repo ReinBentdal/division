@@ -4,7 +4,7 @@ import 'src/style_class.dart';
 // but to have custom good looking presets as an alternative to material design.
 
 StyleClass cardStyle = StyleClass()
-  ..backgroundColor(color: '#f5f5f5')
+  ..backgroundColor('#f5f5f5')
   ..borderRadius(all: 10.0)
   ..elevation(1)
   ..align('center')
@@ -19,7 +19,7 @@ StyleClass rasiedButtonStyle = StyleClass()
   ..height(50)
   ..borderRadius(all: 30.0)
   ..elevation(5.0)
-  ..backgroundColor(color: '#03A9F4')
+  ..backgroundColor('#03A9F4')
   ..align('center')
   ..alignChild('center')
   ;

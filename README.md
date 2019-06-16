@@ -87,7 +87,7 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
 
 #### Background color
 ```dart
-..backgroundColor({dynamic color})
+..backgroundColor(dynamic color)
 ```
 `color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
 
