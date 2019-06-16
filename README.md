@@ -2,7 +2,9 @@
 
 A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/framed/demo_app_framed.png" width="250">
+## Build with Division
+App designer[Link](https://dribbble.com/shots/6459693-Creative-layout-design);
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
 
 ## Getting Started
 
@@ -24,7 +26,7 @@ Division(
   style: StyleClass()
     ..width(200)
     ..height(100)
-    ..backgroundColor(hex: 'eeeeee')
+    ..backgroundColor('#eeeeee')
     ..borderRadius(all: 30.0)
     ..elevation(30)
     ..align('center')
