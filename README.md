@@ -3,11 +3,11 @@
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 ## Built with Division
-#### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
+<!-- #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design) -->
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250"><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/frosted_glass_demo.gif" width="250">
 
-### [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
+### [Code 1](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) [Code 2](https://github.com/ReinBentdal/division/blob/master/example/example/example_2.dart)
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ The `Division` widget has 3 properties. A `style` property, a `gesture` property
 
 `Division(style: StyleClass, gesture: GestureClass, child, Widget);`
 
-By having all style gathered at one place has alot of advantages. 
+Having all style gathered at one place has alot of advantages.
 For example
 * It is easy to outsource the style into variables or to a completely different place.
 * It is easy to read and understand
@@ -35,10 +35,10 @@ Division(
   style: StyleClass()
     ..width(200)
     ..height(100)
-    ..backgroundColor('#eeeeee')
+    ..backgroundColor('#eeeeee') // supports other formats
     ..borderRadius(all: 30.0)
     ..elevation(30)
-    ..align('center')
+    ..align('center')  // supports other formats
     ..alignChild('center'),
   gesture: GestureClass()
     ..onTap(() => print('Widget pressed')),
@@ -49,6 +49,7 @@ Division(
 #### The result
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.png" width="300">
+
 
 # Style property
 
@@ -100,7 +101,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 ```dart
 ..backgroundColor(dynamic color)
 ```
-`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 ### Background image
 ```dart
@@ -126,6 +127,7 @@ StyleClass()
   ..backgroundBlur(10)
   ..backgroundColor(rgba(255,255,255,0.15))
 ```
+Does not work together with `..rotate()`.
 
 #### Gradient
 ```dart
@@ -154,7 +156,7 @@ Choose between 3 gradient variants.
 `sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
 To change to use radians do: `StyleClass(useRadians: true)..`.
 
-`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 `alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
@@ -170,7 +172,7 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
       BorderStyle style = BorderStyle.solid})
 ```
 Choose between `all` or `left`, `right`, `top` and `bottom`. 
-`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 #### Border radius
 ```dart
@@ -192,7 +194,7 @@ If the `all` property is defined, the other properties will have no effect.
       List<double> offset,
       double spread})
 ```
-`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 If defined while the elevation property is defined, the last one defined will be the style applied.
 `offset` is given in the format `[double dx, double dy]`
 
@@ -206,7 +208,7 @@ If defined while the elevation property is defined, the last one defined will be
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
 defined will be the applied style.
-`color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 If the `angled` property is true, the shadow will be att 45 degrees.
 
 #### Scale
@@ -227,13 +229,6 @@ Offsets the widget
 ```
 Rotates the widget.
 By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)..`.
-
-#### Ripple
-Material ripple effect
-```dart
-..ripple({bool enable = false, dynamic splashColor, dynamic highlightColor})
-```
-Still a [beta] feature with known issues.
 
 #### Animate
 ```dart
@@ -256,7 +251,7 @@ By default the added `StyleClass` does not override already set style. Change ov
 
 # Gesture property
 
-**The gesture property expects a `GestureClass` which is a class holding all the gestures for the widget.**
+**The gesture property expects a `GestureClass` which is a class containing all the gestures for the widget.**
 
 ### GestureClass
 

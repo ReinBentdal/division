@@ -8,39 +8,49 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: AnimationDemo(),
+        body: FrostedWidget(),
       ),
     );
   }
 }
 
-class AnimationDemo extends StatefulWidget {
+class FrostedWidget extends StatefulWidget {
   @override
-  _AnimationDemoState createState() => _AnimationDemoState();
+  _FrostedWidgetState createState() => _FrostedWidgetState();
 }
 
-class _AnimationDemoState extends State<AnimationDemo> {
+class _FrostedWidgetState extends State<FrostedWidget> {
   bool pressed = false;
-
-  StyleClass boxStyle = StyleClass()
-    ..backgroundColor('#eeeeee')
-    ..width(300)
-    ..height(400)
-    ..borderRadius(all: 30.0)
-    ..align('center')
-    ..alignChild('center')
-    ..animate(1500, Curves.easeInOut);
-
   @override
   Widget build(BuildContext context) {
-    return Division(
-      style: boxStyle
-        ..elevation(pressed ? 0 : 30)
-        ..scale(pressed ? 0.9 : 1.0),
-      gesture: GestureClass()
-        ..onTapDown((details) => setState(() => pressed = true))
-        ..onTapUp((details) => setState(() => pressed = false)),
-      child: Text('Some text'),
+    return Stack(
+      children: <Widget>[
+        Division(
+          style: StyleClass()
+            ..backgroundImage(
+                url: 'https://i.imgur.com/SqZ5JTv.jpg',
+                fit: BoxFit.cover,
+            ),
+        ),
+        Division(
+          style: StyleClass()
+            ..align('center')
+            ..alignChild('center')
+            ..width(300)
+            ..height(300)
+            ..padding(all: 30)
+            ..scale(pressed ? 0.95 : 1.0)
+            ..borderRadius(all: pressed ? 30 : 10)
+            ..animate(500, Curves.easeOut)
+            ..backgroundBlur(pressed ? 0 : 20)
+            ..backgroundColor(rgba(255,255,255,0.15)),
+          gesture: GestureClass()
+            ..onTapDown((detials) => setState(() => pressed = true))
+            ..onTapUp((detials) => setState(() => pressed = false))
+            ..onTapCancel(() => setState(() => pressed = false)),
+          child: Text('My frosted widget', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 32),),
+        ),
+      ],
     );
   }
 }

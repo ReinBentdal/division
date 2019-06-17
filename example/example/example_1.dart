@@ -182,7 +182,6 @@ class ActionsRow extends StatelessWidget {
   }
 
   final StyleClass actionsItemIconStyle = StyleClass()
-    ..ripple(enable: true)
     ..alignChild('center')
     ..width(50)
     ..height(50)
@@ -287,7 +286,6 @@ class _SettingsItemState extends State<SettingsItem> {
   }
 
   final StyleClass settingsItemStyle = StyleClass()
-    ..ripple(enable: true)
     ..alignChild('center')
     ..height(70)
     ..margin(vertical: 10)
