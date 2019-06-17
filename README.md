@@ -1,11 +1,11 @@
 # Division
 
-A flutter widget with the goal of simplifying styling and to reduce nesting, inspired by CSS
+A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
-## Built with Division in less than 1 hour
+## Built with Division
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
 
 ### [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
@@ -15,6 +15,12 @@ The `Division` widget has 3 properties. A `style` property, a `gesture` property
 
 `Division(style: StyleClass, gesture: GestureClass, child, Widget);`
 
+By having all style gathered at one place has alot of advantages. 
+For example
+* It is easy to outsource the style into variables or to a completely different place.
+* It is easy to read and understand
+* Many more
+
 ### Simple example
 
 #### Import
@@ -22,7 +28,7 @@ The `Division` widget has 3 properties. A `style` property, a `gesture` property
 import 'package:division/division.dart';
 ```
 
-#### Simple usage
+#### Code
 
 ```dart
 Division(
@@ -44,7 +50,7 @@ Division(
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.png" width="300">
 
-## Style property
+# Style property
 
 **The style property expects a `StyleClass` which is a class holding all the styling for the widget.**
 
@@ -76,8 +82,7 @@ On construction, choose to use radians or not when giving circular values. `Styl
       double left, 
       double right})
 ```
-If `all` is defined, non of the other properties will have an effect.
-If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+All properties work together. `padding(all: 10, top: 30)` is valid
 
 #### Margin
 ```dart
@@ -89,14 +94,38 @@ If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` 
       double left,
       double right})
 ```
-If `all` is defined, non of the other properties will have an effect.
-If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+All properties work together. `margin(all: 10, top: 30)` is valid
 
 #### Background color
 ```dart
 ..backgroundColor(dynamic color)
 ```
 `color` parameter supports HEX ('#xxxxxx'), RGB ([int, int, int]), RGBA ([int, int, int, double]) and [Color].
+
+### Background image
+```dart
+..backgroundImage(
+      {String url, 
+      String path, 
+      ColorFilter colorFilter, 
+      BoxFit fit, 
+      dynamic alignment = Alignment.center, 
+      ImageRepeat repeat = ImageRepeat.noRepeat})
+```
+Eighter the [url] or the [path] has to be specified.
+[url] is for network images and [path] is for local images.
+
+### Background blur
+```dart
+..backgroundBlur(double blur)
+```
+Blurs the background. Can be used for example to achieve a "frosted glass" effect:
+
+```dart
+StyleClass()
+  ..backgroundBlur(10)
+  ..backgroundColor(rgba(255,255,255,0.15))
+```
 
 #### Gradient
 ```dart
@@ -225,7 +254,7 @@ By default the added `StyleClass` does not override already set style. Change ov
 ..[type](double length)
 ```
 
-## Gesture property
+# Gesture property
 
 **The gesture property expects a `GestureClass` which is a class holding all the gestures for the widget.**
 
@@ -239,6 +268,6 @@ The `GestureClass` takes all the same parameters as the `GestureDetector` widget
 ..[gesture](function)
 ```
 
-## Child property
+# Child property
 
 Widget child
