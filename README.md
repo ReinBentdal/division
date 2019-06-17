@@ -115,6 +115,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 ```
 Eighter the [url] or the [path] has to be specified.
 [url] is for network images and [path] is for local images.
+`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Background blur
 ```dart
@@ -160,7 +161,7 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
 
 `alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
-### Border
+#### Border
 ```dart
 ..border(
       {double all,
@@ -183,8 +184,7 @@ Choose between `all` or `left`, `right`, `top` and `bottom`.
       double bottomLeft,
       double bottomRight})
 ```
-Eigther use the `all` property to apply to all corners, or user `topLeft`, `topRight`, `bottomLeft` and `bottomRight`.
-If the `all` property is defined, the other properties will have no effect.
+It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
 
 #### Box shadow
 ```dart
