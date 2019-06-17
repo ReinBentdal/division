@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'style_class.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,7 @@ class CustomAnimatedContainer extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   CustomAnimatedContainer({@required this.style, this.child})
       : decoration = BoxDecoration(
+          image: style?.getBackgroundImage,
           color: style?.getBackgroundColor,
           gradient: style?.getGradient,
           border: style?.getBorder,
@@ -70,6 +73,8 @@ class _CustomAnimatedContainerState
   BoxConstraintsTween _constraints;
   EdgeInsetsGeometryTween _margin;
   Matrix4Tween _transform;
+  Tween<double> _blur;
+  Tween<BorderRadius> _borderRadius;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
@@ -87,6 +92,10 @@ class _CustomAnimatedContainerState
         (dynamic value) => EdgeInsetsGeometryTween(begin: value));
     _transform = visitor(_transform, widget.transform,
         (dynamic value) => Matrix4Tween(begin: value));
+    _blur = visitor(_blur, widget.style?.getBackgroundBlur,
+        (dynamic value) => Tween<double>(begin: value));
+    _borderRadius = visitor(_borderRadius, widget.style?.getBorderRadius,
+        (dynamic value) => Tween<BorderRadius>(begin: value));
   }
 
   @override
@@ -100,6 +109,18 @@ class _CustomAnimatedContainerState
       constraints: _constraints?.evaluate(animation),
       margin: _margin?.evaluate(animation),
     );
+
+    // background blur / frosted glass
+    if (_blur != null) {
+      double _blurValue = _blur.evaluate(animation);
+      widgetTree = ClipRRect(
+        borderRadius: _borderRadius.evaluate(animation),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: _blurValue, sigmaY: _blurValue),
+          child: widgetTree,
+        ),
+      );
+    }
 
     if (_alignment != null) {
       widgetTree =

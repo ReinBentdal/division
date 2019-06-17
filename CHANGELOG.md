@@ -1,3 +1,12 @@
+## 0.5.0
+* Added `backgroundBlur` method to the `StyleClass`.
+* Added `backgroundImage` method to `StyleClass`.
+* `border` now supports the use of `all` and `left`, `right`, `top` and `bottom` simultaneous.'border(all: 10, left: 20)'.
+* `borderRadius` now supports the use of `all` and `topLeft`, `topRight`, `bottomLeft` and `bottomRight` simultaneous. 'borderRadius(all: 10, bottomLeft: 30)'.
+* `padding` and `margin` now supports the use of all parameters simultaneous. `padding(all: 10, bottom: 50)`.
+* Added `rgb()` and `rgba()` functions. May replace `[int, int, int]` and `[int, int, int, double]` formats in color parameters.
+* [Breaking] `ripple` method removed until a better solution is implemented. 
+
 ## 0.4.0
 * [Breaking] Removed `hex` and `rgba` properties and combines them with the `color` property and changes it to dynamic. `color` property now supports HEX ('#xxxxxx'), RGBA ([int, int, int, double]), RGB ([int, int, int]) and [Color] format.
 * Changed alignment properties to dynamic. The alignment property now supports a variety of different formats.

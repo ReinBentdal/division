@@ -1,6 +1,5 @@
-import 'package:division/src/format_alignment.dart';
-import 'package:division/src/format_color.dart';
-import 'model/ripple.dart';
+import 'format/format_alignment.dart';
+import 'format/format_color.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -37,21 +36,26 @@ class StyleClass {
   AlignmentGeometry _alignmentChild;
   EdgeInsetsGeometry _padding;
   EdgeInsetsGeometry _margin;
+
   Color _backgroundColor;
+  DecorationImage _backgroundImage;
+  double _backgroundBlur;
+
   Gradient _gradient;
   BoxBorder _border;
   BorderRadiusGeometry _borderRadius;
   List<BoxShadow> _boxShadow;
+
   double _width;
   double _minWidth;
   double _maxWidth;
   double _height;
   double _minHeight;
   double _maxHeight;
+
   double _scale;
   double _rotate;
   Offset _offset;
-  DivisionRippleModel _ripple;
 
   //Animation duration in milliseconds
   int _duration;
@@ -77,6 +81,12 @@ class StyleClass {
 
   /// used to get the final style property
   Color get getBackgroundColor => _backgroundColor;
+
+  /// used to get the final style property
+  DecorationImage get getBackgroundImage => _backgroundImage;
+
+  /// used to get the final style property
+  double get getBackgroundBlur => _backgroundBlur;
 
   /// used t get the final style property
   Gradient get getGradient => _gradient;
@@ -122,9 +132,6 @@ class StyleClass {
 
   /// used to get the final style property
   Curve get getCurve => _curve;
-
-  /// used to get the final style property
-  DivisionRippleModel get getRipple => _ripple;
 
   /// used to get the final style property
   // StyleClass get getOnly => _only;
@@ -189,9 +196,12 @@ class StyleClass {
     _alignmentChild = formatAlignment(alignment);
   }
 
-  /// If `all` is defined, non of the other properties will have an effect.
-  ///
-  /// If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+  /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
+  /// 
+  /// All properties work together
+  /// ```dart
+  /// ..padding(all: 10, bottom: 20) // gives a different padding at the bottom
+  /// ```
   void padding(
       {double all,
       double horizontal,
@@ -200,23 +210,24 @@ class StyleClass {
       double bottom,
       double left,
       double right}) {
-    if (all != null) {
-      _padding = EdgeInsets.all(all);
-    } else if ((horizontal ?? vertical) != null) {
-      _padding = EdgeInsets.symmetric(
-          horizontal: horizontal ?? 0.0, vertical: vertical ?? 0.0);
-    } else if ((top ?? bottom ?? left ?? right) != null) {
-      _padding = EdgeInsets.only(
-          top: top ?? 0.0,
-          bottom: bottom ?? 0.0,
-          left: left ?? 0.0,
-          right: right ?? 0.0);
-    }
+    top = top ?? vertical ?? all;
+    bottom = bottom ?? vertical ?? all;
+    left = left ?? horizontal ?? all;
+    right = right ?? horizontal ?? all;
+
+    _padding = EdgeInsets.only(
+        top: top ?? 0.0,
+        bottom: bottom ?? 0.0,
+        left: left ?? 0.0,
+        right: right ?? 0.0);
   }
 
-  /// If `all` is defined, non of the other properties will have an effect.
-  ///
-  /// If `horizontal` and `vertical` is defined, `top`, `bottom`, `left`, and `right` will have no effect.
+  /// Empty space to surround the [decoration] and [child].
+  /// 
+  /// All properties work together
+  /// ```dart
+  /// ..margin(all: 10, bottom: 20) // gives a different margin at the bottom
+  /// ```
   void margin(
       {double all,
       double horizontal,
@@ -225,19 +236,29 @@ class StyleClass {
       double bottom,
       double left,
       double right}) {
-    if (all != null) {
-      _margin = EdgeInsets.all(all);
-    } else if ((horizontal ?? vertical) != null) {
-      _margin = EdgeInsets.symmetric(
-          horizontal: horizontal ?? 0.0, vertical: vertical ?? 0.0);
-    } else if ((top ?? bottom ?? left ?? right) != null) {
-      _margin = EdgeInsets.only(
-        top: top ?? 0.0,
-        bottom: bottom ?? 0.0,
-        left: left ?? 0.0,
-        right: right ?? 0.0,
-      );
-    }
+    top = top ?? vertical ?? all;
+    bottom = bottom ?? vertical ?? all;
+    left = left ?? horizontal ?? all;
+    right = right ?? horizontal ?? all;
+
+    _margin = EdgeInsets.only(
+      top: top ?? 0.0,
+      bottom: bottom ?? 0.0,
+      left: left ?? 0.0,
+      right: right ?? 0.0,
+    );
+  }
+
+  /// Blurs the background
+  /// 
+  /// Frosted glass example:
+  /// ```dart
+  /// ..backgroundBlur(10)
+  /// ..backgroundColor(rgba(255,255,255,0.15))
+  /// ```
+  /// Does not work together with `..rotate()`.
+  void backgroundBlur(double blur) {
+    _backgroundBlur = blur;
   }
 
   /// ### Supported color formats
@@ -263,6 +284,41 @@ class StyleClass {
   void backgroundColor(dynamic color) {
     _backgroundColor = formatColor(color);
   }
+
+  /// Eighter the [url] or the [path] has to be specified.
+  /// [url] is for network images and [path] is for local images.
+  /// [path] trumps [url].
+  /// 
+  /// ```dart
+  /// ..backgroundImage(
+  ///   url: 'path/to/image'
+  ///   fit: BoxFit.cover
+  /// )
+  /// ```
+  void backgroundImage({String url, String path, ColorFilter colorFilter, BoxFit fit, dynamic alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat}) {
+    if((url ?? path) == null) {
+      throw('A [url] or a [path] has to be provided');
+    }
+
+    alignment = formatAlignment(alignment);
+
+    ImageProvider<dynamic> image;
+    
+    if (path != null) {
+      image = AssetImage(path);
+    } else {
+      image = NetworkImage(url);
+    }
+
+    _backgroundImage = DecorationImage(
+      image: image,
+      colorFilter: colorFilter,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+    );
+  }
+
 
   /// ### Supported alignment formats
   /// #### Alignment
@@ -434,24 +490,26 @@ class StyleClass {
       dynamic color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
     Color finalColor = formatColor(color);
-    if (all != null) {
-      _border = Border.all(color: finalColor, width: all, style: style);
-    } else if ((left ?? right ?? top ?? bottom) != null) {
-      _border = Border(
-        left: left == null
-            ? BorderSide.none
-            : BorderSide(color: finalColor, width: left, style: style),
-        right: right == null
-            ? BorderSide.none
-            : BorderSide(color: finalColor, width: right, style: style),
-        top: top == null
-            ? BorderSide.none
-            : BorderSide(color: finalColor, width: top, style: style),
-        bottom: bottom == null
-            ? BorderSide.none
-            : BorderSide(color: finalColor, width: bottom, style: style),
-      );
-    }
+
+    left = left ?? all;
+    right = right ?? all;
+    top = top ?? all;
+    bottom = bottom ?? all;
+
+    _border = Border(
+      left: left == null
+          ? BorderSide.none
+          : BorderSide(color: finalColor, width: left, style: style),
+      right: right == null
+          ? BorderSide.none
+          : BorderSide(color: finalColor, width: right, style: style),
+      top: top == null
+          ? BorderSide.none
+          : BorderSide(color: finalColor, width: top, style: style),
+      bottom: bottom == null
+          ? BorderSide.none
+          : BorderSide(color: finalColor, width: bottom, style: style),
+    );
   }
 
   /// Eigther use the `all` property to apply to all corners, or user `topLeft`, `topRight`, `bottomLeft` and `bottomRight`.
@@ -462,19 +520,17 @@ class StyleClass {
       double topRight,
       double bottomLeft,
       double bottomRight}) {
-    if (all != null) {
-      _borderRadius = BorderRadius.all(Radius.circular(all));
-    } else if (topLeft != null ||
-        topRight != null ||
-        bottomLeft != null ||
-        bottomRight != null) {
-      _borderRadius = BorderRadius.only(
-        topLeft: Radius.circular(topLeft ?? 0.0),
-        topRight: Radius.circular(topRight ?? 0.0),
-        bottomLeft: Radius.circular(bottomLeft ?? 0.0),
-        bottomRight: Radius.circular(bottomRight ?? 0.0),
-      );
-    }
+    topLeft = topLeft ?? all;
+    topRight = topRight ?? all;
+    bottomLeft = bottomLeft ?? all;
+    bottomRight = bottomRight ?? all;
+
+    _borderRadius = BorderRadius.only(
+      topLeft: Radius.circular(topLeft ?? 0.0),
+      topRight: Radius.circular(topRight ?? 0.0),
+      bottomLeft: Radius.circular(bottomLeft ?? 0.0),
+      bottomRight: Radius.circular(bottomRight ?? 0.0),
+    );
   }
 
   /// If defined while the elevation property is defined, the last one defined will be the style applied.
@@ -662,40 +718,6 @@ class StyleClass {
     // _only = only;
   }
 
-  /// Material ripple effect
-  /// ```dart
-  /// ..ripple(enable: true)
-  /// ```
-  /// Still a [beta] feature.
-  ///
-  /// /// ### Supported color formats
-  /// #### Color
-  /// Built in Color method. For example
-  /// ```dart
-  /// Color(0xFFEEEEEE) or Colors.blue
-  /// ```
-  /// #### HEX String
-  /// 6 digit hex color. Optional to use # or not
-  /// ```dart
-  /// '#eeeeee' or 'eeeeee'
-  /// ```
-  /// #### RGBA List<dynamic>
-  /// Formatted as [int, int, int, double]
-  /// ```dart
-  /// [43, 120, 32, 0.6]
-  /// ```
-  /// #### RGB List<int>
-  /// ```dart
-  /// [43, 120, 32]
-  /// ```
-  void ripple(
-      {@required bool enable, dynamic splashColor, dynamic highlightColor}) {
-    _ripple = DivisionRippleModel(
-        enable: enable,
-        splashColor: formatColor(splashColor, acceptNull: true),
-        highlightColor: formatColor(highlightColor, acceptNull: true));
-  }
-
   /// Adds a `StyleClass` to a `StyleClass`.
   /// ```dart
   /// StyleClass()..add(StyleClass..width(100));
@@ -710,6 +732,8 @@ class StyleClass {
       _padding = styleClass?.getPadding ?? _padding;
       _margin = styleClass?.getMargin ?? _margin;
       _backgroundColor = styleClass?.getBackgroundColor ?? _backgroundColor;
+      _backgroundImage = styleClass?.getBackgroundImage ?? _backgroundImage;
+      _backgroundBlur = styleClass?.getBackgroundBlur ?? _backgroundBlur;
       _gradient = styleClass?.getGradient ?? _gradient;
       _border = styleClass?.getBorder ?? _border;
       _borderRadius = styleClass?.getBorderRadius ?? _borderRadius;
@@ -725,13 +749,14 @@ class StyleClass {
       _offset = styleClass?.getOffset ?? _offset;
       _duration = styleClass?.getDuration ?? _duration;
       _curve = styleClass?.getCurve ?? _curve;
-      _ripple = styleClass?.getRipple ?? _ripple;
     } else {
       _alignment = _alignment ?? styleClass?.getAlignment;
       _alignmentChild = _alignmentChild ?? styleClass?.getAlignmentChild;
       _padding = _padding ?? styleClass?.getPadding;
       _margin = _margin ?? styleClass?.getMargin;
       _backgroundColor = _backgroundColor ?? styleClass?.getBackgroundColor;
+      _backgroundImage = styleClass?.getBackgroundImage ?? _backgroundImage;
+      _backgroundBlur = styleClass?.getBackgroundBlur ?? _backgroundBlur;
       _gradient = _gradient ?? styleClass?.getGradient;
       _border = _border ?? styleClass?.getBorder;
       _borderRadius = _borderRadius ?? styleClass?.getBorderRadius;
@@ -747,7 +772,6 @@ class StyleClass {
       _offset = _offset ?? styleClass?.getOffset;
       _duration = _duration ?? styleClass?.getDuration;
       _curve = _curve ?? styleClass?.getCurve;
-      _ripple = _ripple ?? styleClass?.getRipple;
     }
   }
 }

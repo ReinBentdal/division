@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'style_class.dart';
@@ -52,15 +54,10 @@ class Division extends StatelessWidget {
   Widget _buildContainer(Widget widgetChild) {
     Widget widgetTree = widgetChild;
 
-    if (style?.getAlignmentChild != null) {
-      widgetTree =
-          Align(alignment: style?.getAlignmentChild, child: widgetTree);
-    }
-
     widgetTree = Container(
       width: style?.getWidth,
       height: style?.getHeight,
-      // alignment: style?.getAlignmentChild,
+      alignment: style?.getAlignmentChild,
       padding: style?.getPadding,
       margin: style?.getMargin,
       constraints: BoxConstraints(
@@ -70,6 +67,7 @@ class Division extends StatelessWidget {
         minWidth: style?.getMinWidth ?? 0.0,
       ),
       decoration: BoxDecoration(
+        image: style?.getBackgroundImage,
         color: style?.getBackgroundColor,
         gradient: style?.getGradient,
         border: style?.getBorder,
@@ -78,6 +76,18 @@ class Division extends StatelessWidget {
       ),
       child: widgetTree,
     );
+
+    // background blur / frosted glass
+    if (style?.getBackgroundBlur != null) {
+      widgetTree = ClipRRect(
+          borderRadius: style?.getBorderRadius,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: style?.getBackgroundBlur,
+                sigmaY: style?.getBackgroundBlur),
+            child: widgetTree,
+          ));
+    }
 
     if (style?.getAlignment != null) {
       widgetTree = Align(
@@ -102,37 +112,11 @@ class Division extends StatelessWidget {
     return widgetTree;
   }
 
-  // TODO: Fix ripple effect
-  Widget _buildRipple(Widget widgetChild) {
-    return Stack(
-      overflow: Overflow.clip,
-      fit: StackFit.loose,
-      alignment: style?.getAlignmentChild,
-      children: <Widget>[
-        Container(
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              excludeFromSemantics: true,
-              borderRadius: style?.getBorderRadius,
-              onTap: () {},
-            ),
-          ),
-        ),
-        widgetChild,
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     // return _buildWidgetTree();
 
-    Widget widgetTree = this.child;
-
-    if (style?.getRipple?.enable == true) {
-      widgetTree = _buildRipple(widgetTree);
-    }
+    Widget widgetTree = this.child ?? Container();
 
     // style with or without animation
     if (style != null) {

@@ -103,7 +103,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 ```
 `color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
-### Background image
+#### Background image
 ```dart
 ..backgroundImage(
       {String url, 
@@ -116,7 +116,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 Eighter the [url] or the [path] has to be specified.
 [url] is for network images and [path] is for local images.
 
-### Background blur
+#### Background blur
 ```dart
 ..backgroundBlur(double blur)
 ```
