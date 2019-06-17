@@ -32,7 +32,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-          child: Division(
+      child: Division(
         style: StyleClass()..margin(vertical: 30, horizontal: 20),
         child: Column(
           children: <Widget>[
@@ -196,7 +196,6 @@ class ActionsRow extends StatelessWidget {
 }
 
 class Settings extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Division(
@@ -211,7 +210,8 @@ class Settings extends StatelessWidget {
               Icons.menu, '#FEC85C', 'General', 'Basic functional settings'),
           SettingsItem(Icons.notifications, '#5FD0D3', 'Notifications',
               'Take over the news in time'),
-          SettingsItem(Icons.question_answer, '#BFACAA', 'Support', 'We are here to help'),
+          SettingsItem(Icons.question_answer, '#BFACAA', 'Support',
+              'We are here to help'),
         ],
       ),
     );
@@ -221,7 +221,6 @@ class Settings extends StatelessWidget {
 }
 
 class SettingsItem extends StatefulWidget {
-
   final IconData icon;
   final String iconBgColor;
   final String title;
@@ -239,50 +238,47 @@ class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Division(
-      style: settingsItemStyle
-        ..elevation(pressed ? 0 : 50, color: Colors.grey)
-        ..scale(pressed ? 0.95 : 1.0),
-      gesture: GestureClass()
-        ..onTapDown((details) => setState(() => pressed = true))
-        ..onTapUp((details) => setState(() => pressed = false))
-        ..onTapCancel(() => setState(() => pressed = false))
-        ,
-      child: Row(
-        children: <Widget>[
-          Division(
-            style: StyleClass()
-              ..backgroundColor(widget.iconBgColor)
-              ..add(settingsItemIconStyle),
-            child: Icon(
-              widget.icon,
-              color: Colors.white,
-              size: 20,
+        style: settingsItemStyle
+          ..elevation(pressed ? 0 : 50, color: Colors.grey)
+          ..scale(pressed ? 0.95 : 1.0),
+        gesture: GestureClass()
+          ..onTapDown((details) => setState(() => pressed = true))
+          ..onTapUp((details) => setState(() => pressed = false))
+          ..onTapCancel(() => setState(() => pressed = false)),
+        child: Row(
+          children: <Widget>[
+            Division(
+              style: StyleClass()
+                ..backgroundColor(widget.iconBgColor)
+                ..add(settingsItemIconStyle),
+              child: Icon(
+                widget.icon,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.title,
-                style: itemTitleTextStyle,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                widget.description,
-                style: itemDescriptionTextStyle,
-              ),
-            ],
-          )
-        ],
-      )
-    );
-  
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: itemTitleTextStyle,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  widget.description,
+                  style: itemDescriptionTextStyle,
+                ),
+              ],
+            )
+          ],
+        ));
   }
 
   final StyleClass settingsItemStyle = StyleClass()

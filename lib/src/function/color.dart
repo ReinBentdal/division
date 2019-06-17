@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// Returns [Color].
-/// 
+///
 /// [r], [g] and [b] must not exceed 255
-/// 
+///
 /// ```dart
 /// ..backgroundColor(rgb(34, 29, 189));
 /// ```
@@ -12,9 +12,9 @@ Color rgb(int r, int g, int b) {
 }
 
 /// Returns [Color].
-/// 
+///
 /// [r], [g] and [b] must not exceed 255
-/// 
+///
 /// ```dart
 /// ..backgroundColor(rgba(34, 29, 189, 0.7));
 /// ```

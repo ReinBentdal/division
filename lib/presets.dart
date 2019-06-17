@@ -31,4 +31,4 @@ StyleClass frostedGlassStyle = StyleClass()
   ..align('center')
   ..borderRadius(all: 10)
   ..backgroundBlur(20)
-  ..backgroundColor(rgba(255,255,255,0.15));
+  ..backgroundColor(rgba(255, 255, 255, 0.15));

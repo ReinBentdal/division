@@ -28,8 +28,8 @@ class _FrostedWidgetState extends State<FrostedWidget> {
         Division(
           style: StyleClass()
             ..backgroundImage(
-                url: 'https://i.imgur.com/SqZ5JTv.jpg',
-                fit: BoxFit.cover,
+              url: 'https://i.imgur.com/SqZ5JTv.jpg',
+              fit: BoxFit.cover,
             ),
         ),
         Division(
@@ -43,12 +43,16 @@ class _FrostedWidgetState extends State<FrostedWidget> {
             ..borderRadius(all: pressed ? 30 : 10)
             ..animate(500, Curves.easeOut)
             ..backgroundBlur(pressed ? 0 : 20)
-            ..backgroundColor(rgba(255,255,255,0.15)),
+            ..backgroundColor(rgba(255, 255, 255, 0.15)),
           gesture: GestureClass()
             ..onTapDown((detials) => setState(() => pressed = true))
             ..onTapUp((detials) => setState(() => pressed = false))
             ..onTapCancel(() => setState(() => pressed = false)),
-          child: Text('My frosted widget', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 32),),
+          child: Text(
+            'My frosted widget',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 32),
+          ),
         ),
       ],
     );

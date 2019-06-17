@@ -197,7 +197,7 @@ class StyleClass {
   }
 
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
-  /// 
+  ///
   /// All properties work together
   /// ```dart
   /// ..padding(all: 10, bottom: 20) // gives a different padding at the bottom
@@ -223,7 +223,7 @@ class StyleClass {
   }
 
   /// Empty space to surround the [decoration] and [child].
-  /// 
+  ///
   /// All properties work together
   /// ```dart
   /// ..margin(all: 10, bottom: 20) // gives a different margin at the bottom
@@ -250,7 +250,7 @@ class StyleClass {
   }
 
   /// Blurs the background
-  /// 
+  ///
   /// Frosted glass example:
   /// ```dart
   /// ..backgroundBlur(10)
@@ -288,22 +288,28 @@ class StyleClass {
   /// Eighter the [url] or the [path] has to be specified.
   /// [url] is for network images and [path] is for local images.
   /// [path] trumps [url].
-  /// 
+  ///
   /// ```dart
   /// ..backgroundImage(
   ///   url: 'path/to/image'
   ///   fit: BoxFit.cover
   /// )
   /// ```
-  void backgroundImage({String url, String path, ColorFilter colorFilter, BoxFit fit, dynamic alignment = Alignment.center, ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if((url ?? path) == null) {
-      throw('A [url] or a [path] has to be provided');
+  void backgroundImage(
+      {String url,
+      String path,
+      ColorFilter colorFilter,
+      BoxFit fit,
+      dynamic alignment = Alignment.center,
+      ImageRepeat repeat = ImageRepeat.noRepeat}) {
+    if ((url ?? path) == null) {
+      throw ('A [url] or a [path] has to be provided');
     }
 
     alignment = formatAlignment(alignment);
 
     ImageProvider<dynamic> image;
-    
+
     if (path != null) {
       image = AssetImage(path);
     } else {
@@ -318,7 +324,6 @@ class StyleClass {
       repeat: repeat,
     );
   }
-
 
   /// ### Supported alignment formats
   /// #### Alignment
