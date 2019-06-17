@@ -3,11 +3,11 @@
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 ## Built with Division
-<!-- #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design) -->
+#### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250"><img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/frosted_glass_demo.gif" width="250">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
 
-### [Code 1](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) [Code 2](https://github.com/ReinBentdal/division/blob/master/example/example/example_2.dart)
+### [Code 1](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
 ## Getting Started
 
