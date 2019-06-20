@@ -1,4 +1,4 @@
-# 0.6.1
+## 0.6.1
 * [Fix] `ripple` and `opacity` now works with `add` method.
 * Other minor improvements and fixes
 
