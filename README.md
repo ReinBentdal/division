@@ -7,7 +7,7 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
 
-### [Code 1](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
+### [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
 ## Getting Started
 
