@@ -15,9 +15,9 @@ The `Division` widget has 3 properties. A `style` property, a `gesture` property
 
 ```dart
 Division(
-      style: StyleClass, 
-      gesture: GestureClass, 
-      child: Widget,
+  style: StyleClass, 
+  gesture: GestureClass, 
+  child: Widget,
 );
 ```
 
