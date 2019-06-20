@@ -55,7 +55,7 @@ Division(
 
 #### The result
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.png" width="300">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.jpg" width="300">
 
 
 # Style property
