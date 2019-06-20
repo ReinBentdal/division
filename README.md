@@ -40,16 +40,16 @@ import 'package:division/division.dart';
 ```dart
 Division(
   style: StyleClass()
-    ..width(200)
-    ..height(100)
-    ..backgroundColor('#eeeeee') // supports other formats
-    ..borderRadius(all: 30.0)
-    ..elevation(30)
-    ..align('center')  // supports other formats
-    ..alignChild('center'),
+    ..padding(horizontal: 30, vertical: 15)
+    ..backgroundColor('#77A6F7')
+    ..borderRadius(all: 30)
+    ..align('center')
+    ..elevation(10, color: rgb(150,150,150)),
+
   gesture: GestureClass()
-    ..onTap(() => print('Widget pressed')),
-  child: Text('Some text'),
+    ..onTap(() => print('Button pressed')),
+        
+  child: Text('Klick me', style: myTextStyle),
 )
 ```
 
