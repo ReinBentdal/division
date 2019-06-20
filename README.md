@@ -13,13 +13,20 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 The `Division` widget has 3 properties. A `style` property, a `gesture` property and a `child` property. As simple as that!
 
-`Division(style: StyleClass, gesture: GestureClass, child, Widget);`
+```dart
+Division(
+      style: StyleClass, 
+      gesture: GestureClass, 
+      child: Widget,
+);
+```
 
 Having all style gathered at one place has alot of advantages.
 For example
 * It is easy to outsource the style into variables or to a completely different place.
 * It is easy to read and understand
-* Many more
+* Easy to learn if you already know CSS
+* Much more
 
 ### Simple example
 
