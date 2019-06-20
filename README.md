@@ -66,7 +66,10 @@ Division(
 
 To add a style to the `StyleClass`, use the ..[style] syntax. The two dots is used to not return [style], but the `StyleClass`.
 
-On construction, choose to use radians or not when giving circular values. `Styleclass({bool useRadians = false})`.
+On construction, choose to use radians or not when giving circular values.
+ ```dart
+ Styleclass({bool useRadians = false})
+ ```
 
 #### Align
 ```dart
@@ -187,7 +190,7 @@ Value must not be negative.
       dynamic color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid})
 ```
-Choose between `all` or `left`, `right`, `top` and `bottom`. 
+Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
 `color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 #### Border radius
@@ -251,7 +254,7 @@ By default one turn equals the value 1.0. To change to radians: `StyleClass(useR
 ```
 Material ripple effect.
 
-The ripple effect does not work if `onTap` is defined. You may change `onTap` to `onTapDown`, `onTapUp` and `onTapCancel`.
+**`onTap` does not work if `ripple` is defined.** You may use `onTapDown`, `onTapUp` or `onTapCancel` instead.
 
 #### Animate
 ```dart

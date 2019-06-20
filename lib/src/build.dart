@@ -72,8 +72,6 @@ class DivisionBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget current = child;
 
-    // container
-
     if (child == null && (constraints == null || !constraints.isTight)) {
       current = LimitedBox(
         maxWidth: 0.0,
@@ -82,7 +80,6 @@ class DivisionBuild extends StatelessWidget {
       );
     }
 
-    // child alignment
     if (alignmentChild != null)
       current = Align(alignment: alignmentChild, child: current);
 
@@ -90,7 +87,6 @@ class DivisionBuild extends StatelessWidget {
     if (effectivePadding != null)
       current = Padding(padding: effectivePadding, child: current);
 
-    // Material ripple effect
     if (ripple != null && ripple?.enable == true) {
       current = Material(
         color: Colors.transparent,
@@ -112,7 +108,6 @@ class DivisionBuild extends StatelessWidget {
 
     if (margin != null) current = Padding(padding: margin, child: current);
 
-    // background blur
     if (backgroundBlur != null) {
       current = ClipRRect(
         borderRadius: decoration?.borderRadius,
@@ -126,11 +121,9 @@ class DivisionBuild extends StatelessWidget {
       );
     }
 
-    // widget alignment
     if (alignment != null)
       current = Align(alignment: alignment, child: current);
 
-    // transform
     if (transform != null) {
       current = Transform(
         alignment: FractionalOffset.center,
@@ -139,7 +132,6 @@ class DivisionBuild extends StatelessWidget {
       );
     }
 
-    // opacity
     if (opacity != null) current = Opacity(opacity: opacity, child: current);
 
     return current;
