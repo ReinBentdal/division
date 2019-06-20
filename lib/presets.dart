@@ -1,7 +1,7 @@
 import 'src/function/color.dart';
 import 'src/style_class.dart';
 
-// The goal of the presets is not to replicate material design,
+// The goal of the presets is to both offer material design presets and some custom
 // but to have custom good looking presets as an alternative to material design.
 
 // dummies presets. Please contribute!
