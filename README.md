@@ -5,7 +5,7 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 ## Built with Division
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design)
 
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.png" width="250">
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
 
 ### [Code 1](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
@@ -148,7 +148,7 @@ Does not work together with `..rotate()`.
 ..sweepGradient(
       {dynamic centerAlign = 'center',
       double startAngle = 0.0,
-      double endAngle,
+      double endAngle, // default to 1.0 or 2 * pi, depending on if radians is enabled or not
       @required List<dynamic> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
@@ -160,6 +160,14 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
 `color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 `alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
+
+#### Opacity
+```dart
+..opacity(double opacity)
+```
+Opacity applied on the whole widget.
+
+Value must not be negative.
 
 #### Border
 ```dart
@@ -213,7 +221,7 @@ If the `angled` property is true, the shadow will be att 45 degrees.
 
 #### Scale
 ```dart
-..scale(double scale)
+..scale(double ratio)
 ```
 Scale the widget
 
@@ -225,10 +233,16 @@ Offsets the widget
 
 #### Rotate
 ```dart
-..rotate(double rotate)
+..rotate(double angle)
 ```
 Rotates the widget.
 By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)..`.
+
+#### Ripple
+```dart
+..ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
+```
+Material ripple effect
 
 #### Animate
 ```dart

@@ -31,9 +31,12 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double verticalMargin = 30;
     return SingleChildScrollView(
       child: Division(
-        style: StyleClass()..margin(vertical: 30, horizontal: 20),
+        style: StyleClass()
+          ..margin(vertical: verticalMargin, horizontal: 20)
+          ..minHeight(MediaQuery.of(context).size.height - (2 * verticalMargin)),
         child: Column(
           children: <Widget>[
             _buildTitle('User settings'),
@@ -244,7 +247,8 @@ class _SettingsItemState extends State<SettingsItem> {
         gesture: GestureClass()
           ..onTapDown((details) => setState(() => pressed = true))
           ..onTapUp((details) => setState(() => pressed = false))
-          ..onTapCancel(() => setState(() => pressed = false)),
+          ..onTapCancel(() => setState(() => pressed = false))
+          ,
         child: Row(
           children: <Widget>[
             Division(
@@ -287,7 +291,9 @@ class _SettingsItemState extends State<SettingsItem> {
     ..margin(vertical: 10)
     ..borderRadius(all: 15)
     ..backgroundColor('#ffffff')
-    ..animate(300, Curves.easeOut);
+    ..ripple(true)
+    ..animate(300, Curves.easeOut)
+    ;
 
   final StyleClass settingsItemIconStyle = StyleClass()
     ..margin(left: 15)

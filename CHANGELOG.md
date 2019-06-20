@@ -1,3 +1,9 @@
+## 0.6.0
+* Added `ripple` method to `StyleClass`.
+* Added `opacity` method to `StyleClass`.
+* Major rewrite of widget builder. Improved performance.
+
+
 ## 0.5.0
 * Added `backgroundBlur` method to the `StyleClass`.
 * Added `backgroundImage` method to `StyleClass`.

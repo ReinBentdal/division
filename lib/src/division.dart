@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'style_class.dart';
 import 'gesture_class.dart';
-import 'custom_animated_container.dart';
+import 'build.dart';
+import 'animate.dart';
 
 class Division extends StatelessWidget {
   final Widget child;
@@ -51,82 +50,46 @@ class Division extends StatelessWidget {
     );
   }
 
-  Widget _buildContainer(Widget widgetChild) {
-    Widget widgetTree = widgetChild;
-
-    widgetTree = Container(
-      width: style?.getWidth,
-      height: style?.getHeight,
-      alignment: style?.getAlignmentChild,
-      padding: style?.getPadding,
-      margin: style?.getMargin,
-      constraints: BoxConstraints(
-        maxHeight: style?.getMaxHeight ?? double.infinity,
-        minHeight: style?.getMinHeight ?? 0.0,
-        maxWidth: style?.getMaxWidth ?? double.infinity,
-        minWidth: style?.getMinWidth ?? 0.0,
-      ),
-      decoration: BoxDecoration(
-        image: style?.getBackgroundImage,
-        color: style?.getBackgroundColor,
-        gradient: style?.getGradient,
-        border: style?.getBorder,
-        borderRadius: style?.getBorderRadius,
-        boxShadow: style?.getBoxShadow,
-      ),
-      child: widgetTree,
-    );
-
-    // background blur / frosted glass
-    if (style?.getBackgroundBlur != null) {
-      widgetTree = ClipRRect(
-          borderRadius: style?.getBorderRadius,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-                sigmaX: style?.getBackgroundBlur,
-                sigmaY: style?.getBackgroundBlur),
-            child: widgetTree,
-          ));
-    }
-
-    if (style?.getAlignment != null) {
-      widgetTree = Align(
-        alignment: style?.getAlignment ?? Alignment.centerLeft,
-        child: widgetTree,
-      );
-    }
-
-    if ((style?.getScale ?? style?.getRotate ?? style?.getOffset) != null) {
-      widgetTree = Transform(
-        alignment: FractionalOffset.center,
-        transform: Matrix4.rotationZ(style?.getRotate ?? 0.0)
-          ..scale(style?.getScale ?? 1.0)
-          ..translate(
-            style?.getOffset?.dx ?? 0.0,
-            style?.getOffset?.dy ?? 0.0,
-          ),
-        child: widgetTree,
-      );
-    }
-
-    return widgetTree;
-  }
-
   @override
   Widget build(BuildContext context) {
-    // return _buildWidgetTree();
-
     Widget widgetTree = this.child ?? Container();
 
-    // style with or without animation
-    if (style != null) {
-      if (style?.getDuration != null) {
-        // widgetTree = _buildAnimatedContainer(widgetTree);
-        widgetTree =
-            CustomAnimatedContainer(style: this.style, child: widgetTree);
-      } else {
-        widgetTree = _buildContainer(widgetTree);
-      }
+    if (style?.getDuration != null) {
+      //animated
+      widgetTree = DivisionAnimate(
+        alignmentChild: style?.getAlignmentChild,
+        alignment: style?.getAlignment,
+        padding: style?.getPadding,
+        decoration: style?.getBoxDecoration,
+        width: style?.getWidth,
+        height: style?.getHeight,
+        constraints: style?.getBoxConstraints,
+        margin: style?.getMargin,
+        transform: style?.getTransform,
+        backgroundBlur: style?.getBackgroundBlur,
+        opacity: style?.getOpacity,
+        ripple: style?.getRipple,
+        curve: style?.getCurve,
+        duration: style?.getDuration,
+        child: widgetTree,
+      );
+    } else {
+      // static
+      widgetTree = DivisionBuild(
+        alignmentChild: style?.getAlignmentChild,
+        alignment: style?.getAlignment,
+        padding: style?.getPadding,
+        decoration: style?.getBoxDecoration,
+        width: style?.getWidth,
+        height: style?.getHeight,
+        constraints: style?.getBoxConstraints,
+        margin: style?.getMargin,
+        transform: style?.getTransform,
+        backgroundBlur: style?.getBackgroundBlur,
+        opacity: style?.getOpacity,
+        ripple: style?.getRipple,
+        child: widgetTree,
+      );
     }
 
     if (gesture != null) {

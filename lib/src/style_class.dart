@@ -1,7 +1,9 @@
-import 'format/format_alignment.dart';
-import 'format/format_color.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'format/format_alignment.dart';
+import 'format/format_color.dart';
+import 'model/ripple.dart';
 
 /// Holds all the styling for the `Division` widget
 ///
@@ -57,15 +59,14 @@ class StyleClass {
   double _rotate;
   Offset _offset;
 
+  double _opacity;
+  RippleModel _ripple;
+
   //Animation duration in milliseconds
-  int _duration;
+  Duration _duration;
 
   //animation curve
   Curve _curve;
-
-  //The only styleproperties to be animated. If null all properties will be animated
-  // TODO: implement _only functionality
-  // StyleClass _only;
 
   /// used to get the final style property
   AlignmentGeometry get getAlignment => _alignment;
@@ -128,10 +129,60 @@ class StyleClass {
   Offset get getOffset => _offset;
 
   /// used to get the final style property
-  int get getDuration => _duration;
+  Duration get getDuration => _duration;
 
   /// used to get the final style property
   Curve get getCurve => _curve;
+
+  /// used to get the final style property
+  double get getOpacity => _opacity;
+
+  /// used to get the final style property
+  RippleModel get getRipple => _ripple;
+
+  BoxDecoration get getBoxDecoration {
+    if ((_backgroundColor ??
+            _backgroundImage ??
+            _gradient ??
+            _border ??
+            _borderRadius ??
+            _boxShadow) !=
+        null) {
+      return BoxDecoration(
+        color: _backgroundColor,
+        image: _backgroundImage,
+        gradient: _gradient,
+        border: _border,
+        borderRadius: _borderRadius,
+        boxShadow: _boxShadow,
+      );
+    }
+    return null;
+  }
+
+  BoxConstraints get getBoxConstraints {
+    if ((_minHeight ?? _maxHeight ?? _minWidth ?? _maxWidth) != null) {
+      return BoxConstraints(
+        minHeight: _minHeight ?? 0.0,
+        maxHeight: _maxHeight ?? double.infinity,
+        minWidth: _minWidth ?? 0.0,
+        maxWidth: _maxWidth ?? double.infinity,
+      );
+    }
+    return null;
+  }
+
+  Matrix4 get getTransform {
+    if ((_scale ?? _rotate ?? _offset) != null) {
+      return Matrix4.rotationZ(_rotate ?? 0.0)
+        ..scale(_scale ?? 1.0)
+        ..translate(
+          _offset?.dx ?? 0.0,
+          _offset?.dy ?? 0.0,
+        );
+    }
+    return null;
+  }
 
   /// used to get the final style property
   // StyleClass get getOnly => _only;
@@ -634,50 +685,52 @@ class StyleClass {
   /// StyleClass()..width(100.0);
   /// ```
   void width(double width) {
-    _width = width ?? _width;
+    _width = width;
   }
 
   /// ```dart
   /// StyleClass()..minWidth(10.0);
   /// ```
   void minWidth(double minWidth) {
-    _minWidth = minWidth ?? _minWidth;
+    _minWidth = minWidth;
   }
 
   /// ```dart
   /// StyleClass()..maxWidth(500.0);
   /// ```
   void maxWidth(double maxWidth) {
-    _maxWidth = maxWidth ?? _maxWidth;
+    _maxWidth = maxWidth;
   }
 
   /// ```dart
   /// StyleClass()..height(100.0);
   /// ```
   void height(double height) {
-    _height = height ?? _height;
+    _height = height;
   }
 
   /// ```dart
   /// StyleClass()..minHeight(10.0);
   /// ```
   void minHeight(double minHeight) {
-    _minHeight = minHeight ?? _minHeight;
+    _minHeight = minHeight;
   }
 
   /// ```dart
   /// StyleClass()..maxHeight(500.0);
   /// ```
   void maxHeight(double maxHeight) {
-    _maxHeight = maxHeight ?? _maxHeight;
+    _maxHeight = maxHeight;
   }
 
+  /// Must not be negative.
+  /// 1 corresponds to normal size. 2 corresponds to double the size.
   /// ```dart
   /// StyleClass()..scale(0.7);
   /// ```
-  void scale(double scale) {
-    // Scales the object. 1 is normal scale. 2 is double. 0 is null
-    _scale = scale ?? _scale;
+  void scale(double ratio) {
+    if (ratio < 0) throw ('The widget scale cannot be negative: $ratio');
+    _scale = ratio;
   }
 
   /// Offsetts the widget.
@@ -697,28 +750,63 @@ class StyleClass {
   /// ```
   ///
   /// Choose between using radians or not.
-  void rotate(double rotate) {
+  void rotate(double angle) {
     if (useRadians == true) {
-      _rotate = rotate;
+      _rotate = angle;
     } else {
-      _rotate = rotate * pi * 2;
+      _rotate = angle * pi * 2;
     }
+  }
+
+  /// Opacity applied to the whole widget
+  ///
+  /// Can not be higher than 1.0 or lower than 0.0
+  ///
+  /// ```dart
+  /// StyleClass()..opacity(0.7);
+  /// ```
+  void opacity(double opacity) {
+    if (opacity < 0.0 || opacity > 1.0)
+      throw ('Invalid opacity value: $opacity');
+
+    _opacity = opacity;
+  }
+
+  /// Material ripple effect
+  ///
+  /// ```dart
+  /// StyleClass()..ripple(true);
+  /// ```
+  void ripple(bool enable, {dynamic splashColor, dynamic highlightColor}) {
+    _ripple = RippleModel(
+      enable: enable,
+      splashColor: splashColor != null ? formatColor(splashColor) : null,
+      highlightColor:
+          highlightColor != null ? formatColor(highlightColor) : null,
+    );
   }
 
   /// `Duration` is given in milliseconds.
   ///
-  /// Currenty does not support align, scale, rotate and offset
-  ///
   /// ```dart
   /// StyleClass()..animate(400, Curves.easeInOut);
   /// ```
+  ///
+  /// **Adding a delay to your animation**
+  /// ```
+  /// ..onTapDown((details) {
+  ///   // change styling without a delay
+  ///   thisStyle..backgroundColor(rgb(255,255,0));
+  ///
+  ///   // Trigger the setState with a delay
+  ///   Future.delayed(Duration(milliseconds: 500)).then((value) => setState(() {}));
+  /// })
+  /// ```
   void animate([int duration = 500, Curve curve = Curves.linear]) {
-    // TODO: animate delay
-
     if (duration < 0) {
       throw ('Duration cannot be negative');
     }
-    _duration = duration;
+    _duration = Duration(milliseconds: duration);
     _curve = curve;
     // _only = only;
   }
