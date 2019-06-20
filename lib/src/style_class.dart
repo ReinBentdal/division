@@ -777,6 +777,9 @@ class StyleClass {
   /// ```dart
   /// StyleClass()..ripple(true);
   /// ```
+  /// 
+  /// The ripple effect does not work if `onTap` is defined. 
+  /// `onTap` can be replaced with `onTapDown`, `onTapUp` and `onTapCancel`.
   void ripple(bool enable, {dynamic splashColor, dynamic highlightColor}) {
     _ripple = RippleModel(
       enable: enable,

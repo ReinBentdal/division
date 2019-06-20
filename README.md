@@ -249,7 +249,9 @@ By default one turn equals the value 1.0. To change to radians: `StyleClass(useR
 ```dart
 ..ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
 ```
-Material ripple effect
+Material ripple effect.
+
+The ripple effect does not work if `onTap` is defined. You may change `onTap` to `onTapDown`, `onTapUp` and `onTapCancel`.
 
 #### Animate
 ```dart

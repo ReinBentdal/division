@@ -36,7 +36,8 @@ class UserPage extends StatelessWidget {
       child: Division(
         style: StyleClass()
           ..margin(vertical: verticalMargin, horizontal: 20)
-          ..minHeight(MediaQuery.of(context).size.height - (2 * verticalMargin)),
+          ..minHeight(
+              MediaQuery.of(context).size.height - (2 * verticalMargin)),
         child: Column(
           children: <Widget>[
             _buildTitle('User settings'),
@@ -247,8 +248,7 @@ class _SettingsItemState extends State<SettingsItem> {
         gesture: GestureClass()
           ..onTapDown((details) => setState(() => pressed = true))
           ..onTapUp((details) => setState(() => pressed = false))
-          ..onTapCancel(() => setState(() => pressed = false))
-          ,
+          ..onTapCancel(() => setState(() => pressed = false)),
         child: Row(
           children: <Widget>[
             Division(
@@ -292,8 +292,7 @@ class _SettingsItemState extends State<SettingsItem> {
     ..borderRadius(all: 15)
     ..backgroundColor('#ffffff')
     ..ripple(true)
-    ..animate(300, Curves.easeOut)
-    ;
+    ..animate(300, Curves.easeOut);
 
   final StyleClass settingsItemIconStyle = StyleClass()
     ..margin(left: 15)

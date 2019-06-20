@@ -82,6 +82,15 @@ class DivisionBuild extends StatelessWidget {
       );
     }
 
+    // child alignment
+    if (alignmentChild != null)
+      current = Align(alignment: alignmentChild, child: current);
+
+    final EdgeInsetsGeometry effectivePadding = _paddingIncludingDecoration;
+    if (effectivePadding != null)
+      current = Padding(padding: effectivePadding, child: current);
+
+    // Material ripple effect
     if (ripple != null && ripple?.enable == true) {
       current = Material(
         color: Colors.transparent,
@@ -94,14 +103,6 @@ class DivisionBuild extends StatelessWidget {
         ),
       );
     }
-
-    // child alignment
-    if (alignmentChild != null)
-      current = Align(alignment: alignmentChild, child: current);
-
-    final EdgeInsetsGeometry effectivePadding = _paddingIncludingDecoration;
-    if (effectivePadding != null)
-      current = Padding(padding: effectivePadding, child: current);
 
     if (decoration != null)
       current = DecoratedBox(decoration: decoration, child: current);
