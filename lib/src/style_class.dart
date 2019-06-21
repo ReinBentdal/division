@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'format/format_alignment.dart';
 import 'format/format_color.dart';
+import 'format/format_overflow.dart';
 import 'model/ripple.dart';
-
-//TODO: overflow method
+import 'model/overflow.dart';
 
 /// Responsibe for all the styling for the `Division` widget
 ///
@@ -58,6 +58,7 @@ class StyleClass {
 
   double _opacity;
   RippleModel _ripple;
+  OverflowModel _overflow;
 
   Duration _duration;
   Curve _curve;
@@ -86,6 +87,7 @@ class StyleClass {
   Curve get getCurve => _curve;
   double get getOpacity => _opacity;
   RippleModel get getRipple => _ripple;
+  OverflowModel get getOverflow => _overflow;
 
   BoxDecoration get getBoxDecoration {
     if ((_backgroundColor ??
@@ -547,20 +549,30 @@ class StyleClass {
 
   /// Elevates the widget with a boxShadow.
   ///
+  /// [angle] parameter takes a circular value.
+  /// Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
+  /// If [angle] equals [null] the shadow will be directly under the widget.
+  /// ```dart
+  /// StyleClass..elevation(30.0, color: '#f5f5f5', angle: 0.0)
+  /// ```
+  ///
   /// If the elevation property is used at the same time as the boxShadow property, the last one
   /// defined will be the one applied.
-  /// If the `angled` property is true, the shadow will be att 45 degrees.
-  /// ```dart
-  /// StyleClass..elevation(30.0, '#f5f5f5')
-  /// ```
   void elevation(double elevation,
-      {bool angled = false, dynamic color = const Color(0x33000000)}) {
-    //TODO: angle in value
+      {double angle = 0.0, dynamic color = const Color(0x33000000)}) {
     if (elevation < 0)
       throw ('Elevation cant be negative. Recieved a value of $elevation');
 
-    final double offsetX = angled ? elevation : 0.0;
-    final double offsetY = elevation;
+    double offsetX = 0.0;
+    double offsetY = 0.0;
+
+    if (angle != null) {
+      if (useRadians == false) angle = 2 * pi * angle;
+
+      offsetX = sin(angle) * elevation;
+      offsetY = cos(angle) * elevation;
+    }
+
     final double spread = 0.0;
     final double blur = elevation;
 
@@ -644,6 +656,32 @@ class StyleClass {
       splashColor: splashColor != null ? formatColor(splashColor) : null,
       highlightColor:
           highlightColor != null ? formatColor(highlightColor) : null,
+    );
+  }
+
+  /// Change child overflow behaviour.
+  ///
+  /// #### Overflow visible
+  /// ```dart
+  /// ..overflow('visible', direction: Axis.vertical)
+  /// ```
+  /// The child will grow outside of the parent.
+  ///
+  /// Specify the overflow direction with the [direction] parameter.
+  /// #### Overflow hidden
+  /// ```dart
+  /// ..overflow('hidden')
+  /// ```
+  /// The child will be clipped to fit in the parent.
+  /// #### Overflow scroll
+  /// ```dart
+  /// ..overflow('scroll', direction: Axis.vertical)
+  /// ```
+  /// The child will become scrollable if it gets bigger than its parent.
+  void overflow(String overflow, {Axis direction = Axis.vertical}) {
+    _overflow = OverflowModel(
+      overflow: formatOverflow(overflow),
+      direction: direction,
     );
   }
 

@@ -52,7 +52,7 @@ class Division extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget widgetTree = this.child ?? Container();
+    Widget widgetTree = this.child;
 
     if (style?.getDuration != null) {
       //animated
@@ -69,6 +69,7 @@ class Division extends StatelessWidget {
         backgroundBlur: style?.getBackgroundBlur,
         opacity: style?.getOpacity,
         ripple: style?.getRipple,
+        overflow: style?.getOverflow,
         curve: style?.getCurve,
         duration: style?.getDuration,
         child: widgetTree,
@@ -88,13 +89,12 @@ class Division extends StatelessWidget {
         backgroundBlur: style?.getBackgroundBlur,
         opacity: style?.getOpacity,
         ripple: style?.getRipple,
+        overflow: style?.getOverflow,
         child: widgetTree,
       );
     }
 
-    if (gesture != null) {
-      widgetTree = _buildGestureDetector(widgetTree);
-    }
+    if (gesture != null) widgetTree = _buildGestureDetector(widgetTree);
 
     return widgetTree;
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'build.dart';
 import 'model/ripple.dart';
+import 'model/overflow.dart';
 
 class DivisionAnimate extends ImplicitlyAnimatedWidget {
   DivisionAnimate({
@@ -17,6 +18,7 @@ class DivisionAnimate extends ImplicitlyAnimatedWidget {
     this.backgroundBlur,
     this.opacity,
     this.ripple,
+    this.overflow,
     Curve curve,
     Duration duration,
     this.child,
@@ -51,6 +53,8 @@ class DivisionAnimate extends ImplicitlyAnimatedWidget {
   final double opacity;
 
   final RippleModel ripple;
+
+  final OverflowModel overflow;
 
   @override
   _DivisionAnimateState createState() => _DivisionAnimateState();
@@ -102,6 +106,7 @@ class _DivisionAnimateState extends AnimatedWidgetBaseState<DivisionAnimate> {
       backgroundBlur: _blur?.evaluate(animation),
       opacity: _opacity?.evaluate(animation),
       ripple: widget.ripple,
+      overflow: widget.overflow,
       child: widget.child,
     );
   }

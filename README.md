@@ -75,12 +75,16 @@ On construction, choose to use radians or not when giving circular values.
 ```dart
 ..align(dynamic alignment)
 ```
+Alignment of the widget itself, not the child.
+
 `alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Align child
 ```dart
 ..alignChild(dynamic alignment)
 ```
+Alignment of the child.
+
 `alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Padding
@@ -220,14 +224,17 @@ If defined while the elevation property is defined, the last one defined will be
 ```dart
 ..elevation(
       double elevation,
-      {bool angled = false,
+      {double angle = 0.0,
       dynamic color = const Color(0x33000000)})
 ```
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
 defined will be the applied style.
+
 `color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
-If the `angled` property is true, the shadow will be att 45 degrees.
+
+`angle` parameter takes a circular value. Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
+If `angle` equals [null] the shadow will be directly under the widget.
 
 #### Scale
 ```dart
@@ -255,6 +262,16 @@ By default one turn equals the value 1.0. To change to radians: `StyleClass(useR
 Material ripple effect.
 
 **`onTap` does not work if `ripple` is defined.** You may use `onTapDown`, `onTapUp` or `onTapCancel` instead.
+
+#### Overflow
+```dart
+..overflow(
+      String overflow, 
+      {Axis direction = Axis.vertical})
+```
+Change child overflow behaviour.
+Overflow values: 'scroll', 'hidden' and 'visible'.
+Choose the overflow direction with the [direction] parameter.
 
 #### Animate
 ```dart

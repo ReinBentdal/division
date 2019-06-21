@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'model/ripple.dart';
+import 'model/overflow.dart';
 
 class DivisionBuild extends StatelessWidget {
   /// Creates a widget that combines common painting, positioning, and sizing widgets.
@@ -28,6 +29,7 @@ class DivisionBuild extends StatelessWidget {
     this.backgroundBlur,
     this.opacity,
     this.ripple,
+    this.overflow,
     this.child,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
@@ -61,6 +63,8 @@ class DivisionBuild extends StatelessWidget {
 
   final RippleModel ripple;
 
+  final OverflowModel overflow;
+
   EdgeInsetsGeometry get _paddingIncludingDecoration {
     if (decoration == null || decoration.padding == null) return padding;
     final EdgeInsetsGeometry decorationPadding = decoration.padding;
@@ -87,12 +91,26 @@ class DivisionBuild extends StatelessWidget {
     if (effectivePadding != null)
       current = Padding(padding: effectivePadding, child: current);
 
+    if (overflow?.overflow == OverflowType.scroll)
+      current = SingleChildScrollView(
+          child: current, scrollDirection: overflow.direction);
+    else if (overflow?.overflow == OverflowType.hidden)
+      current = ClipRect(child: current);
+    else if (overflow?.overflow == OverflowType.visible)
+      current = OverflowBox(
+          child: current,
+          maxHeight:
+              overflow?.direction == Axis.vertical ? double.infinity : null,
+          maxWidth:
+              overflow?.direction == Axis.horizontal ? double.infinity : null,
+          alignment: alignmentChild ?? Alignment.topCenter);
+
     if (ripple != null && ripple?.enable == true) {
       current = Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () {},
-          borderRadius: decoration?.borderRadius,
+          borderRadius: decoration.borderRadius,
           highlightColor: ripple?.highlightColor,
           splashColor: ripple?.splashColor,
           child: current,
