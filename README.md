@@ -270,7 +270,7 @@ Material ripple effect.
       {Axis direction = Axis.vertical})
 ```
 Change child overflow behaviour.
-Overflow values: 'scroll', 'hidden' and 'visible'.
+Compatible overflow values: `scroll`, `hidden` and `visible`. See documentation for a full overview on how they behave.
 Choose the overflow direction with the [direction] parameter.
 
 #### Animate
