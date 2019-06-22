@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'style_class.dart';
-import 'gesture_class.dart';
+import 'class/style_class.dart';
+import 'class/gesture_class.dart';
 import 'build.dart';
 import 'animate.dart';
 

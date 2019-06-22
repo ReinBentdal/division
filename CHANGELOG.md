@@ -1,3 +1,6 @@
+## 0.6.3
+* Added support for singledotted chained methods for both the `StyleClass` and the `GestureClass`. `..overflow('scroll')` -> `.overflow('scroll')`.
+
 ## 0.6.2
 * Added `overflow` method to `StyleClass`.
 * [Breaking] `angled` property inside the `elevation` method is renamed to `angle` and is now given in a circular value. 0.0 equals down. [null] equals directly under the widget.

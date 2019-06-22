@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'format/format_alignment.dart';
-import 'format/format_color.dart';
-import 'format/format_overflow.dart';
-import 'model/ripple.dart';
-import 'model/overflow.dart';
+import '../format/format_alignment.dart';
+import '../format/format_color.dart';
+import '../format/format_overflow.dart';
+import '../model/ripple.dart';
+import '../model/overflow.dart';
 
 /// Responsibe for all the styling for the `Division` widget
 ///
 /// Choose to calculate angles with radians or not through [useRadians] parameter. 0.0 - 1.0 or 0.0 - 2 * pi
-/// Applies to the style properties which by default in flutter uses radians, like ..rotate() and ..sweepGradient()
+/// Applies to the style properties which by default in flutter uses radians, like .rotate() and .sweepGradient()
 ///
 /// ```dart
 /// Division(
 ///   style: StyleClass(useRadians = false)
-///     ..width(100)
-///     ..height(150)
-///     ..borderRadius(all: 30.0)
-///     ..backgroundColor('#eeeeee'),
+///     .width(100)
+///     .height(150)
+///     .borderRadius(all: 30.0)
+///     .backgroundColor('#eeeeee'),
 ///   gesture: GestureClass()
-///     ..onTap(() => print('Widget pressed!'))
-///     ..onLongPress(() => print('Widget pressed long!)),
+///     .onTap(() => print('Widget pressed!'))
+///     .onLongPress(() => print('Widget pressed long!)),
 ///   child: Text('Some text),
 /// )
 /// ```
@@ -156,7 +156,10 @@ class StyleClass {
   /// ```dart
   /// double align
   /// ```
-  void align(dynamic alignment) => _alignment = formatAlignment(alignment);
+  StyleClass align(dynamic alignment) { 
+    _alignment = formatAlignment(alignment);
+    return this;  
+  }
 
   /// Alignment of the widget.
   ///
@@ -181,16 +184,18 @@ class StyleClass {
   /// ```dart
   /// double align
   /// ```
-  void alignChild(dynamic alignment) =>
-      _alignmentChild = formatAlignment(alignment);
-
+  StyleClass alignChild(dynamic alignment) {
+    _alignmentChild = formatAlignment(alignment);
+    return this;
+  }
+     
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
   /// All properties work together
   /// ```dart
-  /// ..padding(all: 10, bottom: 20) // gives a different padding at the bottom
+  /// .padding(all: 10, bottom: 20) // gives a different padding at the bottom
   /// ```
-  void padding(
+  StyleClass padding(
       {double all,
       double horizontal,
       double vertical,
@@ -208,15 +213,16 @@ class StyleClass {
         bottom: bottom ?? 0.0,
         left: left ?? 0.0,
         right: right ?? 0.0);
+    return this;
   }
 
   /// Empty space to surround the [decoration] and [child].
   ///
   /// All properties work together
   /// ```dart
-  /// ..margin(all: 10, bottom: 20) // gives a different margin at the bottom
+  /// .margin(all: 10, bottom: 20) // gives a different margin at the bottom
   /// ```
-  void margin(
+  StyleClass margin(
       {double all,
       double horizontal,
       double vertical,
@@ -235,17 +241,21 @@ class StyleClass {
       left: left ?? 0.0,
       right: right ?? 0.0,
     );
+    return this;
   }
 
   /// Blurs the background
   ///
   /// Frosted glass example:
   /// ```dart
-  /// ..backgroundBlur(10)
-  /// ..backgroundColor(rgba(255,255,255,0.15))
+  /// .backgroundBlur(10)
+  /// .backgroundColor(rgba(255,255,255,0.15))
   /// ```
   /// Does not work together with `..rotate()`.
-  void backgroundBlur(double blur) => _backgroundBlur = blur;
+  StyleClass backgroundBlur(double blur) {
+    _backgroundBlur = blur;
+    return this;
+  }
 
   /// ### Supported color formats
   /// #### Color
@@ -266,19 +276,22 @@ class StyleClass {
   /// ```dart
   /// rgb(43, 120, 32])
   /// ```
-  void backgroundColor(dynamic color) => _backgroundColor = formatColor(color);
+  StyleClass backgroundColor(dynamic color) {
+    _backgroundColor = formatColor(color);
+    return this;
+  }
 
   /// Eighter the [url] or the [path] has to be specified.
   /// [url] is for network images and [path] is for local images.
   /// [path] trumps [url].
   ///
   /// ```dart
-  /// ..backgroundImage(
+  /// .backgroundImage(
   ///   url: 'path/to/image'
   ///   fit: BoxFit.cover
   /// )
   /// ```
-  void backgroundImage(
+  StyleClass backgroundImage(
       {String url,
       String path,
       ColorFilter colorFilter,
@@ -303,6 +316,7 @@ class StyleClass {
       alignment: formattedAlignment,
       repeat: repeat,
     );
+    return this;
   }
 
   /// ### Supported alignment formats
@@ -326,7 +340,7 @@ class StyleClass {
   /// ```dart
   /// double align
   /// ```
-  void linearGradient(
+  StyleClass linearGradient(
       {dynamic beginAlign = 'left',
       dynamic endAlign = 'right',
       @required List<dynamic> colors,
@@ -345,6 +359,7 @@ class StyleClass {
         colors: finalColors,
         tileMode: tileMode,
         stops: stops);
+    return this;
   }
 
   /// ### Supported alignment formats
@@ -368,7 +383,7 @@ class StyleClass {
   /// ```dart
   /// double align
   /// ```
-  void radialGradient(
+  StyleClass radialGradient(
       {dynamic centerAlign = 'center',
       double radius = 0.5,
       @required List<dynamic> colors,
@@ -387,6 +402,7 @@ class StyleClass {
       tileMode: tileMode,
       stops: stops,
     );
+    return this;
   }
 
   /// Choose to calculate angles with radians or not through [useRadians] parameter.
@@ -413,7 +429,7 @@ class StyleClass {
   /// ```dart
   /// double align
   /// ```
-  void sweepGradient(
+  StyleClass sweepGradient(
       {dynamic centerAlign = 'center',
       double startAngle = 0.0,
       double endAngle,
@@ -444,15 +460,16 @@ class StyleClass {
       stops: stops,
       tileMode: tileMode,
     );
+    return this;
   }
 
   /// Border for the widget
   /// ```dart
-  /// ..border(all: 3.0, color: '#55ffff', style: BorderStyle.solid)
+  /// .border(all: 3.0, color: '#55ffff', style: BorderStyle.solid)
   /// ```
   /// If `all` is declared, `left`, `right`, `top`, and `bottom` will have no effect. These parameters define the width.
   /// `style` define the border style.
-  void border(
+  StyleClass border(
       {double all,
       double left,
       double right,
@@ -481,10 +498,11 @@ class StyleClass {
           ? BorderSide.none
           : BorderSide(color: finalColor, width: bottom, style: style),
     );
+    return this;
   }
 
   /// It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
-  void borderRadius(
+  StyleClass borderRadius(
       {double all,
       double topLeft,
       double topRight,
@@ -501,6 +519,7 @@ class StyleClass {
       bottomLeft: Radius.circular(bottomLeft ?? 0.0),
       bottomRight: Radius.circular(bottomRight ?? 0.0),
     );
+    return this;
   }
 
   /// If defined while the elevation method is defined, the last one defined will be the one applied.
@@ -523,7 +542,7 @@ class StyleClass {
   /// ```dart
   /// rgb(43, 120, 32])
   /// ```
-  void boxShadow(
+  StyleClass boxShadow(
       {dynamic color = const Color(0x33000000),
       double blur,
       List<double> offset,
@@ -545,6 +564,7 @@ class StyleClass {
         offset: finalOffset ?? Offset(0.0, 0.0),
       ),
     ];
+    return this;
   }
 
   /// Elevates the widget with a boxShadow.
@@ -553,12 +573,12 @@ class StyleClass {
   /// Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
   /// If [angle] equals [null] the shadow will be directly under the widget.
   /// ```dart
-  /// StyleClass..elevation(30.0, color: '#f5f5f5', angle: 0.0)
+  /// StyleClass.elevation(30.0, color: '#f5f5f5', angle: 0.0)
   /// ```
   ///
   /// If the elevation property is used at the same time as the boxShadow property, the last one
   /// defined will be the one applied.
-  void elevation(double elevation,
+  StyleClass elevation(double elevation,
       {double angle = 0.0, dynamic color = const Color(0x33000000)}) {
     if (elevation < 0)
       throw ('Elevation cant be negative. Recieved a value of $elevation');
@@ -590,44 +610,47 @@ class StyleClass {
           spreadRadius: spread,
           offset: Offset(offsetX, offsetY))
     ];
+    return this;
   }
 
-  void width(double width) => _width = width;
-  void minWidth(double minWidth) => _minWidth = minWidth;
-  void maxWidth(double maxWidth) => _maxWidth = maxWidth;
-  void height(double height) => _height = height;
-  void minHeight(double minHeight) => _minHeight = minHeight;
-  void maxHeight(double maxHeight) => _maxHeight = maxHeight;
+  StyleClass width(double width) {_width = width; return this;} 
+  StyleClass minWidth(double minWidth) {_minWidth = minWidth; return this;}
+  StyleClass maxWidth(double maxWidth) {_maxWidth = maxWidth; return this;}
+  StyleClass height(double height) {_height = height; return this;}
+  StyleClass minHeight(double minHeight) {_minHeight = minHeight; return this;}
+  StyleClass maxHeight(double maxHeight) {_maxHeight = maxHeight; return this;}
 
   /// Must not be negative.
   /// 1 corresponds to normal size. 2 corresponds to double the size.
   /// ```dart
-  /// StyleClass()..scale(0.7);
+  /// StyleClass().scale(0.7);
   /// ```
-  void scale(double ratio) {
+  StyleClass scale(double ratio) {
     if (ratio < 0) throw ('The widget scale cannot be negative: $ratio');
     _scale = ratio;
+    return this;
   }
 
   /// Offsetts the widget.
   /// ```dart
-  /// StyleClass()..offset(10.0, 5.0);
+  /// StyleClass().offset(10.0, 5.0);
   /// ```
-  void offset(double dx, double dy) => _offset = Offset(dx, dy);
+  StyleClass offset(double dx, double dy) {_offset = Offset(dx, dy); return this;}
 
   /// Widget rotation
   /// ```dart
-  /// StyleClass(userRadians = false)..rotate(0.75);
+  /// StyleClass(userRadians = false).rotate(0.75);
   ///
-  /// StyleClass(useRadians = true)..rotate(0.75 * pi * 2)
+  /// StyleClass(useRadians = true).rotate(0.75 * pi * 2)
   /// ```
   /// Choose to calculate angles with radians or not through [useRadians] `StyleClass` parameter. 0.0 - 1.0 or 0.0 - 2 * pi
-  void rotate(double angle) {
+  StyleClass rotate(double angle) {
     if (useRadians == true) {
       _rotate = angle;
     } else {
       _rotate = angle * pi * 2;
     }
+    return this;
   }
 
   /// Opacity applied to the whole widget
@@ -635,86 +658,91 @@ class StyleClass {
   /// Can not be higher than 1.0 or lower than 0.0
   ///
   /// ```dart
-  /// StyleClass()..opacity(0.7);
+  /// StyleClass().opacity(0.7);
   /// ```
-  void opacity(double opacity) {
+  StyleClass opacity(double opacity) {
     if (opacity < 0.0 || opacity > 1.0)
       throw ('Invalid opacity value: $opacity');
 
     _opacity = opacity;
+    return this;
   }
 
   /// Material ripple effect
   /// ```dart
-  /// StyleClass()..ripple(true);
+  /// StyleClass().ripple(true);
   /// ```
   /// **`onTap` does not work if `ripple` is defined.**
   /// You may use `onTapDown`, `onTapUp` or `onTapCancel` instead.
-  void ripple(bool enable, {dynamic splashColor, dynamic highlightColor}) {
+  StyleClass ripple(bool enable, {dynamic splashColor, dynamic highlightColor}) {
     _ripple = RippleModel(
       enable: enable,
       splashColor: splashColor != null ? formatColor(splashColor) : null,
       highlightColor:
           highlightColor != null ? formatColor(highlightColor) : null,
     );
+    return this;
   }
 
   /// Change child overflow behaviour.
   ///
   /// #### Overflow visible
   /// ```dart
-  /// ..overflow('visible', direction: Axis.vertical)
+  /// .overflow('visible', direction: Axis.vertical)
   /// ```
   /// The child will grow outside of the parent.
   ///
   /// Specify the overflow direction with the [direction] parameter.
   /// #### Overflow hidden
   /// ```dart
-  /// ..overflow('hidden')
+  /// .overflow('hidden')
   /// ```
   /// The child will be clipped to fit in the parent.
   /// #### Overflow scroll
   /// ```dart
-  /// ..overflow('scroll', direction: Axis.vertical)
+  /// .overflow('scroll', direction: Axis.vertical)
   /// ```
   /// The child will become scrollable if it gets bigger than its parent.
-  void overflow(String overflow, {Axis direction = Axis.vertical}) {
+  /// ##### The overflow method does not support animation
+  StyleClass overflow(String overflow, {Axis direction = Axis.vertical}) {
     _overflow = OverflowModel(
       overflow: formatOverflow(overflow),
       direction: direction,
     );
+    return this;
   }
 
   /// `Duration` is given in milliseconds.
   ///
   /// ```dart
-  /// StyleClass()..animate(400, Curves.easeInOut);
+  /// StyleClass().animate(400, Curves.easeInOut);
   /// ```
   ///
   /// **Adding a delay to your animation**
   /// ```
-  /// ..onTapDown((details) {
+  /// .onTapDown((details) {
   ///   // change styling without a delay
-  ///   thisStyle..backgroundColor(rgb(255,255,0));
+  ///   thisStyle.backgroundColor(rgb(255,255,0));
   ///
   ///   // Trigger the setState with a delay
   ///   Future.delayed(Duration(milliseconds: 500)).then((value) => setState(() {}));
   /// })
   /// ```
-  void animate([int duration = 500, Curve curve = Curves.linear]) {
+  StyleClass animate([int duration = 500, Curve curve = Curves.linear]) {
     if (duration < 0) throw ('Duration cannot be negative');
 
     _duration = Duration(milliseconds: duration);
     _curve = curve;
+    return this;
   }
 
   /// Adds a `StyleClass` to a `StyleClass`.
   /// ```dart
-  /// StyleClass()..add(StyleClass..width(100));
+  /// StyleClass().add(StyleClass.width(100));
   /// ```
   ///
   /// The add property does not override already defined properties, just adds new ones.
-  void add(StyleClass styleClass, {bool override = false}) {
+  StyleClass add(StyleClass styleClass, {bool override = false}) {
     // if override is true, all style from the added class will override current style
     if (override == true) {
       _alignment = styleClass?.getAlignment ?? _alignment;
@@ -767,5 +795,6 @@ class StyleClass {
       _ripple = _ripple ?? styleClass?.getRipple;
       _opacity = _opacity ?? styleClass?.getOpacity;
     }
+    return this;
   }
 }
