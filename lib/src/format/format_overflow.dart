@@ -11,6 +11,6 @@ OverflowType formatOverflow(String overflow) {
   else if (overflow == 'scroll')
     formattedOverflow = OverflowType.scroll;
   else
-    throw ('Unsupported overflow format: $overflow');
+    throw ('Unsupported overflow value: $overflow');
   return formattedOverflow;
 }
