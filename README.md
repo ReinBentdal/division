@@ -40,14 +40,14 @@ import 'package:division/division.dart';
 ```dart
 Division(
   style: StyleClass()
-    .padding(horizontal: 30, vertical: 15)
-    .backgroundColor('#77A6F7')
-    .borderRadius(all: 30)
-    .align('center')
-    .elevation(10, color: rgb(150,150,150)),
+    ..padding(horizontal: 30, vertical: 15)
+    ..backgroundColor('#77A6F7')
+    ..borderRadius(all: 30)
+    ..align('center')
+    ..elevation(10, color: rgb(150,150,150)),
 
   gesture: GestureClass()
-    .onTap(() => print('Button pressed')),
+    ..onTap(() => print('Button pressed')),
         
   child: Text('Klick me', style: myTextStyle),
 )
@@ -64,7 +64,7 @@ Division(
 
 ### StyleClass
 
-To add a style to the `StyleClass`, call the style methods: `.[style]`
+To add a style to the `StyleClass`, call the style methods: `..[style]`
 
 On construction, choose to use radians or not when giving circular values.
  ```dart
@@ -73,7 +73,7 @@ On construction, choose to use radians or not when giving circular values.
 
 #### Align
 ```dart
-.align(dynamic alignment)
+..align(dynamic alignment)
 ```
 Alignment of the widget itself, not the child.
 
@@ -81,7 +81,7 @@ Alignment of the widget itself, not the child.
 
 #### Align child
 ```dart
-.alignChild(dynamic alignment)
+..alignChild(dynamic alignment)
 ```
 Alignment of the child.
 
@@ -89,7 +89,7 @@ Alignment of the child.
 
 #### Padding
 ```dart
-.padding({double all, 
+..padding({double all, 
       double horizontal, 
       double vertical, 
       double top, 
@@ -101,7 +101,7 @@ All properties work together. `padding(all: 10, top: 30)` is valid
 
 #### Margin
 ```dart
-.margin({double all,
+..margin({double all,
       double horizontal,
       double vertical,
       double top,
@@ -113,13 +113,13 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 
 #### Background color
 ```dart
-.backgroundColor(dynamic color)
+..backgroundColor(dynamic color)
 ```
 `color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
 
 #### Background image
 ```dart
-.backgroundImage(
+..backgroundImage(
       {String url, 
       String path, 
       ColorFilter colorFilter, 
@@ -133,33 +133,33 @@ Eighter the [url] or the [path] has to be specified.
 
 #### Background blur
 ```dart
-.backgroundBlur(double blur)
+..backgroundBlur(double blur)
 ```
 Blurs the background. Can be used for example to achieve a "frosted glass" effect:
 
 ```dart
 StyleClass()
-  .backgroundBlur(10)
-  .backgroundColor(rgba(255,255,255,0.15))
+  ..backgroundBlur(10)
+  ..backgroundColor(rgba(255,255,255,0.15))
 ```
 Does not work together with `..rotate()`.
 
 #### Gradient
 ```dart
-.linearGradient({dynamic beginAlign = 'left',
+..linearGradient({dynamic beginAlign = 'left',
       dynamic endAlign = 'right',
       @required List<dynamic> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
 
-.radialGradient(
+..radialGradient(
       {dynamic centerAlign = 'center',
       double radius = 0.5,
       @required List<dynamic> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
 
-.sweepGradient(
+..sweepGradient(
       {dynamic centerAlign = 'center',
       double startAngle = 0.0,
       double endAngle, // default to 1.0 or 2 * pi, depending on if radians is enabled or not
@@ -177,7 +177,7 @@ To change to use radians do: `StyleClass(useRadians: true)..`.
 
 #### Opacity
 ```dart
-.opacity(double opacity)
+..opacity(double opacity)
 ```
 Opacity applied on the whole widget.
 
@@ -185,7 +185,7 @@ Value must not be negative.
 
 #### Border
 ```dart
-.border(
+..border(
       {double all,
       double left,
       double right,
@@ -199,7 +199,7 @@ Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together 
 
 #### Border radius
 ```dart
-.borderRadius(
+..borderRadius(
       {double all,
       double topLeft,
       double topRight,
@@ -210,7 +210,7 @@ It is valid to use `all` together with single sided properties. Single sided pro
 
 #### Box shadow
 ```dart
-.boxShadow(
+..boxShadow(
       {dynamic color = const Color(0x33000000),
       double blur,
       List<double> offset,
@@ -222,10 +222,11 @@ If defined while the elevation property is defined, the last one defined will be
 
 #### Elevation
 ```dart
-.elevation(
+..elevation(
       double elevation,
       {double angle = 0.0,
-      dynamic color = const Color(0x33000000)})
+      dynamic color = const Color(0x33000000),
+      double opacity = 1.0})
 ```
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
@@ -236,36 +237,37 @@ defined will be the applied style.
 `angle` parameter takes a circular value. Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
 If `angle` equals [null] the shadow will be directly under the widget.
 
+`opacity` is a relative opacity constant. A value of 0.5 bisects the opacity value with a given elevation.
+
+
 #### Scale
 ```dart
-.scale(double ratio)
+..scale(double ratio)
 ```
 Scale the widget
 
 #### Offset
 ```dart
-.offset([double dx, double dy])
+..offset([double dx, double dy])
 ```
 Offsets the widget
 
 #### Rotate
 ```dart
-.rotate(double angle)
+..rotate(double angle)
 ```
 Rotates the widget.
-By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)..`.
+By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)`.
 
 #### Ripple
 ```dart
-.ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
+..ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
 ```
 Material ripple effect.
 
-**`onTap` does not work if `ripple` is defined.** You may use `onTapDown`, `onTapUp` or `onTapCancel` instead.
-
 #### Overflow
 ```dart
-.overflow(
+..overflow(
       String overflow, 
       {Axis direction = Axis.vertical})
 ```
@@ -277,21 +279,21 @@ Does not support animation.
 
 #### Animate
 ```dart
-.animate([int duration, Curve curve = Curves.linear])
+..animate([int duration, Curve curve = Curves.linear])
 ```
 Animates the widget when one of its style properties changes.
 `duration` is given in milliseconds.
 
 #### Add
 ```dart
-.add(StyleClass styleClass, {bool override = false})
+..add(StyleClass styleClass, {bool override = false})
 ```
 Adds a `StyleClass` to a `StyleClass`.
 By default the added `StyleClass` does not override already set style. Change override to true, to override already set style.
 
 #### Width, minWidth, maxWidth, Height, minHeight, maxHeight
 ```dart
-.[type](double dimension)
+..[type](double dimension)
 ```
 
 # Gesture property
@@ -303,38 +305,38 @@ By default the added `StyleClass` does not override already set style. Change ov
 To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`
 
 ```dart
-.onTap()
-.onTapUp()
-.onTapCancel()
-.onDoubleTap()
-.onTapDown()
-.onLongPress()
-.onLongPressStart()
-.onLongPressEnd()
-.onLongPressMoveUpdate()
-.onLongPressUp()
-.onVerticalDragStart()
-.onVerticalDragEnd()
-.onVerticalDragDown()
-.onVerticalDragCancel()
-.onVerticalDragUpdate()
-.onHorizontalDragStart()
-.onHorizontalDragEnd()
-.onHorizontalDragCancel()
-.onHorizontalDragUpdate()
-.onHorizontalDragDown()
-.onForcePressStart()
-.onForcePressEnd()
-.onForcePressPeak()
-.onForcePressUpdate()
-.onPanStart()
-.onPanEnd()
-.onPanCancel()
-.onPanDown()
-.onPanUpdate()
-.onScaleStart()
-.onScaleEnd()
-.onScaleUpdate()
+..onTap()
+..onTapUp()
+..onTapCancel()
+..onDoubleTap()
+..onTapDown()
+..onLongPress()
+..onLongPressStart()
+..onLongPressEnd()
+..onLongPressMoveUpdate()
+..onLongPressUp()
+..onVerticalDragStart()
+..onVerticalDragEnd()
+..onVerticalDragDown()
+..onVerticalDragCancel()
+..onVerticalDragUpdate()
+..onHorizontalDragStart()
+..onHorizontalDragEnd()
+..onHorizontalDragCancel()
+..onHorizontalDragUpdate()
+..onHorizontalDragDown()
+..onForcePressStart()
+..onForcePressEnd()
+..onForcePressPeak()
+..onForcePressUpdate()
+..onPanStart()
+..onPanEnd()
+..onPanCancel()
+..onPanDown()
+..onPanUpdate()
+..onScaleStart()
+..onScaleEnd()
+..onScaleUpdate()
 ```
 
 # Child property

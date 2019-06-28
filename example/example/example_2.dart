@@ -27,27 +27,27 @@ class _FrostedWidgetState extends State<FrostedWidget> {
       children: <Widget>[
         Division(
           style: StyleClass()
-            .backgroundImage(
+            ..backgroundImage(
               url: 'https://i.imgur.com/SqZ5JTv.jpg',
               fit: BoxFit.cover,
             ),
         ),
         Division(
           style: StyleClass()
-            .align('center')
-            .alignChild('center')
-            .width(300)
-            .height(300)
-            .padding(all: 30)
-            .scale(pressed ? 0.95 : 1.0)
-            .borderRadius(all: pressed ? 30 : 10)
-            .animate(500, Curves.easeOut)
-            .backgroundBlur(pressed ? 0 : 20)
-            .backgroundColor(rgba(255, 255, 255, 0.15)),
+            ..align('center')
+            ..alignChild('center')
+            ..width(300)
+            ..height(300)
+            ..padding(all: 30)
+            ..scale(pressed ? 0.95 : 1.0)
+            ..borderRadius(all: pressed ? 30 : 10)
+            ..animate(500, Curves.easeOut)
+            ..backgroundBlur(pressed ? 0 : 20)
+            ..backgroundColor(rgba(255, 255, 255, 0.15)),
           gesture: GestureClass()
-            .onTapDown((detials) => setState(() => pressed = true))
-            .onTapUp((detials) => setState(() => pressed = false))
-            .onTapCancel(() => setState(() => pressed = false)),
+            ..onTapDown((detials) => setState(() => pressed = true))
+            ..onTapUp((detials) => setState(() => pressed = false))
+            ..onTapCancel(() => setState(() => pressed = false)),
           child: Text(
             'My frosted widget',
             style: TextStyle(

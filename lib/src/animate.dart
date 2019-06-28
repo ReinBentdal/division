@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'build.dart';
 import 'model/ripple.dart';
 import 'model/overflow.dart';
+import 'class/gesture_class.dart';
 
 class DivisionAnimate extends ImplicitlyAnimatedWidget {
   DivisionAnimate({
@@ -21,6 +22,7 @@ class DivisionAnimate extends ImplicitlyAnimatedWidget {
     this.overflow,
     Curve curve,
     Duration duration,
+    this.gesture,
     this.child,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
@@ -55,6 +57,8 @@ class DivisionAnimate extends ImplicitlyAnimatedWidget {
   final RippleModel ripple;
 
   final OverflowModel overflow;
+
+  final GestureClass gesture;
 
   @override
   _DivisionAnimateState createState() => _DivisionAnimateState();
@@ -107,6 +111,7 @@ class _DivisionAnimateState extends AnimatedWidgetBaseState<DivisionAnimate> {
       opacity: _opacity?.evaluate(animation),
       ripple: widget.ripple,
       overflow: widget.overflow,
+      gesture: widget.gesture,
       child: widget.child,
     );
   }

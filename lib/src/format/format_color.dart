@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../function/hex_color.dart';
 
 Color formatColor(dynamic color, {bool acceptNull = false}) {
   Color formattedColor;
@@ -34,17 +35,4 @@ Color formatColor(dynamic color, {bool acceptNull = false}) {
     throw ('Unsupported color format $color');
   }
   return formattedColor;
-}
-
-// from '#123456' or '123456' -> Color(0xFF123456)
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

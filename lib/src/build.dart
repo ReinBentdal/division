@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'model/ripple.dart';
 import 'model/overflow.dart';
+import 'class/gesture_class.dart';
 
 class DivisionBuild extends StatelessWidget {
   /// Creates a widget that combines common painting, positioning, and sizing widgets.
@@ -30,6 +31,7 @@ class DivisionBuild extends StatelessWidget {
     this.opacity,
     this.ripple,
     this.overflow,
+    this.gesture,
     this.child,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
@@ -64,6 +66,8 @@ class DivisionBuild extends StatelessWidget {
   final RippleModel ripple;
 
   final OverflowModel overflow;
+
+  final GestureClass gesture;
 
   EdgeInsetsGeometry get _paddingIncludingDecoration {
     if (decoration == null || decoration.padding == null) return padding;
@@ -104,6 +108,8 @@ class DivisionBuild extends StatelessWidget {
           maxWidth:
               overflow?.direction == Axis.horizontal ? double.infinity : null,
           alignment: alignmentChild ?? Alignment.topCenter);
+
+    if (gesture != null) current = gestures(current, gesture);
 
     if (ripple != null && ripple?.enable == true) {
       current = Material(
@@ -153,5 +159,46 @@ class DivisionBuild extends StatelessWidget {
     if (opacity != null) current = Opacity(opacity: opacity, child: current);
 
     return current;
+  }
+
+  Widget gestures(Widget widgetChild, GestureClass gesture) {
+    return GestureDetector(
+      onTap: gesture?.getOnTap,
+      onTapUp: gesture?.getOnTapUp,
+      onTapCancel: gesture?.getOnTapCancel,
+      onDoubleTap: gesture?.getOnDoubleTap,
+      onTapDown: gesture?.getOnTapDown,
+      onLongPress: gesture?.getOnLongPress,
+      onLongPressStart: gesture?.getOnLongPressStart,
+      onLongPressEnd: gesture?.getOnLongPressEnd,
+      onLongPressMoveUpdate: gesture?.getOnLongPressMoveUpdate,
+      onLongPressUp: gesture?.getOnLongPressUp,
+      onVerticalDragStart: gesture?.getOnVerticalDragStart,
+      onVerticalDragEnd: gesture?.getOnVerticalDragEnd,
+      onVerticalDragDown: gesture?.getOnVerticalDragDown,
+      onVerticalDragCancel: gesture?.getOnVerticalDragCancel,
+      onVerticalDragUpdate: gesture?.getOnVerticalDragUpdate,
+      onHorizontalDragStart: gesture?.getOnHorizontalDragStart,
+      onHorizontalDragEnd: gesture?.getOnHorizontalDragEnd,
+      onHorizontalDragCancel: gesture?.getOnHorizontalDragCancel,
+      onHorizontalDragUpdate: gesture?.getOnHorizontalDragUpdate,
+      onHorizontalDragDown: gesture?.getOnHorizontalDragDown,
+      onForcePressStart: gesture?.getOnForcePressStart,
+      onForcePressEnd: gesture?.getOnForcePressEnd,
+      onForcePressPeak: gesture?.getOnForcePressPeak,
+      onForcePressUpdate: gesture?.getOnForcePressUpdate,
+      onPanStart: gesture?.getOnPanStart,
+      onPanEnd: gesture?.getOnPanEnd,
+      onPanCancel: gesture?.getOnPanCancel,
+      onPanDown: gesture?.getOnPanDown,
+      onPanUpdate: gesture?.getOnPanUpdate,
+      onScaleStart: gesture?.getOnScaleStart,
+      onScaleEnd: gesture?.getOnScaleEnd,
+      onScaleUpdate: gesture?.getOnScaleUpdate,
+      behavior: gesture?.behavior,
+      excludeFromSemantics: gesture?.excludeFromSemantics,
+      dragStartBehavior: gesture?.dragStartBehavior,
+      child: widgetChild,
+    );
   }
 }

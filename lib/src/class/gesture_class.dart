@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
 /// Responsible for all the gestures for the `Division` widget
@@ -5,17 +6,56 @@ import 'package:flutter/widgets.dart';
 /// ```dart
 /// Division(
 ///   style: StyleClass()
-///     .width(100)
-///     .height(150)
-///     .borderRadius(all: 30.0)
-///     .backgroundColor('#eeeeee'),
+///     ..width(100)
+///     ..height(150)
+///     ..borderRadius(all: 30.0)
+///     ..backgroundColor('#eeeeee'),
 ///   gesture: GestureClass()
-///     .onTap(() => print('Widget pressed!'))
-///     .onLongPress(() => print('Widget longpress)),
+///     ..onTap(() => print('Widget pressed!'))
+///     ..onLongPress(() => print('Widget longpress)),
 ///   child: Text('Some text),
 /// )
 /// ```
 class GestureClass {
+  GestureClass(
+      {this.behavior,
+      this.excludeFromSemantics = false,
+      this.dragStartBehavior = DragStartBehavior.start});
+
+  /// How this gesture detector should behave during hit testing.
+  ///
+  /// This defaults to [HitTestBehavior.deferToChild] if [child] is not null and
+  /// [HitTestBehavior.translucent] if child is null.
+  final HitTestBehavior behavior;
+
+  /// Whether to exclude these gestures from the semantics tree. For
+  /// example, the long-press gesture for showing a tooltip is
+  /// excluded because the tooltip itself is included in the semantics
+  /// tree directly and so having a gesture to show it would result in
+  /// duplication of information.
+  final bool excludeFromSemantics;
+
+  /// Determines the way that drag start behavior is handled.
+  ///
+  /// If set to [DragStartBehavior.start], gesture drag behavior will
+  /// begin upon the detection of a drag gesture. If set to
+  /// [DragStartBehavior.down] it will begin when a down event is first detected.
+  ///
+  /// In general, setting this to [DragStartBehavior.start] will make drag
+  /// animation smoother and setting it to [DragStartBehavior.down] will make
+  /// drag behavior feel slightly more reactive.
+  ///
+  /// By default, the drag start behavior is [DragStartBehavior.start].
+  ///
+  /// Only the [onStart] callbacks for the [VerticalDragGestureRecognizer],
+  /// [HorizontalDragGestureRecognizer] and [PanGestureRecognizer] are affected
+  /// by this setting.
+  ///
+  /// See also:
+  ///
+  ///  * [DragGestureRecognizer.dragStartBehavior], which gives an example for the different behaviors.
+  final DragStartBehavior dragStartBehavior;
+
   void Function() _onTap;
   void Function(TapUpDetails) _onTapUp;
   void Function(TapDownDetails) _onTapDown;
@@ -105,165 +145,92 @@ class GestureClass {
   void Function(ScaleEndDetails) get getOnScaleEnd => _onScaleEnd;
   void Function(ScaleUpdateDetails) get getOnScaleUpdate => _onScaleUpdate;
 
-  GestureClass onTap(void Function() function) {
-    _onTap = function;
-    return this;
-  }
+  void onTap(void Function() function) => _onTap = function;
 
-  GestureClass onTapUp(void Function(TapUpDetails) function) {
-    _onTapUp = function;
-    return this;
-  }
+  void onTapUp(void Function(TapUpDetails) function) => _onTapUp = function;
 
-  GestureClass onTapDown(void Function(TapDownDetails) function) {
-    _onTapDown = function;
-    return this;
-  }
+  void onTapDown(void Function(TapDownDetails) function) =>
+      _onTapDown = function;
 
-  GestureClass onTapCancel(void Function() function) {
-    _onTapCancel = function;
-    return this;
-  }
+  void onTapCancel(void Function() function) => _onTapCancel = function;
 
-  GestureClass onDoubleTap(void Function() function) {
-    _onDoubleTap = function;
-    return this;
-  }
+  void onDoubleTap(void Function() function) => _onDoubleTap = function;
 
-  GestureClass onLongPress(void Function() function) {
-    _onLongPress = function;
-    return this;
-  }
+  void onLongPress(void Function() function) => _onLongPress = function;
 
-  GestureClass onLongPressStart(void Function(LongPressStartDetails) function) {
-    _onLongPressStart = function;
-    return this;
-  }
+  void onLongPressStart(void Function(LongPressStartDetails) function) =>
+      _onLongPressStart = function;
 
-  GestureClass onLongPressEnd(void Function(LongPressEndDetails) function) {
-    _onLongPressEnd = function;
-    return this;
-  }
+  void onLongPressEnd(void Function(LongPressEndDetails) function) =>
+      _onLongPressEnd = function;
 
-  GestureClass onLongPressMoveUpdate(
-      void Function(LongPressMoveUpdateDetails) function) {
-    _onLongPressMoveUpdate = function;
-    return this;
-  }
+  void onLongPressMoveUpdate(
+          void Function(LongPressMoveUpdateDetails) function) =>
+      _onLongPressMoveUpdate = function;
 
-  GestureClass onLongPressUp(void Function() function) {
-    _onLongPressUp = function;
-    return this;
-  }
+  void onLongPressUp(void Function() function) => _onLongPressUp = function;
 
-  GestureClass onVerticalDragStart(void Function(DragStartDetails) function) {
-    _onVerticalDragStart = function;
-    return this;
-  }
+  void onVerticalDragStart(void Function(DragStartDetails) function) =>
+      _onVerticalDragStart = function;
 
-  GestureClass onVerticalDragEnd(void Function(DragEndDetails) function) {
-    _onVerticalDragEnd = function;
-    return this;
-  }
+  void onVerticalDragEnd(void Function(DragEndDetails) function) =>
+      _onVerticalDragEnd = function;
 
-  GestureClass onVerticalDragDown(void Function(DragDownDetails) function) {
-    _onVerticalDragDown = function;
-    return this;
-  }
+  void onVerticalDragDown(void Function(DragDownDetails) function) =>
+      _onVerticalDragDown = function;
 
-  GestureClass onVerticalDragCancel(void Function() function) {
-    _onVerticalDragCancel = function;
-    return this;
-  }
+  void onVerticalDragCancel(void Function() function) =>
+      _onVerticalDragCancel = function;
 
-  GestureClass onVerticalDragUpdate(void Function(DragUpdateDetails) function) {
-    _onVerticalDragUpdate = function;
-    return this;
-  }
+  void onVerticalDragUpdate(void Function(DragUpdateDetails) function) =>
+      _onVerticalDragUpdate = function;
 
-  GestureClass onHorizontalDragStart(void Function(DragStartDetails) function) {
-    _onHorizontalDragStart = function;
-    return this;
-  }
+  void onHorizontalDragStart(void Function(DragStartDetails) function) =>
+      _onHorizontalDragStart = function;
 
-  GestureClass onHorizontalDragEnd(void Function(DragEndDetails) function) {
-    _onHorizontalDragEnd = function;
-    return this;
-  }
+  void onHorizontalDragEnd(void Function(DragEndDetails) function) =>
+      _onHorizontalDragEnd = function;
 
-  GestureClass onHorizontalDragDown(void Function(DragDownDetails) function) {
-    _onHorizontalDragDown = function;
-    return this;
-  }
+  void onHorizontalDragDown(void Function(DragDownDetails) function) =>
+      _onHorizontalDragDown = function;
 
-  GestureClass onHorizontalDragCancel(void Function() function) {
-    _onHorizontalDragCancel = function;
-    return this;
-  }
+  void onHorizontalDragCancel(void Function() function) =>
+      _onHorizontalDragCancel = function;
 
-  GestureClass onHorizontalDragUpdate(
-      void Function(DragUpdateDetails) function) {
-    _onHorizontalDragUpdate = function;
-    return this;
-  }
+  void onHorizontalDragUpdate(void Function(DragUpdateDetails) function) =>
+      _onHorizontalDragUpdate = function;
 
-  GestureClass onForcePressStart(void Function(ForcePressDetails) function) {
-    _onForcePressStart = function;
-    return this;
-  }
+  void onForcePressStart(void Function(ForcePressDetails) function) =>
+      _onForcePressStart = function;
 
-  GestureClass onForcePressEnd(void Function(ForcePressDetails) function) {
-    _onForcePressEnd = function;
-    return this;
-  }
+  void onForcePressEnd(void Function(ForcePressDetails) function) =>
+      _onForcePressEnd = function;
 
-  GestureClass onForcePressPeak(void Function(ForcePressDetails) function) {
-    _onForcePressPeak = function;
-    return this;
-  }
+  void onForcePressPeak(void Function(ForcePressDetails) function) =>
+      _onForcePressPeak = function;
 
-  GestureClass onForcePressUpdate(void Function(ForcePressDetails) function) {
-    _onForcePressUpdate = function;
-    return this;
-  }
+  void onForcePressUpdate(void Function(ForcePressDetails) function) =>
+      _onForcePressUpdate = function;
 
-  GestureClass onPanStart(void Function(DragStartDetails) function) {
-    _onPanStart = function;
-    return this;
-  }
+  void onPanStart(void Function(DragStartDetails) function) =>
+      _onPanStart = function;
 
-  GestureClass onPanEnd(void Function(DragEndDetails) function) {
-    _onPanEnd = function;
-    return this;
-  }
+  void onPanEnd(void Function(DragEndDetails) function) => _onPanEnd = function;
 
-  GestureClass onPanCancel(void Function() function) {
-    _onPanCancel = function;
-    return this;
-  }
+  void onPanCancel(void Function() function) => _onPanCancel = function;
 
-  GestureClass onPanDown(void Function(DragDownDetails) function) {
-    _onPanDown = function;
-    return this;
-  }
+  void onPanDown(void Function(DragDownDetails) function) =>
+      _onPanDown = function;
 
-  GestureClass onPanUpdate(void Function(DragUpdateDetails) function) {
-    _onPanUpdate = function;
-    return this;
-  }
+  void onPanUpdate(void Function(DragUpdateDetails) function) =>
+      _onPanUpdate = function;
 
-  GestureClass onScaleStart(void Function(ScaleStartDetails) function) {
-    _onScaleStart = function;
-    return this;
-  }
+  void onScaleStart(void Function(ScaleStartDetails) function) =>
+      _onScaleStart = function;
 
-  GestureClass onScaleEnd(void Function(ScaleEndDetails) function) {
-    _onScaleEnd = function;
-    return this;
-  }
+  void onScaleEnd(void Function(ScaleEndDetails) function) =>
+      _onScaleEnd = function;
 
-  GestureClass onScaleUpdate(void Function(ScaleUpdateDetails) function) {
-    _onScaleUpdate = function;
-    return this;
-  }
+  void onScaleUpdate(void Function(ScaleUpdateDetails) function) =>
+      _onScaleUpdate = function;
 }

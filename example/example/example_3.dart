@@ -16,22 +16,22 @@ class Main extends StatelessWidget {
 
 class Home extends StatelessWidget {
   final StyleClass titleBox = StyleClass()
-    .padding(vertical: 30.0, horizontal: 20.0);
+    ..padding(vertical: 30.0, horizontal: 20.0);
 
   final StyleClass tasksCard = StyleClass()
-    .width(100)
-    .height(100)
-    .borderRadius(all: 15.0)
-    .margin(left: 10.0, right: 10.0, top: 5.0, bottom: 55.0);
+    ..width(100)
+    ..height(100)
+    ..borderRadius(all: 15.0)
+    ..margin(left: 10.0, right: 10.0, top: 5.0, bottom: 55.0);
 
   final StyleClass categoriesCard = StyleClass()
-    .width(200)
-    .height(200)
-    .borderRadius(all: 15.0)
-    .backgroundColor('#ffffff')
-    .elevation(25)
-    .align('top')
-    .margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
+    ..width(200)
+    ..height(200)
+    ..borderRadius(all: 15.0)
+    ..backgroundColor('#ffffff')
+    ..elevation(25)
+    ..align('top')
+    ..margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
 
   Widget _buildTitle(String title) {
     return Division(
@@ -46,13 +46,13 @@ class Home extends StatelessWidget {
   Widget _buildSearchBar() {
     return Division(
       style: StyleClass()
-        .width(300)
-        .padding(horizontal: 20.0, vertical: 15.0)
-        .margin(top: 0.0, bottom: 20.0)
-        .borderRadius(all: 10.0)
-        .align('center')
-        .elevation(15, color: Colors.grey)
-        .backgroundColor('#ffffff'),
+        ..width(300)
+        ..padding(horizontal: 20.0, vertical: 15.0)
+        ..margin(top: 0.0, bottom: 20.0)
+        ..borderRadius(all: 10.0)
+        ..align('center')
+        ..elevation(15, color: Colors.grey)
+        ..backgroundColor('#ffffff'),
       child: Text(
         'Search..',
         style: TextStyle(
@@ -79,9 +79,9 @@ class Home extends StatelessWidget {
   Widget _buildColoredCard(Color color) {
     return Division(
       style: StyleClass()
-        .backgroundColor(color)
-        .elevation(20, color: color.withOpacity(0.5))
-        .add(tasksCard),
+        ..backgroundColor(color)
+        ..elevation(20, color: color.withOpacity(0.5))
+        ..add(tasksCard),
     );
   }
 

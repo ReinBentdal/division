@@ -1,3 +1,11 @@
+## 0.6.4
+* Added `opacity` paramter to the `elevation` method. This parameter is a relative opacity constant.
+* Added the optional paramteres `behaviour`, `excludeFromSemantics` and `dragStartBehaviour` to `GestureClass`.
+* [Fix] `ripple` now works together with all gestures.
+* [Breaking] As recomended in the dartlang documentation the single dotted chained methods is recalled.
+    `.overflow('scroll')` -> `..overflow('scroll')`.
+https://dart-lang.github.io/linter/lints/avoid_returning_this.html
+
 ## 0.6.3
 * Added support for singledotted chained methods for both the `StyleClass` and the `GestureClass`. `..overflow('scroll')` -> `.overflow('scroll')`.
 

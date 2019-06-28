@@ -20,8 +20,8 @@ class UserPage extends StatelessWidget {
   Widget _buildTitle(String title) {
     return Division(
       style: StyleClass()
-        .margin(bottom: 20.0)
-        .alignChild('left'),
+        ..margin(bottom: 20.0)
+        ..alignChild('left'),
       child: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
@@ -35,8 +35,8 @@ class UserPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Division(
         style: StyleClass()
-          .margin(vertical: verticalMargin, horizontal: 20)
-          .minHeight(
+          ..margin(vertical: verticalMargin, horizontal: 20)
+          ..minHeight(
               MediaQuery.of(context).size.height - (2 * verticalMargin)),
         child: Column(
           children: <Widget>[
@@ -126,21 +126,21 @@ class UserCard extends StatelessWidget {
   //Styling
 
   final StyleClass userCardStyle = StyleClass()
-    .height(175)
-    .padding(horizontal: 20.0, vertical: 10)
-    .align('center')
-    .backgroundColor('#3977FF')
-    .borderRadius(all: 20.0)
-    .elevation(10, color: '#3977FF');
+    ..height(175)
+    ..padding(horizontal: 20.0, vertical: 10)
+    ..align('center')
+    ..backgroundColor('#3977FF')
+    ..borderRadius(all: 20.0)
+    ..elevation(10, color: '#3977FF');
 
   final StyleClass userImageStyle = StyleClass()
-    .height(50)
-    .width(50)
-    .margin(right: 10.0)
-    .borderRadius(all: 30)
-    .backgroundColor('ffffff');
+    ..height(50)
+    ..width(50)
+    ..margin(right: 10.0)
+    ..borderRadius(all: 30)
+    ..backgroundColor('ffffff');
 
-  final StyleClass userStatsStyle = StyleClass().margin(vertical: 10.0);
+  final StyleClass userStatsStyle = StyleClass()..margin(vertical: 10.0);
 
   final TextStyle nameTextStyle = TextStyle(
       color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
@@ -186,14 +186,14 @@ class ActionsRow extends StatelessWidget {
   }
 
   final StyleClass actionsItemIconStyle = StyleClass()
-    .alignChild('center')
-    .width(50)
-    .height(50)
-    .margin(bottom: 5)
-    .borderRadius(all: 30)
-    .backgroundColor('#F6F5F8');
+    ..alignChild('center')
+    ..width(50)
+    ..height(50)
+    ..margin(bottom: 5)
+    ..borderRadius(all: 30)
+    ..backgroundColor('#F6F5F8');
 
-  final StyleClass actionsItemStyle = StyleClass().margin(vertical: 20.0);
+  final StyleClass actionsItemStyle = StyleClass()..margin(vertical: 20.0);
 
   final TextStyle actionsItemTextStyle =
       TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 12);
@@ -243,18 +243,18 @@ class _SettingsItemState extends State<SettingsItem> {
   Widget build(BuildContext context) {
     return Division(
         style: settingsItemStyle
-          .elevation(pressed ? 0 : 50, color: Colors.grey)
-          .scale(pressed ? 0.95 : 1.0),
+          ..elevation(pressed ? 0 : 50, color: Colors.grey)
+          ..scale(pressed ? 0.95 : 1.0),
         gesture: GestureClass()
-          .onTapDown((details) => setState(() => pressed = true))
-          .onTapUp((details) => setState(() => pressed = false))
-          .onTapCancel(() => setState(() => pressed = false)),
+          ..onTapDown((details) => setState(() => pressed = true))
+          ..onTapUp((details) => setState(() => pressed = false))
+          ..onTapCancel(() => setState(() => pressed = false)),
         child: Row(
           children: <Widget>[
             Division(
               style: StyleClass()
-                .backgroundColor(widget.iconBgColor)
-                .add(settingsItemIconStyle),
+                ..backgroundColor(widget.iconBgColor)
+                ..add(settingsItemIconStyle),
               child: Icon(
                 widget.icon,
                 color: Colors.white,
@@ -286,18 +286,18 @@ class _SettingsItemState extends State<SettingsItem> {
   }
 
   final StyleClass settingsItemStyle = StyleClass()
-    .alignChild('center')
-    .height(70)
-    .margin(vertical: 10)
-    .borderRadius(all: 15)
-    .backgroundColor('#ffffff')
-    .ripple(true)
-    .animate(300, Curves.easeOut);
+    ..alignChild('center')
+    ..height(70)
+    ..margin(vertical: 10)
+    ..borderRadius(all: 15)
+    ..backgroundColor('#ffffff')
+    ..ripple(true)
+    ..animate(300, Curves.easeOut);
 
   final StyleClass settingsItemIconStyle = StyleClass()
-    .margin(left: 15)
-    .padding(all: 12)
-    .borderRadius(all: 30);
+    ..margin(left: 15)
+    ..padding(all: 12)
+    ..borderRadius(all: 30);
 
   final TextStyle itemTitleTextStyle =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 16);

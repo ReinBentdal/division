@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'hex_color.dart';
+
 /// Returns [Color].
 ///
 /// [r], [g] and [b] must not exceed 255.
@@ -20,4 +22,8 @@ Color rgb(int r, int g, int b) {
 /// ```
 Color rgba(int r, int g, int b, double opacity) {
   return Color.fromRGBO(r, g, b, opacity);
+}
+
+Color hex(String xxxxxx) {
+  return HexColor(xxxxxx);
 }
