@@ -1,6 +1,7 @@
 ## 0.6.4
 * Added `opacity` paramter to the `elevation` method. This parameter is a relative opacity constant.
 * Added the optional paramteres `behaviour`, `excludeFromSemantics` and `dragStartBehaviour` to `GestureClass`.
+* Added `hex` function.
 * [Fix] `ripple` now works together with all gestures.
 * [Breaking] As recomended in the dartlang documentation the single dotted chained methods is recalled.
     `.overflow('scroll')` -> `..overflow('scroll')`.
