@@ -234,3 +234,59 @@ class GestureClass {
   void onScaleUpdate(void Function(ScaleUpdateDetails) function) =>
       _onScaleUpdate = function;
 }
+
+/// Responsible for all the gestures for the `Division` widget
+///
+/// ```dart
+/// Division(
+///   style: S()
+///     ..width(100)
+///     ..height(150)
+///     ..borderRadius(all: 30.0)
+///     ..backgroundColor('#eeeeee'),
+///   gesture: G()
+///     ..onTap(() => print('Widget pressed!'))
+///     ..onLongPress(() => print('Widget longpress)),
+///   child: Text('Some text),
+/// )
+/// ```
+class G extends GestureClass {
+  G(
+      {this.behavior,
+      this.excludeFromSemantics = false,
+      this.dragStartBehavior = DragStartBehavior.start}) : super(behavior: behavior, excludeFromSemantics: excludeFromSemantics, dragStartBehavior: dragStartBehavior);
+
+  /// How this gesture detector should behave during hit testing.
+  ///
+  /// This defaults to [HitTestBehavior.deferToChild] if [child] is not null and
+  /// [HitTestBehavior.translucent] if child is null.
+  final HitTestBehavior behavior;
+
+  /// Whether to exclude these gestures from the semantics tree. For
+  /// example, the long-press gesture for showing a tooltip is
+  /// excluded because the tooltip itself is included in the semantics
+  /// tree directly and so having a gesture to show it would result in
+  /// duplication of information.
+  final bool excludeFromSemantics;
+
+  /// Determines the way that drag start behavior is handled.
+  ///
+  /// If set to [DragStartBehavior.start], gesture drag behavior will
+  /// begin upon the detection of a drag gesture. If set to
+  /// [DragStartBehavior.down] it will begin when a down event is first detected.
+  ///
+  /// In general, setting this to [DragStartBehavior.start] will make drag
+  /// animation smoother and setting it to [DragStartBehavior.down] will make
+  /// drag behavior feel slightly more reactive.
+  ///
+  /// By default, the drag start behavior is [DragStartBehavior.start].
+  ///
+  /// Only the [onStart] callbacks for the [VerticalDragGestureRecognizer],
+  /// [HorizontalDragGestureRecognizer] and [PanGestureRecognizer] are affected
+  /// by this setting.
+  ///
+  /// See also:
+  ///
+  ///  * [DragGestureRecognizer.dragStartBehavior], which gives an example for the different behaviors.
+  final DragStartBehavior dragStartBehavior;
+}

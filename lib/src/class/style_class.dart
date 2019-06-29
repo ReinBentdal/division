@@ -751,6 +751,7 @@ class StyleClass {
       _curve = styleClass?.getCurve ?? _curve;
       _ripple = styleClass?.getRipple ?? _ripple;
       _opacity = styleClass?.getOpacity ?? _opacity;
+      _overflow = styleClass?.getOverflow ?? _overflow;
     } else {
       _alignment = _alignment ?? styleClass?.getAlignment;
       _alignmentChild = _alignmentChild ?? styleClass?.getAlignmentChild;
@@ -776,6 +777,32 @@ class StyleClass {
       _curve = _curve ?? styleClass?.getCurve;
       _ripple = _ripple ?? styleClass?.getRipple;
       _opacity = _opacity ?? styleClass?.getOpacity;
+      _overflow = _overflow ?? styleClass?.getOverflow;
     }
   }
+}
+
+/// Responsibe for all the styling for the `Division` widget
+///
+/// Choose to calculate angles with radians or not through [useRadians] parameter. 0.0 - 1.0 or 0.0 - 2 * pi
+/// Applies to the style properties which by default in flutter uses radians, like ..rotate() and ..sweepGradient()
+///
+/// ```dart
+/// Division(
+///   style: S(useRadians = false)
+///     ..width(100)
+///     ..height(150)
+///     ..borderRadius(all: 30.0)
+///     ..backgroundColor('#eeeeee'),
+///   gesture: G()
+///     ..onTap(() => print('Widget pressed!'))
+///     ..onLongPress(() => print('Widget pressed long!)),
+///   child: Text('Some text),
+/// )
+/// ```
+class S extends StyleClass {
+  S({this.useRadians = false}) : super(useRadians: useRadians);
+
+  /// Choose to calculate angles with radians or not. [0.0 - 1.0] or [0.0 - 2 * pi]
+  final bool useRadians;
 }
