@@ -99,7 +99,9 @@ class DivisionBuild extends StatelessWidget {
       current = SingleChildScrollView(
           child: current, scrollDirection: overflow.direction);
     else if (overflow?.overflow == OverflowType.hidden)
-      current = ClipRect(child: current);
+      current = ClipRRect(
+          borderRadius: decoration?.borderRadius ?? BorderRadius.circular(0.0),
+          child: current);
     else if (overflow?.overflow == OverflowType.visible)
       current = OverflowBox(
           child: current,
