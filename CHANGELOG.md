@@ -1,3 +1,9 @@
+## 0.6.5
+TODO: S og G i readme.
+
+* Added alternative class names. `StyleClass` -> `S` and `GestureClass` -> `G`.
+* [Fix] `overflow('hidden')` now clips with borderRadius.
+
 ## 0.6.4
 * Added `opacity` paramter to the `elevation` method. This parameter is a relative opacity constant.
 * Added the optional paramteres `behaviour`, `excludeFromSemantics` and `dragStartBehaviour` to `GestureClass`.
