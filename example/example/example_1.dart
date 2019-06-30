@@ -21,7 +21,7 @@ class UserPage extends StatelessWidget {
     return Division(
       style: StyleClass()
         ..margin(bottom: 20.0)
-        ..alignChild('left'),
+        ..alignmentChild.centerLeft(),
       child: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
@@ -128,17 +128,17 @@ class UserCard extends StatelessWidget {
   final StyleClass userCardStyle = StyleClass()
     ..height(175)
     ..padding(horizontal: 20.0, vertical: 10)
-    ..align('center')
-    ..backgroundColor('#3977FF')
+    ..alignment.center()
+    ..background.hex('#3977FF')
     ..borderRadius(all: 20.0)
-    ..elevation(10, color: '#3977FF');
+    ..elevation(10, color: hex('#3977FF'));
 
   final StyleClass userImageStyle = StyleClass()
     ..height(50)
     ..width(50)
     ..margin(right: 10.0)
     ..borderRadius(all: 30)
-    ..backgroundColor('ffffff');
+    ..background.hex('ffffff');
 
   final StyleClass userStatsStyle = StyleClass()..margin(vertical: 10.0);
 
@@ -186,12 +186,12 @@ class ActionsRow extends StatelessWidget {
   }
 
   final StyleClass actionsItemIconStyle = StyleClass()
-    ..alignChild('center')
+    ..alignmentChild.center()
     ..width(50)
     ..height(50)
     ..margin(bottom: 5)
     ..borderRadius(all: 30)
-    ..backgroundColor('#F6F5F8');
+    ..background.hex('#F6F5F8');
 
   final StyleClass actionsItemStyle = StyleClass()..margin(vertical: 20.0);
 
@@ -206,15 +206,15 @@ class Settings extends StatelessWidget {
       style: settingsStyle,
       child: Column(
         children: <Widget>[
-          SettingsItem(Icons.location_on, '#8D7AEE', 'Address',
+          SettingsItem(Icons.location_on, hex('#8D7AEE'), 'Address',
               'Ensure your harvesting address'),
-          SettingsItem(
-              Icons.lock, '#F468B7', 'Privacy', 'System permission change'),
-          SettingsItem(
-              Icons.menu, '#FEC85C', 'General', 'Basic functional settings'),
-          SettingsItem(Icons.notifications, '#5FD0D3', 'Notifications',
+          SettingsItem(Icons.lock, hex('#F468B7'), 'Privacy',
+              'System permission change'),
+          SettingsItem(Icons.menu, hex('#FEC85C'), 'General',
+              'Basic functional settings'),
+          SettingsItem(Icons.notifications, hex('#5FD0D3'), 'Notifications',
               'Take over the news in time'),
-          SettingsItem(Icons.question_answer, '#BFACAA', 'Support',
+          SettingsItem(Icons.question_answer, hex('#BFACAA'), 'Support',
               'We are here to help'),
         ],
       ),
@@ -226,7 +226,7 @@ class Settings extends StatelessWidget {
 
 class SettingsItem extends StatefulWidget {
   final IconData icon;
-  final String iconBgColor;
+  final Color iconBgColor;
   final String title;
   final String description;
 
@@ -253,7 +253,7 @@ class _SettingsItemState extends State<SettingsItem> {
           children: <Widget>[
             Division(
               style: StyleClass()
-                ..backgroundColor(widget.iconBgColor)
+                ..background.color(widget.iconBgColor)
                 ..add(settingsItemIconStyle),
               child: Icon(
                 widget.icon,
@@ -286,11 +286,11 @@ class _SettingsItemState extends State<SettingsItem> {
   }
 
   final StyleClass settingsItemStyle = StyleClass()
-    ..alignChild('center')
+    ..alignmentChild.center()
     ..height(70)
     ..margin(vertical: 10)
     ..borderRadius(all: 15)
-    ..backgroundColor('#ffffff')
+    ..background.hex('#ffffff')
     ..ripple(true)
     ..animate(300, Curves.easeOut);
 

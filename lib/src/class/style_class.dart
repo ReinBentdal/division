@@ -1,188 +1,124 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import '../format/format_alignment.dart';
-import '../format/format_color.dart';
-import '../format/format_overflow.dart';
 import '../model/ripple.dart';
 import '../model/overflow.dart';
+import '../model/alignment.dart';
+import '../model/background.dart';
 
-/// Responsibe for all the styling for the `Division` widget
-///
-/// Choose to calculate angles with radians or not through [useRadians] parameter. 0.0 - 1.0 or 0.0 - 2 * pi
-/// Applies to the style properties which by default in flutter uses radians, like ..rotate() and ..sweepGradient()
-///
-/// ```dart
-/// Division(
-///   style: StyleClass(useRadians = false)
-///     ..width(100)
-///     ..height(150)
-///     ..borderRadius(all: 30.0)
-///     ..backgroundColor('#eeeeee'),
-///   gesture: GestureClass()
-///     ..onTap(() => print('Widget pressed!'))
-///     ..onLongPress(() => print('Widget pressed long!)),
-///   child: Text('Some text),
-/// )
-/// ```
 class StyleClass {
-  /// Choose to calculate angles with radians or not. [0.0 - 1.0] or [0.0 - 2 * pi]
-  final bool useRadians;
-
+  /// Styling for the `Division` widget
+  ///
+  /// Choose to calculate angles with radians or not through [useRadians] parameter. 0.0 - 1.0 or 0.0 - 2 * pi
+  /// Applies to the style properties which by default in flutter uses radians, like ..rotate() and ..sweepGradient()
+  ///
+  /// ```dart
+  /// Division(
+  ///   style: StyleClass(useRadians = false)
+  ///     ..width(100)
+  ///     ..height(150)
+  ///     ..borderRadius(all: 30.0)
+  ///     ..backgroundColor(hex('#eeeeee')),
+  ///   gesture: GestureClass()
+  ///     ..onTap(() => print('Widget pressed!'))
+  ///     ..onLongPress(() => print('Widget pressed long!)),
+  ///   child: Text('Some text),
+  /// )
+  /// ```
   StyleClass({this.useRadians = false});
 
-  AlignmentGeometry _alignment;
-  AlignmentGeometry _alignmentChild;
-  EdgeInsetsGeometry _padding;
-  EdgeInsetsGeometry _margin;
+  /// Choose to calculate angles with radians or not.
+  ///
+  /// **if true**
+  /// ```dart
+  /// 0° -> 0.0
+  /// 360° -> 1.0
+  /// ```
+  /// **if false**
+  /// ```dart
+  /// 0° -> 0.0
+  /// 360° -> 2 * pi
+  /// ```
+  final bool useRadians;
 
-  Color _backgroundColor;
-  DecorationImage _backgroundImage;
-  double _backgroundBlur;
+  EdgeInsetsGeometry $padding;
+  EdgeInsetsGeometry $margin;
 
-  Gradient _gradient;
-  BoxBorder _border;
-  BorderRadiusGeometry _borderRadius;
-  List<BoxShadow> _boxShadow;
+  // Color $backgroundColor;
+  // DecorationImage $backgroundImage;
+  // double $backgroundBlur;
 
-  double _width;
-  double _minWidth;
-  double _maxWidth;
-  double _height;
-  double _minHeight;
-  double _maxHeight;
+  Gradient $gradient;
+  BoxBorder $border;
+  BorderRadiusGeometry $borderRadius;
+  List<BoxShadow> $boxShadow;
 
-  double _scale;
-  double _rotate;
-  Offset _offset;
+  double $width;
+  double $minWidth;
+  double $maxWidth;
+  double $height;
+  double $minHeight;
+  double $maxHeight;
 
-  double _opacity;
-  RippleModel _ripple;
-  OverflowModel _overflow;
+  double $scale;
+  double $rotate;
+  Offset $offset;
 
-  Duration _duration;
-  Curve _curve;
+  double $opacity;
+  RippleModel $ripple;
 
-  AlignmentGeometry get getAlignment => _alignment;
-  AlignmentGeometry get getAlignmentChild => _alignmentChild;
-  EdgeInsetsGeometry get getPadding => _padding;
-  EdgeInsetsGeometry get getMargin => _margin;
-  Color get getBackgroundColor => _backgroundColor;
-  DecorationImage get getBackgroundImage => _backgroundImage;
-  double get getBackgroundBlur => _backgroundBlur;
-  Gradient get getGradient => _gradient;
-  BoxBorder get getBorder => _border;
-  BorderRadiusGeometry get getBorderRadius => _borderRadius;
-  List<BoxShadow> get getBoxShadow => _boxShadow;
-  double get getWidth => _width;
-  double get getMinWidth => _minWidth;
-  double get getMaxWidth => _maxWidth;
-  double get getHeight => _height;
-  double get getMinHeight => _minHeight;
-  double get getMaxHeight => _maxHeight;
-  double get getScale => _scale;
-  double get getRotate => _rotate;
-  Offset get getOffset => _offset;
-  Duration get getDuration => _duration;
-  Curve get getCurve => _curve;
-  double get getOpacity => _opacity;
-  RippleModel get getRipple => _ripple;
-  OverflowModel get getOverflow => _overflow;
+  Duration $duration;
+  Curve $curve;
 
-  BoxDecoration get getBoxDecoration {
-    if ((_backgroundColor ??
-            _backgroundImage ??
-            _gradient ??
-            _border ??
-            _borderRadius ??
-            _boxShadow) !=
+  BoxDecoration get $boxDecoration {
+    if ((background?.$color ??
+            background?.$image ??
+            $gradient ??
+            $border ??
+            $borderRadius ??
+            $boxShadow) !=
         null) {
       return BoxDecoration(
-        color: _backgroundColor,
-        image: _backgroundImage,
-        gradient: _gradient,
-        border: _border,
-        borderRadius: _borderRadius,
-        boxShadow: _boxShadow,
+        color: background?.$color,
+        image: background?.$image,
+        gradient: $gradient,
+        border: $border,
+        borderRadius: $borderRadius,
+        boxShadow: $boxShadow,
       );
     }
     return null;
   }
 
-  BoxConstraints get getBoxConstraints {
-    if ((_minHeight ?? _maxHeight ?? _minWidth ?? _maxWidth) != null) {
+  BoxConstraints get $boxConstraints {
+    if (($minHeight ?? $maxHeight ?? $minWidth ?? $maxWidth) != null) {
       return BoxConstraints(
-        minHeight: _minHeight ?? 0.0,
-        maxHeight: _maxHeight ?? double.infinity,
-        minWidth: _minWidth ?? 0.0,
-        maxWidth: _maxWidth ?? double.infinity,
+        minHeight: $minHeight ?? 0.0,
+        maxHeight: $maxHeight ?? double.infinity,
+        minWidth: $minWidth ?? 0.0,
+        maxWidth: $maxWidth ?? double.infinity,
       );
     }
     return null;
   }
 
-  Matrix4 get getTransform {
-    if ((_scale ?? _rotate ?? _offset) != null) {
-      return Matrix4.rotationZ(_rotate ?? 0.0)
-        ..scale(_scale ?? 1.0)
+  Matrix4 get $transform {
+    if (($scale ?? $rotate ?? $offset) != null) {
+      return Matrix4.rotationZ($rotate ?? 0.0)
+        ..scale($scale ?? 1.0)
         ..translate(
-          _offset?.dx ?? 0.0,
-          _offset?.dy ?? 0.0,
+          $offset?.dx ?? 0.0,
+          $offset?.dy ?? 0.0,
         );
     }
     return null;
   }
 
-  /// Alignment of the widget
-  ///
-  /// ### Supported alignment formats
-  /// #### Alignment
-  /// Built in Alignment class.
-  /// ```dart
-  /// Alignment.center, Alignment(0.2, -0.8), etc
-  /// ```
-  /// #### String
-  /// ```dart
-  /// 'center', 'top', 'bottom', 'left', 'right',
-  /// 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
-  /// ```
-  /// #### List<double>
-  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
-  ///```dart
-  /// [double dx, double dy]
-  /// ```
-  /// #### double
-  /// Same value for dx and dy
-  /// ```dart
-  /// double align
-  /// ```
-  void align(dynamic alignment) => _alignment = formatAlignment(alignment);
+  /// Alignment relative to its surroundings
+  AlignmentModel alignment = AlignmentModel();
 
   /// Alignment of the widget.
-  ///
-  /// ### Supported alignment formats
-  /// #### Alignment
-  /// Built in Alignment class.
-  /// ```dart
-  /// Alignment.center, Alignment(0.2, -0.8), etc
-  /// ```
-  /// #### String
-  /// ```dart
-  /// 'center', 'top', 'bottom', 'left', 'right',
-  /// 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
-  /// ```
-  /// #### List<double>
-  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
-  ///```dart
-  /// [double dx, double dy]
-  /// ```
-  /// #### double
-  /// Same value for dx and dy
-  /// ```dart
-  /// double align
-  /// ```
-  void alignChild(dynamic alignment) =>
-      _alignmentChild = formatAlignment(alignment);
+  AlignmentModel alignmentChild = AlignmentModel();
 
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
@@ -203,7 +139,7 @@ class StyleClass {
     left = left ?? horizontal ?? all;
     right = right ?? horizontal ?? all;
 
-    _padding = EdgeInsets.only(
+    $padding = EdgeInsets.only(
         top: top ?? 0.0,
         bottom: bottom ?? 0.0,
         left: left ?? 0.0,
@@ -229,7 +165,7 @@ class StyleClass {
     left = left ?? horizontal ?? all;
     right = right ?? horizontal ?? all;
 
-    _margin = EdgeInsets.only(
+    $margin = EdgeInsets.only(
       top: top ?? 0.0,
       bottom: bottom ?? 0.0,
       left: left ?? 0.0,
@@ -237,191 +173,57 @@ class StyleClass {
     );
   }
 
-  /// Blurs the background
+  /// Widget background styling
+  BackgroundModel background = BackgroundModel();
+
+  /// Creates a linear gradient.
   ///
-  /// Frosted glass example:
-  /// ```dart
-  /// ..backgroundBlur(10)
-  /// ..backgroundColor(rgba(255,255,255,0.15))
-  /// ```
-  /// Does not work together with `..rotate()`.
-  void backgroundBlur(double blur) => _backgroundBlur = blur;
-
-  /// ### Supported color formats
-  /// #### Color
-  /// Built in Color method. For example
-  /// ```dart
-  /// Color(0xFFEEEEEE) or Colors.blue
-  /// ```
-  /// #### HEX String
-  /// 6 digit hex color. Optional to use #
-  /// ```dart
-  /// '#eeeeee' or 'eeeeee'
-  /// ```
-  /// #### RGBA
-  /// ```dart
-  /// rgba(43, 120, 32, 0.6)
-  /// ```
-  /// #### RGB
-  /// ```dart
-  /// rgb(43, 120, 32])
-  /// ```
-  void backgroundColor(dynamic color) => _backgroundColor = formatColor(color);
-
-  /// Eighter the [url] or the [path] has to be specified.
-  /// [url] is for network images and [path] is for local images.
-  /// [path] trumps [url].
-  ///
-  /// ```dart
-  /// ..backgroundImage(
-  ///   url: 'path/to/image'
-  ///   fit: BoxFit.cover
-  /// )
-  /// ```
-  void backgroundImage(
-      {String url,
-      String path,
-      ColorFilter colorFilter,
-      BoxFit fit,
-      dynamic alignment = Alignment.center,
-      ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path) == null) throw ('A [url] or a [path] has to be provided');
-
-    AlignmentGeometry formattedAlignment = formatAlignment(alignment);
-
-    ImageProvider<dynamic> image;
-    if (path != null) {
-      image = AssetImage(path);
-    } else {
-      image = NetworkImage(url);
-    }
-
-    _backgroundImage = DecorationImage(
-      image: image,
-      colorFilter: colorFilter,
-      fit: fit,
-      alignment: formattedAlignment,
-      repeat: repeat,
-    );
-  }
-
-  /// ### Supported alignment formats
-  /// #### Alignment
-  /// Built in Alignment class.
-  /// ```dart
-  /// Alignment.center, Alignment(0.2, -0.8), etc
-  /// ```
-  /// #### String
-  /// ```dart
-  /// 'center', 'top', 'bottom', 'left', 'right',
-  /// 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
-  /// ```
-  /// #### List<double>
-  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
-  ///```dart
-  /// [double dx, double dy]
-  /// ```
-  /// #### double
-  /// Same value for dx and dy
-  /// ```dart
-  /// double align
-  /// ```
+  /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void linearGradient(
-      {dynamic beginAlign = 'left',
-      dynamic endAlign = 'right',
-      @required List<dynamic> colors,
+      {AlignmentGeometry begin = Alignment.centerLeft,
+      AlignmentGeometry end = Alignment.centerRight,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops}) {
-    AlignmentGeometry begin = formatAlignment(beginAlign);
-    AlignmentGeometry end = formatAlignment(endAlign);
-
-    // List<dynamic> -> List<Color>
-    List<Color> finalColors = [];
-    for (dynamic color in colors) finalColors.add(formatColor(color));
-
-    _gradient = LinearGradient(
+    $gradient = LinearGradient(
         begin: begin,
         end: end,
-        colors: finalColors,
+        colors: colors,
         tileMode: tileMode,
         stops: stops);
   }
 
-  /// ### Supported alignment formats
-  /// #### Alignment
-  /// Built in Alignment class.
-  /// ```dart
-  /// Alignment.center, Alignment(0.2, -0.8), etc
-  /// ```
-  /// #### String
-  /// ```dart
-  /// 'center', 'top', 'bottom', 'left', 'right',
-  /// 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
-  /// ```
-  /// #### List<double>
-  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
-  ///```dart
-  /// [double dx, double dy]
-  /// ```
-  /// #### double
-  /// Same value for dx and dy
-  /// ```dart
-  /// double align
-  /// ```
+  /// Creates a radial gradient.
+  ///
+  /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void radialGradient(
-      {dynamic centerAlign = 'center',
+      {AlignmentGeometry center = Alignment.center,
       double radius = 0.5,
-      @required List<dynamic> colors,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops}) {
-    AlignmentGeometry center = formatAlignment(centerAlign);
-
-    // List<dynamic> -> List<Color>
-    List<Color> finalColors = [];
-    for (dynamic color in colors) finalColors.add(formatColor(color));
-
-    _gradient = RadialGradient(
+    $gradient = RadialGradient(
       center: center,
       radius: radius,
-      colors: finalColors,
+      colors: colors,
       tileMode: tileMode,
       stops: stops,
     );
   }
 
-  /// Choose to calculate angles with radians or not through [useRadians] parameter.
-  /// [endAngle] default to 1.0 if [useRadians] is false and 2 * pi if [useRadians] is true,
+  /// Creates a sweep gradient.
   ///
-  /// ### Supported alignment formats
-  /// #### Alignment
-  /// Built in Alignment class.
-  /// ```dart
-  /// Alignment.center, Alignment(0.2, -0.8), etc
-  /// ```
-  /// #### String
-  /// ```dart
-  /// 'center', 'top', 'bottom', 'left', 'right',
-  /// 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'
-  /// ```
-  /// #### List<double>
-  /// 0.0 equals centered. -1.0 and 1.0 equals to the side
-  ///```dart
-  /// [double dx, double dy]
-  /// ```
-  /// #### double
-  /// Same value for dx and dy
-  /// ```dart
-  /// double align
-  /// ```
+  /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
+  ///
+  /// Choose to calculate angles with radians or not through [useRadians] parameter.
+  /// [end] default to 1.0 if [useRadians] is false and 2 * pi if [useRadians] is true,
   void sweepGradient(
-      {dynamic centerAlign = 'center',
+      {AlignmentGeometry center = Alignment.center,
       double startAngle = 0.0,
       double endAngle,
-      @required List<dynamic> colors,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops}) {
-    AlignmentGeometry center = formatAlignment(centerAlign);
-
     if (useRadians == false) startAngle = startAngle * pi * 2;
 
     if (endAngle == null) {
@@ -432,15 +234,11 @@ class StyleClass {
       endAngle = endAngle * pi * 2;
     }
 
-    // List<dynamic> -> List<Color>
-    List<Color> finalColors = [];
-    for (dynamic color in colors) finalColors.add(color);
-
-    _gradient = SweepGradient(
+    $gradient = SweepGradient(
       center: center,
       startAngle: startAngle,
       endAngle: endAngle,
-      colors: finalColors,
+      colors: colors,
       stops: stops,
       tileMode: tileMode,
     );
@@ -448,38 +246,35 @@ class StyleClass {
 
   /// Border for the widget
   /// ```dart
-  /// ..border(all: 3.0, color: '#55ffff', style: BorderStyle.solid)
+  /// ..border(all: 3.0, color: hex('#55ffff'), style: BorderStyle.solid)
   /// ```
-  /// If `all` is declared, `left`, `right`, `top`, and `bottom` will have no effect. These parameters define the width.
-  /// `style` define the border style.
+  /// Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
   void border(
       {double all,
       double left,
       double right,
       double top,
       double bottom,
-      dynamic color = const Color(0xFF000000),
+      Color color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
-    Color finalColor = formatColor(color);
-
     left = left ?? all;
     right = right ?? all;
     top = top ?? all;
     bottom = bottom ?? all;
 
-    _border = Border(
+    $border = Border(
       left: left == null
           ? BorderSide.none
-          : BorderSide(color: finalColor, width: left, style: style),
+          : BorderSide(color: color, width: left, style: style),
       right: right == null
           ? BorderSide.none
-          : BorderSide(color: finalColor, width: right, style: style),
+          : BorderSide(color: color, width: right, style: style),
       top: top == null
           ? BorderSide.none
-          : BorderSide(color: finalColor, width: top, style: style),
+          : BorderSide(color: color, width: top, style: style),
       bottom: bottom == null
           ? BorderSide.none
-          : BorderSide(color: finalColor, width: bottom, style: style),
+          : BorderSide(color: color, width: bottom, style: style),
     );
   }
 
@@ -495,7 +290,7 @@ class StyleClass {
     bottomLeft = bottomLeft ?? all;
     bottomRight = bottomRight ?? all;
 
-    _borderRadius = BorderRadius.only(
+    $borderRadius = BorderRadius.only(
       topLeft: Radius.circular(topLeft ?? 0.0),
       topRight: Radius.circular(topRight ?? 0.0),
       bottomLeft: Radius.circular(bottomLeft ?? 0.0),
@@ -504,32 +299,12 @@ class StyleClass {
   }
 
   /// If defined while the elevation method is defined, the last one defined will be the one applied.
-  /// ### Supported color formats
-  /// #### Color
-  /// Built in Color method. For example
-  /// ```dart
-  /// Color(0xFFEEEEEE) or Colors.blue
-  /// ```
-  /// #### HEX String
-  /// 6 digit hex color. Optional to use #
-  /// ```dart
-  /// '#eeeeee' or 'eeeeee'
-  /// ```
-  /// #### RGBA
-  /// ```dart
-  /// rgba(43, 120, 32, 0.6)
-  /// ```
-  /// #### RGB
-  /// ```dart
-  /// rgb(43, 120, 32])
-  /// ```
   void boxShadow(
-      {dynamic color = const Color(0x33000000),
+      {Color color = const Color(0x33000000),
       double blur,
       List<double> offset,
       double spread}) {
     Offset finalOffset;
-    Color shadowColor = formatColor(color);
 
     if (offset.length == 1) {
       finalOffset = Offset(offset[0] ?? 0.0, offset[0] ?? 0.0);
@@ -537,9 +312,9 @@ class StyleClass {
       finalOffset = Offset(offset[0] ?? 0.0, offset[1] ?? 0.0);
     }
 
-    _boxShadow = [
+    $boxShadow = [
       BoxShadow(
-        color: shadowColor,
+        color: color,
         blurRadius: blur ?? 0.0,
         spreadRadius: spread ?? 0.0,
         offset: finalOffset ?? Offset(0.0, 0.0),
@@ -561,12 +336,12 @@ class StyleClass {
   /// defined will be the one applied.
   void elevation(double elevation,
       {double angle = 0.0,
-      dynamic color = const Color(0x33000000),
+      Color color = const Color(0x33000000),
       double opacity = 1.0}) {
     if (elevation < 0)
       throw ('Elevation cant be negative. Recieved a value of $elevation');
     else if (elevation == 0) {
-      _boxShadow = null;
+      $boxShadow = null;
     }
 
     double offsetX = 0.0;
@@ -586,29 +361,28 @@ class StyleClass {
     double finalOpacity = (0.5 - (sqrt(elevation) / 19)) * opacity;
     if (finalOpacity < 0.0) finalOpacity = 0.0;
 
-    //find which color format used: hex, rgba or color
-    Color formattedColor = formatColor(color).withOpacity(finalOpacity);
+    Color colorWithOpacity = color.withOpacity(finalOpacity);
 
-    _boxShadow = [
+    $boxShadow = [
       BoxShadow(
-          color: formattedColor,
+          color: colorWithOpacity,
           blurRadius: blur,
           spreadRadius: spread,
           offset: Offset(offsetX, offsetY))
     ];
   }
 
-  void width(double width) => _width = width;
+  void width(double width) => $width = width;
 
-  void minWidth(double minWidth) => _minWidth = minWidth;
+  void minWidth(double minWidth) => $minWidth = minWidth;
 
-  void maxWidth(double maxWidth) => _maxWidth = maxWidth;
+  void maxWidth(double maxWidth) => $maxWidth = maxWidth;
 
-  void height(double height) => _height = height;
+  void height(double height) => $height = height;
 
-  void minHeight(double minHeight) => _minHeight = minHeight;
+  void minHeight(double minHeight) => $minHeight = minHeight;
 
-  void maxHeight(double maxHeight) => _maxHeight = maxHeight;
+  void maxHeight(double maxHeight) => $maxHeight = maxHeight;
 
   /// Must not be negative.
   /// 1 corresponds to normal size. 2 corresponds to double the size.
@@ -617,14 +391,14 @@ class StyleClass {
   /// ```
   void scale(double ratio) {
     if (ratio < 0) throw ('The widget scale cannot be negative: $ratio');
-    _scale = ratio;
+    $scale = ratio;
   }
 
   /// Offsetts the widget.
   /// ```dart
   /// ..offset(10.0, 5.0);
   /// ```
-  void offset(double dx, double dy) => _offset = Offset(dx, dy);
+  void offset(double dx, double dy) => $offset = Offset(dx, dy);
 
   /// Widget rotation
   /// ```dart
@@ -635,9 +409,9 @@ class StyleClass {
   /// Choose to calculate angles with radians or not through [useRadians] `StyleClass` parameter. 0.0 - 1.0 or 0.0 - 2 * pi
   void rotate(double angle) {
     if (useRadians == true) {
-      _rotate = angle;
+      $rotate = angle;
     } else {
-      _rotate = angle * pi * 2;
+      $rotate = angle * pi * 2;
     }
   }
 
@@ -652,48 +426,29 @@ class StyleClass {
     if (opacity < 0.0 || opacity > 1.0)
       throw ('Invalid opacity value: $opacity');
 
-    _opacity = opacity;
+    $opacity = opacity;
   }
 
   /// Material ripple effect
   /// ```dart
   /// ..ripple(true);
   /// ```
-  void ripple(bool enable, {dynamic splashColor, dynamic highlightColor}) {
-    _ripple = RippleModel(
+  void ripple(bool enable, {Color splashColor, Color highlightColor}) {
+    $ripple = RippleModel(
       enable: enable,
-      splashColor: splashColor != null ? formatColor(splashColor) : null,
-      highlightColor:
-          highlightColor != null ? formatColor(highlightColor) : null,
+      splashColor: splashColor,
+      highlightColor: highlightColor,
     );
   }
 
   /// Change child overflow behaviour.
   ///
-  /// #### Overflow visible
-  /// ```dart
-  /// ..overflow('visible', direction: Axis.vertical)
-  /// ```
-  /// The child will grow outside of the parent.
-  ///
-  /// Specify the overflow direction with the [direction] parameter.
-  /// #### Overflow hidden
-  /// ```dart
-  /// ..overflow('hidden')
-  /// ```
-  /// The child will be clipped to fit in the parent.
-  /// #### Overflow scroll
-  /// ```dart
-  /// ..overflow('scroll', direction: Axis.vertical)
-  /// ```
-  /// The child will become scrollable if it gets bigger than its parent.
-  /// ##### The overflow method does not support animation
-  void overflow(String overflow, {Axis direction = Axis.vertical}) {
-    _overflow = OverflowModel(
-      overflow: formatOverflow(overflow),
-      direction: direction,
-    );
-  }
+  ///```dart
+  ///..overflow.visible(Axis.vertical) // overflows outside its parent
+  ///..overflow.hidden() // CLips to parent shape
+  ///..overflow.scrollable(Axis.vertical) // scrollable if bigger than parent
+  ///```
+  OverflowModel overflow = OverflowModel();
 
   /// `Duration` is given in milliseconds.
   ///
@@ -714,68 +469,104 @@ class StyleClass {
   void animate([int duration = 500, Curve curve = Curves.linear]) {
     if (duration < 0) throw ('Duration cannot be negative');
 
-    _duration = Duration(milliseconds: duration);
-    _curve = curve;
+    $duration = Duration(milliseconds: duration);
+    $curve = curve;
   }
 
   /// Adds a `StyleClass` to a `StyleClass`.
   /// ```dart
   /// ..add(StyleClass()..width(100));
   /// ```
-  ///
-  /// The add property does not override already defined properties, just adds new ones.
   void add(StyleClass styleClass, {bool override = false}) {
     // if override is true, all style from the added class will override current style
     if (override == true) {
-      _alignment = styleClass?.getAlignment ?? _alignment;
-      _alignmentChild = styleClass?.getAlignmentChild ?? _alignmentChild;
-      _padding = styleClass?.getPadding ?? _padding;
-      _margin = styleClass?.getMargin ?? _margin;
-      _backgroundColor = styleClass?.getBackgroundColor ?? _backgroundColor;
-      _backgroundImage = styleClass?.getBackgroundImage ?? _backgroundImage;
-      _backgroundBlur = styleClass?.getBackgroundBlur ?? _backgroundBlur;
-      _gradient = styleClass?.getGradient ?? _gradient;
-      _border = styleClass?.getBorder ?? _border;
-      _borderRadius = styleClass?.getBorderRadius ?? _borderRadius;
-      _boxShadow = styleClass?.getBoxShadow ?? _boxShadow;
-      _width = styleClass?.getWidth ?? _width;
-      _minWidth = styleClass?.getMinWidth ?? _minWidth;
-      _maxWidth = styleClass?.getMaxWidth ?? _maxWidth;
-      _height = styleClass?.getHeight ?? _height;
-      _minHeight = styleClass?.getMinHeight ?? _minHeight;
-      _maxHeight = styleClass?.getMaxHeight ?? _minHeight;
-      _scale = styleClass?.getScale ?? _scale;
-      _rotate = styleClass?.getRotate ?? _rotate;
-      _offset = styleClass?.getOffset ?? _offset;
-      _duration = styleClass?.getDuration ?? _duration;
-      _curve = styleClass?.getCurve ?? _curve;
-      _ripple = styleClass?.getRipple ?? _ripple;
-      _opacity = styleClass?.getOpacity ?? _opacity;
+      alignment = styleClass?.alignment ?? alignment;
+      alignmentChild = styleClass?.alignmentChild ?? alignmentChild;
+      $padding = styleClass?.$padding ?? $padding;
+      $margin = styleClass?.$margin ?? $margin;
+      background?.$color = styleClass?.background?.$color ?? background?.$color;
+      background?.$image = styleClass?.background?.$image ?? background?.$image;
+      background?.$blur = styleClass?.background?.$blur ?? background?.$blur;
+      $gradient = styleClass?.$gradient ?? $gradient;
+      $border = styleClass?.$border ?? $border;
+      $borderRadius = styleClass?.$borderRadius ?? $borderRadius;
+      $boxShadow = styleClass?.$boxShadow ?? $boxShadow;
+      $width = styleClass?.$width ?? $width;
+      $minWidth = styleClass?.$minWidth ?? $minWidth;
+      $maxWidth = styleClass?.$maxWidth ?? $maxWidth;
+      $height = styleClass?.$height ?? $height;
+      $minHeight = styleClass?.$minHeight ?? $minHeight;
+      $maxHeight = styleClass?.$maxHeight ?? $minHeight;
+      $scale = styleClass?.$scale ?? $scale;
+      $rotate = styleClass?.$rotate ?? $rotate;
+      $offset = styleClass?.$offset ?? $offset;
+      $duration = styleClass?.$duration ?? $duration;
+      $curve = styleClass?.$curve ?? $curve;
+      $ripple = styleClass?.$ripple ?? $ripple;
+      $opacity = styleClass?.$opacity ?? $opacity;
+      overflow = styleClass?.overflow ?? overflow;
     } else {
-      _alignment = _alignment ?? styleClass?.getAlignment;
-      _alignmentChild = _alignmentChild ?? styleClass?.getAlignmentChild;
-      _padding = _padding ?? styleClass?.getPadding;
-      _margin = _margin ?? styleClass?.getMargin;
-      _backgroundColor = _backgroundColor ?? styleClass?.getBackgroundColor;
-      _backgroundImage = styleClass?.getBackgroundImage ?? _backgroundImage;
-      _backgroundBlur = styleClass?.getBackgroundBlur ?? _backgroundBlur;
-      _gradient = _gradient ?? styleClass?.getGradient;
-      _border = _border ?? styleClass?.getBorder;
-      _borderRadius = _borderRadius ?? styleClass?.getBorderRadius;
-      _boxShadow = _boxShadow ?? styleClass?.getBoxShadow;
-      _width = _width ?? styleClass?.getWidth;
-      _minWidth = _minWidth ?? styleClass?.getMinWidth;
-      _maxWidth = _maxWidth ?? styleClass?.getMaxWidth;
-      _height = _height ?? styleClass?.getHeight;
-      _minHeight = _minHeight ?? styleClass?.getMinHeight;
-      _maxHeight = _maxHeight ?? styleClass?.getMaxHeight;
-      _scale = _scale ?? styleClass?.getScale;
-      _rotate = _rotate ?? styleClass?.getRotate;
-      _offset = _offset ?? styleClass?.getOffset;
-      _duration = _duration ?? styleClass?.getDuration;
-      _curve = _curve ?? styleClass?.getCurve;
-      _ripple = _ripple ?? styleClass?.getRipple;
-      _opacity = _opacity ?? styleClass?.getOpacity;
+      alignment = alignment ?? styleClass?.alignment;
+      alignmentChild = alignmentChild ?? styleClass?.alignmentChild;
+      $padding = $padding ?? styleClass?.$padding;
+      $margin = $margin ?? styleClass?.$margin;
+      background?.$color = background?.$color ?? styleClass?.background?.$color;
+      background?.$image = styleClass?.background?.$image ?? background?.$image;
+      background?.$blur = styleClass?.background?.$blur ?? background?.$blur;
+      $gradient = $gradient ?? styleClass?.$gradient;
+      $border = $border ?? styleClass?.$border;
+      $borderRadius = $borderRadius ?? styleClass?.$borderRadius;
+      $boxShadow = $boxShadow ?? styleClass?.$boxShadow;
+      $width = $width ?? styleClass?.$width;
+      $minWidth = $minWidth ?? styleClass?.$minWidth;
+      $maxWidth = $maxWidth ?? styleClass?.$maxWidth;
+      $height = $height ?? styleClass?.$height;
+      $minHeight = $minHeight ?? styleClass?.$minHeight;
+      $maxHeight = $maxHeight ?? styleClass?.$maxHeight;
+      $scale = $scale ?? styleClass?.$scale;
+      $rotate = $rotate ?? styleClass?.$rotate;
+      $offset = $offset ?? styleClass?.$offset;
+      $duration = $duration ?? styleClass?.$duration;
+      $curve = $curve ?? styleClass?.$curve;
+      $ripple = $ripple ?? styleClass?.$ripple;
+      $opacity = $opacity ?? styleClass?.$opacity;
+      overflow = overflow ?? styleClass?.overflow;
     }
   }
+}
+
+class S extends StyleClass {
+  /// Styling for the `Division` widget
+  ///
+  /// Choose to calculate angles with radians or not through [useRadians] parameter. 0.0 - 1.0 or 0.0 - 2 * pi
+  /// Applies to the style properties which by default in flutter uses radians, like ..rotate() and ..sweepGradient()
+  ///
+  /// ```dart
+  /// Division(
+  ///   style: S(useRadians = false)
+  ///     ..width(100)
+  ///     ..height(150)
+  ///     ..borderRadius(all: 30.0)
+  ///     ..backgroundColor(hex('#eeeeee')),
+  ///   gesture: G()
+  ///     ..onTap(() => print('Widget pressed!'))
+  ///     ..onLongPress(() => print('Widget pressed long!)),
+  ///   child: Text('Some text),
+  /// )
+  /// ```
+  S({this.useRadians = false}) : super(useRadians: useRadians);
+
+  /// Choose to calculate angles with radians or not.
+  ///
+  /// **if true**
+  /// ```dart
+  /// 0° -> 0.0
+  /// 360° -> 1.0
+  /// ```
+  /// **if false**
+  /// ```dart
+  /// 0° -> 0.0
+  /// 360° -> 2 * pi
+  /// ```
+  final bool useRadians;
 }

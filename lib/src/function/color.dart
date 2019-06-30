@@ -20,10 +20,14 @@ Color rgb(int r, int g, int b) {
 /// ```dart
 /// ..backgroundColor(rgba(34, 29, 189, 0.7));
 /// ```
-Color rgba(int r, int g, int b, double opacity) {
+Color rgba(int r, int g, int b, [double opacity = 1.0]) {
   return Color.fromRGBO(r, g, b, opacity);
 }
 
+/// 6 digit hex color. The use if `#` is not required, but recomended.
+/// ```dart
+/// hex('#f5f5f5')
+/// ```
 Color hex(String xxxxxx) {
   return HexColor(xxxxxx);
 }
