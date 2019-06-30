@@ -6,7 +6,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
   division:
     path: ../..
   # division: ^0.6.3

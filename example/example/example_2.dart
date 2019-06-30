@@ -27,23 +27,23 @@ class _FrostedWidgetState extends State<FrostedWidget> {
       children: <Widget>[
         Division(
           style: StyleClass()
-            ..backgroundImage(
+            ..background.image(
               url: 'https://i.imgur.com/SqZ5JTv.jpg',
               fit: BoxFit.cover,
             ),
         ),
         Division(
           style: StyleClass()
-            ..align('center')
-            ..alignChild('center')
+            ..alignment.center()
+            ..alignmentChild.center()
             ..width(300)
             ..height(300)
             ..padding(all: 30)
             ..scale(pressed ? 0.95 : 1.0)
             ..borderRadius(all: pressed ? 30 : 10)
             ..animate(500, Curves.easeOut)
-            ..backgroundBlur(pressed ? 0 : 20)
-            ..backgroundColor(rgba(255, 255, 255, 0.15)),
+            ..background.blur(pressed ? 0 : 20)
+            ..background.rgba(255, 255, 255, 0.15),
           gesture: GestureClass()
             ..onTapDown((detials) => setState(() => pressed = true))
             ..onTapUp((detials) => setState(() => pressed = false))

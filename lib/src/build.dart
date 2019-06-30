@@ -95,23 +95,21 @@ class DivisionBuild extends StatelessWidget {
     if (effectivePadding != null)
       current = Padding(padding: effectivePadding, child: current);
 
-    if (overflow?.overflow == OverflowType.scroll)
+    if (overflow?.$overflow == OverflowType.scroll)
       current = SingleChildScrollView(
-          child: current, scrollDirection: overflow.direction);
-    else if (overflow?.overflow == OverflowType.hidden)
+          child: current, scrollDirection: overflow.$direction);
+    else if (overflow?.$overflow == OverflowType.hidden)
       current = ClipRRect(
           borderRadius: decoration?.borderRadius ?? BorderRadius.circular(0.0),
           child: current);
-    else if (overflow?.overflow == OverflowType.visible)
+    else if (overflow?.$overflow == OverflowType.visible)
       current = OverflowBox(
           child: current,
           maxHeight:
-              overflow?.direction == Axis.vertical ? double.infinity : null,
+              overflow?.$direction == Axis.vertical ? double.infinity : null,
           maxWidth:
-              overflow?.direction == Axis.horizontal ? double.infinity : null,
+              overflow?.$direction == Axis.horizontal ? double.infinity : null,
           alignment: alignmentChild ?? Alignment.topCenter);
-
-    if (gesture != null) current = gestures(current, gesture);
 
     if (ripple != null && ripple?.enable == true) {
       current = Material(
@@ -128,6 +126,8 @@ class DivisionBuild extends StatelessWidget {
 
     if (decoration != null)
       current = DecoratedBox(decoration: decoration, child: current);
+
+    if (gesture != null) current = gestures(current, gesture);
 
     if (constraints != null)
       current = ConstrainedBox(constraints: constraints, child: current);

@@ -1,6 +1,6 @@
 name: division
 description: A simple to use yet powerfull styling widget with syntax inspired by CSS.
-version: 0.6.4
+version: 0.7.0
 author: Rein Gundersen Bentdal<rein.bent@gmail.com>
 homepage: https://github.com/ReinBentdal/division
 repository: https://github.com/ReinBentdal/division
@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+dependency_overrides:
+  meta: ^1.1.6
 
 dev_dependencies:
   flutter_test:

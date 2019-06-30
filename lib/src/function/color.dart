@@ -24,6 +24,10 @@ Color rgba(int r, int g, int b, double opacity) {
   return Color.fromRGBO(r, g, b, opacity);
 }
 
+/// 6 digit hex color. The use if `#` is not required, but recomended.
+/// ```dart
+/// hex('#f5f5f5')
+/// ```
 Color hex(String xxxxxx) {
   return HexColor(xxxxxx);
 }

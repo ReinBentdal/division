@@ -41,9 +41,9 @@ import 'package:division/division.dart';
 Division(
   style: StyleClass()
     ..padding(horizontal: 30, vertical: 15)
-    ..backgroundColor('#77A6F7')
+    ..background.hex('77A6F7')
     ..borderRadius(all: 30)
-    ..align('center')
+    ..alignment.center()
     ..elevation(10, color: rgb(150,150,150)),
 
   gesture: GestureClass()
@@ -62,6 +62,8 @@ Division(
 
 **The style property expects a `StyleClass` which is a class holding all the styling for the widget.**
 
+There is also the option to use the class `S` as a shorthand.
+
 ### StyleClass
 
 To add a style to the `StyleClass`, call the style methods: `..[style]`
@@ -71,21 +73,19 @@ On construction, choose to use radians or not when giving circular values.
  Styleclass({bool useRadians = false})
  ```
 
-#### Align
+#### Alignment
 ```dart
-..align(dynamic alignment)
+..alignment.[alignment]
 ```
 Alignment of the widget itself, not the child.
 
-`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
+
 
 #### Align child
 ```dart
-..alignChild(dynamic alignment)
+..alignmentChild.[alignment]
 ```
 Alignment of the child.
-
-`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Padding
 ```dart
@@ -113,57 +113,58 @@ All properties work together. `margin(all: 10, top: 30)` is valid
 
 #### Background color
 ```dart
-..backgroundColor(dynamic color)
+..background.color(Color)
+..background.hex(xxxxxx)
+..background.rgba(int, int, int, [double])
 ```
-`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
+`color` format options: hex('#xxxxxx'), rgba(int, int, int, double) or [Color].
 
 #### Background image
 ```dart
-..backgroundImage(
+..background.image(
       {String url, 
       String path, 
       ColorFilter colorFilter, 
       BoxFit fit, 
-      dynamic alignment = Alignment.center, 
+      Alignment alignment = Alignment.center, 
       ImageRepeat repeat = ImageRepeat.noRepeat})
 ```
 Eighter the [url] or the [path] has to be specified.
 [url] is for network images and [path] is for local images.
-`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
 
 #### Background blur
 ```dart
-..backgroundBlur(double blur)
+..background.blur(double blur)
 ```
 Blurs the background. Can be used for example to achieve a "frosted glass" effect:
 
 ```dart
 StyleClass()
-  ..backgroundBlur(10)
-  ..backgroundColor(rgba(255,255,255,0.15))
+  ..background.blur(10)
+  ..background.rgba(255,255,255,0.15)
 ```
-Does not work together with `..rotate()`.
+Does not work together with `rotate()`.
 
 #### Gradient
 ```dart
-..linearGradient({dynamic beginAlign = 'left',
-      dynamic endAlign = 'right',
-      @required List<dynamic> colors,
+..linearGradient({AlignmentGeometry begin = Alignment.left,
+      AlignmentGeometry end = Alignment.right,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
 
 ..radialGradient(
-      {dynamic centerAlign = 'center',
+      {AlignmentGeometry center = Alignment.center,
       double radius = 0.5,
-      @required List<dynamic> colors,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
 
 ..sweepGradient(
-      {dynamic centerAlign = 'center',
+      {AlignmentGeometry center = Alignment.center,
       double startAngle = 0.0,
       double endAngle, // default to 1.0 or 2 * pi, depending on if radians is enabled or not
-      @required List<dynamic> colors,
+      @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
 ```
@@ -171,9 +172,7 @@ Choose between 3 gradient variants.
 `sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
 To change to use radians do: `StyleClass(useRadians: true)..`.
 
-`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
-
-`alignment` parameters support [String] value ('center', 'left', 'bottomRight'...), ([dx, dy]) value, [double] value (same value for dx and dy) and [Alignment].
+`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
 
 #### Opacity
 ```dart
@@ -191,11 +190,11 @@ Value must not be negative.
       double right,
       double top,
       double bottom,
-      dynamic color = const Color(0xFF000000),
+      Color color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid})
 ```
 Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
-`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
+`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
 
 #### Border radius
 ```dart
@@ -211,12 +210,12 @@ It is valid to use `all` together with single sided properties. Single sided pro
 #### Box shadow
 ```dart
 ..boxShadow(
-      {dynamic color = const Color(0x33000000),
+      {Color color = const Color(0x33000000),
       double blur,
       List<double> offset,
       double spread})
 ```
-`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
+`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
 If defined while the elevation property is defined, the last one defined will be the style applied.
 `offset` is given in the format `[double dx, double dy]`
 
@@ -225,14 +224,14 @@ If defined while the elevation property is defined, the last one defined will be
 ..elevation(
       double elevation,
       {double angle = 0.0,
-      dynamic color = const Color(0x33000000),
+      Color color = const Color(0x33000000),
       double opacity = 1.0})
 ```
 Elevates the widget with a boxShadow.
 If the elevation property is used at the same time as the boxShadow property, the last one
 defined will be the applied style.
 
-`color` parameter supports HEX '#xxxxxx', rgb(int, int, int), rgba(int, int, int, double) and [Color].
+`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
 
 `angle` parameter takes a circular value. Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
 If `angle` equals [null] the shadow will be directly under the widget.
@@ -267,15 +266,12 @@ Material ripple effect.
 
 #### Overflow
 ```dart
-..overflow(
-      String overflow, 
-      {Axis direction = Axis.vertical})
+..overflow.visible({Axis direction = Axis.vertical})
+..overflow.scrollable({Axis direction = Axis.vertical})
+..overflow.hidden()
 ```
 Change child overflow behaviour.
-Compatible overflow values: `scroll`, `hidden` and `visible`. See documentation for a full overview on how they behave.
 Choose the overflow direction with the [direction] parameter.
-
-Does not support animation.
 
 #### Animate
 ```dart
@@ -299,6 +295,8 @@ By default the added `StyleClass` does not override already set style. Change ov
 # Gesture property
 
 **The gesture property expects a `GestureClass` which is a class containing all the gestures for the widget.**
+
+There is also the option to use the class `G` as a shorthand.
 
 ### GestureClass
 

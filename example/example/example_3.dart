@@ -28,9 +28,9 @@ class Home extends StatelessWidget {
     ..width(200)
     ..height(200)
     ..borderRadius(all: 15.0)
-    ..backgroundColor('#ffffff')
+    ..background.hex('#ffffff')
     ..elevation(25)
-    ..align('top')
+    ..alignment.topCenter()
     ..margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
 
   Widget _buildTitle(String title) {
@@ -50,9 +50,9 @@ class Home extends StatelessWidget {
         ..padding(horizontal: 20.0, vertical: 15.0)
         ..margin(top: 0.0, bottom: 20.0)
         ..borderRadius(all: 10.0)
-        ..align('center')
+        ..alignment.center()
         ..elevation(15, color: Colors.grey)
-        ..backgroundColor('#ffffff'),
+        ..background.hex('#ffffff'),
       child: Text(
         'Search..',
         style: TextStyle(
@@ -79,7 +79,7 @@ class Home extends StatelessWidget {
   Widget _buildColoredCard(Color color) {
     return Division(
       style: StyleClass()
-        ..backgroundColor(color)
+        ..background.color(color)
         ..elevation(20, color: color.withOpacity(0.5))
         ..add(tasksCard),
     );

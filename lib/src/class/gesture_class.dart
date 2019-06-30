@@ -1,22 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
-/// Responsible for all the gestures for the `Division` widget
-///
-/// ```dart
-/// Division(
-///   style: StyleClass()
-///     ..width(100)
-///     ..height(150)
-///     ..borderRadius(all: 30.0)
-///     ..backgroundColor('#eeeeee'),
-///   gesture: GestureClass()
-///     ..onTap(() => print('Widget pressed!'))
-///     ..onLongPress(() => print('Widget longpress)),
-///   child: Text('Some text),
-/// )
-/// ```
 class GestureClass {
+  /// Responsible for all the gestures for the `Division` widget
+  ///
+  /// ```dart
+  /// Division(
+  ///   style: StyleClass()
+  ///     ..width(100)
+  ///     ..height(150)
+  ///     ..borderRadius(all: 30.0)
+  ///     ..backgroundColor(hex('#eeeeee')),
+  ///   gesture: GestureClass()
+  ///     ..onTap(() => print('Widget pressed!'))
+  ///     ..onLongPress(() => print('Widget longpress)),
+  ///   child: Text('Some text),
+  /// )
+  /// ```
   GestureClass(
       {this.behavior,
       this.excludeFromSemantics = false,
@@ -235,22 +235,22 @@ class GestureClass {
       _onScaleUpdate = function;
 }
 
-/// Responsible for all the gestures for the `Division` widget
-///
-/// ```dart
-/// Division(
-///   style: S()
-///     ..width(100)
-///     ..height(150)
-///     ..borderRadius(all: 30.0)
-///     ..backgroundColor('#eeeeee'),
-///   gesture: G()
-///     ..onTap(() => print('Widget pressed!'))
-///     ..onLongPress(() => print('Widget longpress)),
-///   child: Text('Some text),
-/// )
-/// ```
 class G extends GestureClass {
+  /// Responsible for all the gestures for the `Division` widget
+  ///
+  /// ```dart
+  /// Division(
+  ///   style: S()
+  ///     ..width(100)
+  ///     ..height(150)
+  ///     ..borderRadius(all: 30.0)
+  ///     ..backgroundColor(hex('#eeeeee')),
+  ///   gesture: G()
+  ///     ..onTap(() => print('Widget pressed!'))
+  ///     ..onLongPress(() => print('Widget longpress)),
+  ///   child: Text('Some text),
+  /// )
+  /// ```
   G(
       {this.behavior,
       this.excludeFromSemantics = false,

@@ -7,11 +7,11 @@ import 'src/class/style_class.dart';
 // dummies presets. Please contribute!
 
 StyleClass cardStyle = StyleClass()
-  ..backgroundColor('#f5f5f5')
+  ..background.hex('#f5f5f5')
   ..borderRadius(all: 10.0)
   ..elevation(1)
-  ..align('center')
-  ..alignChild('center')
+  ..alignment.center()
+  ..alignmentChild.center()
   ..margin(horizontal: 20.0, vertical: 10.0)
   ..padding(all: 20.0)
   ..height(300);
@@ -21,14 +21,14 @@ StyleClass rasiedButtonStyle = StyleClass()
   ..height(50)
   ..borderRadius(all: 30.0)
   ..elevation(5.0)
-  ..backgroundColor('#03A9F4')
-  ..align('center')
-  ..alignChild('center');
+  ..background.hex('#f5f5f5')
+  ..alignment.center()
+  ..alignmentChild.center();
 
 StyleClass frostedGlassStyle = StyleClass()
   ..width(400)
   ..height(400)
-  ..align('center')
+  ..alignment.center()
   ..borderRadius(all: 10)
-  ..backgroundBlur(20)
-  ..backgroundColor(rgba(255, 255, 255, 0.15));
+  ..background.blur(20)
+  ..background.rgba(255, 255, 255, 0.15);
