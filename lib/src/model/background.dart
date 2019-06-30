@@ -6,7 +6,7 @@ class BackgroundModel {
   Color $color;
   double $blur;
   DecorationImage $image;
-  
+
   /// BackgroundColor
   void color(Color color) {
     $color = color;
@@ -34,7 +34,7 @@ class BackgroundModel {
   /// ```
   /// Does not work together with `rotate()`.
   void blur(double blur) {
-    if (blur < 0) throw('Blur cannot be negative: $blur');
+    if (blur < 0) throw ('Blur cannot be negative: $blur');
     $blur = blur;
   }
 
@@ -72,5 +72,4 @@ class BackgroundModel {
       repeat: repeat,
     );
   }
-
 }

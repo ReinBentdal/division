@@ -208,10 +208,10 @@ class Settings extends StatelessWidget {
         children: <Widget>[
           SettingsItem(Icons.location_on, hex('#8D7AEE'), 'Address',
               'Ensure your harvesting address'),
-          SettingsItem(
-              Icons.lock, hex('#F468B7'), 'Privacy', 'System permission change'),
-          SettingsItem(
-              Icons.menu, hex('#FEC85C'), 'General', 'Basic functional settings'),
+          SettingsItem(Icons.lock, hex('#F468B7'), 'Privacy',
+              'System permission change'),
+          SettingsItem(Icons.menu, hex('#FEC85C'), 'General',
+              'Basic functional settings'),
           SettingsItem(Icons.notifications, hex('#5FD0D3'), 'Notifications',
               'Take over the news in time'),
           SettingsItem(Icons.question_answer, hex('#BFACAA'), 'Support',

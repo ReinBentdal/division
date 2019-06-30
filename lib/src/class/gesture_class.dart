@@ -254,7 +254,11 @@ class G extends GestureClass {
   G(
       {this.behavior,
       this.excludeFromSemantics = false,
-      this.dragStartBehavior = DragStartBehavior.start}) : super(behavior: behavior, excludeFromSemantics: excludeFromSemantics, dragStartBehavior: dragStartBehavior);
+      this.dragStartBehavior = DragStartBehavior.start})
+      : super(
+            behavior: behavior,
+            excludeFromSemantics: excludeFromSemantics,
+            dragStartBehavior: dragStartBehavior);
 
   /// How this gesture detector should behave during hit testing.
   ///

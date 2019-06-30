@@ -177,7 +177,7 @@ class StyleClass {
   BackgroundModel background = BackgroundModel();
 
   /// Creates a linear gradient.
-  /// 
+  ///
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void linearGradient(
       {AlignmentGeometry begin = Alignment.centerLeft,
@@ -194,7 +194,7 @@ class StyleClass {
   }
 
   /// Creates a radial gradient.
-  /// 
+  ///
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void radialGradient(
       {AlignmentGeometry center = Alignment.center,
@@ -212,9 +212,9 @@ class StyleClass {
   }
 
   /// Creates a sweep gradient.
-  /// 
+  ///
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
-  /// 
+  ///
   /// Choose to calculate angles with radians or not through [useRadians] parameter.
   /// [end] default to 1.0 if [useRadians] is false and 2 * pi if [useRadians] is true,
   void sweepGradient(

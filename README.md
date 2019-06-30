@@ -75,7 +75,7 @@ On construction, choose to use radians or not when giving circular values.
 
 #### Alignment
 ```dart
-..alignment.[alignment]
+..alignment.[alignment] // alignment.topCenter()
 ```
 Alignment of the widget itself, not the child.
 
@@ -83,7 +83,7 @@ Alignment of the widget itself, not the child.
 
 #### Align child
 ```dart
-..alignmentChild.[alignment]
+..alignmentChild.[alignment] // alignment.topCenter()
 ```
 Alignment of the child.
 
@@ -126,7 +126,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
       String path, 
       ColorFilter colorFilter, 
       BoxFit fit, 
-      Alignment alignment = Alignment.center, 
+      AlignmentGeometry alignment = Alignment.center, 
       ImageRepeat repeat = ImageRepeat.noRepeat})
 ```
 Eighter the [url] or the [path] has to be specified.
