@@ -11,8 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-dependency_overrides:
-  meta: ^1.1.6
 
 dev_dependencies:
   flutter_test:
