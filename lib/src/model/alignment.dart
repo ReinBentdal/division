@@ -19,5 +19,5 @@ class AlignmentModel {
   void centerRight() => _alignment = Alignment.centerRight;
 
   void coordinate(double x, double y) =>
-      _alignment = Alignment(x, y); // TODO: New name
+      _alignment = Alignment(x, y);
 }
