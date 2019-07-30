@@ -51,18 +51,20 @@ class BackgroundModel {
   void image(
       {String url,
       String path,
+      ImageProvider<dynamic> imageProveder,
       ColorFilter colorFilter,
       BoxFit fit,
       AlignmentGeometry alignment = Alignment.center,
       ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path) == null) throw ('A [url] or a [path] has to be provided');
+    if ((url ?? path ?? imageProveder) == null) throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
 
     ImageProvider<dynamic> image;
-    if (path != null) {
+    if (imageProveder != null)
+      image = imageProveder;
+    else if (path != null)
       image = AssetImage(path);
-    } else {
+    else
       image = NetworkImage(url);
-    }
 
     $image = DecorationImage(
       image: image,

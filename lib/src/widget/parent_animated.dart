@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
-import 'build.dart';
-import 'model/ripple.dart';
-import 'model/overflow.dart';
-import 'class/gesture_class.dart';
+import 'parent_build.dart';
+import '../model/ripple.dart';
+import '../model/overflow.dart';
+import '../style/gesture_class.dart';
 
-class DivisionAnimate extends ImplicitlyAnimatedWidget {
-  DivisionAnimate({
-    this.alignmentChild,
-    this.alignment,
-    this.padding,
-    this.decoration,
-    double width,
-    double height,
-    BoxConstraints constraints,
-    this.margin,
-    this.transform,
-    this.backgroundBlur,
-    this.opacity,
-    this.ripple,
-    this.overflow,
-    Curve curve,
-    Duration duration,
+class ParentAnimated extends ImplicitlyAnimatedWidget {
+  ParentAnimated({
+    @required this.alignmentChild,
+    @required this.alignment,
+    @required this.padding,
+    @required this.decoration,
+    @required double width,
+    @required double height,
+    @required BoxConstraints constraints,
+    @required this.margin,
+    @required this.transform,
+    @required this.backgroundBlur,
+    @required this.opacity,
+    @required this.ripple,
+    @required this.overflow,
+    @required Curve curve,
+    @required Duration duration,
     this.gesture,
-    this.child,
+    @required this.child,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
         assert(decoration == null || decoration.debugAssertIsValid()),
@@ -61,10 +61,10 @@ class DivisionAnimate extends ImplicitlyAnimatedWidget {
   final GestureClass gesture;
 
   @override
-  _DivisionAnimateState createState() => _DivisionAnimateState();
+  _ParentAnimatedState createState() => _ParentAnimatedState();
 }
 
-class _DivisionAnimateState extends AnimatedWidgetBaseState<DivisionAnimate> {
+class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
   AlignmentGeometryTween _alignment;
   AlignmentGeometryTween _alignmentChild;
   EdgeInsetsGeometryTween _padding;
@@ -99,7 +99,7 @@ class _DivisionAnimateState extends AnimatedWidgetBaseState<DivisionAnimate> {
 
   @override
   Widget build(BuildContext context) {
-    return DivisionBuild(
+    return ParentBuild(
       alignmentChild: _alignmentChild?.evaluate(animation),
       alignment: _alignment?.evaluate(animation),
       padding: _padding?.evaluate(animation),

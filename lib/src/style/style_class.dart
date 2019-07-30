@@ -44,10 +44,6 @@ class StyleClass {
   EdgeInsetsGeometry $padding;
   EdgeInsetsGeometry $margin;
 
-  // Color $backgroundColor;
-  // DecorationImage $backgroundImage;
-  // double $backgroundBlur;
-
   Gradient $gradient;
   BoxBorder $border;
   BorderRadiusGeometry $borderRadius;
@@ -116,9 +112,6 @@ class StyleClass {
 
   /// Alignment relative to its surroundings
   AlignmentModel alignment = AlignmentModel();
-
-  /// Alignment of the widget.
-  AlignmentModel alignmentChild = AlignmentModel();
 
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
@@ -481,7 +474,7 @@ class StyleClass {
     // if override is true, all style from the added class will override current style
     if (override == true) {
       alignment = styleClass?.alignment ?? alignment;
-      alignmentChild = styleClass?.alignmentChild ?? alignmentChild;
+      // alignmentChild = styleClass?.alignmentChild ?? alignmentChild;
       $padding = styleClass?.$padding ?? $padding;
       $margin = styleClass?.$margin ?? $margin;
       background?.$color = styleClass?.background?.$color ?? background?.$color;
@@ -507,7 +500,7 @@ class StyleClass {
       overflow = styleClass?.overflow ?? overflow;
     } else {
       alignment = alignment ?? styleClass?.alignment;
-      alignmentChild = alignmentChild ?? styleClass?.alignmentChild;
+      // alignmentChild = alignmentChild ?? styleClass?.alignmentChild;
       $padding = $padding ?? styleClass?.$padding;
       $margin = $margin ?? styleClass?.$margin;
       background?.$color = background?.$color ?? styleClass?.background?.$color;

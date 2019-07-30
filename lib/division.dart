@@ -1,13 +1,15 @@
 library division;
 
-// The main widget
-export 'src/division.dart';
+// parent
+export 'src/widget/parent.dart';
+export 'src/style/parent_style.dart';
 
-// controlls the styling for the division widget
-export 'src/class/style_class.dart';
+// txt
+export 'src/widget/txt.dart';
+export 'src/style/txt_style.dart';
 
 // controlls the gestures for the division widget
-export 'src/class/gesture_class.dart';
+export 'src/style/gesture_class.dart';
 
-// rgb() and rgba() function
+// hex(), rgb() and rgba() function
 export 'src/function/color.dart';

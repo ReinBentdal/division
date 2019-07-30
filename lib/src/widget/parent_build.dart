@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'model/ripple.dart';
-import 'model/overflow.dart';
-import 'class/gesture_class.dart';
+import '../model/ripple.dart';
+import '../model/overflow.dart';
+import '../style/gesture_class.dart';
 
-class DivisionBuild extends StatelessWidget {
+class ParentBuild extends StatelessWidget {
   /// Creates a widget that combines common painting, positioning, and sizing widgets.
   ///
   /// The `height` and `width` values include the padding.
@@ -16,23 +16,23 @@ class DivisionBuild extends StatelessWidget {
   /// and a `decoration` argument. If you want to have both a `color` and a
   /// `decoration`, you can pass the color as the `color` argument to the
   /// `BoxDecoration`.
-  DivisionBuild({
+  ParentBuild({
     Key key,
-    this.alignmentChild,
-    this.alignment,
-    this.padding,
-    this.decoration,
+    @required this.alignmentChild,
+    @required this.alignment,
+    @required this.padding,
+    @required this.decoration,
     double width,
     double height,
-    BoxConstraints constraints,
-    this.margin,
-    this.transform,
-    this.backgroundBlur,
-    this.opacity,
-    this.ripple,
-    this.overflow,
+    @required BoxConstraints constraints,
+    @required this.margin,
+    @required this.transform,
+    @required this.backgroundBlur,
+    @required this.opacity,
+    @required this.ripple,
+    @required this.overflow,
     this.gesture,
-    this.child,
+    @required this.child,
   })  : assert(margin == null || margin.isNonNegative),
         assert(padding == null || padding.isNonNegative),
         assert(decoration == null || decoration.debugAssertIsValid()),
