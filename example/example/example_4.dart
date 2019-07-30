@@ -15,7 +15,7 @@ class Main extends StatelessWidget {
 }
 
 class ElevationDemo extends StatelessWidget {
-  final StyleClass boxStyle = StyleClass()
+  final ParentStyle boxStyle = ParentStyle()
     ..width(300)
     ..height(50)
     ..margin(vertical: 10.0)
@@ -30,44 +30,44 @@ class ElevationDemo extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(0)
             ..add(boxStyle),
           child: text('Elevation: 0'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(5)
             ..add(boxStyle),
           child: text('Elevation: 5'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(10)
             ..add(boxStyle),
           child: text('Elevation: 10'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(20)
             ..add(boxStyle),
           child: text('Elevation: 20'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(30)
             ..add(boxStyle),
           child: text('Elevation: 30'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(40)
             ..add(boxStyle),
           child: text('Elevation: 40'),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..elevation(50)
             ..add(boxStyle),
           child: text('Elevation: 50'),

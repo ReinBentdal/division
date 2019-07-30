@@ -18,8 +18,8 @@ class Main extends StatelessWidget {
 
 class UserPage extends StatelessWidget {
   Widget _buildTitle(String title) {
-    return Division(
-      style: StyleClass()
+    return Parent(
+      style: ParentStyle()
         ..margin(bottom: 20.0)
         ..alignmentChild.centerLeft(),
       child: Text(
@@ -33,8 +33,8 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double verticalMargin = 30;
     return SingleChildScrollView(
-      child: Division(
-        style: StyleClass()
+      child: Parent(
+        style: ParentStyle()
           ..margin(vertical: verticalMargin, horizontal: 20)
           ..minHeight(
               MediaQuery.of(context).size.height - (2 * verticalMargin)),
@@ -55,7 +55,7 @@ class UserCard extends StatelessWidget {
   Widget _buildUserRow() {
     return Row(
       children: <Widget>[
-        Division(
+        Parent(
           style: userImageStyle,
           child: Icon(Icons.account_circle),
         ),
@@ -80,7 +80,7 @@ class UserCard extends StatelessWidget {
   }
 
   Widget _buildUserStats() {
-    return Division(
+    return Parent(
       style: userStatsStyle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -114,7 +114,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Division(
+    return Parent(
       style: userCardStyle,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -125,7 +125,7 @@ class UserCard extends StatelessWidget {
 
   //Styling
 
-  final StyleClass userCardStyle = StyleClass()
+  final ParentStyle userCardStyle = ParentStyle()
     ..height(175)
     ..padding(horizontal: 20.0, vertical: 10)
     ..alignment.center()
@@ -133,14 +133,14 @@ class UserCard extends StatelessWidget {
     ..borderRadius(all: 20.0)
     ..elevation(10, color: hex('#3977FF'));
 
-  final StyleClass userImageStyle = StyleClass()
+  final ParentStyle userImageStyle = ParentStyle()
     ..height(50)
     ..width(50)
     ..margin(right: 10.0)
     ..borderRadius(all: 30)
     ..background.hex('ffffff');
 
-  final StyleClass userStatsStyle = StyleClass()..margin(vertical: 10.0);
+  final ParentStyle userStatsStyle = ParentStyle()..margin(vertical: 10.0);
 
   final TextStyle nameTextStyle = TextStyle(
       color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
@@ -151,11 +151,11 @@ class UserCard extends StatelessWidget {
 
 class ActionsRow extends StatelessWidget {
   Widget _buildActionsItem(String title, IconData icon) {
-    return Division(
+    return Parent(
       style: actionsItemStyle,
       child: Column(
         children: <Widget>[
-          Division(
+          Parent(
             style: actionsItemIconStyle,
             child: Icon(
               icon,
@@ -185,7 +185,7 @@ class ActionsRow extends StatelessWidget {
     );
   }
 
-  final StyleClass actionsItemIconStyle = StyleClass()
+  final ParentStyle actionsItemIconStyle = ParentStyle()
     ..alignmentChild.center()
     ..width(50)
     ..height(50)
@@ -193,7 +193,7 @@ class ActionsRow extends StatelessWidget {
     ..borderRadius(all: 30)
     ..background.hex('#F6F5F8');
 
-  final StyleClass actionsItemStyle = StyleClass()..margin(vertical: 20.0);
+  final ParentStyle actionsItemStyle = ParentStyle()..margin(vertical: 20.0);
 
   final TextStyle actionsItemTextStyle =
       TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 12);
@@ -202,7 +202,7 @@ class ActionsRow extends StatelessWidget {
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Division(
+    return Parent(
       style: settingsStyle,
       child: Column(
         children: <Widget>[
@@ -221,7 +221,7 @@ class Settings extends StatelessWidget {
     );
   }
 
-  final StyleClass settingsStyle = StyleClass();
+  final ParentStyle settingsStyle = ParentStyle();
 }
 
 class SettingsItem extends StatefulWidget {
@@ -241,7 +241,7 @@ class _SettingsItemState extends State<SettingsItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Division(
+    return Parent(
         style: settingsItemStyle
           ..elevation(pressed ? 0 : 50, color: Colors.grey)
           ..scale(pressed ? 0.95 : 1.0),
@@ -251,8 +251,8 @@ class _SettingsItemState extends State<SettingsItem> {
           ..onTapCancel(() => setState(() => pressed = false)),
         child: Row(
           children: <Widget>[
-            Division(
-              style: StyleClass()
+            Parent(
+              style: ParentStyle()
                 ..background.color(widget.iconBgColor)
                 ..add(settingsItemIconStyle),
               child: Icon(
@@ -285,7 +285,7 @@ class _SettingsItemState extends State<SettingsItem> {
         ));
   }
 
-  final StyleClass settingsItemStyle = StyleClass()
+  final ParentStyle settingsItemStyle = ParentStyle()
     ..alignmentChild.center()
     ..height(70)
     ..margin(vertical: 10)
@@ -294,7 +294,7 @@ class _SettingsItemState extends State<SettingsItem> {
     ..ripple(true)
     ..animate(300, Curves.easeOut);
 
-  final StyleClass settingsItemIconStyle = StyleClass()
+  final ParentStyle settingsItemIconStyle = ParentStyle()
     ..margin(left: 15)
     ..padding(all: 12)
     ..borderRadius(all: 30);

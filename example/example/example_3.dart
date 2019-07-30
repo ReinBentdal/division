@@ -15,16 +15,16 @@ class Main extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  final StyleClass titleBox = StyleClass()
+  final ParentStyle titleBox = ParentStyle()
     ..padding(vertical: 30.0, horizontal: 20.0);
 
-  final StyleClass tasksCard = StyleClass()
+  final ParentStyle tasksCard = ParentStyle()
     ..width(100)
     ..height(100)
     ..borderRadius(all: 15.0)
     ..margin(left: 10.0, right: 10.0, top: 5.0, bottom: 55.0);
 
-  final StyleClass categoriesCard = StyleClass()
+  final ParentStyle categoriesCard = ParentStyle()
     ..width(200)
     ..height(200)
     ..borderRadius(all: 15.0)
@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
     ..margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
 
   Widget _buildTitle(String title) {
-    return Division(
+    return Parent(
       style: titleBox,
       child: Text(
         title,
@@ -44,8 +44,8 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildSearchBar() {
-    return Division(
-      style: StyleClass()
+    return Parent(
+      style: ParentStyle()
         ..width(300)
         ..padding(horizontal: 20.0, vertical: 15.0)
         ..margin(top: 0.0, bottom: 20.0)
@@ -77,8 +77,8 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildColoredCard(Color color) {
-    return Division(
-      style: StyleClass()
+    return Parent(
+      style: ParentStyle()
         ..background.color(color)
         ..elevation(20, color: color.withOpacity(0.5))
         ..add(tasksCard),
@@ -86,8 +86,8 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildUnderTitle(String title) {
-    return Division(
-        style: StyleClass()..margin(left: 20.0),
+    return Parent(
+        style: ParentStyle()..margin(left: 20.0),
         child: Text(
           title,
           style: TextStyle(
@@ -112,7 +112,7 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildCategoriesCard() {
-    return Division(style: categoriesCard);
+    return Parent(style: categoriesCard);
   }
 
   @override

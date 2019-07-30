@@ -25,15 +25,15 @@ class _FrostedWidgetState extends State<FrostedWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..background.image(
               url: 'https://i.imgur.com/SqZ5JTv.jpg',
               fit: BoxFit.cover,
             ),
         ),
-        Division(
-          style: StyleClass()
+        Parent(
+          style: ParentStyle()
             ..alignment.center()
             ..alignmentChild.center()
             ..width(300)
