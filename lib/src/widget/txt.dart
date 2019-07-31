@@ -56,6 +56,7 @@ class Txt extends StatelessWidget {
         editable: style?.$editable,
         focusNode: style?.$focusNode,
         keyboardType: style?.$keyboardType,
+        obscureText: style?.$obscureText,
         onChange: style?.$onChange,
         onSelectionChange: style?.$onSelectionChange,
       );

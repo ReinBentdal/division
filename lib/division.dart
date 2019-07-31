@@ -8,7 +8,8 @@ export 'src/style/parent_style.dart';
 export 'src/widget/txt.dart';
 export 'src/style/txt_style.dart';
 
-// controlls the gestures for the division widget
+// general
+export 'src/style/style_class.dart';
 export 'src/style/gesture_class.dart';
 
 // hex(), rgb() and rgba() function

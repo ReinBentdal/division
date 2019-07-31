@@ -16,6 +16,7 @@ class TxtBuild extends StatelessWidget {
     @required this.wordSpacing,
     @required this.editable,
     @required this.focusNode,
+    @required this.obscureText,
     @required this.onSelectionChange,
     @required this.onChange,
     @required this.keyboardType,
@@ -32,9 +33,11 @@ class TxtBuild extends StatelessWidget {
   final int maxLines;
   final double letterSpacing;
   final double wordSpacing;
+
   final bool editable;
   final FocusNode focusNode;
   final TextInputType keyboardType;
+  final bool obscureText;
   final void Function(String) onChange;
   final void Function(TextSelection, SelectionChangedCause) onSelectionChange;
 
@@ -60,18 +63,19 @@ class TxtBuild extends StatelessWidget {
       // DefaultTextStyle _defaultTextStyle = DefaultTextStyle.of(context);
 
       return EditableText(
-          cursorOpacityAnimates: true,
-          style: _textStyle,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          controller: _controller,
-          focusNode: focusNode,
-          backgroundCursorColor: Colors.grey,
-          cursorColor: Colors.black,
-          keyboardType: keyboardType,
-          onChanged: onChange,
-          onSelectionChanged: onSelectionChange,
-        );
+        cursorOpacityAnimates: true,
+        style: _textStyle,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        controller: _controller,
+        focusNode: focusNode,
+        backgroundCursorColor: Colors.grey,
+        cursorColor: Colors.black,
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        onChanged: onChange,
+        onSelectionChanged: onSelectionChange,
+      );
     }
 
     return Text(

@@ -4,6 +4,8 @@ import 'style_class.dart';
 
 class TxtStyle extends StyleClass {
 
+  TxtStyle({bool useRadians = false}) : super(useRadians: useRadians);
+
   FontWeight $fontWeight;
   TextAlign $textAlign = TextAlign.start;
   FontStyle $fontStyle = FontStyle.normal;
@@ -18,6 +20,7 @@ class TxtStyle extends StyleClass {
   // editable text input properties
   bool $editable = false;
   TextInputType $keyboardType;
+  bool $obscureText;
   String $placeholder;
   void Function(String) $onChange;
   void Function(bool focus) $onFocusChange;
@@ -74,8 +77,9 @@ class TxtStyle extends StyleClass {
   /// Make the widget editable just like a TextField.
   /// 
   /// If `focusNode` isnt spesified an internal `focusNode` will be created.
-  void editable(bool enable,
-      {TextInputType keyboardType,
+  void editable({
+      TextInputType keyboardType,
+      bool obscureText = false,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChange,
@@ -83,8 +87,9 @@ class TxtStyle extends StyleClass {
 
     _initializeFocusNode(focusNode);
 
-    $editable = enable;
+    $editable = true;
     $keyboardType = keyboardType;
+    $obscureText = obscureText;
     $onFocusChange = onFocusChange;
     $onChange = onChange;
     $onSelectionChange = onSelectionChange;

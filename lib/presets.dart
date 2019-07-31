@@ -1,4 +1,4 @@
-// import 'src/style/style_class.dart';
+import 'src/style/style_class.dart';
 
 // // The goal of the presets is to both offer material design presets and some custom
 // // but to have custom good looking presets as an alternative to material design.
@@ -24,10 +24,10 @@
 //   ..alignment.center()
 //   ..alignmentChild.center();
 
-// StyleClass frostedGlassStyle = StyleClass()
-//   ..width(400)
-//   ..height(400)
-//   ..alignment.center()
-//   ..borderRadius(all: 10)
-//   ..background.blur(20)
-//   ..background.rgba(255, 255, 255, 0.15);
+StyleClass frostedGlassStyle = StyleClass()
+  ..width(400)
+  ..height(400)
+  ..alignment.center()
+  ..borderRadius(all: 10)
+  ..background.blur(20)
+  ..background.rgba(255, 255, 255, 0.15);
