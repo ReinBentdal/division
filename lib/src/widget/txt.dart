@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../style/gesture_class.dart';
 import '../style/txt_style.dart';
 import 'parent_animated.dart';
 import 'parent_build.dart';
@@ -8,8 +9,11 @@ import 'txt_build.dart';
 class Txt extends StatelessWidget {
   final String text;
   final TxtStyle style;
+  final GestureClass gesture;
 
-  const Txt(this.text, {this.style});
+  const Txt(this.text, {this.style, this.gesture});
+
+  // TODO: gestures (tested onTap()) does not work when text is editable
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class Txt extends StatelessWidget {
         opacity: style?.$opacity,
         ripple: style?.$ripple,
         overflow: style?.overflow,
-        // gesture: gesture,
+        gesture: gesture,
         child: widgetTree,
         curve: style?.$curve,
         duration: style?.$duration,
@@ -76,7 +80,7 @@ class Txt extends StatelessWidget {
         opacity: style?.$opacity,
         ripple: style?.$ripple,
         overflow: style?.overflow,
-        // gesture: gesture,
+        gesture: gesture,
         child: widgetTree,
       );
     }
