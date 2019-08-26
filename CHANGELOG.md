@@ -1,11 +1,16 @@
+## 0.8.0
+### Complete rewrite with new syntax
+* Added a widget called `Parent` that takes a child
+* [Beta] Added a widget called `Txt` that takes a String 
+
 ## 0.7.0
 ### More strict typing is the theme of this update.
 * Added alternative class names. `StyleClass` -> `S` and `GestureClass` -> `G`.
-* [Breaking] Changes `backgroundColor` syntax to `background.color([Color])`, `background.hex()` and `background.rgba(int, int, int, [double])`. Mover backgroundImage and backgroundBlur to `background` method.
-* [Breaking] Changed `alignment` syntac from `alignment(dynamic [alignment])` to `alignment.[alignment]`
+* [Breaking] Changed `backgroundColor` syntax to `background.color([Color])`, `background.hex()` and `background.rgba(int, int, int, [double])`. Moved backgroundImage and backgroundBlur to `background` method.
+* [Breaking] Changed `alignment` syntax from `alignment(dynamic [alignment])` to `alignment.[alignment]`
 * [Breaking] Changed `overflow` syntax from `overflow([type])` to `overflow.[type]`.
-* [Breaking] Changed `backgroundImage`, `linearGradient`, `radialGradient` and `sweepGradient` alignment paramteres from `dynamic` to `AlignmentGeometry`.
-* [Breaking] Changed `ripple`, `elevation`, `boxShadow`, `border`, `sweepGradient`, `radialGradient`, `linearGradient`, `backgroundColor` color parameters from `dynamic` to `Color`. Use [Color], rgb(), rgba() or hex() for color.
+* [Breaking] Changed `linearGradient`, `radialGradient` and `sweepGradient` alignment paramteres from [dynamic] to [AlignmentGeometry].
+* [Breaking] Changed `ripple`, `elevation`, `boxShadow`, `border`, `sweepGradient`, `radialGradient`, `linearGradient` color parameters from [dynamic] to [Color]. Use [Color], rgb(), rgba() or hex() for color.
 * [Fix] `overflow.hidden()` now clips with a borderRadius.
 * [Fix] Bug with Gestures not activating
 
