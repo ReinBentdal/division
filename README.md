@@ -14,6 +14,9 @@ Parent(child: Icon(Icons.add))
     .elevation(5)
     .borderRadius(all: 30)
     .animate(500, Curves.easeIn)
+    .gesture(
+        onTap: () => print('Parent tapped'),
+    )
     .build()
 
 Txt('Some text', angleFormat: AngleFormat.degree)
