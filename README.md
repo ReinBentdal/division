@@ -33,4 +33,6 @@ Txt('Some text', angleFormat: AngleFormat.degree)
 
 The Txt widget is still a beta feature
 
-### TODO: Update & add documentation. [Help contribute](https://github.com/ReinBentdal/division)
+### Current priorities
+- Add & update documentation. [Help contribute](https://github.com/ReinBentdal/division)
+- Txt into a stable version
