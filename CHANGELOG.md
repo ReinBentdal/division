@@ -1,3 +1,8 @@
+## 0.8.0
+### Complete rewrite with new syntax
+* Added a widget called `Parent` which takes a child
+* [Beta] Added a text widget called `Txt`
+
 ## 0.7.0
 ### More strict typing is the theme of this update.
 * Added alternative class names. `StyleClass` -> `S` and `GestureClass` -> `G`.
