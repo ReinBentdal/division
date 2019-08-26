@@ -1,7 +1,7 @@
 ## 0.8.0
 ### Complete rewrite with new syntax
-* Added a widget called `Parent` which takes a child
-* [Beta] Added a text widget called `Txt`
+* Added a widget called `Parent` that takes a child
+* [Beta] Added a widget called `Txt` that takes a String 
 
 ## 0.7.0
 ### More strict typing is the theme of this update.

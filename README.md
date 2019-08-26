@@ -4,18 +4,20 @@ A simple to use yet powerfull styling oriented package with syntax inspired by C
 
 ## Getting Started
 
-**A basic example
+**A basic example**
 ```dart
-Parent()
+Parent(child: Icon(Icons.add))
     .width(200)
     .height(250)
+    .centerChild()
     .backgroundColor(Colors.grey)
     .elevation(5)
     .borderRadius(all: 30)
     .animate(500, Curves.easeIn)
     .build()
 
-Txt('Some text')
+Txt('Some text', angleFormat: AngleFormat.degree)
+    .elevation(10, angle: 180)
     .bold()
     .fontSize(24)
     .width(100)
@@ -26,4 +28,6 @@ Txt('Some text')
 
 ```
 
-### TODO: Update/ add documentation. [Help contribute](https://github.com/ReinBentdal/division)
+The Txt widget is still a beta feature
+
+### TODO: Update & add documentation. [Help contribute](https://github.com/ReinBentdal/division)
