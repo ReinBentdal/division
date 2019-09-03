@@ -24,7 +24,7 @@ class BackgroundModel {
   void hex(String xxxxxx) {
     $color = HexColor(xxxxxx);
   }
-
+ 
   /// Blurs the background
   ///
   /// Frosted glass example:

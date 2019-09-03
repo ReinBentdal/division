@@ -185,7 +185,7 @@ class StyleClass {
         tileMode: tileMode,
         stops: stops);
   }
-
+ 
   /// Creates a radial gradient.
   ///
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
@@ -526,6 +526,8 @@ class StyleClass {
       overflow = overflow ?? styleClass?.overflow;
     }
   }
+
+  StyleClass get export => this;
 }
 
 class S extends StyleClass {

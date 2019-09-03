@@ -96,6 +96,7 @@ class _TxtBuildState extends State<TxtBuild> {
       // DefaultTextStyle _defaultTextStyle = DefaultTextStyle.of(context);
 
       return EditableText(
+        // readOnly: true,
         cursorOpacityAnimates: true,
         style: _textStyle,
         textAlign: widget.textAlign,

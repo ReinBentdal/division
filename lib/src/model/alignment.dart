@@ -6,7 +6,6 @@ class AlignmentModel {
   AlignmentGeometry get getAlignment => _alignment;
 
   void topLeft() => _alignment = Alignment.topLeft;
-  void get test => _alignment = Alignment.center;
   void topCenter() => _alignment = Alignment.topCenter;
   void topRight() => _alignment = Alignment.topRight;
 

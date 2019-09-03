@@ -99,7 +99,7 @@ class TxtStyle extends StyleClass {
   /// 
   /// If a focus node isnt spesified in the `editable` method, a new FocusNode instance will be created.
   /// A listener is attatched to trigger the `onFocusChange` function.
-  void _initializeFocusNode([FocusNode focusNode]) {
+  void _initializeFocusNode(FocusNode focusNode) {
 
     // if no focus node is given, a new focus node will be initialized
     $focusNode = focusNode ?? FocusNode();
