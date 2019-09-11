@@ -340,5 +340,4 @@ To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots i
 ```
 
 # Txt Style
-
 [] TODO: Improve documentation
