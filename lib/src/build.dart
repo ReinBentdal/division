@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 
 class ParentBuild extends StatelessWidget {
-  ParentBuild({@required this.child, @required this.styleModel, @required this.gestureModel})
+  ParentBuild(
+      {@required this.child,
+      @required this.styleModel,
+      @required this.gestureModel})
       : decoration = styleModel?.decoration,
         constraints = styleModel?.constraints;
 
@@ -87,8 +90,7 @@ class ParentBuild extends StatelessWidget {
     if (decoration != null)
       widgetTree = DecoratedBox(decoration: decoration, child: widgetTree);
 
-    if (gestureModel != null)
-      widgetTree = gestures(widgetTree, gestureModel);
+    if (gestureModel != null) widgetTree = gestures(widgetTree, gestureModel);
 
     if (constraints != null)
       widgetTree = ConstrainedBox(constraints: constraints, child: widgetTree);
@@ -216,7 +218,7 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   }
 
   void _initializeFocusNode() {
-    if(_focusNode == null)
+    if (_focusNode == null)
       _focusNode = widget.textModel?.focusNode ?? FocusNode();
 
     _focusNode?.addListener(() {

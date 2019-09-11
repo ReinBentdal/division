@@ -138,11 +138,12 @@ class StyleClass {
       @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops}) {
-
     startAngle = _angleToRadians(startAngle, angleFormat);
 
-    if (endAngle == null) endAngle = pi * 2;
-    else endAngle = _angleToRadians(endAngle, angleFormat);
+    if (endAngle == null)
+      endAngle = pi * 2;
+    else
+      endAngle = _angleToRadians(endAngle, angleFormat);
 
     _styleModel?.gradient = SweepGradient(
       center: center,
@@ -300,7 +301,8 @@ class StyleClass {
   /// ..scale(0.7);
   /// ```
   void scale(double ratio) {
-    if (ratio < 0) throw ('The widget scale cannot be negative: _styleModel?.ratio');
+    if (ratio < 0)
+      throw ('The widget scale cannot be negative: _styleModel?.ratio');
     _styleModel?.scale = ratio;
   }
 
@@ -406,12 +408,11 @@ class StyleClass {
   }
 
   double _angleToRadians(double value, AngleFormat angleFormat) {
-    if(angleFormat == AngleFormat.radians)
+    if (angleFormat == AngleFormat.radians)
       return value;
     else if (angleFormat == AngleFormat.cycles)
       return value * 2 * pi;
-    else if (angleFormat == AngleFormat.degree)
-      return (value / 360) * 2 * pi;
+    else if (angleFormat == AngleFormat.degree) return (value / 360) * 2 * pi;
 
     return null;
   }
@@ -442,7 +443,8 @@ class S extends StyleClass {
 }
 
 class ParentStyle extends StyleClass {
-  ParentStyle({this.angleFormat = AngleFormat.cycles}) : super(angleFormat: angleFormat);
+  ParentStyle({this.angleFormat = AngleFormat.cycles})
+      : super(angleFormat: angleFormat);
 
   final AngleFormat angleFormat;
 
@@ -519,16 +521,20 @@ class GestureClass {
 
   void onTap(void Function() function) => gestureModel?.onTap = function;
 
-  void onTapUp(void Function(TapUpDetails) function) => gestureModel?.onTapUp = function;
+  void onTapUp(void Function(TapUpDetails) function) =>
+      gestureModel?.onTapUp = function;
 
   void onTapDown(void Function(TapDownDetails) function) =>
       gestureModel?.onTapDown = function;
 
-  void onTapCancel(void Function() function) => gestureModel?.onTapCancel = function;
+  void onTapCancel(void Function() function) =>
+      gestureModel?.onTapCancel = function;
 
-  void onDoubleTap(void Function() function) => gestureModel?.onDoubleTap = function;
+  void onDoubleTap(void Function() function) =>
+      gestureModel?.onDoubleTap = function;
 
-  void onLongPress(void Function() function) => gestureModel?.onLongPress = function;
+  void onLongPress(void Function() function) =>
+      gestureModel?.onLongPress = function;
 
   void onLongPressStart(void Function(LongPressStartDetails) function) =>
       gestureModel?.onLongPressStart = function;
@@ -540,7 +546,8 @@ class GestureClass {
           void Function(LongPressMoveUpdateDetails) function) =>
       gestureModel?.onLongPressMoveUpdate = function;
 
-  void onLongPressUp(void Function() function) => gestureModel?.onLongPressUp = function;
+  void onLongPressUp(void Function() function) =>
+      gestureModel?.onLongPressUp = function;
 
   void onVerticalDragStart(void Function(DragStartDetails) function) =>
       gestureModel?.onVerticalDragStart = function;
@@ -587,9 +594,11 @@ class GestureClass {
   void onPanStart(void Function(DragStartDetails) function) =>
       gestureModel?.onPanStart = function;
 
-  void onPanEnd(void Function(DragEndDetails) function) => gestureModel?.onPanEnd = function;
+  void onPanEnd(void Function(DragEndDetails) function) =>
+      gestureModel?.onPanEnd = function;
 
-  void onPanCancel(void Function() function) => gestureModel?.onPanCancel = function;
+  void onPanCancel(void Function() function) =>
+      gestureModel?.onPanCancel = function;
 
   void onPanDown(void Function(DragDownDetails) function) =>
       gestureModel?.onPanDown = function;
@@ -670,7 +679,8 @@ class G extends GestureClass {
 }
 
 class TxtStyle extends StyleClass {
-  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles}) : super(angleFormat: angleFormat);
+  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
+      : super(angleFormat: angleFormat);
 
   final TextModel _textModel = TextModel();
 

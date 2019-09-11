@@ -35,7 +35,7 @@ class BackgroundModel {
   void hex(String xxxxxx) {
     _color = HexColor(xxxxxx);
   }
- 
+
   /// Blurs the background
   ///
   /// Frosted glass example:
@@ -67,7 +67,8 @@ class BackgroundModel {
       BoxFit fit,
       AlignmentGeometry alignment = Alignment.center,
       ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path ?? imageProveder) == null) throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
+    if ((url ?? path ?? imageProveder) == null)
+      throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
 
     ImageProvider<dynamic> image;
     if (imageProveder != null)
@@ -104,8 +105,7 @@ class AlignmentModel {
   void center() => _alignment = Alignment.center;
   void centerRight() => _alignment = Alignment.centerRight;
 
-  void coordinate(double x, double y) =>
-      _alignment = Alignment(x, y);
+  void coordinate(double x, double y) => _alignment = Alignment(x, y);
 }
 
 enum OverflowType { hidden, scroll, visible }
@@ -269,48 +269,46 @@ class StyleModel {
 }
 
 class GestureModel {
-  GestureModel(
-    {
-  //   @required this.onTapDown,
-  //   @required this.onTapUp,
-  //   @required this.onTap,
-  //   @required this.onTapCancel,
-  //   @required this.onSecondaryTapDown,
-  //   @required this.onSecondaryTapUp,
-  //   @required this.onSecondaryTapCancel,
-  //   @required this.onDoubleTap,
-  //   @required this.onLongPress,
-  //   @required this.onLongPressStart,
-  //   @required this.onLongPressMoveUpdate,
-  //   @required this.onLongPressUp,
-  //   @required this.onLongPressEnd,
-  //   @required this.onVerticalDragDown,
-  //   @required this.onVerticalDragStart,
-  //   @required this.onVerticalDragUpdate,
-  //   @required this.onVerticalDragEnd,
-  //   @required this.onVerticalDragCancel,
-  //   @required this.onHorizontalDragDown,
-  //   @required this.onHorizontalDragStart,
-  //   @required this.onHorizontalDragUpdate,
-  //   @required this.onHorizontalDragEnd,
-  //   @required this.onHorizontalDragCancel,
-  //   @required this.onForcePressStart,
-  //   @required this.onForcePressPeak,
-  //   @required this.onForcePressUpdate,
-  //   @required this.onForcePressEnd,
-  //   @required this.onPanDown,
-  //   @required this.onPanStart,
-  //   @required this.onPanUpdate,
-  //   @required this.onPanEnd,
-  //   @required this.onPanCancel,
-  //   @required this.onScaleStart,
-  //   @required this.onScaleUpdate,
-  //   @required this.onScaleEnd,
+  GestureModel({
+    //   @required this.onTapDown,
+    //   @required this.onTapUp,
+    //   @required this.onTap,
+    //   @required this.onTapCancel,
+    //   @required this.onSecondaryTapDown,
+    //   @required this.onSecondaryTapUp,
+    //   @required this.onSecondaryTapCancel,
+    //   @required this.onDoubleTap,
+    //   @required this.onLongPress,
+    //   @required this.onLongPressStart,
+    //   @required this.onLongPressMoveUpdate,
+    //   @required this.onLongPressUp,
+    //   @required this.onLongPressEnd,
+    //   @required this.onVerticalDragDown,
+    //   @required this.onVerticalDragStart,
+    //   @required this.onVerticalDragUpdate,
+    //   @required this.onVerticalDragEnd,
+    //   @required this.onVerticalDragCancel,
+    //   @required this.onHorizontalDragDown,
+    //   @required this.onHorizontalDragStart,
+    //   @required this.onHorizontalDragUpdate,
+    //   @required this.onHorizontalDragEnd,
+    //   @required this.onHorizontalDragCancel,
+    //   @required this.onForcePressStart,
+    //   @required this.onForcePressPeak,
+    //   @required this.onForcePressUpdate,
+    //   @required this.onForcePressEnd,
+    //   @required this.onPanDown,
+    //   @required this.onPanStart,
+    //   @required this.onPanUpdate,
+    //   @required this.onPanEnd,
+    //   @required this.onPanCancel,
+    //   @required this.onScaleStart,
+    //   @required this.onScaleUpdate,
+    //   @required this.onScaleEnd,
     @required this.behavior,
     @required this.excludeFromSemantics,
     @required this.dragStartBehavior,
-  }
-  );
+  });
 
   GestureTapDownCallback onTapDown;
   GestureTapUpCallback onTapUp;
@@ -426,7 +424,8 @@ class TextModel {
     textAlign = _replace(textAlign, textModel?.textAlign, override);
     fontStyle = _replace(fontStyle, textModel?.fontStyle, override);
     fontFamily = _replace(fontFamily, textModel?.fontFamily, override);
-    fontFamilyFallback = _replace(fontFamilyFallback, textModel?.fontFamilyFallback, override);
+    fontFamilyFallback =
+        _replace(fontFamilyFallback, textModel?.fontFamilyFallback, override);
     fontSize = _replace(fontSize, textModel?.fontSize, override);
     textColor = _replace(textColor, textModel?.textColor, override);
     maxLines = _replace(maxLines, textModel?.maxLines, override);
@@ -437,7 +436,8 @@ class TextModel {
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);
     onChange = _replace(onChange, textModel?.onChange, override);
     onFocusChange = _replace(onFocusChange, textModel?.onFocusChange, override);
-    onSelectionChanged = _replace(onSelectionChanged, textModel?.onSelectionChanged, override);
+    onSelectionChanged =
+        _replace(onSelectionChanged, textModel?.onSelectionChanged, override);
     focusNode = _replace(focusNode, textModel?.focusNode, override);
   }
 
@@ -473,4 +473,3 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
-
