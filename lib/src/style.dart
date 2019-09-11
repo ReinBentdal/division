@@ -387,17 +387,6 @@ class StyleClass {
     return _styleModel;
   }
 
-  /// Combines style from another StyleClass
-  /// ```dart
-  /// ..add(StyleClass()..width(100));
-  /// ```
-  void add(StyleClass styleClass, {bool override = false}) {
-    _includeToStyleModel();
-    styleClass?._includeToStyleModel();
-
-    _styleModel?.inject(styleClass?._styleModel, override);
-  }
-
   void _includeToStyleModel() {
     _styleModel?.alignment = alignment?.getAlignment;
     _styleModel?.overflow = overflow?.getOverflow;
@@ -450,6 +439,17 @@ class ParentStyle extends StyleClass {
 
   /// Alignment of the child
   AlignmentModel alignmentChild = AlignmentModel();
+
+  /// Combines style from another StyleClass
+  /// ```dart
+  /// ..add(ParentStyle()..width(100));
+  /// ```
+  void add(ParentStyle parentStyle, {bool override = false}) {
+    _includeToStyleModel();
+    parentStyle?._includeToStyleModel();
+
+    _styleModel?.inject(parentStyle?._styleModel, override);
+  }
 
   @override
   void _includeToStyleModel() {
@@ -735,6 +735,18 @@ class TxtStyle extends StyleClass {
   void _includeToStyleModel() {
     super._includeToStyleModel();
     _styleModel?.alignmentChild = alignmentText?.getAlignment;
+  }
+
+  /// Combines style from another StyleClass
+  /// ```dart
+  /// ..add(TxtStyle()..width(100));
+  /// ```
+  void add(TxtStyle txtStyle, {bool override = false}) {
+    _includeToStyleModel();
+    txtStyle?._includeToStyleModel();
+
+    _styleModel?.inject(txtStyle?._styleModel, override);
+    _textModel?.inject(txtStyle?._textModel, override);
   }
 
   TextModel get exportTextStyle => _textModel;
