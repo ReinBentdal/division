@@ -1,3 +1,6 @@
+## 0.8.0+1
+* [Fix] Fixed bug with `add` method not working correctly
+
 ## 0.8.0
 * Renamed `Division` widget to `Parent`
 * Introduced `Txt` widget
