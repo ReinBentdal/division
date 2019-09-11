@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 
 class ParentBuild extends StatelessWidget {
-  ParentBuild({this.child, this.styleModel})
+  ParentBuild({@required this.child, @required this.styleModel, @required this.gestureModel})
       : decoration = styleModel?.decoration,
         constraints = styleModel?.constraints;
 
   final Widget child;
   final StyleModel styleModel;
+  final GestureModel gestureModel;
 
   final BoxDecoration decoration;
   final BoxConstraints constraints;
@@ -74,7 +75,7 @@ class ParentBuild extends StatelessWidget {
       widgetTree = Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: styleModel?.gesture?.onTap,
+          onTap: gestureModel?.onTap ?? () {},
           borderRadius: decoration.borderRadius,
           highlightColor: styleModel?.ripple?.highlightColor,
           splashColor: styleModel?.ripple?.splashColor,
@@ -86,8 +87,8 @@ class ParentBuild extends StatelessWidget {
     if (decoration != null)
       widgetTree = DecoratedBox(decoration: decoration, child: widgetTree);
 
-    if (styleModel?.gesture != null)
-      widgetTree = gestures(widgetTree, styleModel?.gesture);
+    if (gestureModel != null)
+      widgetTree = gestures(widgetTree, gestureModel);
 
     if (constraints != null)
       widgetTree = ConstrainedBox(constraints: constraints, child: widgetTree);

@@ -1,7 +1,8 @@
 ## 0.8.0
-### Complete rewrite with new syntax
-* Added a widget called `Parent` that takes a child
-* [Beta] Added a widget called `Txt` that takes a String 
+* Renamed `Division` widget to `Parent`
+* Introduced `Txt` widget
+* [Beta] Introduced to posiblilty to make the `Txt` widget editable just like a `TextField`
+* [Breaking] Added new ways to calculate angles. Changed `useRadians` to `AngleFormat`
 
 ## 0.7.0
 ### More strict typing is the theme of this update.

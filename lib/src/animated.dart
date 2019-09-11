@@ -6,12 +6,15 @@ import 'build.dart';
 class ParentAnimated extends ImplicitlyAnimatedWidget {
   ParentAnimated({
     @required this.styleModel,
+    @required this.gestureModel,
     @required this.child,
   }) : super(curve: styleModel?.curve, duration: styleModel?.duration);
 
   final Widget child;
 
   final StyleModel styleModel;
+
+  final GestureModel gestureModel;
 
   @override
   _ParentAnimatedState createState() => _ParentAnimatedState();
@@ -71,6 +74,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
 
     return ParentBuild(
       styleModel: _styleModel,
+      gestureModel: widget.gestureModel,
       child: widget.child,
     );
   }

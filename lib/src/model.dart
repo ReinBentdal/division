@@ -9,7 +9,126 @@ class RippleModel {
   RippleModel({this.enable, this.highlightColor, this.splashColor});
 }
 
+class BackgroundModel {
+  Color _color;
+  double _blur;
+  DecorationImage _image;
+
+  Color get exportBackgroundColor => _color;
+  double get exportBackgroundBlur => _blur;
+  DecorationImage get exportBackgroundImage => _image;
+
+  /// BackgroundColor
+  void color(Color color) {
+    _color = color;
+  }
+
+  /// background color in the rgba format
+  void rgba(int r, int g, int b, [double opacity = 1.0]) {
+    _color = Color.fromRGBO(r, g, b, opacity);
+  }
+
+  /// Background color in the hex format
+  /// ```dart
+  /// background.hex('f5f5f5')
+  /// ```
+  void hex(String xxxxxx) {
+    _color = HexColor(xxxxxx);
+  }
+ 
+  /// Blurs the background
+  ///
+  /// Frosted glass example:
+  /// ```dart
+  /// ..background.blur(10)
+  /// ..background.rgba(255,255,255,0.15)
+  /// ```
+  /// Does not work together with `rotate()`.
+  void blur(double blur) {
+    if (blur < 0) throw ('Blur cannot be negative: $blur');
+    _blur = blur;
+  }
+
+  /// Eighter the [url] or the [path] has to be specified.
+  /// [url] is for network images and [path] is for local images.
+  /// [path] trumps [url].
+  ///
+  /// ```dart
+  /// ..backgroundImage(
+  ///   url: 'path/to/image'
+  ///   fit: BoxFit.cover
+  /// )
+  /// ```
+  void image(
+      {String url,
+      String path,
+      ImageProvider<dynamic> imageProveder,
+      ColorFilter colorFilter,
+      BoxFit fit,
+      AlignmentGeometry alignment = Alignment.center,
+      ImageRepeat repeat = ImageRepeat.noRepeat}) {
+    if ((url ?? path ?? imageProveder) == null) throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
+
+    ImageProvider<dynamic> image;
+    if (imageProveder != null)
+      image = imageProveder;
+    else if (path != null)
+      image = AssetImage(path);
+    else
+      image = NetworkImage(url);
+
+    _image = DecorationImage(
+      image: image,
+      colorFilter: colorFilter,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+    );
+  }
+}
+
+class AlignmentModel {
+  AlignmentGeometry _alignment;
+
+  AlignmentGeometry get getAlignment => _alignment;
+
+  void topLeft() => _alignment = Alignment.topLeft;
+  void topCenter() => _alignment = Alignment.topCenter;
+  void topRight() => _alignment = Alignment.topRight;
+
+  void bottomLeft() => _alignment = Alignment.bottomLeft;
+  void bottomCenter() => _alignment = Alignment.bottomCenter;
+  void bottomRight() => _alignment = Alignment.bottomRight;
+
+  void centerLeft() => _alignment = Alignment.centerLeft;
+  void center() => _alignment = Alignment.center;
+  void centerRight() => _alignment = Alignment.centerRight;
+
+  void coordinate(double x, double y) =>
+      _alignment = Alignment(x, y);
+}
+
 enum OverflowType { hidden, scroll, visible }
+
+class OverflowModel {
+  Axis _direction;
+  OverflowType _overflow;
+
+  Axis get getDirection => _direction;
+  OverflowType get getOverflow => _overflow;
+
+  void hidden() => _overflow = OverflowType.hidden;
+
+  void scrollable([Axis direction = Axis.vertical]) {
+    _overflow = OverflowType.scroll;
+    _direction = direction;
+  }
+
+  void visible([Axis direction = Axis.vertical]) {
+    _overflow = OverflowType.visible;
+    _direction = direction;
+  }
+}
 
 class StyleModel {
   AlignmentGeometry alignment;
@@ -43,7 +162,7 @@ class StyleModel {
   BoxConstraints _constraints;
   Matrix4 _transform;
 
-  GestureModel gesture;
+  // GestureModel gesture;
 
   void inject(StyleModel intruder, bool override) {
     alignment = _replace(alignment, intruder?.alignment, override);
@@ -76,7 +195,7 @@ class StyleModel {
     overflow = _replace(overflow, intruder?.overflow, override);
     overflowDirection =
         _replace(overflowDirection, intruder?.overflowDirection, override);
-    gesture = _replace(gesture, intruder?.gesture, override);
+    // gesture = _replace(gesture, intruder?.gesture, override);
   }
 
   dynamic _replace(dynamic current, dynamic intruder, bool override) {
@@ -150,82 +269,84 @@ class StyleModel {
 }
 
 class GestureModel {
-  GestureModel({
-    @required this.onTapDown,
-    @required this.onTapUp,
-    @required this.onTap,
-    @required this.onTapCancel,
-    @required this.onSecondaryTapDown,
-    @required this.onSecondaryTapUp,
-    @required this.onSecondaryTapCancel,
-    @required this.onDoubleTap,
-    @required this.onLongPress,
-    @required this.onLongPressStart,
-    @required this.onLongPressMoveUpdate,
-    @required this.onLongPressUp,
-    @required this.onLongPressEnd,
-    @required this.onVerticalDragDown,
-    @required this.onVerticalDragStart,
-    @required this.onVerticalDragUpdate,
-    @required this.onVerticalDragEnd,
-    @required this.onVerticalDragCancel,
-    @required this.onHorizontalDragDown,
-    @required this.onHorizontalDragStart,
-    @required this.onHorizontalDragUpdate,
-    @required this.onHorizontalDragEnd,
-    @required this.onHorizontalDragCancel,
-    @required this.onForcePressStart,
-    @required this.onForcePressPeak,
-    @required this.onForcePressUpdate,
-    @required this.onForcePressEnd,
-    @required this.onPanDown,
-    @required this.onPanStart,
-    @required this.onPanUpdate,
-    @required this.onPanEnd,
-    @required this.onPanCancel,
-    @required this.onScaleStart,
-    @required this.onScaleUpdate,
-    @required this.onScaleEnd,
+  GestureModel(
+    {
+  //   @required this.onTapDown,
+  //   @required this.onTapUp,
+  //   @required this.onTap,
+  //   @required this.onTapCancel,
+  //   @required this.onSecondaryTapDown,
+  //   @required this.onSecondaryTapUp,
+  //   @required this.onSecondaryTapCancel,
+  //   @required this.onDoubleTap,
+  //   @required this.onLongPress,
+  //   @required this.onLongPressStart,
+  //   @required this.onLongPressMoveUpdate,
+  //   @required this.onLongPressUp,
+  //   @required this.onLongPressEnd,
+  //   @required this.onVerticalDragDown,
+  //   @required this.onVerticalDragStart,
+  //   @required this.onVerticalDragUpdate,
+  //   @required this.onVerticalDragEnd,
+  //   @required this.onVerticalDragCancel,
+  //   @required this.onHorizontalDragDown,
+  //   @required this.onHorizontalDragStart,
+  //   @required this.onHorizontalDragUpdate,
+  //   @required this.onHorizontalDragEnd,
+  //   @required this.onHorizontalDragCancel,
+  //   @required this.onForcePressStart,
+  //   @required this.onForcePressPeak,
+  //   @required this.onForcePressUpdate,
+  //   @required this.onForcePressEnd,
+  //   @required this.onPanDown,
+  //   @required this.onPanStart,
+  //   @required this.onPanUpdate,
+  //   @required this.onPanEnd,
+  //   @required this.onPanCancel,
+  //   @required this.onScaleStart,
+  //   @required this.onScaleUpdate,
+  //   @required this.onScaleEnd,
     @required this.behavior,
     @required this.excludeFromSemantics,
     @required this.dragStartBehavior,
-  });
+  }
+  );
 
-  final GestureTapDownCallback onTapDown;
-  final GestureTapUpCallback onTapUp;
-  final GestureTapCallback onTap;
-  final GestureTapCancelCallback onTapCancel;
-  final GestureTapDownCallback onSecondaryTapDown;
-  final GestureTapUpCallback onSecondaryTapUp;
-  final GestureTapCancelCallback onSecondaryTapCancel;
-  final GestureTapCallback onDoubleTap;
-  final GestureLongPressCallback onLongPress;
-  final GestureLongPressStartCallback onLongPressStart;
-  final GestureLongPressMoveUpdateCallback onLongPressMoveUpdate;
-  final GestureLongPressUpCallback onLongPressUp;
-  final GestureLongPressEndCallback onLongPressEnd;
-  final GestureDragDownCallback onVerticalDragDown;
-  final GestureDragStartCallback onVerticalDragStart;
-  final GestureDragUpdateCallback onVerticalDragUpdate;
-  final GestureDragEndCallback onVerticalDragEnd;
-  final GestureDragCancelCallback onVerticalDragCancel;
-  final GestureDragDownCallback onHorizontalDragDown;
-  final GestureDragStartCallback onHorizontalDragStart;
-  final GestureDragUpdateCallback onHorizontalDragUpdate;
-  final GestureDragEndCallback onHorizontalDragEnd;
-  final GestureDragCancelCallback onHorizontalDragCancel;
-  final GestureDragDownCallback onPanDown;
-  final GestureDragStartCallback onPanStart;
-  final GestureDragUpdateCallback onPanUpdate;
-  final GestureDragEndCallback onPanEnd;
-  final GestureDragCancelCallback onPanCancel;
-  final GestureScaleStartCallback onScaleStart;
-  final GestureScaleUpdateCallback onScaleUpdate;
-  final GestureScaleEndCallback onScaleEnd;
-  final GestureForcePressStartCallback onForcePressStart;
-  final GestureForcePressPeakCallback onForcePressPeak;
-  final GestureForcePressUpdateCallback onForcePressUpdate;
-  final GestureForcePressEndCallback onForcePressEnd;
+  GestureTapDownCallback onTapDown;
+  GestureTapUpCallback onTapUp;
+  GestureTapCallback onTap;
+  GestureTapCancelCallback onTapCancel;
+  GestureTapDownCallback onSecondaryTapDown;
+  GestureTapUpCallback onSecondaryTapUp;
+  GestureTapCancelCallback onSecondaryTapCancel;
+  GestureTapCallback onDoubleTap;
+  GestureLongPressCallback onLongPress;
+  GestureLongPressStartCallback onLongPressStart;
+  GestureLongPressMoveUpdateCallback onLongPressMoveUpdate;
+  GestureLongPressUpCallback onLongPressUp;
+  GestureLongPressEndCallback onLongPressEnd;
+  GestureDragDownCallback onVerticalDragDown;
+  GestureDragStartCallback onVerticalDragStart;
+  GestureDragUpdateCallback onVerticalDragUpdate;
+  GestureDragEndCallback onVerticalDragEnd;
+  GestureDragCancelCallback onVerticalDragCancel;
+  GestureDragDownCallback onHorizontalDragDown;
+  GestureDragStartCallback onHorizontalDragStart;
+  GestureDragUpdateCallback onHorizontalDragUpdate;
+  GestureDragEndCallback onHorizontalDragEnd;
+  GestureDragCancelCallback onHorizontalDragCancel;
+  GestureDragDownCallback onPanDown;
+  GestureDragStartCallback onPanStart;
+  GestureDragUpdateCallback onPanUpdate;
+  GestureDragEndCallback onPanEnd;
+  GestureDragCancelCallback onPanCancel;
+  GestureScaleStartCallback onScaleStart;
+  GestureScaleUpdateCallback onScaleUpdate;
+  GestureScaleEndCallback onScaleEnd;
+  GestureForcePressStartCallback onForcePressStart;
+  GestureForcePressPeakCallback onForcePressPeak;
+  GestureForcePressUpdateCallback onForcePressUpdate;
+  GestureForcePressEndCallback onForcePressEnd;
   final HitTestBehavior behavior;
   final bool excludeFromSemantics;
   final DragStartBehavior dragStartBehavior;
@@ -352,3 +473,4 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
+
