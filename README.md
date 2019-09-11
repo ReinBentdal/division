@@ -14,7 +14,7 @@ This package includes at the moment a `Parent` widget and a `Txt` widget.
 As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
 
 ```dart
-Division(
+Parent(
   child: Widget,
   style: ParentStyle, 
   gesture: GestureClass,
