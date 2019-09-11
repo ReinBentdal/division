@@ -1,4 +1,4 @@
-import 'src/style/style_class.dart';
+import 'src/style.dart';
 
 // // The goal of the presets is to both offer material design presets and some custom
 // // but to have custom good looking presets as an alternative to material design.
