@@ -34,9 +34,6 @@ class StyleClass {
   /// Alignment relative to its surroundings
   AlignmentModel alignment = AlignmentModel();
 
-  /// Alignment of the widget.
-  AlignmentModel alignmentChild = AlignmentModel();
-
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
   /// All properties work together
@@ -401,7 +398,6 @@ class StyleClass {
 
   void _includeToStyleModel() {
     _styleModel?.alignment = alignment?.getAlignment;
-    _styleModel?.alignmentChild = alignmentChild?.getAlignment;
     _styleModel?.overflow = overflow?.getOverflow;
     _styleModel?.overflowDirection = overflow?.getDirection;
     _styleModel?.backgroundColor = background?.exportBackgroundColor;
@@ -449,6 +445,15 @@ class ParentStyle extends StyleClass {
   ParentStyle({this.angleFormat = AngleFormat.cycles}) : super(angleFormat: angleFormat);
 
   final AngleFormat angleFormat;
+
+  /// Alignment of the child
+  AlignmentModel alignmentChild = AlignmentModel();
+
+  @override
+  void _includeToStyleModel() {
+    super._includeToStyleModel();
+    _styleModel?.alignmentChild = alignmentChild?.getAlignment;
+  }
 }
 
 class GestureClass {
@@ -688,7 +693,7 @@ class TxtStyle extends StyleClass {
 
   void textColor(Color textColor) => _textModel?.textColor = textColor;
 
-  void textAlign(TextAlign alignment) => _textModel?.textAlign = alignment;
+  // void textAlign(TextAlign alignment) => _textModel?.textAlign = alignment;
 
   void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
 
@@ -711,6 +716,15 @@ class TxtStyle extends StyleClass {
     _textModel?.onChange = onChange;
     _textModel?.onSelectionChanged = onSelectionChanged;
     _textModel?.focusNode = focusNode;
+  }
+
+  /// Alignment of the widget.
+  AlignmentModel alignmentText = AlignmentModel();
+
+  @override
+  void _includeToStyleModel() {
+    super._includeToStyleModel();
+    _styleModel?.alignmentChild = alignmentText?.getAlignment;
   }
 
   TextModel get exportTextStyle => _textModel;

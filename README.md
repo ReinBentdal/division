@@ -2,29 +2,34 @@
 
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
-## Built with Division
+### Built with Division
 #### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
 
 ## Getting Started
 
-The `Division` widget has 3 properties. A `style` property, a `gesture` property and a `child` property. As simple as that!
+This package includes at the moment a `Parent` widget and a `Txt` widget.
+
+As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
 
 ```dart
 Division(
-  style: StyleClass, 
-  gesture: GestureClass, 
   child: Widget,
+  style: ParentStyle, 
+  gesture: GestureClass,
 );
 ```
 
-Having all style gathered at one place has alot of advantages.
-For example
-* It is easy to outsource the style into variables or to a completely different place.
-* It is easy to read and understand
-* Easy to learn if you already know CSS
-* Much more
+The `Txt` widget is a styled widget just like the `Parent` widget but it is specialized with styling text.
+
+```dart
+Txt(
+  'Some text',
+  style: TxtStyle,
+  gesture: GestureClass,
+);
+```
 
 ### Simple example
 
@@ -36,8 +41,11 @@ import 'package:division/division.dart';
 #### Code
 
 ```dart
-Division(
-  style: StyleClass()
+Txt(
+  'Klick me'
+  style: TxtStyle()
+    ..textColor(Colors.white)
+    ..bold()
     ..padding(horizontal: 30, vertical: 15)
     ..background.hex('77A6F7')
     ..borderRadius(all: 30)
@@ -46,8 +54,6 @@ Division(
 
   gesture: GestureClass()
     ..onTap(() => print('Button pressed')),
-        
-  child: Text('Klick me', style: myTextStyle),
 )
 ```
 
@@ -58,17 +64,15 @@ Division(
 
 # Style property
 
-**The style property expects a `StyleClass` which is a class holding all the styling for the widget.**
-
-There is also the option to use the class `S` as a shorthand.
-
 ### StyleClass
+
+The `StyleClass` is the super class of `ParentStyle` and `TxtStyle` and contains most of the style properties.
 
 To add a style to the `StyleClass`, call the style methods: `..[style]`
 
-On construction, choose to use radians or not when giving circular values.
+On construction, choose how you want angles to be calculated
  ```dart
- Styleclass({bool useRadians = false})
+ Styleclass({AngleFormat angleFormat = AngleFormat.cycle})
  ```
 
 #### Alignment
@@ -76,7 +80,6 @@ On construction, choose to use radians or not when giving circular values.
 ..alignment.[alignment] // alignment.topCenter()
 ```
 Alignment of the widget itself, not the child.
-
 
 
 #### Align child
@@ -123,6 +126,7 @@ All properties work together. `margin(all: 10, top: 30)` is valid
       {String url, 
       String path, 
       ColorFilter colorFilter, 
+      ImageProvider<dynamic> imageProveder,
       BoxFit fit, 
       AlignmentGeometry alignment = Alignment.center, 
       ImageRepeat repeat = ImageRepeat.noRepeat})
@@ -161,7 +165,7 @@ Does not work together with `rotate()`.
 ..sweepGradient(
       {AlignmentGeometry center = Alignment.center,
       double startAngle = 0.0,
-      double endAngle, // default to 1.0 or 2 * pi, depending on if radians is enabled or not
+      double endAngle,
       @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
@@ -335,6 +339,6 @@ To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots i
 ..onScaleUpdate()
 ```
 
-# Child property
+# Txt Style
 
-Widget child
+[] TODO: Improve documentation
