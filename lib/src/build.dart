@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 import 'model.dart';
 
@@ -236,12 +237,30 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle _placeholderStyle;
+    TextEditingController _placehodlerController;
+
+    // placeholder
+    if (_controller.text.length == 0 && _focusNode.hasFocus == false) {
+      _placeholderStyle = TextStyle(
+        fontWeight: widget.textModel?.textStyle?.fontWeight,
+        fontSize: widget.textModel?.textStyle?.fontSize,
+        color: widget.textModel?.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
+        fontStyle: widget.textModel?.textStyle?.fontStyle ?? FontStyle.normal,
+        fontFamily: widget.textModel?.textStyle?.fontFamily,
+        fontFamilyFallback: widget.textModel?.textStyle?.fontFamilyFallback,
+        letterSpacing: widget.textModel?.textStyle?.letterSpacing,
+        wordSpacing: widget.textModel?.textStyle?.wordSpacing,
+      );
+      _placehodlerController = TextEditingController(text: widget.textModel?.placeholder);
+    }
+
     return EditableText(
       cursorOpacityAnimates: true,
-      style: widget.textModel?.textStyle,
+      style: _placeholderStyle ?? widget.textModel?.textStyle,
       textAlign: widget.textModel?.textAlign ?? TextAlign.center,
       maxLines: widget.textModel?.maxLines,
-      controller: _controller,
+      controller: _placehodlerController ?? _controller,
       focusNode: _focusNode,
       backgroundCursorColor: Colors.grey,
       cursorColor: Colors.black,

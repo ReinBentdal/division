@@ -34,6 +34,9 @@ class StyleClass {
   /// Alignment relative to its surroundings
   AlignmentModel alignment = AlignmentModel();
 
+  /// Alignment of the child
+  AlignmentModel alignmentContent = AlignmentModel();
+
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
   /// All properties work together
@@ -389,6 +392,7 @@ class StyleClass {
 
   void _includeToStyleModel() {
     _styleModel?.alignment = alignment?.getAlignment;
+    _styleModel?.alignmentChild = alignmentContent?.getAlignment;
     _styleModel?.overflow = overflow?.getOverflow;
     _styleModel?.overflowDirection = overflow?.getDirection;
     _styleModel?.backgroundColor = background?.exportBackgroundColor;
@@ -437,9 +441,6 @@ class ParentStyle extends StyleClass {
 
   final AngleFormat angleFormat;
 
-  /// Alignment of the child
-  AlignmentModel alignmentChild = AlignmentModel();
-
   /// Combines style from another StyleClass
   /// ```dart
   /// ..add(ParentStyle()..width(100));
@@ -449,12 +450,6 @@ class ParentStyle extends StyleClass {
     parentStyle?._includeToStyleModel();
 
     _styleModel?.inject(parentStyle?._styleModel, override);
-  }
-
-  @override
-  void _includeToStyleModel() {
-    super._includeToStyleModel();
-    _styleModel?.alignmentChild = alignmentChild?.getAlignment;
   }
 }
 
@@ -716,25 +711,20 @@ class TxtStyle extends StyleClass {
   /// If `focusNode` isnt spesified an internal `focusNode` will be created.
   void editable(bool enable,
       {TextInputType keyboardType,
+      String placeholder,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
       FocusNode focusNode}) {
-    _textModel?.editable = enable;
-    _textModel?.keyboardType = keyboardType;
-    _textModel?.onFocusChange = onFocusChange;
-    _textModel?.onChange = onChange;
-    _textModel?.onSelectionChanged = onSelectionChanged;
-    _textModel?.focusNode = focusNode;
-  }
 
-  /// Alignment of the widget.
-  AlignmentModel alignmentText = AlignmentModel();
-
-  @override
-  void _includeToStyleModel() {
-    super._includeToStyleModel();
-    _styleModel?.alignmentChild = alignmentText?.getAlignment;
+    _textModel
+      ..editable = enable
+      ..keyboardType = keyboardType
+      ..placeholder = placeholder
+      ..onChange = onChange
+      ..onFocusChange = onFocusChange
+      ..onSelectionChanged = onSelectionChanged
+      ..focusNode = focusNode;
   }
 
   /// Combines style from another StyleClass

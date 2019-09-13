@@ -35,7 +35,7 @@ class _FrostedWidgetState extends State<FrostedWidget> {
         Parent(
           style: ParentStyle()
             ..alignment.center()
-            ..alignmentChild.center()
+            ..alignmentContent.center()
             ..width(300)
             ..height(300)
             ..padding(all: 30)

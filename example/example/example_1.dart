@@ -21,7 +21,7 @@ class UserPage extends StatelessWidget {
     return Parent(
       style: ParentStyle()
         ..margin(bottom: 20.0)
-        ..alignmentChild.centerLeft(),
+        ..alignmentContent.centerLeft(),
       child: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
@@ -186,7 +186,7 @@ class ActionsRow extends StatelessWidget {
   }
 
   final ParentStyle actionsItemIconStyle = ParentStyle()
-    ..alignmentChild.center()
+    ..alignmentContent.center()
     ..width(50)
     ..height(50)
     ..margin(bottom: 5)
@@ -286,7 +286,7 @@ class _SettingsItemState extends State<SettingsItem> {
   }
 
   final ParentStyle settingsItemStyle = ParentStyle()
-    ..alignmentChild.center()
+    ..alignmentContent.center()
     ..height(70)
     ..margin(vertical: 10)
     ..borderRadius(all: 15)

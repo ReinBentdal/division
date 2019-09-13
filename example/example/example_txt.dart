@@ -35,7 +35,7 @@ class _TestState extends State<Test> {
             ..bold(active1 ? true : false)
             ..textColor(Colors.black)
             ..background.color(!active1 ? Colors.grey : Colors.lime)
-            ..alignmentText.center()
+            ..alignmentContent.center()
             ..editable(
               true,
               onFocusChange: (focus) {
@@ -55,7 +55,7 @@ class _TestState extends State<Test> {
             ..bold(active2 ? true : false)
             ..textColor(Colors.black)
             ..background.color(!active2 ? Colors.grey : Colors.lime)
-            ..alignmentText.center()
+            ..alignmentContent.center()
             ..editable(
               true,
               onFocusChange: (focus) {

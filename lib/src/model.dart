@@ -377,7 +377,8 @@ class TextModel {
 
   bool editable;
   TextInputType keyboardType;
-  // String _placeholder;
+  String placeholder;
+  
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
   void Function(TextSelection, SelectionChangedCause)
