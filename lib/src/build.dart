@@ -41,9 +41,9 @@ class ParentBuild extends StatelessWidget {
       );
     }
 
-    if (styleModel?.alignmentChild != null)
+    if (styleModel?.alignmentContent != null)
       widgetTree =
-          Align(alignment: styleModel?.alignmentChild, child: widgetTree);
+          Align(alignment: styleModel?.alignmentContent, child: widgetTree);
 
     final EdgeInsetsGeometry effectivePadding = _paddingIncludingDecoration;
     if (effectivePadding != null)
@@ -69,7 +69,7 @@ class ParentBuild extends StatelessWidget {
             maxWidth: styleModel?.overflowDirection == Axis.horizontal
                 ? double.infinity
                 : null,
-            alignment: styleModel?.alignmentChild ?? Alignment.topCenter);
+            alignment: styleModel?.alignmentContent ?? Alignment.topCenter);
         break;
       default:
         break;
@@ -239,9 +239,11 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   Widget build(BuildContext context) {
     TextStyle _placeholderStyle;
     TextEditingController _placehodlerController;
+    bool _placeholder = false;
 
     // placeholder
     if (_controller.text.length == 0 && _focusNode.hasFocus == false) {
+      _placeholder = true;
       _placeholderStyle = TextStyle(
         fontWeight: widget.textModel?.textStyle?.fontWeight,
         fontSize: widget.textModel?.textStyle?.fontSize,
@@ -256,9 +258,10 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
     }
 
     return EditableText(
+      obscureText: _placeholder ? false : widget.textModel?.obscureText,
       cursorOpacityAnimates: true,
       style: _placeholderStyle ?? widget.textModel?.textStyle,
-      textAlign: widget.textModel?.textAlign ?? TextAlign.center,
+      textAlign: widget.textModel?.textAlign ?? TextAlign.left,
       maxLines: widget.textModel?.maxLines,
       controller: _placehodlerController ?? _controller,
       focusNode: _focusNode,

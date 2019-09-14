@@ -25,17 +25,57 @@ class StyleClass {
   ///   child: Text('Some text),
   /// )
   /// ```
-  StyleClass({this.angleFormat = AngleFormat.cycles});
+  StyleClass({this.angleFormat = AngleFormat.cycles}) {
+    _addListeners();
+  }
+
+  @mustCallSuper
+  _addListeners() {
+    alignment = AlignmentModel()
+      ..addListener(() {
+        _styleModel?.alignment = alignment?.getAlignment;
+      });
+
+    alignmentContent = AlignmentModel()
+      ..addListener(() {
+        _styleModel?.alignmentContent = alignmentContent?.getAlignment;
+      });
+
+    background = BackgroundModel()
+      ..addListener(() {
+        _styleModel?.backgroundColor = background?.exportBackgroundColor;
+        _styleModel?.backgroundBlur = background?.exportBackgroundBlur;
+        _styleModel?.backgroundImage = background?.exportBackgroundImage;
+      });
+
+    overflow = OverflowModel()
+      ..addListener(() {
+        _styleModel?.overflow = overflow?.getOverflow;
+        _styleModel?.overflowDirection = overflow?.getDirection;
+      });
+  }
 
   final AngleFormat angleFormat;
 
   StyleModel _styleModel = StyleModel();
 
   /// Alignment relative to its surroundings
-  AlignmentModel alignment = AlignmentModel();
+  AlignmentModel alignment;
 
   /// Alignment of the child
-  AlignmentModel alignmentContent = AlignmentModel();
+  AlignmentModel alignmentContent;
+
+  /// Widget background styling
+  BackgroundModel background;
+
+  /// Change child overflow behaviour.
+  ///
+  ///```dart
+  ///..overflow.visible(Axis.vertical) // overflows outside its parent
+  ///..overflow.hidden() // CLips to parent shape
+  ///..overflow.scrollable(Axis.vertical) // scrollable if bigger than parent
+  ///```
+  OverflowModel overflow;
 
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
@@ -89,9 +129,6 @@ class StyleClass {
       right: right ?? 0.0,
     );
   }
-
-  /// Widget background styling
-  BackgroundModel background = BackgroundModel();
 
   /// Creates a linear gradient.
   ///
@@ -352,15 +389,6 @@ class StyleClass {
     );
   }
 
-  /// Change child overflow behaviour.
-  ///
-  ///```dart
-  ///..overflow.visible(Axis.vertical) // overflows outside its parent
-  ///..overflow.hidden() // CLips to parent shape
-  ///..overflow.scrollable(Axis.vertical) // scrollable if bigger than parent
-  ///```
-  OverflowModel overflow = OverflowModel();
-
   /// `Duration` is given in milliseconds.
   ///
   /// ```dart
@@ -385,20 +413,7 @@ class StyleClass {
   }
 
   // export raw styledata
-  StyleModel get exportStyle {
-    _includeToStyleModel();
-    return _styleModel;
-  }
-
-  void _includeToStyleModel() {
-    _styleModel?.alignment = alignment?.getAlignment;
-    _styleModel?.alignmentChild = alignmentContent?.getAlignment;
-    _styleModel?.overflow = overflow?.getOverflow;
-    _styleModel?.overflowDirection = overflow?.getDirection;
-    _styleModel?.backgroundColor = background?.exportBackgroundColor;
-    _styleModel?.backgroundBlur = background?.exportBackgroundBlur;
-    _styleModel?.image = background?.exportBackgroundImage;
-  }
+  StyleModel get exportStyle => _styleModel;
 
   double _angleToRadians(double value, AngleFormat angleFormat) {
     if (angleFormat == AngleFormat.radians)
@@ -446,11 +461,21 @@ class ParentStyle extends StyleClass {
   /// ..add(ParentStyle()..width(100));
   /// ```
   void add(ParentStyle parentStyle, {bool override = false}) {
-    _includeToStyleModel();
-    parentStyle?._includeToStyleModel();
-
-    _styleModel?.inject(parentStyle?._styleModel, override);
+    if (parentStyle != null) {
+      _styleModel?.inject(parentStyle?._styleModel, override);
+    }
   }
+
+  /// Clone object
+  /// ```dart
+  /// Parent(
+  ///   'some text',
+  ///   style: myStyle.clone()
+  ///     ..width(100)
+  ///     // etc..
+  /// )
+  /// ```
+  ParentStyle clone() => ParentStyle(angleFormat: angleFormat)..add(this);
 }
 
 class GestureClass {
@@ -677,7 +702,17 @@ class TxtStyle extends StyleClass {
   TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
       : super(angleFormat: angleFormat);
 
+  @override
+  void _addListeners() {
+    super._addListeners();
+    textAlign = TextAlignModel()..addListener(() {
+      _textModel?.textAlign = textAlign?.exportTextAlign;
+    });
+  }
+
   final TextModel _textModel = TextModel();
+
+  TextAlignModel textAlign;
 
   void bold([bool enable = true]) {
     if (enable == true) _textModel?.fontWeight = FontWeight.bold;
@@ -698,7 +733,7 @@ class TxtStyle extends StyleClass {
 
   void textColor(Color textColor) => _textModel?.textColor = textColor;
 
-  // void textAlign(TextAlign alignment) => _textModel?.textAlign = alignment;
+  // void textAlign(TextAlign textAlign) => _textModel?.textAlign = textAlign;
 
   void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
 
@@ -712,15 +747,16 @@ class TxtStyle extends StyleClass {
   void editable(bool enable,
       {TextInputType keyboardType,
       String placeholder,
+      bool obscureText = false,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
       FocusNode focusNode}) {
-
     _textModel
       ..editable = enable
       ..keyboardType = keyboardType
       ..placeholder = placeholder
+      ..obscureText = obscureText
       ..onChange = onChange
       ..onFocusChange = onFocusChange
       ..onSelectionChanged = onSelectionChanged
@@ -732,12 +768,22 @@ class TxtStyle extends StyleClass {
   /// ..add(TxtStyle()..width(100));
   /// ```
   void add(TxtStyle txtStyle, {bool override = false}) {
-    _includeToStyleModel();
-    txtStyle?._includeToStyleModel();
-
-    _styleModel?.inject(txtStyle?._styleModel, override);
-    _textModel?.inject(txtStyle?._textModel, override);
+    if (txtStyle != null) {
+      _styleModel?.inject(txtStyle?._styleModel, override);
+      _textModel?.inject(txtStyle?._textModel, override);
+    }
   }
+
+  /// Clone object
+  /// ```dart
+  /// Txt(
+  ///   'some text',
+  ///   style: myStyle.clone()
+  ///     ..width(100)
+  ///     // etc..
+  /// )
+  /// ```
+  TxtStyle clone() => TxtStyle(angleFormat: angleFormat)..add(this);
 
   TextModel get exportTextStyle => _textModel;
 }
