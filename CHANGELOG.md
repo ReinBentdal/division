@@ -1,17 +1,7 @@
-## 0.8.1
-* Added `placeholder` parameter to the editable method in `TxtStyle`
-* Added `clone` method to be able to clone a `StyleClass`
-* Added `textAlign` method to `TxtStyle`
-
-## 0.8.0+1
-* [Fix] Fixed bug with `add` method not working correctly
-
-## 0.8.0
-* Renamed `Division` widget to `Parent`
-* Introduced `Txt` widget
-* [Beta] Introduced to posiblilty to make the `Txt` widget editable just like a `TextField`
-* [Breaking] Added new ways to calculate angles. Changed `useRadians` to `AngleFormat`
-* Minor tweaks and improvements
+## 0.8.0-1
+### Complete rewrite with new syntax
+* Added a widget called `Parent` that takes a child
+* [Beta] Added a widget called `Txt` that takes a String 
 
 ## 0.7.0
 ### More strict typing is the theme of this update.

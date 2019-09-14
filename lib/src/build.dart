@@ -1,21 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 
 import 'model.dart';
 
 class ParentBuild extends StatelessWidget {
-  ParentBuild(
-      {@required this.child,
-      @required this.styleModel,
-      @required this.gestureModel})
+  ParentBuild({this.child, this.styleModel})
       : decoration = styleModel?.decoration,
         constraints = styleModel?.constraints;
 
   final Widget child;
   final StyleModel styleModel;
-  final GestureModel gestureModel;
 
   final BoxDecoration decoration;
   final BoxConstraints constraints;
@@ -41,9 +36,9 @@ class ParentBuild extends StatelessWidget {
       );
     }
 
-    if (styleModel?.alignmentContent != null)
+    if (styleModel?.alignmentChild != null)
       widgetTree =
-          Align(alignment: styleModel?.alignmentContent, child: widgetTree);
+          Align(alignment: styleModel?.alignmentChild, child: widgetTree);
 
     final EdgeInsetsGeometry effectivePadding = _paddingIncludingDecoration;
     if (effectivePadding != null)
@@ -69,7 +64,7 @@ class ParentBuild extends StatelessWidget {
             maxWidth: styleModel?.overflowDirection == Axis.horizontal
                 ? double.infinity
                 : null,
-            alignment: styleModel?.alignmentContent ?? Alignment.topCenter);
+            alignment: styleModel?.alignmentChild ?? Alignment.topCenter);
         break;
       default:
         break;
@@ -79,7 +74,7 @@ class ParentBuild extends StatelessWidget {
       widgetTree = Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: gestureModel?.onTap ?? () {},
+          onTap: styleModel?.gesture?.onTap,
           borderRadius: decoration.borderRadius,
           highlightColor: styleModel?.ripple?.highlightColor,
           splashColor: styleModel?.ripple?.splashColor,
@@ -91,7 +86,8 @@ class ParentBuild extends StatelessWidget {
     if (decoration != null)
       widgetTree = DecoratedBox(decoration: decoration, child: widgetTree);
 
-    if (gestureModel != null) widgetTree = gestures(widgetTree, gestureModel);
+    if (styleModel?.gesture != null)
+      widgetTree = gestures(widgetTree, styleModel?.gesture);
 
     if (constraints != null)
       widgetTree = ConstrainedBox(constraints: constraints, child: widgetTree);
@@ -237,33 +233,12 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _placeholderStyle;
-    TextEditingController _placehodlerController;
-    bool _placeholder = false;
-
-    // placeholder
-    if (_controller.text.length == 0 && _focusNode.hasFocus == false) {
-      _placeholder = true;
-      _placeholderStyle = TextStyle(
-        fontWeight: widget.textModel?.textStyle?.fontWeight,
-        fontSize: widget.textModel?.textStyle?.fontSize,
-        color: widget.textModel?.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
-        fontStyle: widget.textModel?.textStyle?.fontStyle ?? FontStyle.normal,
-        fontFamily: widget.textModel?.textStyle?.fontFamily,
-        fontFamilyFallback: widget.textModel?.textStyle?.fontFamilyFallback,
-        letterSpacing: widget.textModel?.textStyle?.letterSpacing,
-        wordSpacing: widget.textModel?.textStyle?.wordSpacing,
-      );
-      _placehodlerController = TextEditingController(text: widget.textModel?.placeholder);
-    }
-
     return EditableText(
-      obscureText: _placeholder ? false : widget.textModel?.obscureText,
       cursorOpacityAnimates: true,
-      style: _placeholderStyle ?? widget.textModel?.textStyle,
-      textAlign: widget.textModel?.textAlign ?? TextAlign.left,
+      style: widget.textModel?.textStyle,
+      textAlign: widget.textModel?.textAlign ?? TextAlign.center,
       maxLines: widget.textModel?.maxLines,
-      controller: _placehodlerController ?? _controller,
+      controller: _controller,
       focusNode: _focusNode,
       backgroundCursorColor: Colors.grey,
       cursorColor: Colors.black,

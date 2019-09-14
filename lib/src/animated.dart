@@ -6,15 +6,12 @@ import 'build.dart';
 class ParentAnimated extends ImplicitlyAnimatedWidget {
   ParentAnimated({
     @required this.styleModel,
-    @required this.gestureModel,
     @required this.child,
   }) : super(curve: styleModel?.curve, duration: styleModel?.duration);
 
   final Widget child;
 
   final StyleModel styleModel;
-
-  final GestureModel gestureModel;
 
   @override
   _ParentAnimatedState createState() => _ParentAnimatedState();
@@ -37,7 +34,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _alignmentChild = visitor(
         _alignmentChild,
-        widget.styleModel?.alignmentContent,
+        widget.styleModel?.alignmentChild,
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _padding = visitor(_padding, widget.styleModel?.padding,
         (dynamic value) => EdgeInsetsGeometryTween(begin: value));
@@ -62,7 +59,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
     if (_styleModel != null) {
       _styleModel
         ..alignment = _alignment?.evaluate(animation)
-        ..alignmentContent = _alignmentChild?.evaluate(animation)
+        ..alignmentChild = _alignmentChild?.evaluate(animation)
         ..padding = _padding?.evaluate(animation)
         ..setBoxConstraints = _constraints?.evaluate(animation)
         ..setBoxDecoration = _decoration?.evaluate(animation)
@@ -74,7 +71,6 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
 
     return ParentBuild(
       styleModel: _styleModel,
-      gestureModel: widget.gestureModel,
       child: widget.child,
     );
   }
