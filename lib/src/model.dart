@@ -50,7 +50,7 @@ class BackgroundModel with ChangeNotifier {
   /// Does not work together with `rotate()`.
   void blur(double blur) {
     if (blur < 0) throw ('Blur cannot be negative: $blur');
-      _blur = blur;
+    _blur = blur;
     notifyListeners();
   }
 
@@ -111,7 +111,7 @@ class AlignmentModel with ChangeNotifier {
   void center() => _updateAlignment(Alignment.center);
   void centerRight() => _updateAlignment(Alignment.centerRight);
 
-  void coordinate(double x, double y) => _updateAlignment(Alignment(x,y));
+  void coordinate(double x, double y) => _updateAlignment(Alignment(x, y));
 
   void _updateAlignment(AlignmentGeometry alignment) {
     _alignment = alignment;
@@ -130,9 +130,11 @@ class OverflowModel with ChangeNotifier {
 
   void hidden() => _updateOverflow(OverflowType.hidden);
 
-  void scrollable([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.scroll, direction);
+  void scrollable([Axis direction = Axis.vertical]) =>
+      _updateOverflow(OverflowType.scroll, direction);
 
-  void visible([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.visible, direction);
+  void visible([Axis direction = Axis.vertical]) =>
+      _updateOverflow(OverflowType.visible, direction);
 
   void _updateOverflow(OverflowType overflow, [Axis direction]) {
     _overflow = overflow;
@@ -187,7 +189,8 @@ class StyleModel {
         _replace(backgroundColor, intruder?.backgroundColor, override);
     backgroundBlur =
         _replace(backgroundBlur, intruder?.backgroundBlur, override);
-    backgroundImage = _replace(backgroundImage, intruder?.backgroundImage, override);
+    backgroundImage =
+        _replace(backgroundImage, intruder?.backgroundImage, override);
     padding = _replace(padding, intruder?.padding, override);
     margin = _replace(margin, intruder?.margin, override);
     gradient = _replace(gradient, intruder?.gradient, override);
@@ -389,7 +392,7 @@ class TextModel {
   TextInputType keyboardType;
   String placeholder;
   bool obscureText;
-  
+
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
   void Function(TextSelection, SelectionChangedCause)

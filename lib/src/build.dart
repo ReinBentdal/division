@@ -247,14 +247,16 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
       _placeholderStyle = TextStyle(
         fontWeight: widget.textModel?.textStyle?.fontWeight,
         fontSize: widget.textModel?.textStyle?.fontSize,
-        color: widget.textModel?.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
+        color:
+            widget.textModel?.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
         fontStyle: widget.textModel?.textStyle?.fontStyle ?? FontStyle.normal,
         fontFamily: widget.textModel?.textStyle?.fontFamily,
         fontFamilyFallback: widget.textModel?.textStyle?.fontFamilyFallback,
         letterSpacing: widget.textModel?.textStyle?.letterSpacing,
         wordSpacing: widget.textModel?.textStyle?.wordSpacing,
       );
-      _placehodlerController = TextEditingController(text: widget.textModel?.placeholder);
+      _placehodlerController =
+          TextEditingController(text: widget.textModel?.placeholder);
     }
 
     return EditableText(
