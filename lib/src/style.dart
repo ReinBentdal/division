@@ -25,14 +25,57 @@ class StyleClass {
   ///   child: Text('Some text),
   /// )
   /// ```
-  StyleClass({this.angleFormat = AngleFormat.cycles});
+  StyleClass({this.angleFormat = AngleFormat.cycles}) {
+    _addListeners();
+  }
+
+  @mustCallSuper
+  _addListeners() {
+    alignment = AlignmentModel()
+      ..addListener(() {
+        _styleModel?.alignment = alignment?.getAlignment;
+      });
+
+    alignmentContent = AlignmentModel()
+      ..addListener(() {
+        _styleModel?.alignmentContent = alignmentContent?.getAlignment;
+      });
+
+    background = BackgroundModel()
+      ..addListener(() {
+        _styleModel?.backgroundColor = background?.exportBackgroundColor;
+        _styleModel?.backgroundBlur = background?.exportBackgroundBlur;
+        _styleModel?.backgroundImage = background?.exportBackgroundImage;
+      });
+
+    overflow = OverflowModel()
+      ..addListener(() {
+        _styleModel?.overflow = overflow?.getOverflow;
+        _styleModel?.overflowDirection = overflow?.getDirection;
+      });
+  }
 
   final AngleFormat angleFormat;
 
   StyleModel _styleModel = StyleModel();
 
   /// Alignment relative to its surroundings
-  AlignmentModel alignment = AlignmentModel();
+  AlignmentModel alignment;
+
+  /// Alignment of the child
+  AlignmentModel alignmentContent;
+
+  /// Widget background styling
+  BackgroundModel background;
+
+  /// Change child overflow behaviour.
+  ///
+  ///```dart
+  ///..overflow.visible(Axis.vertical) // overflows outside its parent
+  ///..overflow.hidden() // CLips to parent shape
+  ///..overflow.scrollable(Axis.vertical) // scrollable if bigger than parent
+  ///```
+  OverflowModel overflow;
 
   /// Empty space to inscribe inside the [decoration]. The [child], if any, is placed inside this padding.
   ///
@@ -87,9 +130,6 @@ class StyleClass {
     );
   }
 
-  /// Widget background styling
-  BackgroundModel background = BackgroundModel();
-
   /// Creates a linear gradient.
   ///
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
@@ -138,11 +178,12 @@ class StyleClass {
       @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops}) {
-
     startAngle = _angleToRadians(startAngle, angleFormat);
 
-    if (endAngle == null) endAngle = pi * 2;
-    else endAngle = _angleToRadians(endAngle, angleFormat);
+    if (endAngle == null)
+      endAngle = pi * 2;
+    else
+      endAngle = _angleToRadians(endAngle, angleFormat);
 
     _styleModel?.gradient = SweepGradient(
       center: center,
@@ -300,7 +341,8 @@ class StyleClass {
   /// ..scale(0.7);
   /// ```
   void scale(double ratio) {
-    if (ratio < 0) throw ('The widget scale cannot be negative: _styleModel?.ratio');
+    if (ratio < 0)
+      throw ('The widget scale cannot be negative: _styleModel?.ratio');
     _styleModel?.scale = ratio;
   }
 
@@ -347,15 +389,6 @@ class StyleClass {
     );
   }
 
-  /// Change child overflow behaviour.
-  ///
-  ///```dart
-  ///..overflow.visible(Axis.vertical) // overflows outside its parent
-  ///..overflow.hidden() // CLips to parent shape
-  ///..overflow.scrollable(Axis.vertical) // scrollable if bigger than parent
-  ///```
-  OverflowModel overflow = OverflowModel();
-
   /// `Duration` is given in milliseconds.
   ///
   /// ```dart
@@ -380,38 +413,14 @@ class StyleClass {
   }
 
   // export raw styledata
-  StyleModel get exportStyle {
-    _includeToStyleModel();
-    return _styleModel;
-  }
-
-  /// Combines style from another StyleClass
-  /// ```dart
-  /// ..add(StyleClass()..width(100));
-  /// ```
-  void add(StyleClass styleClass, {bool override = false}) {
-    _includeToStyleModel();
-    styleClass?._includeToStyleModel();
-
-    _styleModel?.inject(styleClass?._styleModel, override);
-  }
-
-  void _includeToStyleModel() {
-    _styleModel?.alignment = alignment?.getAlignment;
-    _styleModel?.overflow = overflow?.getOverflow;
-    _styleModel?.overflowDirection = overflow?.getDirection;
-    _styleModel?.backgroundColor = background?.exportBackgroundColor;
-    _styleModel?.backgroundBlur = background?.exportBackgroundBlur;
-    _styleModel?.image = background?.exportBackgroundImage;
-  }
+  StyleModel get exportStyle => _styleModel;
 
   double _angleToRadians(double value, AngleFormat angleFormat) {
-    if(angleFormat == AngleFormat.radians)
+    if (angleFormat == AngleFormat.radians)
       return value;
     else if (angleFormat == AngleFormat.cycles)
       return value * 2 * pi;
-    else if (angleFormat == AngleFormat.degree)
-      return (value / 360) * 2 * pi;
+    else if (angleFormat == AngleFormat.degree) return (value / 360) * 2 * pi;
 
     return null;
   }
@@ -442,18 +451,31 @@ class S extends StyleClass {
 }
 
 class ParentStyle extends StyleClass {
-  ParentStyle({this.angleFormat = AngleFormat.cycles}) : super(angleFormat: angleFormat);
+  ParentStyle({this.angleFormat = AngleFormat.cycles})
+      : super(angleFormat: angleFormat);
 
   final AngleFormat angleFormat;
 
-  /// Alignment of the child
-  AlignmentModel alignmentChild = AlignmentModel();
-
-  @override
-  void _includeToStyleModel() {
-    super._includeToStyleModel();
-    _styleModel?.alignmentChild = alignmentChild?.getAlignment;
+  /// Combines style from another StyleClass
+  /// ```dart
+  /// ..add(ParentStyle()..width(100));
+  /// ```
+  void add(ParentStyle parentStyle, {bool override = false}) {
+    if (parentStyle != null) {
+      _styleModel?.inject(parentStyle?._styleModel, override);
+    }
   }
+
+  /// Clone object
+  /// ```dart
+  /// Parent(
+  ///   'some text',
+  ///   style: myStyle.clone()
+  ///     ..width(100)
+  ///     // etc..
+  /// )
+  /// ```
+  ParentStyle clone() => ParentStyle(angleFormat: angleFormat)..add(this);
 }
 
 class GestureClass {
@@ -519,16 +541,20 @@ class GestureClass {
 
   void onTap(void Function() function) => gestureModel?.onTap = function;
 
-  void onTapUp(void Function(TapUpDetails) function) => gestureModel?.onTapUp = function;
+  void onTapUp(void Function(TapUpDetails) function) =>
+      gestureModel?.onTapUp = function;
 
   void onTapDown(void Function(TapDownDetails) function) =>
       gestureModel?.onTapDown = function;
 
-  void onTapCancel(void Function() function) => gestureModel?.onTapCancel = function;
+  void onTapCancel(void Function() function) =>
+      gestureModel?.onTapCancel = function;
 
-  void onDoubleTap(void Function() function) => gestureModel?.onDoubleTap = function;
+  void onDoubleTap(void Function() function) =>
+      gestureModel?.onDoubleTap = function;
 
-  void onLongPress(void Function() function) => gestureModel?.onLongPress = function;
+  void onLongPress(void Function() function) =>
+      gestureModel?.onLongPress = function;
 
   void onLongPressStart(void Function(LongPressStartDetails) function) =>
       gestureModel?.onLongPressStart = function;
@@ -540,7 +566,8 @@ class GestureClass {
           void Function(LongPressMoveUpdateDetails) function) =>
       gestureModel?.onLongPressMoveUpdate = function;
 
-  void onLongPressUp(void Function() function) => gestureModel?.onLongPressUp = function;
+  void onLongPressUp(void Function() function) =>
+      gestureModel?.onLongPressUp = function;
 
   void onVerticalDragStart(void Function(DragStartDetails) function) =>
       gestureModel?.onVerticalDragStart = function;
@@ -587,9 +614,11 @@ class GestureClass {
   void onPanStart(void Function(DragStartDetails) function) =>
       gestureModel?.onPanStart = function;
 
-  void onPanEnd(void Function(DragEndDetails) function) => gestureModel?.onPanEnd = function;
+  void onPanEnd(void Function(DragEndDetails) function) =>
+      gestureModel?.onPanEnd = function;
 
-  void onPanCancel(void Function() function) => gestureModel?.onPanCancel = function;
+  void onPanCancel(void Function() function) =>
+      gestureModel?.onPanCancel = function;
 
   void onPanDown(void Function(DragDownDetails) function) =>
       gestureModel?.onPanDown = function;
@@ -670,9 +699,20 @@ class G extends GestureClass {
 }
 
 class TxtStyle extends StyleClass {
-  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles}) : super(angleFormat: angleFormat);
+  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
+      : super(angleFormat: angleFormat);
+
+  @override
+  void _addListeners() {
+    super._addListeners();
+    textAlign = TextAlignModel()..addListener(() {
+      _textModel?.textAlign = textAlign?.exportTextAlign;
+    });
+  }
 
   final TextModel _textModel = TextModel();
+
+  TextAlignModel textAlign;
 
   void bold([bool enable = true]) {
     if (enable == true) _textModel?.fontWeight = FontWeight.bold;
@@ -693,7 +733,7 @@ class TxtStyle extends StyleClass {
 
   void textColor(Color textColor) => _textModel?.textColor = textColor;
 
-  // void textAlign(TextAlign alignment) => _textModel?.textAlign = alignment;
+  // void textAlign(TextAlign textAlign) => _textModel?.textAlign = textAlign;
 
   void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
 
@@ -706,26 +746,44 @@ class TxtStyle extends StyleClass {
   /// If `focusNode` isnt spesified an internal `focusNode` will be created.
   void editable(bool enable,
       {TextInputType keyboardType,
+      String placeholder,
+      bool obscureText = false,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
       FocusNode focusNode}) {
-    _textModel?.editable = enable;
-    _textModel?.keyboardType = keyboardType;
-    _textModel?.onFocusChange = onFocusChange;
-    _textModel?.onChange = onChange;
-    _textModel?.onSelectionChanged = onSelectionChanged;
-    _textModel?.focusNode = focusNode;
+    _textModel
+      ..editable = enable
+      ..keyboardType = keyboardType
+      ..placeholder = placeholder
+      ..obscureText = obscureText
+      ..onChange = onChange
+      ..onFocusChange = onFocusChange
+      ..onSelectionChanged = onSelectionChanged
+      ..focusNode = focusNode;
   }
 
-  /// Alignment of the widget.
-  AlignmentModel alignmentText = AlignmentModel();
-
-  @override
-  void _includeToStyleModel() {
-    super._includeToStyleModel();
-    _styleModel?.alignmentChild = alignmentText?.getAlignment;
+  /// Combines style from another StyleClass
+  /// ```dart
+  /// ..add(TxtStyle()..width(100));
+  /// ```
+  void add(TxtStyle txtStyle, {bool override = false}) {
+    if (txtStyle != null) {
+      _styleModel?.inject(txtStyle?._styleModel, override);
+      _textModel?.inject(txtStyle?._textModel, override);
+    }
   }
+
+  /// Clone object
+  /// ```dart
+  /// Txt(
+  ///   'some text',
+  ///   style: myStyle.clone()
+  ///     ..width(100)
+  ///     // etc..
+  /// )
+  /// ```
+  TxtStyle clone() => TxtStyle(angleFormat: angleFormat)..add(this);
 
   TextModel get exportTextStyle => _textModel;
 }

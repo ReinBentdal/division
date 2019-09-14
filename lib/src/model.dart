@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'function/hex_color.dart';
 
 class RippleModel {
   final bool enable;
@@ -9,7 +10,7 @@ class RippleModel {
   RippleModel({this.enable, this.highlightColor, this.splashColor});
 }
 
-class BackgroundModel {
+class BackgroundModel with ChangeNotifier {
   Color _color;
   double _blur;
   DecorationImage _image;
@@ -21,11 +22,13 @@ class BackgroundModel {
   /// BackgroundColor
   void color(Color color) {
     _color = color;
+    notifyListeners();
   }
 
   /// background color in the rgba format
   void rgba(int r, int g, int b, [double opacity = 1.0]) {
     _color = Color.fromRGBO(r, g, b, opacity);
+    notifyListeners();
   }
 
   /// Background color in the hex format
@@ -34,8 +37,9 @@ class BackgroundModel {
   /// ```
   void hex(String xxxxxx) {
     _color = HexColor(xxxxxx);
+    notifyListeners();
   }
- 
+
   /// Blurs the background
   ///
   /// Frosted glass example:
@@ -46,7 +50,8 @@ class BackgroundModel {
   /// Does not work together with `rotate()`.
   void blur(double blur) {
     if (blur < 0) throw ('Blur cannot be negative: $blur');
-    _blur = blur;
+      _blur = blur;
+    notifyListeners();
   }
 
   /// Eighter the [url] or the [path] has to be specified.
@@ -67,7 +72,8 @@ class BackgroundModel {
       BoxFit fit,
       AlignmentGeometry alignment = Alignment.center,
       ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path ?? imageProveder) == null) throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
+    if ((url ?? path ?? imageProveder) == null)
+      throw ('Eighter the [imageProvider], [url] or the [path] has to be provided');
 
     ImageProvider<dynamic> image;
     if (imageProveder != null)
@@ -84,55 +90,60 @@ class BackgroundModel {
       alignment: alignment,
       repeat: repeat,
     );
+    notifyListeners();
   }
 }
 
-class AlignmentModel {
+class AlignmentModel with ChangeNotifier {
   AlignmentGeometry _alignment;
 
   AlignmentGeometry get getAlignment => _alignment;
 
-  void topLeft() => _alignment = Alignment.topLeft;
-  void topCenter() => _alignment = Alignment.topCenter;
-  void topRight() => _alignment = Alignment.topRight;
+  void topLeft() => _updateAlignment(Alignment.topLeft);
+  void topCenter() => _updateAlignment(Alignment.topCenter);
+  void topRight() => _updateAlignment(Alignment.topRight);
 
-  void bottomLeft() => _alignment = Alignment.bottomLeft;
-  void bottomCenter() => _alignment = Alignment.bottomCenter;
-  void bottomRight() => _alignment = Alignment.bottomRight;
+  void bottomLeft() => _updateAlignment(Alignment.bottomLeft);
+  void bottomCenter() => _updateAlignment(Alignment.bottomCenter);
+  void bottomRight() => _updateAlignment(Alignment.bottomRight);
 
-  void centerLeft() => _alignment = Alignment.centerLeft;
-  void center() => _alignment = Alignment.center;
-  void centerRight() => _alignment = Alignment.centerRight;
+  void centerLeft() => _updateAlignment(Alignment.centerLeft);
+  void center() => _updateAlignment(Alignment.center);
+  void centerRight() => _updateAlignment(Alignment.centerRight);
 
-  void coordinate(double x, double y) =>
-      _alignment = Alignment(x, y);
+  void coordinate(double x, double y) => _updateAlignment(Alignment(x,y));
+
+  void _updateAlignment(AlignmentGeometry alignment) {
+    _alignment = alignment;
+    notifyListeners();
+  }
 }
 
 enum OverflowType { hidden, scroll, visible }
 
-class OverflowModel {
+class OverflowModel with ChangeNotifier {
   Axis _direction;
   OverflowType _overflow;
 
   Axis get getDirection => _direction;
   OverflowType get getOverflow => _overflow;
 
-  void hidden() => _overflow = OverflowType.hidden;
+  void hidden() => _updateOverflow(OverflowType.hidden);
 
-  void scrollable([Axis direction = Axis.vertical]) {
-    _overflow = OverflowType.scroll;
-    _direction = direction;
-  }
+  void scrollable([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.scroll, direction);
 
-  void visible([Axis direction = Axis.vertical]) {
-    _overflow = OverflowType.visible;
-    _direction = direction;
+  void visible([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.visible, direction);
+
+  void _updateOverflow(OverflowType overflow, [Axis direction]) {
+    _overflow = overflow;
+    if (direction != null) _direction = direction;
+    notifyListeners();
   }
 }
 
 class StyleModel {
   AlignmentGeometry alignment;
-  AlignmentGeometry alignmentChild;
+  AlignmentGeometry alignmentContent;
   double width;
   double minWidth;
   double maxWidth;
@@ -141,7 +152,7 @@ class StyleModel {
   double maxHeight;
   Color backgroundColor;
   double backgroundBlur;
-  DecorationImage image;
+  DecorationImage backgroundImage;
   EdgeInsetsGeometry padding;
   EdgeInsetsGeometry margin;
   Gradient gradient;
@@ -162,12 +173,10 @@ class StyleModel {
   BoxConstraints _constraints;
   Matrix4 _transform;
 
-  // GestureModel gesture;
-
   void inject(StyleModel intruder, bool override) {
     alignment = _replace(alignment, intruder?.alignment, override);
-    alignmentChild =
-        _replace(alignmentChild, intruder?.alignmentChild, override);
+    alignmentContent =
+        _replace(alignmentContent, intruder?.alignmentContent, override);
     width = _replace(width, intruder?.width, override);
     minWidth = _replace(minWidth, intruder?.minWidth, override);
     maxWidth = _replace(maxWidth, intruder?.maxWidth, override);
@@ -178,7 +187,7 @@ class StyleModel {
         _replace(backgroundColor, intruder?.backgroundColor, override);
     backgroundBlur =
         _replace(backgroundBlur, intruder?.backgroundBlur, override);
-    image = _replace(image, intruder?.image, override);
+    backgroundImage = _replace(backgroundImage, intruder?.backgroundImage, override);
     padding = _replace(padding, intruder?.padding, override);
     margin = _replace(margin, intruder?.margin, override);
     gradient = _replace(gradient, intruder?.gradient, override);
@@ -229,7 +238,7 @@ class StyleModel {
     if (_decoration != null) return _decoration;
 
     if ((backgroundColor ??
-            image ??
+            backgroundImage ??
             gradient ??
             border ??
             borderRadius ??
@@ -237,7 +246,7 @@ class StyleModel {
         null) {
       BoxDecoration boxDecoration = BoxDecoration(
           color: backgroundColor,
-          image: image,
+          image: backgroundImage,
           gradient: gradient,
           border: border,
           borderRadius: borderRadius,
@@ -269,48 +278,11 @@ class StyleModel {
 }
 
 class GestureModel {
-  GestureModel(
-    {
-  //   @required this.onTapDown,
-  //   @required this.onTapUp,
-  //   @required this.onTap,
-  //   @required this.onTapCancel,
-  //   @required this.onSecondaryTapDown,
-  //   @required this.onSecondaryTapUp,
-  //   @required this.onSecondaryTapCancel,
-  //   @required this.onDoubleTap,
-  //   @required this.onLongPress,
-  //   @required this.onLongPressStart,
-  //   @required this.onLongPressMoveUpdate,
-  //   @required this.onLongPressUp,
-  //   @required this.onLongPressEnd,
-  //   @required this.onVerticalDragDown,
-  //   @required this.onVerticalDragStart,
-  //   @required this.onVerticalDragUpdate,
-  //   @required this.onVerticalDragEnd,
-  //   @required this.onVerticalDragCancel,
-  //   @required this.onHorizontalDragDown,
-  //   @required this.onHorizontalDragStart,
-  //   @required this.onHorizontalDragUpdate,
-  //   @required this.onHorizontalDragEnd,
-  //   @required this.onHorizontalDragCancel,
-  //   @required this.onForcePressStart,
-  //   @required this.onForcePressPeak,
-  //   @required this.onForcePressUpdate,
-  //   @required this.onForcePressEnd,
-  //   @required this.onPanDown,
-  //   @required this.onPanStart,
-  //   @required this.onPanUpdate,
-  //   @required this.onPanEnd,
-  //   @required this.onPanCancel,
-  //   @required this.onScaleStart,
-  //   @required this.onScaleUpdate,
-  //   @required this.onScaleEnd,
+  GestureModel({
     @required this.behavior,
     @required this.excludeFromSemantics,
     @required this.dragStartBehavior,
-  }
-  );
+  });
 
   GestureTapDownCallback onTapDown;
   GestureTapUpCallback onTapUp;
@@ -412,9 +384,12 @@ class TextModel {
   double letterSpacing;
   double wordSpacing;
 
+  //editable
   bool editable;
   TextInputType keyboardType;
-  // String _placeholder;
+  String placeholder;
+  bool obscureText;
+  
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
   void Function(TextSelection, SelectionChangedCause)
@@ -426,7 +401,8 @@ class TextModel {
     textAlign = _replace(textAlign, textModel?.textAlign, override);
     fontStyle = _replace(fontStyle, textModel?.fontStyle, override);
     fontFamily = _replace(fontFamily, textModel?.fontFamily, override);
-    fontFamilyFallback = _replace(fontFamilyFallback, textModel?.fontFamilyFallback, override);
+    fontFamilyFallback =
+        _replace(fontFamilyFallback, textModel?.fontFamilyFallback, override);
     fontSize = _replace(fontSize, textModel?.fontSize, override);
     textColor = _replace(textColor, textModel?.textColor, override);
     maxLines = _replace(maxLines, textModel?.maxLines, override);
@@ -437,7 +413,8 @@ class TextModel {
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);
     onChange = _replace(onChange, textModel?.onChange, override);
     onFocusChange = _replace(onFocusChange, textModel?.onFocusChange, override);
-    onSelectionChanged = _replace(onSelectionChanged, textModel?.onSelectionChanged, override);
+    onSelectionChanged =
+        _replace(onSelectionChanged, textModel?.onSelectionChanged, override);
     focusNode = _replace(focusNode, textModel?.focusNode, override);
   }
 
@@ -462,15 +439,20 @@ class TextModel {
   }
 }
 
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
+class TextAlignModel with ChangeNotifier {
+  TextAlign _textAlign;
+
+  TextAlign get exportTextAlign => _textAlign;
+
+  void left() => _updateAlignment(TextAlign.left);
+  void right() => _updateAlignment(TextAlign.right);
+  void center() => _updateAlignment(TextAlign.center);
+  void justify() => _updateAlignment(TextAlign.justify);
+  void start() => _updateAlignment(TextAlign.start);
+  void end() => _updateAlignment(TextAlign.end);
+
+  _updateAlignment(TextAlign textAlign) {
+    _textAlign = textAlign;
+    notifyListeners();
   }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
-

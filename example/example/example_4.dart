@@ -20,7 +20,7 @@ class ElevationDemo extends StatelessWidget {
     ..height(50)
     ..margin(vertical: 10.0)
     ..alignment.center()
-    ..alignmentChild.center()
+    ..alignmentContent.center()
     ..borderRadius(all: 15.0)
     ..background.hex('#eeeeee')
     ..animate(2000, Curves.easeInOut);

@@ -6,11 +6,11 @@ import 'model.dart';
 import 'style.dart';
 
 class Parent extends StatelessWidget {
+  const Parent({this.child, this.style, this.gesture});
+
   final Widget child;
   final ParentStyle style;
   final GestureClass gesture;
-
-  const Parent({this.child, this.style, this.gesture});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class Parent extends StatelessWidget {
 }
 
 class Txt extends StatelessWidget {
-  Txt(this.text, {this.style, this.gesture});
+  const Txt(this.text, {this.style, this.gesture});
 
   final String text;
   final TxtStyle style;

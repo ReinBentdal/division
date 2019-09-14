@@ -37,7 +37,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _alignmentChild = visitor(
         _alignmentChild,
-        widget.styleModel?.alignmentChild,
+        widget.styleModel?.alignmentContent,
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _padding = visitor(_padding, widget.styleModel?.padding,
         (dynamic value) => EdgeInsetsGeometryTween(begin: value));
@@ -62,7 +62,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
     if (_styleModel != null) {
       _styleModel
         ..alignment = _alignment?.evaluate(animation)
-        ..alignmentChild = _alignmentChild?.evaluate(animation)
+        ..alignmentContent = _alignmentChild?.evaluate(animation)
         ..padding = _padding?.evaluate(animation)
         ..setBoxConstraints = _constraints?.evaluate(animation)
         ..setBoxDecoration = _decoration?.evaluate(animation)
