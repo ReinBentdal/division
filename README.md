@@ -3,9 +3,9 @@
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 ### Built with Division
-#### [App designer](https://dribbble.com/shots/6459693-Creative-layout-design) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart)
-
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250">
+| [App designer](https://dribbble.com/shots/6459693-Creative-layout-design),  [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart) |
+|-|-|
+| <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="250"> |
 
 ## Getting Started
 

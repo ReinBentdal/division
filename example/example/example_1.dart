@@ -191,7 +191,8 @@ class ActionsRow extends StatelessWidget {
     ..height(50)
     ..margin(bottom: 5)
     ..borderRadius(all: 30)
-    ..background.hex('#F6F5F8');
+    ..background.hex('#F6F5F8')
+    ..ripple(true);
 
   final ParentStyle actionsItemStyle = ParentStyle()..margin(vertical: 20.0);
 
@@ -242,7 +243,7 @@ class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Parent(
-        style: settingsItemStyle
+        style: settingsItemStyle.clone()
           ..elevation(pressed ? 0 : 50, color: Colors.grey)
           ..scale(pressed ? 0.95 : 1.0),
         gesture: GestureClass()
@@ -252,9 +253,8 @@ class _SettingsItemState extends State<SettingsItem> {
         child: Row(
           children: <Widget>[
             Parent(
-              style: ParentStyle()
-                ..background.color(widget.iconBgColor)
-                ..add(settingsItemIconStyle),
+              style: settingsItemIconStyle.clone()
+                ..background.color(widget.iconBgColor),
               child: Icon(
                 widget.icon,
                 color: Colors.white,
@@ -292,7 +292,7 @@ class _SettingsItemState extends State<SettingsItem> {
     ..borderRadius(all: 15)
     ..background.hex('#ffffff')
     ..ripple(true)
-    ..animate(300, Curves.easeOut);
+    ..animate(150, Curves.easeOut);
 
   final ParentStyle settingsItemIconStyle = ParentStyle()
     ..margin(left: 15)
