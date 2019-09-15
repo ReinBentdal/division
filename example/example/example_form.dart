@@ -44,6 +44,8 @@ class _TestState extends State<Test> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+
+        // Title
         Txt(
           'Login',
           style: TxtStyle()
@@ -52,6 +54,8 @@ class _TestState extends State<Test> {
             ..margin(bottom: 30, horizontal: 50)
             ..alignment.centerLeft(),
         ),
+
+        // Username field
         Txt(
           '',
           style: inputField.clone()
@@ -65,6 +69,8 @@ class _TestState extends State<Test> {
               onChange: (data) => print(data),
             ),
         ),
+
+        // Password field
         Txt(
           '',
           style: inputField.clone()
@@ -79,6 +85,8 @@ class _TestState extends State<Test> {
               onChange: (data) => print(data),
             ),
         ),
+
+        // Submit button
         Txt(
           'Submit',
           style: TxtStyle()
