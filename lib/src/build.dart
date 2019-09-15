@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 
 import 'model.dart';
 
@@ -172,11 +171,10 @@ class ParentBuild extends StatelessWidget {
 }
 
 class TxtBuild extends StatelessWidget {
-  TxtBuild({this.text, this.textModel, this.styleModel});
+  TxtBuild({this.text, this.textModel});
 
   final String text;
   final TextModel textModel;
-  final StyleModel styleModel;
 
   @override
   Widget build(BuildContext context) {
@@ -196,12 +194,10 @@ class TxtBuild extends StatelessWidget {
 class TxtBuildEditable extends StatefulWidget {
   TxtBuildEditable(
       {@required this.text,
-      @required this.textModel,
-      @required this.styleModel});
+      @required this.textModel});
 
   final String text;
   final TextModel textModel;
-  final StyleModel styleModel;
 
   @override
   _TxtBuildEditableState createState() => _TxtBuildEditableState();

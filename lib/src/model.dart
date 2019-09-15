@@ -396,7 +396,7 @@ class TextModel {
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
   void Function(TextSelection, SelectionChangedCause)
-      onSelectionChanged; // TODO: not working (only tested on android emulator)
+      onSelectionChanged;
   FocusNode focusNode;
 
   void inject(TextModel textModel, bool override) {

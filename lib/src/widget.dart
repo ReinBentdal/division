@@ -56,13 +56,11 @@ class Txt extends StatelessWidget {
       widgetTree = TxtBuildEditable(
         text: text,
         textModel: textModel,
-        styleModel: styleModel,
       );
     } else {
       widgetTree = TxtBuild(
         text: text,
         textModel: textModel,
-        styleModel: styleModel,
       );
     }
 
