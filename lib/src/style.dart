@@ -741,6 +741,8 @@ class TxtStyle extends StyleClass {
 
   void wordSpacing(double space) => _textModel?.wordSpacing = space;
 
+  void textDecoration(TextDecoration decoration) => _textModel?.textDecoration = decoration;
+
   /// Make the widget editable just like a TextField.
   ///
   /// If `focusNode` isnt spesified an internal `focusNode` will be created.
@@ -751,6 +753,7 @@ class TxtStyle extends StyleClass {
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
+      void Function() onEditingComplete,
       FocusNode focusNode}) {
     _textModel
       ..editable = enable
@@ -760,6 +763,7 @@ class TxtStyle extends StyleClass {
       ..onChange = onChange
       ..onFocusChange = onFocusChange
       ..onSelectionChanged = onSelectionChanged
+      ..onEditingComplete = onEditingComplete
       ..focusNode = focusNode;
   }
 
