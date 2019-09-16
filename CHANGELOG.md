@@ -6,6 +6,7 @@
 * Added `placeholder` parameter to the editable method in `TxtStyle`
 * Added `clone` method to be able to clone a `StyleClass`
 * Added `textAlign` method to `TxtStyle`
+* Other minor improvements
 
 ## 0.8.0+1
 * [Fix] Fixed bug with `add` method not working correctly

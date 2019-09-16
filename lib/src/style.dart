@@ -705,9 +705,10 @@ class TxtStyle extends StyleClass {
   @override
   void _addListeners() {
     super._addListeners();
-    textAlign = TextAlignModel()..addListener(() {
-      _textModel?.textAlign = textAlign?.exportTextAlign;
-    });
+    textAlign = TextAlignModel()
+      ..addListener(() {
+        _textModel?.textAlign = textAlign?.exportTextAlign;
+      });
   }
 
   final TextModel _textModel = TextModel();
