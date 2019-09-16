@@ -1,7 +1,5 @@
 # Example showcase
 
-| [Design](https://dribbble.com/shots/6459693-Creative-layout-design), [code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_2.dart) |
-|-|-|
-| <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="200"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/frosted_glass_demo.gif" width="200"> | 
-| <span style="text-align: center; display: block;">**[Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart)**</span> |
-| <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="200"> |
+| [Design](https://dribbble.com/shots/6459693-Creative-layout-design), [code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_2.dart) | <span style="text-align: center; display: block;">**[Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart)**</span> |
+|-|-|-|
+| <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="200"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/frosted_glass_demo.gif" width="200"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="200"> |
