@@ -172,11 +172,10 @@ class ParentBuild extends StatelessWidget {
 }
 
 class TxtBuild extends StatelessWidget {
-  TxtBuild({this.text, this.textModel, this.styleModel});
+  TxtBuild({this.text, this.textModel});
 
   final String text;
   final TextModel textModel;
-  final StyleModel styleModel;
 
   @override
   Widget build(BuildContext context) {
@@ -196,12 +195,10 @@ class TxtBuild extends StatelessWidget {
 class TxtBuildEditable extends StatefulWidget {
   TxtBuildEditable(
       {@required this.text,
-      @required this.textModel,
-      @required this.styleModel});
+      @required this.textModel});
 
   final String text;
   final TextModel textModel;
-  final StyleModel styleModel;
 
   @override
   _TxtBuildEditableState createState() => _TxtBuildEditableState();
@@ -216,6 +213,17 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
     super.initState();
     _controller = TextEditingController(text: widget.text);
     _initializeFocusNode();
+  }
+
+  @override
+  void didUpdateWidget(TxtBuildEditable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.text != _controller.text) {
+      setState(() {
+       _controller = TextEditingController(text: widget.text); 
+      });
+    }
   }
 
   void _initializeFocusNode() {
@@ -270,6 +278,11 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
       keyboardType: widget.textModel?.keyboardType ?? TextInputType.text,
       onChanged: widget.textModel?.onChange,
       onSelectionChanged: widget.textModel?.onSelectionChanged,
+      onEditingComplete: () {
+        widget.textModel?.onEditingComplete();
+        _focusNode?.unfocus();
+        _controller?.clearComposing();
+      },
     );
   }
 }

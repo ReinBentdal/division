@@ -50,7 +50,7 @@ class BackgroundModel with ChangeNotifier {
   /// Does not work together with `rotate()`.
   void blur(double blur) {
     if (blur < 0) throw ('Blur cannot be negative: $blur');
-      _blur = blur;
+    _blur = blur;
     notifyListeners();
   }
 
@@ -99,23 +99,25 @@ class AlignmentModel with ChangeNotifier {
 
   AlignmentGeometry get getAlignment => _alignment;
 
-  void topLeft() => _updateAlignment(Alignment.topLeft);
-  void topCenter() => _updateAlignment(Alignment.topCenter);
-  void topRight() => _updateAlignment(Alignment.topRight);
+  void topLeft([bool enable = true]) => _updateAlignment(Alignment.topLeft, enable);
+  void topCenter([bool enable = true]) => _updateAlignment(Alignment.topCenter, enable);
+  void topRight([bool enable = true]) => _updateAlignment(Alignment.topRight, enable);
 
-  void bottomLeft() => _updateAlignment(Alignment.bottomLeft);
-  void bottomCenter() => _updateAlignment(Alignment.bottomCenter);
-  void bottomRight() => _updateAlignment(Alignment.bottomRight);
+  void bottomLeft([bool enable = true]) => _updateAlignment(Alignment.bottomLeft, enable);
+  void bottomCenter([bool enable = true]) => _updateAlignment(Alignment.bottomCenter, enable);
+  void bottomRight([bool enable = true]) => _updateAlignment(Alignment.bottomRight, enable);
 
-  void centerLeft() => _updateAlignment(Alignment.centerLeft);
-  void center() => _updateAlignment(Alignment.center);
-  void centerRight() => _updateAlignment(Alignment.centerRight);
+  void centerLeft([bool enable = true]) => _updateAlignment(Alignment.centerLeft, enable);
+  void center([bool enable = true]) => _updateAlignment(Alignment.center, enable);
+  void centerRight([bool enable = true]) => _updateAlignment(Alignment.centerRight, enable);
 
-  void coordinate(double x, double y) => _updateAlignment(Alignment(x,y));
+  void coordinate(double x, double y, [bool enable = true]) => _updateAlignment(Alignment(x, y), enable);
 
-  void _updateAlignment(AlignmentGeometry alignment) {
-    _alignment = alignment;
-    notifyListeners();
+  void _updateAlignment(AlignmentGeometry alignment, bool enable) {
+    if (enable) {
+      _alignment = alignment;
+      notifyListeners();
+    }
   }
 }
 
@@ -130,9 +132,11 @@ class OverflowModel with ChangeNotifier {
 
   void hidden() => _updateOverflow(OverflowType.hidden);
 
-  void scrollable([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.scroll, direction);
+  void scrollable([Axis direction = Axis.vertical]) =>
+      _updateOverflow(OverflowType.scroll, direction);
 
-  void visible([Axis direction = Axis.vertical]) => _updateOverflow(OverflowType.visible, direction);
+  void visible([Axis direction = Axis.vertical]) =>
+      _updateOverflow(OverflowType.visible, direction);
 
   void _updateOverflow(OverflowType overflow, [Axis direction]) {
     _overflow = overflow;
@@ -187,7 +191,8 @@ class StyleModel {
         _replace(backgroundColor, intruder?.backgroundColor, override);
     backgroundBlur =
         _replace(backgroundBlur, intruder?.backgroundBlur, override);
-    backgroundImage = _replace(backgroundImage, intruder?.backgroundImage, override);
+    backgroundImage =
+        _replace(backgroundImage, intruder?.backgroundImage, override);
     padding = _replace(padding, intruder?.padding, override);
     margin = _replace(margin, intruder?.margin, override);
     gradient = _replace(gradient, intruder?.gradient, override);
@@ -383,17 +388,19 @@ class TextModel {
   int maxLines;
   double letterSpacing;
   double wordSpacing;
+  TextDecoration textDecoration;
 
   //editable
   bool editable;
   TextInputType keyboardType;
   String placeholder;
   bool obscureText;
-  
+
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
   void Function(TextSelection, SelectionChangedCause)
-      onSelectionChanged; // TODO: not working (only tested on android emulator)
+      onSelectionChanged;
+  void Function() onEditingComplete;
   FocusNode focusNode;
 
   void inject(TextModel textModel, bool override) {
@@ -408,6 +415,7 @@ class TextModel {
     maxLines = _replace(maxLines, textModel?.maxLines, override);
     letterSpacing = _replace(letterSpacing, textModel?.letterSpacing, override);
     wordSpacing = _replace(wordSpacing, textModel?.wordSpacing, override);
+    textDecoration = _replace(textDecoration, textModel?.textDecoration, override);
 
     editable = _replace(editable, textModel?.editable, override);
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);
@@ -415,6 +423,8 @@ class TextModel {
     onFocusChange = _replace(onFocusChange, textModel?.onFocusChange, override);
     onSelectionChanged =
         _replace(onSelectionChanged, textModel?.onSelectionChanged, override);
+    onEditingComplete =
+        _replace(onEditingComplete, textModel?.onEditingComplete, override);
     focusNode = _replace(focusNode, textModel?.focusNode, override);
   }
 
@@ -435,6 +445,7 @@ class TextModel {
       fontFamilyFallback: fontFamilyFallback,
       letterSpacing: letterSpacing,
       wordSpacing: wordSpacing,
+      decoration: textDecoration,
     );
   }
 }
@@ -444,15 +455,19 @@ class TextAlignModel with ChangeNotifier {
 
   TextAlign get exportTextAlign => _textAlign;
 
-  void left() => _updateAlignment(TextAlign.left);
-  void right() => _updateAlignment(TextAlign.right);
-  void center() => _updateAlignment(TextAlign.center);
-  void justify() => _updateAlignment(TextAlign.justify);
-  void start() => _updateAlignment(TextAlign.start);
-  void end() => _updateAlignment(TextAlign.end);
+  void left([bool enable = true]) => _updateAlignment(TextAlign.left, enable);
+  void right([bool enable = true]) => _updateAlignment(TextAlign.right, enable);
+  void center([bool enable = true]) =>
+      _updateAlignment(TextAlign.center, enable);
+  void justify([bool enable = true]) =>
+      _updateAlignment(TextAlign.justify, enable);
+  void start([bool enable = true]) => _updateAlignment(TextAlign.start, enable);
+  void end([bool enable = true]) => _updateAlignment(TextAlign.end, enable);
 
-  _updateAlignment(TextAlign textAlign) {
-    _textAlign = textAlign;
-    notifyListeners();
+  _updateAlignment(TextAlign textAlign, bool enable) {
+    if (enable == true) {
+      _textAlign = textAlign;
+      notifyListeners();
+    }
   }
 }
