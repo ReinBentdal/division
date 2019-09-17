@@ -742,7 +742,8 @@ class TxtStyle extends StyleClass {
 
   void wordSpacing(double space) => _textModel?.wordSpacing = space;
 
-  void textDecoration(TextDecoration decoration) => _textModel?.textDecoration = decoration;
+  void textDecoration(TextDecoration decoration) =>
+      _textModel?.textDecoration = decoration;
 
   /// Make the widget editable just like a TextField.
   ///
@@ -751,6 +752,7 @@ class TxtStyle extends StyleClass {
       {TextInputType keyboardType,
       String placeholder,
       bool obscureText = false,
+      int maxLines,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
       void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
@@ -761,6 +763,7 @@ class TxtStyle extends StyleClass {
       ..keyboardType = keyboardType
       ..placeholder = placeholder
       ..obscureText = obscureText
+      ..maxLines = maxLines
       ..onChange = onChange
       ..onFocusChange = onFocusChange
       ..onSelectionChanged = onSelectionChanged

@@ -44,7 +44,6 @@ class _TestState extends State<Test> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
         // Title
         Txt(
           'Login',

@@ -99,19 +99,29 @@ class AlignmentModel with ChangeNotifier {
 
   AlignmentGeometry get getAlignment => _alignment;
 
-  void topLeft([bool enable = true]) => _updateAlignment(Alignment.topLeft, enable);
-  void topCenter([bool enable = true]) => _updateAlignment(Alignment.topCenter, enable);
-  void topRight([bool enable = true]) => _updateAlignment(Alignment.topRight, enable);
+  void topLeft([bool enable = true]) =>
+      _updateAlignment(Alignment.topLeft, enable);
+  void topCenter([bool enable = true]) =>
+      _updateAlignment(Alignment.topCenter, enable);
+  void topRight([bool enable = true]) =>
+      _updateAlignment(Alignment.topRight, enable);
 
-  void bottomLeft([bool enable = true]) => _updateAlignment(Alignment.bottomLeft, enable);
-  void bottomCenter([bool enable = true]) => _updateAlignment(Alignment.bottomCenter, enable);
-  void bottomRight([bool enable = true]) => _updateAlignment(Alignment.bottomRight, enable);
+  void bottomLeft([bool enable = true]) =>
+      _updateAlignment(Alignment.bottomLeft, enable);
+  void bottomCenter([bool enable = true]) =>
+      _updateAlignment(Alignment.bottomCenter, enable);
+  void bottomRight([bool enable = true]) =>
+      _updateAlignment(Alignment.bottomRight, enable);
 
-  void centerLeft([bool enable = true]) => _updateAlignment(Alignment.centerLeft, enable);
-  void center([bool enable = true]) => _updateAlignment(Alignment.center, enable);
-  void centerRight([bool enable = true]) => _updateAlignment(Alignment.centerRight, enable);
+  void centerLeft([bool enable = true]) =>
+      _updateAlignment(Alignment.centerLeft, enable);
+  void center([bool enable = true]) =>
+      _updateAlignment(Alignment.center, enable);
+  void centerRight([bool enable = true]) =>
+      _updateAlignment(Alignment.centerRight, enable);
 
-  void coordinate(double x, double y, [bool enable = true]) => _updateAlignment(Alignment(x, y), enable);
+  void coordinate(double x, double y, [bool enable = true]) =>
+      _updateAlignment(Alignment(x, y), enable);
 
   void _updateAlignment(AlignmentGeometry alignment, bool enable) {
     if (enable) {
@@ -398,8 +408,7 @@ class TextModel {
 
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
-  void Function(TextSelection, SelectionChangedCause)
-      onSelectionChanged;
+  void Function(TextSelection, SelectionChangedCause) onSelectionChanged;
   void Function() onEditingComplete;
   FocusNode focusNode;
 
@@ -415,7 +424,8 @@ class TextModel {
     maxLines = _replace(maxLines, textModel?.maxLines, override);
     letterSpacing = _replace(letterSpacing, textModel?.letterSpacing, override);
     wordSpacing = _replace(wordSpacing, textModel?.wordSpacing, override);
-    textDecoration = _replace(textDecoration, textModel?.textDecoration, override);
+    textDecoration =
+        _replace(textDecoration, textModel?.textDecoration, override);
 
     editable = _replace(editable, textModel?.editable, override);
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);
