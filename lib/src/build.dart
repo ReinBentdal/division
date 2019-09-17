@@ -79,7 +79,7 @@ class ParentBuild extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: gestureModel?.onTap ?? () {},
-          borderRadius: decoration.borderRadius,
+          borderRadius: decoration?.borderRadius,
           highlightColor: styleModel?.ripple?.highlightColor,
           splashColor: styleModel?.ripple?.splashColor,
           child: widgetTree,
@@ -192,9 +192,7 @@ class TxtBuild extends StatelessWidget {
 }
 
 class TxtBuildEditable extends StatefulWidget {
-  TxtBuildEditable(
-      {@required this.text,
-      @required this.textModel});
+  TxtBuildEditable({@required this.text, @required this.textModel});
 
   final String text;
   final TextModel textModel;
@@ -212,6 +210,17 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
     super.initState();
     _controller = TextEditingController(text: widget.text);
     _initializeFocusNode();
+  }
+
+  @override
+  void didUpdateWidget(TxtBuildEditable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.text != _controller.text) {
+      setState(() {
+        _controller = TextEditingController(text: widget.text);
+      });
+    }
   }
 
   void _initializeFocusNode() {
@@ -268,6 +277,11 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
       keyboardType: widget.textModel?.keyboardType ?? TextInputType.text,
       onChanged: widget.textModel?.onChange,
       onSelectionChanged: widget.textModel?.onSelectionChanged,
+      onEditingComplete: () {
+        _focusNode?.unfocus();
+        _controller?.clearComposing();
+        widget.textModel?.onEditingComplete();
+      },
     );
   }
 }

@@ -1,3 +1,9 @@
+## 0.8.2
+* Added `onEditingComplete` parameter to the editable method in `TxtStyle`
+* Added `textDecoration` to `TxtStyle`
+* Added `maxLines` parameter to the `editable` method 
+* [Fix] `Ripple` not working when `BoxDecoration` is null
+
 ## 0.8.1
 * Added `placeholder` parameter to the editable method in `TxtStyle`
 * Added `clone` method to be able to clone a `StyleClass`
