@@ -65,10 +65,10 @@ Txt(
 # Table of contents
 | Widget       | Description                  |
 |--------------|------------------------------|
-| <a href="styleclass">StyleClass</p>   | abstract general style class |
-| <a href="parentstyle">ParentStyle</p>  | style the Parent widget      |
-| <a href="txtstyle">TxtStyle</p>     | style the Txt widget         |
-| <a href="gestureclass">GestureStyle</p> | adds gestures to the widget  |
+| <a name="styleclass">StyleClass</p>   | abstract general style class |
+| <a name="parentstyle">ParentStyle</p>  | style the Parent widget      |
+| <a name="txtstyle">TxtStyle</p>     | style the Txt widget         |
+| <a name="gestureclass">GestureStyle</p> | adds gestures to the widget  |
 
 ### <span name="styleclass">StyleClass</span>
 
