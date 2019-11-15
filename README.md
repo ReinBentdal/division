@@ -7,7 +7,17 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 |-|-|
 | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="250"> |
 
-## Getting Started
+## Table of contents
+| Category       | Description                  |
+|--------------|------------------------------|
+| [Getting started](#gettingstarted)     | Introduction to flutter |
+| [StyleClass](#styleclass)     | Abstract general style class |
+| [ParentStyle](#parentstyle)   | Style the Parent widget      |
+| [TxtStyle](#txtstyle)         | Style the Txt widget         |
+| [GestureClass](#gestureclass) | Adds gestures to the widget  |
+| [Examples and best practices](#codeexamples)| Examples and practices when using Division |
+
+## <span name="gettingstarted">Getting Started</span>
 This package includes at the moment a `Parent` widget and a `Txt` widget.
 
 As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
@@ -59,16 +69,6 @@ Txt(
 #### The result
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.jpg" width="300">
-
-
-# Table of contents
-| Widget       | Description                  |
-|--------------|------------------------------|
-| [StyleClass](#styleclass)     | abstract general style class |
-| [ParentStyle](#parentstyle)   | style the Parent widget      |
-| [TxtStyle](#txtstyle)         | style the Txt widget         |
-| [GestureClass](#gestureclass) | adds gestures to the widget  |
-| [Examples and best practices](#codeexamples)| examples and practices to write good division code |
 
 ### <span name="styleclass">StyleClass</span>
 
@@ -457,7 +457,7 @@ Widget build(BuildContext context) {
 
 #### Variable dependent style
 ```dart
-final bool color = Colors.blue;
+final Color color = Colors.blue;
 
 final cardStyle = (color) => ParentStyle()
       ..height(175)
