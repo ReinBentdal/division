@@ -17,30 +17,24 @@ class Main extends StatelessWidget {
 }
 
 class UserPage extends StatelessWidget {
-  Widget _buildTitle(String title) {
-    return Parent(
-      style: ParentStyle()
-        ..margin(bottom: 20.0)
-        ..alignmentContent.centerLeft(),
-      child: Text(
-        title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-      ),
-    );
-  }
+  final contentStyle = (BuildContext context) => ParentStyle()
+    ..margin(vertical: 30, horizontal: 20)
+    ..minHeight(MediaQuery.of(context).size.height - (2 * 30));
+
+  final titleStyle = TxtStyle()
+    ..bold()
+    ..fontSize(32)
+    ..margin(bottom: 20)
+    ..alignmentContent.centerLeft();
 
   @override
   Widget build(BuildContext context) {
-    double verticalMargin = 30;
     return SingleChildScrollView(
       child: Parent(
-        style: ParentStyle()
-          ..margin(vertical: verticalMargin, horizontal: 20)
-          ..minHeight(
-              MediaQuery.of(context).size.height - (2 * verticalMargin)),
+        style: contentStyle(context),
         child: Column(
           children: <Widget>[
-            _buildTitle('User settings'),
+            Txt('User settings', style: titleStyle),
             UserCard(),
             ActionsRow(),
             Settings(),
@@ -55,24 +49,13 @@ class UserCard extends StatelessWidget {
   Widget _buildUserRow() {
     return Row(
       children: <Widget>[
-        Parent(
-          style: userImageStyle,
-          child: Icon(Icons.account_circle),
-        ),
+        Parent(style: userImageStyle, child: Icon(Icons.account_circle)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Rein Gundersen Bentdal',
-              style: nameTextStyle,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              'Creative builder',
-              style: nameDescriptionTextStyle,
-            )
+            Txt('Rein Gundersen Bentdal', style: nameTextStyle),
+            SizedBox(height: 5),
+            Txt('Creative builder', style: nameDescriptionTextStyle)
           ],
         )
       ],
@@ -85,29 +68,24 @@ class UserCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildUserStatsItem(846, 'Collect'),
-          _buildUserStatsItem(51, 'Attention'),
-          _buildUserStatsItem(267, 'Track'),
-          _buildUserStatsItem(39, 'Coupons'),
+          _buildUserStatsItem('846', 'Collect'),
+          _buildUserStatsItem('51', 'Attention'),
+          _buildUserStatsItem('267', 'Track'),
+          _buildUserStatsItem('39', 'Coupons'),
         ],
       ),
     );
   }
 
-  Widget _buildUserStatsItem(int value, String text) {
+  Widget _buildUserStatsItem(String value, String text) {
     return Column(
       children: <Widget>[
-        Text(
-          value.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text(
-          text,
-          style: nameDescriptionTextStyle,
-        ),
+        Txt(value,
+            style: TxtStyle()
+              ..fontSize(20)
+              ..textColor(Colors.white)),
+        SizedBox(height: 5),
+        Txt(text, style: nameDescriptionTextStyle),
       ],
     );
   }
@@ -142,11 +120,14 @@ class UserCard extends StatelessWidget {
 
   final ParentStyle userStatsStyle = ParentStyle()..margin(vertical: 10.0);
 
-  final TextStyle nameTextStyle = TextStyle(
-      color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
+  final TxtStyle nameTextStyle = TxtStyle()
+    ..textColor(Colors.white)
+    ..fontSize(18)
+    ..fontWeight(FontWeight.w600);
 
-  final TextStyle nameDescriptionTextStyle =
-      TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.0);
+  final TxtStyle nameDescriptionTextStyle = TxtStyle()
+    ..textColor(Colors.white.withOpacity(0.6))
+    ..fontSize(12);
 }
 
 class ActionsRow extends StatelessWidget {
@@ -157,16 +138,9 @@ class ActionsRow extends StatelessWidget {
         children: <Widget>[
           Parent(
             style: actionsItemIconStyle,
-            child: Icon(
-              icon,
-              size: 20,
-              color: Color(0xFF42526F),
-            ),
+            child: Icon(icon, size: 20, color: Color(0xFF42526F)),
           ),
-          Text(
-            title,
-            style: actionsItemTextStyle,
-          )
+          Txt(title, style: actionsItemTextStyle)
         ],
       ),
     );
@@ -196,8 +170,9 @@ class ActionsRow extends StatelessWidget {
 
   final ParentStyle actionsItemStyle = ParentStyle()..margin(vertical: 20.0);
 
-  final TextStyle actionsItemTextStyle =
-      TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 12);
+  final TxtStyle actionsItemTextStyle = TxtStyle()
+    ..textColor(Colors.black.withOpacity(0.8))
+    ..fontSize(12);
 }
 
 class Settings extends StatelessWidget {
@@ -243,49 +218,40 @@ class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Parent(
-        style: settingsItemStyle.clone()
-          ..elevation(pressed ? 0 : 50, color: Colors.grey)
-          ..scale(pressed ? 0.95 : 1.0),
+        style: settingsItemStyle(pressed),
         gesture: GestureClass()
-          ..onTapDown((details) => setState(() => pressed = true))
-          ..onTapUp((details) => setState(() => pressed = false))
+          ..onTapDown((_) => setState(() => pressed = true))
+          ..onTapUp((_) => setState(() => pressed = false))
           ..onTapCancel(() => setState(() => pressed = false)),
         child: Row(
           children: <Widget>[
             Parent(
-              style: settingsItemIconStyle.clone()
-                ..background.color(widget.iconBgColor),
+              style: settingsItemIconStyle(widget.iconBgColor),
               child: Icon(
                 widget.icon,
                 color: Colors.white,
                 size: 20,
               ),
             ),
-            SizedBox(
-              width: 10,
-            ),
+            SizedBox(width: 10),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  widget.title,
-                  style: itemTitleTextStyle,
-                ),
+                Txt(widget.title, style: itemTitleTextStyle),
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  widget.description,
-                  style: itemDescriptionTextStyle,
-                ),
+                Txt(widget.description, style: itemDescriptionTextStyle),
               ],
             )
           ],
         ));
   }
 
-  final ParentStyle settingsItemStyle = ParentStyle()
+  final settingsItemStyle = (pressed) => ParentStyle()
+    ..elevation(pressed ? 0 : 50, color: Colors.grey)
+    ..scale(pressed ? 0.95 : 1.0)
     ..alignmentContent.center()
     ..height(70)
     ..margin(vertical: 10)
@@ -294,14 +260,18 @@ class _SettingsItemState extends State<SettingsItem> {
     ..ripple(true)
     ..animate(150, Curves.easeOut);
 
-  final ParentStyle settingsItemIconStyle = ParentStyle()
+  final settingsItemIconStyle = (Color color) => ParentStyle()
+    ..background.color(color)
     ..margin(left: 15)
     ..padding(all: 12)
     ..borderRadius(all: 30);
 
-  final TextStyle itemTitleTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 16);
+  final TxtStyle itemTitleTextStyle = TxtStyle()
+    ..bold()
+    ..fontSize(16);
 
-  final TextStyle itemDescriptionTextStyle = TextStyle(
-      color: Colors.black26, fontWeight: FontWeight.bold, fontSize: 12);
+  final TxtStyle itemDescriptionTextStyle = TxtStyle()
+    ..textColor(Colors.black26)
+    ..bold()
+    ..fontSize(12);
 }
