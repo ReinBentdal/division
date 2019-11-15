@@ -21,38 +21,39 @@ class FrostedWidget extends StatefulWidget {
 
 class _FrostedWidgetState extends State<FrostedWidget> {
   bool pressed = false;
+
+  final backgroundStyle = ParentStyle()
+    ..background
+        .image(url: 'https://i.imgur.com/SqZ5JTv.jpg', fit: BoxFit.cover);
+
+  final cardStyle = (pressed) => TxtStyle()
+    ..alignment.center()
+    ..alignmentContent.center()
+    ..width(300)
+    ..height(300)
+    ..padding(all: 30)
+    ..scale(pressed ? 0.95 : 1.0)
+    ..borderRadius(all: pressed ? 30 : 10)
+    ..animate(500, Curves.easeOut)
+    ..background.blur(pressed ? 0 : 20)
+    ..background.rgba(255, 255, 255, 0.15)
+    ..textColor(Colors.white)
+    ..bold()
+    ..fontSize(32);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Parent(
-          style: ParentStyle()
-            ..background.image(
-              url: 'https://i.imgur.com/SqZ5JTv.jpg',
-              fit: BoxFit.cover,
-            ),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..alignment.center()
-            ..alignmentContent.center()
-            ..width(300)
-            ..height(300)
-            ..padding(all: 30)
-            ..scale(pressed ? 0.95 : 1.0)
-            ..borderRadius(all: pressed ? 30 : 10)
-            ..animate(500, Curves.easeOut)
-            ..background.blur(pressed ? 0 : 20)
-            ..background.rgba(255, 255, 255, 0.15),
+        Parent(style: backgroundStyle),
+        Txt(
+          'My frosted widget',
+          style: cardStyle(pressed),
           gesture: GestureClass()
             ..onTapDown((detials) => setState(() => pressed = true))
             ..onTapUp((detials) => setState(() => pressed = false))
-            ..onTapCancel(() => setState(() => pressed = false)),
-          child: Text(
-            'My frosted widget',
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 32),
-          ),
+            ..onTapCancel(() => setState(() => pressed = false),
+            ),
         ),
       ],
     );
