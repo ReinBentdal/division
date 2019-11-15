@@ -8,7 +8,6 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="250"> |
 
 ## Getting Started
-
 This package includes at the moment a `Parent` widget and a `Txt` widget.
 
 As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
@@ -69,6 +68,7 @@ Txt(
 | [ParentStyle](#parentstyle)   | style the Parent widget      |
 | [TxtStyle](#txtstyle)         | style the Txt widget         |
 | [GestureClass](#gestureclass) | adds gestures to the widget  |
+| [Examples and best practices](#codeexamples)| examples and practices to write good division code |
 
 ### <span name="styleclass">StyleClass</span>
 
@@ -433,4 +433,69 @@ To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots i
 ..onScaleStart()
 ..onScaleEnd()
 ..onScaleUpdate()
+```
+
+## <span name="codeexamples">Code examples and practices</span>
+
+#### Decoupling style from structure
+```dart
+final ParentStyle cardStyle = ParentStyle()
+      ..height(175)
+      ..padding(horizontal: 20.0, vertical: 10)
+      ..alignment.center()
+      ..background.hex('#3977FF')
+      ..borderRadius(all: 20.0)
+      ..elevation(10, color: hex('#3977FF'));
+
+Widget build(BuildContext context) {
+      return Parent(
+            child: Widget,
+            style: cardStyle,
+      );
+}
+```
+
+#### Variable dependent style
+```dart
+final bool color = Colors.blue;
+
+final cardStyle = (color) => ParentStyle()
+      ..height(175)
+      ..padding(horizontal: 20.0, vertical: 10)
+      ..alignment.center()
+      ..background.color(color)
+      ..borderRadius(all: 20.0)
+      ..elevation(10, color: color);
+
+Widget build(BuildContext context) {
+      return Parent(
+            child: Widget,
+            style: cardStyle(color),
+      );
+}
+```
+
+#### Animated widgets
+```dart
+bool pressed = false;
+
+final cardStyle = (pressed) => ParentStyle()
+      ..height(175)
+      ..padding(horizontal: 20.0, vertical: 10)
+      ..alignment.center()
+      ..borderRadius(all: 20.0)
+      ..animate(200, Curves.easeOut)
+      ..background.color(pressed ? Colors.white : Colors.black)
+      ..elevation(pressed ? 10 : 20);
+
+Widget build(BuildContext context) {
+      return Parent(
+            child: Widget,
+            style: cardStyle(pressed),
+            gesture: GestureClass()
+                  ..onTapDown((_) => setState(() => pressed = true))
+                  ..onTapUp((_) => setState(() => pressed = false))
+                  ..onTapCancel(() => setState(() => pressed = false)),
+      );
+}
 ```
