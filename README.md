@@ -62,9 +62,15 @@ Txt(
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.jpg" width="300">
 
 
-# Style property
+# Table of contents
+| Widget       | Description                  |
+|--------------|------------------------------|
+| <a href="styleclass">StyleClass</p>   | abstract general style class |
+| <a href="parentstyle">ParentStyle</p>  | style the Parent widget      |
+| <a href="txtstyle">TxtStyle</p>     | style the Txt widget         |
+| <a href="gestureclass">GestureStyle</p> | adds gestures to the widget  |
 
-### StyleClass
+### <span name="styleclass">StyleClass</span>
 
 The `StyleClass` is the super class of `ParentStyle` and `TxtStyle` and contains most of the style properties.
 
@@ -82,9 +88,9 @@ On construction, choose how you want angles to be calculated
 Alignment of the widget itself, not the child.
 
 
-#### Align child
+#### Align content
 ```dart
-..alignmentChild.[alignment] // alignment.topCenter()
+..alignmentContent.[alignment] // alignment.topCenter()
 ```
 Alignment of the child.
 
@@ -98,7 +104,7 @@ Alignment of the child.
       double left, 
       double right})
 ```
-All properties work together. `padding(all: 10, top: 30)` is valid
+All properties work together. `padding(all: 10, top: 30)` is equivilent to `padding(top: 30, bottom: 10, left: 10, right: 10)`
 
 #### Margin
 ```dart
@@ -110,7 +116,7 @@ All properties work together. `padding(all: 10, top: 30)` is valid
       double left,
       double right})
 ```
-All properties work together. `margin(all: 10, top: 30)` is valid
+All properties work together. `margin(all: 10, top: 30)` is equivilent to `margin(top: 30, bottom: 10, left: 10, right: 10)`
 
 #### Background color
 ```dart
@@ -294,13 +300,103 @@ By default the added `StyleClass` does not override already set style. Change ov
 ..[type](double dimension)
 ```
 
-# Gesture property
+### <span name="parentstyle">ParentStyle</span>
+`ParentStyle` extends `StyleClass`
 
-**The gesture property expects a `GestureClass` which is a class containing all the gestures for the widget.**
+#### Add
+```dart
+..add(ParentStyle parentStyle, {bool override = false})
+```
+This adds together two `ParentStyle`s. The `override` property specifies if already defined properties should be overrided.
 
+#### Clone
+```dart
+..ParentStyle().clone()
+```
+This will clone the `ParentStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+
+### <span name="txtstyle">TxtStyle</span>
+`TxtStyle` extends `StyleClass`
+
+#### Editable
+```dart
+..editable(bool enable,
+      {TextInputType keyboardType,
+      String placeholder,
+      bool obscureText = false,
+      int maxLines,
+      void Function(String) onChange,
+      void Function(bool focus) onFocusChange,
+      void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
+      void Function() onEditingComplete,
+      FocusNode focusNode})
+```
+This makes the widget editable, just like a `TextField`, its just much easier to style
+**NB: This is still a beta feature**
+
+#### Text align
+```dart
+..textAlign.center()
+```
+
+#### Font weight
+```dart
+..fontWeight(FontWeight fontWeight)
+```
+A shorthand to make the text bold:
+```dart
+..bold([bool enable])
+```
+
+#### Italic text
+```dart
+..italic([bool enable])
+```
+
+#### Font family
+```dart
+..fontFamily(String font, {List<String> fontFamilyFallback})
+```
+
+#### Text color
+```dart
+..textColor(Color textColor)
+```
+
+#### Max lines
+```dart
+..maxLines(int maxLines)
+```
+
+#### Letter spacing
+```dart
+..letterSpacing(double space)
+```
+
+#### Word spacing
+```dart
+..wordSpacing(double space)
+```
+
+#### Text decoration
+```dart
+..textDecoration(TextDecoration decoration)
+```
+
+#### Add
+```dart
+..add(TxtStyle txtStyle, {bool override = false})
+```
+This adds together two `TxtStyle`s. The `override` property specifies if already defined properties should be overrided.
+
+#### Clone
+```dart
+..TxtStyle().clone()
+```
+This will clone the `TxtStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+
+### <span name="gestureclass">GestureClass</span>
 There is also the option to use the class `G` as a shorthand.
-
-### GestureClass
 
 To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`
 
@@ -338,6 +434,3 @@ To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots i
 ..onScaleEnd()
 ..onScaleUpdate()
 ```
-
-# Txt Style
-[] TODO: Improve documentation
