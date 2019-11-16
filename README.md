@@ -2,22 +2,23 @@
 
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
+- **[Getting started](#getting-started)**
+- **[Example](#simple-example)**
+- **[Widgets](#widgets)**
+  - [StyleClass](#styleclass)
+  - [GestureClass](#gestureclass)
+  - [Parent](#parent)
+  - [ParentStyle](parentstyle)
+  - [Txt](#txt)
+  - [TxtStyle](#txtstyle)
+- **[Examples and best practices](examples-and-best-practices)**
+
 ### Built with Division
 | [App designer](https://dribbble.com/shots/6459693-Creative-layout-design),  [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart) |
 |-|-|
 | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="250"> |
 
-## Table of contents
-| Category       | Description                  |
-|--------------|------------------------------|
-| [Getting started](#gettingstarted)     | Introduction to flutter |
-| [StyleClass](#styleclass)     | Abstract general style class |
-| [ParentStyle](#parentstyle)   | Style the Parent widget      |
-| [TxtStyle](#txtstyle)         | Style the Txt widget         |
-| [GestureClass](#gestureclass) | Adds gestures to the widget  |
-| [Examples and best practices](#codeexamples)| Examples and practices when using Division |
-
-## <span name="gettingstarted">Getting Started</span>
+## Getting Started
 This package includes at the moment a `Parent` widget and a `Txt` widget.
 
 As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
@@ -70,16 +71,11 @@ Txt(
 
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.jpg" width="300">
 
-### <span name="styleclass">StyleClass</span>
+## Widgets
+The fundament of styling with `division` is the `StyleClass` widget. This is an abstract class which all the other styling widgets extends. Therefore all the styling properties this widget has will also be available to the others, like `TxtStyle` and `ParentStyle`
 
-The `StyleClass` is the super class of `ParentStyle` and `TxtStyle` and contains most of the style properties.
-
-To add a style to the `StyleClass`, call the style methods: `..[style]`
-
-On construction, choose how you want angles to be calculated
- ```dart
- Styleclass({AngleFormat angleFormat = AngleFormat.cycle})
- ```
+### StyleClass
+The fundamental styling widget.
 
 #### Alignment
 ```dart
@@ -300,7 +296,65 @@ By default the added `StyleClass` does not override already set style. Change ov
 ..[type](double dimension)
 ```
 
-### <span name="parentstyle">ParentStyle</span>
+### GestureClass
+There is also the option to use the class `G` as a shorthand.
+
+To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`.
+
+#### isTap
+```dart
+..isTap((isTapped) => setState(() => pressed = isTapped))
+```
+Called whenever the tap state on the widget changes.
+This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
+
+#### Other
+```dart
+..onTap()
+..onTapUp()
+..onTapCancel()
+..onDoubleTap()
+..onTapDown()
+..onLongPress()
+..onLongPressStart()
+..onLongPressEnd()
+..onLongPressMoveUpdate()
+..onLongPressUp()
+..onVerticalDragStart()
+..onVerticalDragEnd()
+..onVerticalDragDown()
+..onVerticalDragCancel()
+..onVerticalDragUpdate()
+..onHorizontalDragStart()
+..onHorizontalDragEnd()
+..onHorizontalDragCancel()
+..onHorizontalDragUpdate()
+..onHorizontalDragDown()
+..onForcePressStart()
+..onForcePressEnd()
+..onForcePressPeak()
+..onForcePressUpdate()
+..onPanStart()
+..onPanEnd()
+..onPanCancel()
+..onPanDown()
+..onPanUpdate()
+..onScaleStart()
+..onScaleEnd()
+..onScaleUpdate()
+```
+
+### Parent
+```dart
+Parent(
+  style: ParentStyle,
+  gesture: GestureClass,
+  chil: Widget
+)
+```
+As the name suggests this widget is a simple styled widget which takes a child.
+
+### ParentStyle
 `ParentStyle` extends `StyleClass`
 
 #### Add
@@ -315,7 +369,18 @@ This adds together two `ParentStyle`s. The `override` property specifies if alre
 ```
 This will clone the `ParentStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
 
-### <span name="txtstyle">TxtStyle</span>
+### Txt
+```dart
+Txt(
+  String,
+  style: TxtStyle,
+  gesture: GestureClass,
+)
+```
+As the name suggests this widget is a simple styled widget which takes a `String` as its child.
+This widget enables text styling with the `TxtStyle` widget. This also has the possibility to make the widget editable.
+
+### TxtStyle
 `TxtStyle` extends `StyleClass`
 
 #### Editable
@@ -395,55 +460,7 @@ This adds together two `TxtStyle`s. The `override` property specifies if already
 ```
 This will clone the `TxtStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
 
-### <span name="gestureclass">GestureClass</span>
-There is also the option to use the class `G` as a shorthand.
-
-To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`
-
-#### isTap
-```dart
-..isTap((isTapped) => setState(() => pressed = isTapped))
-```
-Called whenever the tap state on the widget changes.
-This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
-
-#### Other
-```dart
-..onTap()
-..onTapUp()
-..onTapCancel()
-..onDoubleTap()
-..onTapDown()
-..onLongPress()
-..onLongPressStart()
-..onLongPressEnd()
-..onLongPressMoveUpdate()
-..onLongPressUp()
-..onVerticalDragStart()
-..onVerticalDragEnd()
-..onVerticalDragDown()
-..onVerticalDragCancel()
-..onVerticalDragUpdate()
-..onHorizontalDragStart()
-..onHorizontalDragEnd()
-..onHorizontalDragCancel()
-..onHorizontalDragUpdate()
-..onHorizontalDragDown()
-..onForcePressStart()
-..onForcePressEnd()
-..onForcePressPeak()
-..onForcePressUpdate()
-..onPanStart()
-..onPanEnd()
-..onPanCancel()
-..onPanDown()
-..onPanUpdate()
-..onScaleStart()
-..onScaleEnd()
-..onScaleUpdate()
-```
-
-## <span name="codeexamples">Code examples and practices</span>
+## Examples and best practices
 
 #### Decoupling style from structure
 ```dart
