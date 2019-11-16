@@ -400,6 +400,14 @@ There is also the option to use the class `G` as a shorthand.
 
 To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`
 
+#### isTap
+```dart
+..isTap((isTapped) => setState(() => pressed = isTapped))
+```
+Called whenever the tap state on the widget changes.
+This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
+
+#### Other
 ```dart
 ..onTap()
 ..onTapUp()
