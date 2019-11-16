@@ -17,7 +17,6 @@ class Main extends StatelessWidget {
 }
 
 class UserPage extends StatelessWidget {
-  
   final contentStyle = (BuildContext context) => ParentStyle()
     ..margin(vertical: 30, horizontal: 20)
     ..minHeight(MediaQuery.of(context).size.height - (2 * 30));

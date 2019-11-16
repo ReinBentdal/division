@@ -52,7 +52,8 @@ class _FrostedWidgetState extends State<FrostedWidget> {
           gesture: GestureClass()
             ..onTapDown((detials) => setState(() => pressed = true))
             ..onTapUp((detials) => setState(() => pressed = false))
-            ..onTapCancel(() => setState(() => pressed = false),
+            ..onTapCancel(
+              () => setState(() => pressed = false),
             ),
         ),
       ],
