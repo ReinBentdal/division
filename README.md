@@ -58,8 +58,7 @@ final buttonStyle = (pressed) => TxtStyle()
   ..border(all: 3, color: Colors.orange)
   ..padding(vertical: 10, horizontal: 15)
   ..ripple(true)
-  ..animate(150, Curves.easeOut)
-  ..scale(2);
+  ..animate(150, Curves.easeOut);
 
 GestureClass buttonGestures() =>
     GestureClass()..isTap((isPressed) => setState(() => pressed = isPressed));
