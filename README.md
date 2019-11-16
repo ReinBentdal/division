@@ -8,10 +8,10 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
   - [StyleClass](#styleclass)
   - [GestureClass](#gestureclass)
   - [Parent](#parent)
-  - [ParentStyle](parentstyle)
+  - [ParentStyle](#parentstyle)
   - [Txt](#txt)
   - [TxtStyle](#txtstyle)
-- **[Examples and best practices](examples-and-best-practices)**
+- **[Examples and best practices](#examples-and-best-practices)**
 
 ### Built with Division
 | [App designer](https://dribbble.com/shots/6459693-Creative-layout-design),  [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart) |
