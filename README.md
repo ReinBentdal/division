@@ -448,18 +448,18 @@ This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
 #### Decoupling style from structure
 ```dart
 final ParentStyle cardStyle = ParentStyle()
-      ..height(175)
-      ..padding(horizontal: 20.0, vertical: 10)
-      ..alignment.center()
-      ..background.hex('#3977FF')
-      ..borderRadius(all: 20.0)
-      ..elevation(10, color: hex('#3977FF'));
+  ..height(175)
+  ..padding(horizontal: 20.0, vertical: 10)
+  ..alignment.center()
+  ..background.hex('#3977FF')
+  ..borderRadius(all: 20.0)
+  ..elevation(10, color: hex('#3977FF'));
 
 Widget build(BuildContext context) {
-      return Parent(
-            child: Widget,
-            style: cardStyle,
-      );
+  return Parent(
+    child: Widget,
+    style: cardStyle,
+  );
 }
 ```
 
@@ -468,18 +468,18 @@ Widget build(BuildContext context) {
 final Color color = Colors.blue;
 
 final cardStyle = (color) => ParentStyle()
-      ..height(175)
-      ..padding(horizontal: 20.0, vertical: 10)
-      ..alignment.center()
-      ..background.color(color)
-      ..borderRadius(all: 20.0)
-      ..elevation(10, color: color);
+  ..height(175)
+  ..padding(horizontal: 20.0, vertical: 10)
+  ..alignment.center()
+  ..background.color(color)
+  ..borderRadius(all: 20.0)
+  ..elevation(10, color: color);
 
 Widget build(BuildContext context) {
-      return Parent(
-            child: Widget,
-            style: cardStyle(color),
-      );
+  return Parent(
+    child: Widget,
+    style: cardStyle(color),
+  );
 }
 ```
 
@@ -488,22 +488,22 @@ Widget build(BuildContext context) {
 bool pressed = false;
 
 final cardStyle = (pressed) => ParentStyle()
-      ..height(175)
-      ..padding(horizontal: 20.0, vertical: 10)
-      ..alignment.center()
-      ..borderRadius(all: 20.0)
-      ..animate(200, Curves.easeOut)
-      ..background.color(pressed ? Colors.white : Colors.black)
-      ..elevation(pressed ? 10 : 20);
+  ..height(175)
+  ..padding(horizontal: 20.0, vertical: 10)
+  ..alignment.center()
+  ..borderRadius(all: 20.0)
+  ..animate(200, Curves.easeOut)
+  ..background.color(pressed ? Colors.white : Colors.black)
+  ..elevation(pressed ? 10 : 20);
 
 Widget build(BuildContext context) {
-      return Parent(
-            child: Widget,
-            style: cardStyle(pressed),
-            gesture: GestureClass()
-                  ..onTapDown((_) => setState(() => pressed = true))
-                  ..onTapUp((_) => setState(() => pressed = false))
-                  ..onTapCancel(() => setState(() => pressed = false)),
-      );
+  return Parent(
+    child: Widget,
+    style: cardStyle(pressed),
+    gesture: GestureClass()
+      ..onTapDown((_) => setState(() => pressed = true))
+      ..onTapUp((_) => setState(() => pressed = false))
+      ..onTapCancel(() => setState(() => pressed = false)),
+  );
 }
 ```
