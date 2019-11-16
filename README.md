@@ -51,20 +51,26 @@ import 'package:division/division.dart';
 #### Code
 
 ```dart
-Txt(
-  'Klick me'
-  style: TxtStyle()
-    ..textColor(Colors.white)
-    ..bold()
-    ..padding(horizontal: 30, vertical: 15)
-    ..background.hex('77A6F7')
-    ..borderRadius(all: 30)
-    ..alignment.center()
-    ..elevation(10, color: rgb(150,150,150)),
+final buttonStyle = TxtStyle()
+  ..textColor(Colors.white)
+  ..bold()
+  ..padding(horizontal: 30, vertical: 15)
+  ..background.hex('77A6F7')
+  ..borderRadius(all: 30)
+  ..alignment.center()
+  ..elevation(10, color: rgb(150,150,150));
+  
+GestureClass buttonGestures() => GestureClass()
+  ..onTap(() => print('Button pressed')),
 
-  gesture: GestureClass()
-    ..onTap(() => print('Button pressed')),
-)
+Widget build(BuildContext) {
+...
+  Txt(
+    'Klick me'
+    style: buttonStyle,
+    gesture: buttonGestures,
+...
+}
 ```
 
 #### The result
