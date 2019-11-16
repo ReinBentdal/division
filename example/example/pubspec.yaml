@@ -8,7 +8,6 @@ dependencies:
     sdk: flutter
   division:
     path: ../..
-  # division: ^0.7.0
 
 dev_dependencies:
   flutter_test:

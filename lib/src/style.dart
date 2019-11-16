@@ -539,6 +539,20 @@ class GestureClass {
 
   final GestureModel gestureModel;
 
+  /// Called whenever the tap state on the widget changes.
+  /// 
+  /// This changes this
+  /// ```dart
+  /// ..onTapDown((_) => setState(() => pressed = true))
+  /// ..onTapUp((_) => setState(() => pressed = false))
+  /// ..onTapCancel(() => setState(() => pressed = false))
+  /// ```
+  /// to this
+  /// ```dart
+  /// ..isTap((isTapped) => setState(() => pressed = isTapped))
+  /// ```
+  void isTap(void Function(bool) function) => gestureModel?.isTap = function;
+
   void onTap(void Function() function) => gestureModel?.onTap = function;
 
   void onTapUp(void Function(TapUpDetails) function) =>

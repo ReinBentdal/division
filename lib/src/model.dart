@@ -299,6 +299,7 @@ class GestureModel {
     @required this.dragStartBehavior,
   });
 
+  void Function(bool isTapped) isTap;
   GestureTapDownCallback onTapDown;
   GestureTapUpCallback onTapUp;
   GestureTapCallback onTap;

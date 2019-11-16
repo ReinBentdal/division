@@ -130,11 +130,20 @@ class ParentBuild extends StatelessWidget {
 
   Widget gestures(Widget widgetTree, GestureModel gesture) {
     return GestureDetector(
+      onTapDown: (TapDownDetails tapDownDetails) {
+        gesture?.onTapDown(tapDownDetails);
+        gesture?.isTap(true);
+      },
+      onTapUp: (TapUpDetails tapUpDetails) {
+        gesture?.onTapUp(tapUpDetails);
+        gesture?.isTap(false);
+      },
+      onTapCancel: () {
+        gesture?.onTapCancel();
+        gesture?.isTap(false);
+      },
       onTap: gesture?.onTap,
-      onTapUp: gesture?.onTapUp,
-      onTapCancel: gesture?.onTapCancel,
       onDoubleTap: gesture?.onDoubleTap,
-      onTapDown: gesture?.onTapDown,
       onLongPress: gesture?.onLongPress,
       onLongPressStart: gesture?.onLongPressStart,
       onLongPressEnd: gesture?.onLongPressEnd,

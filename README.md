@@ -457,8 +457,8 @@ final ParentStyle cardStyle = ParentStyle()
 
 Widget build(BuildContext context) {
   return Parent(
-    child: Widget,
     style: cardStyle,
+    child: Widget,
   );
 }
 ```
@@ -477,8 +477,8 @@ final cardStyle = (color) => ParentStyle()
 
 Widget build(BuildContext context) {
   return Parent(
-    child: Widget,
     style: cardStyle(color),
+    child: Widget,
   );
 }
 ```
@@ -498,12 +498,34 @@ final cardStyle = (pressed) => ParentStyle()
 
 Widget build(BuildContext context) {
   return Parent(
-    child: Widget,
     style: cardStyle(pressed),
     gesture: GestureClass()
-      ..onTapDown((_) => setState(() => pressed = true))
-      ..onTapUp((_) => setState(() => pressed = false))
-      ..onTapCancel(() => setState(() => pressed = false)),
+      ..isTap((isPressed) => setState(() => pressed = isPressed)),
+    child: Widget,
+  );
+}
+```
+or
+```dart
+bool pressed = false;
+
+final cardStyle = (pressed) => ParentStyle()
+  ..height(175)
+  ..padding(horizontal: 20.0, vertical: 10)
+  ..alignment.center()
+  ..borderRadius(all: 20.0)
+  ..animate(200, Curves.easeOut)
+  ..background.color(pressed ? Colors.white : Colors.black)
+  ..elevation(pressed ? 10 : 20);
+
+GestureClass cardGesture() => GestureClass()
+  ..isTap((isPressed) => setState(() => pressed = isPressed));
+
+Widget build(BuildContext context) {
+  return Parent(
+    style: cardStyle(pressed),
+    gesture: cardGesture(),
+    child: Widget,
   );
 }
 ```

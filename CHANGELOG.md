@@ -1,3 +1,7 @@
+## 0.8.3
+* Added `isTap` method to the `GestureClass`
+* Other minor improvements
+
 ## 0.8.2
 * Added `onEditingComplete` parameter to the editable method in `TxtStyle`
 * Added `textDecoration` to `TxtStyle`
