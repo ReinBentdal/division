@@ -400,6 +400,7 @@ class TextModel {
   double letterSpacing;
   double wordSpacing;
   TextDecoration textDecoration;
+  TextDirection textDirection;
 
   //editable
   bool editable;
@@ -427,6 +428,7 @@ class TextModel {
     wordSpacing = _replace(wordSpacing, textModel?.wordSpacing, override);
     textDecoration =
         _replace(textDecoration, textModel?.textDecoration, override);
+    textDirection = _replace(textDirection, textModel?.textDirection, override);
 
     editable = _replace(editable, textModel?.editable, override);
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);

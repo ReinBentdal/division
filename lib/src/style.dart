@@ -759,6 +759,9 @@ class TxtStyle extends StyleClass {
   void textDecoration(TextDecoration decoration) =>
       _textModel?.textDecoration = decoration;
 
+  void textDirection(TextDirection textDirection) =>
+      _textModel?.textDirection = textDirection;
+
   /// Make the widget editable just like a TextField.
   ///
   /// If `focusNode` isnt spesified an internal `focusNode` will be created.

@@ -1,6 +1,6 @@
 name: division
-description: A simple to use yet powerfull styling widget with syntax inspired by CSS.
-version: 0.8.3
+description: A simple to use yet powerfull style widget with syntax inspired by CSS.
+version: 0.8.4
 
 author: Rein Gundersen Bentdal<rein.bent@gmail.com>
 homepage: https://github.com/ReinBentdal/division

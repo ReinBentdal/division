@@ -79,3 +79,67 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
     );
   }
 }
+
+class TxtAnimated extends ImplicitlyAnimatedWidget {
+  TxtAnimated({
+    @required this.textModel,
+    @required Curve curve,
+    @required Duration duration,
+    @required this.text,
+  }) : super(curve: curve, duration: duration);
+
+  final String text;
+
+  final TextModel textModel;
+
+  @override
+  _TxtAnimatedState createState() => _TxtAnimatedState();
+}
+
+class _TxtAnimatedState extends AnimatedWidgetBaseState<TxtAnimated> {
+  Tween<double> _fontSize;
+  ColorTween _textColor;
+  Tween<int> _maxLines;
+  Tween<double> _letterSpacing;
+  Tween<double> _wordSpacing;
+
+  @override
+  void forEachTween(TweenVisitor<dynamic> visitor) {
+    _fontSize = visitor(_fontSize, widget.textModel?.fontSize,
+        (dynamic value) => Tween<double>(begin: value));
+    _textColor = visitor(_textColor, widget.textModel?.textColor,
+        (dynamic value) => ColorTween(begin: value));
+    _maxLines = visitor(_maxLines, widget.textModel?.maxLines,
+        (dynamic value) => Tween<int>(begin: value));
+    _letterSpacing = visitor(_letterSpacing, widget.textModel?.letterSpacing,
+        (dynamic value) => Tween<double>(begin: value));
+    _wordSpacing = visitor(_wordSpacing, widget.textModel?.wordSpacing,
+        (dynamic value) => Tween<double>(begin: value));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    TextModel _textModel = widget.textModel;
+
+    if (_textModel != null) {
+      _textModel
+        ..fontSize = _fontSize?.evaluate(animation)
+        ..textColor = _textColor?.evaluate(animation)
+        ..maxLines = _maxLines?.evaluate(animation)
+        ..letterSpacing = _letterSpacing?.evaluate(animation)
+        ..wordSpacing = _wordSpacing?.evaluate(animation);
+    }
+
+    if (_textModel?.editable != null && _textModel?.editable == true) {
+      return TxtBuildEditable(
+        text: widget.text,
+        textModel: _textModel,
+      );
+    } else {
+      return TxtBuild(
+        text: widget.text,
+        textModel: _textModel,
+      );
+    }
+  }
+}

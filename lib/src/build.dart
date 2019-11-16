@@ -194,6 +194,7 @@ class TxtBuild extends StatelessWidget {
       style: textModel?.textStyle,
       textAlign: textModel?.textAlign ?? TextAlign.center,
       maxLines: textModel?.maxLines,
+      textDirection: textModel?.textDirection,
     );
 
     return widgetTree;
@@ -277,8 +278,9 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
       obscureText: _placeholder ? false : widget.textModel?.obscureText,
       cursorOpacityAnimates: true,
       style: _placeholderStyle ?? widget.textModel?.textStyle,
-      textAlign: widget.textModel?.textAlign ?? TextAlign.left,
+      textAlign: widget.textModel?.textAlign ?? TextAlign.center,
       maxLines: widget.textModel?.maxLines,
+      textDirection: widget.textModel?.textDirection,
       controller: _placehodlerController ?? _controller,
       focusNode: _focusNode,
       backgroundCursorColor: Colors.grey,

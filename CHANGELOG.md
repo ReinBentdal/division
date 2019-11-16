@@ -1,3 +1,10 @@
+## 0.8.4
+* Added animation support for `fontSize`, `textColor`, `maxLines`, `letterSpacing` and `wordSpacing`
+* Addedd `textDirection` method to `TxtStyle`
+
+## 0.8.3+1
+* [fix] `isTap` not working correctly
+
 ## 0.8.3
 * Added `isTap` method to `GestureClass`
 * Other minor improvements

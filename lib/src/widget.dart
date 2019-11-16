@@ -52,7 +52,14 @@ class Txt extends StatelessWidget {
     TextModel textModel = style?.exportTextStyle;
     GestureModel gestureModel = gesture?.exportGesture;
 
-    if (textModel?.editable != null && textModel?.editable == true) {
+    if (styleModel?.duration != null) {
+      widgetTree = TxtAnimated(
+        text: text,
+        textModel: textModel,
+        curve: styleModel?.curve,
+        duration: styleModel?.duration,
+      );
+    } else if (textModel?.editable != null && textModel?.editable == true) {
       widgetTree = TxtBuildEditable(
         text: text,
         textModel: textModel,
