@@ -1,5 +1,5 @@
 ## 0.8.3
-* Added `isTap` method to the `GestureClass`
+* Added `isTap` method to `GestureClass`
 * Other minor improvements
 
 ## 0.8.2
