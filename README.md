@@ -66,7 +66,7 @@ GestureClass buttonGestures() => GestureClass()
 Widget build(BuildContext) {
 ...
   Txt(
-    'Klick me'
+    'Klick me',
     style: buttonStyle,
     gesture: buttonGestures,
 ...
