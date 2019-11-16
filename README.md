@@ -3,7 +3,7 @@
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 - **[Getting started](#getting-started)**
-- **[Example](#simple-example)**
+- **[Basic example](#basic-example)**
 - **[Widgets](#widgets)**
   - [StyleClass](#styleclass)
   - [GestureClass](#gestureclass)
@@ -41,41 +41,40 @@ Txt(
 );
 ```
 
-### Simple example
-
+### Basic example
 #### Import
 ```dart
 import 'package:division/division.dart';
 ```
-
 #### Code
-
 ```dart
-final buttonStyle = TxtStyle()
-  ..textColor(Colors.white)
-  ..bold()
-  ..padding(horizontal: 30, vertical: 15)
-  ..background.hex('77A6F7')
-  ..borderRadius(all: 30)
-  ..alignment.center()
-  ..elevation(10, color: rgb(150,150,150));
-  
-GestureClass buttonGestures() => GestureClass()
-  ..onTap(() => print('Button pressed')),
+bool pressed = false;
 
-Widget build(BuildContext) {
-...
-  Txt(
-    'Klick me',
-    style: buttonStyle,
-    gesture: buttonGestures,
-...
+final buttonStyle = (pressed) => TxtStyle()
+  ..alignment.center()
+  ..background.color(pressed ? Colors.orange : Colors.white)
+  ..textColor(pressed ? Colors.white : Colors.orange)
+  ..borderRadius(all: 5)
+  ..border(all: 3, color: Colors.orange)
+  ..padding(vertical: 10, horizontal: 15)
+  ..ripple(true)
+  ..animate(150, Curves.easeOut)
+  ..scale(2);
+
+GestureClass buttonGestures() =>
+    GestureClass()..isTap((isPressed) => setState(() => pressed = isPressed));
+
+@override
+Widget build(BuildContext context) {
+  return Txt(
+    'Styled button!',
+    style: buttonStyle(pressed),
+    gesture: buttonGestures(),
+  );
 }
 ```
-
-#### The result
-
-<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/simple_example.jpg" width="300">
+#### Result
+<img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/basic_example.gif" width="300">
 
 ## Widgets
 The fundament of styling with `division` is the `StyleClass` widget. This is an abstract class which all the other styling widgets extends. Therefore all the styling properties this widget has will also be available to the others, like `TxtStyle` and `ParentStyle`
