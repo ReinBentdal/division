@@ -18,7 +18,8 @@ class Main extends StatelessWidget {
 
 class UserPage extends StatelessWidget {
   final contentStyle = (BuildContext context) => ParentStyle()
-    ..margin(vertical: 30, horizontal: 20)
+    ..overflow.scrollable()
+    ..padding(vertical: 30, horizontal: 20)
     ..minHeight(MediaQuery.of(context).size.height - (2 * 30));
 
   final titleStyle = TxtStyle()
@@ -29,17 +30,15 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Parent(
-        style: contentStyle(context),
-        child: Column(
-          children: <Widget>[
-            Txt('User settings', style: titleStyle),
-            UserCard(),
-            ActionsRow(),
-            Settings(),
-          ],
-        ),
+    return Parent(
+      style: contentStyle(context),
+      child: Column(
+        children: <Widget>[
+          Txt('User settings', style: titleStyle),
+          UserCard(),
+          ActionsRow(),
+          Settings(),
+        ],
       ),
     );
   }
@@ -78,12 +77,12 @@ class UserCard extends StatelessWidget {
   }
 
   Widget _buildUserStatsItem(String value, String text) {
+    final TxtStyle textStyle = TxtStyle()
+      ..fontSize(20)
+      ..textColor(Colors.white);
     return Column(
       children: <Widget>[
-        Txt(value,
-            style: TxtStyle()
-              ..fontSize(20)
-              ..textColor(Colors.white)),
+        Txt(value, style: textStyle),
         SizedBox(height: 5),
         Txt(text, style: nameDescriptionTextStyle),
       ],
@@ -178,35 +177,30 @@ class ActionsRow extends StatelessWidget {
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Parent(
-      style: settingsStyle,
-      child: Column(
-        children: <Widget>[
-          SettingsItem(Icons.location_on, hex('#8D7AEE'), 'Address',
-              'Ensure your harvesting address'),
-          SettingsItem(Icons.lock, hex('#F468B7'), 'Privacy',
-              'System permission change'),
-          SettingsItem(Icons.menu, hex('#FEC85C'), 'General',
-              'Basic functional settings'),
-          SettingsItem(Icons.notifications, hex('#5FD0D3'), 'Notifications',
-              'Take over the news in time'),
-          SettingsItem(Icons.question_answer, hex('#BFACAA'), 'Support',
-              'We are here to help'),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        SettingsItem(Icons.location_on, hex('#8D7AEE'), 'Address',
+            'Ensure your harvesting address'),
+        SettingsItem(
+            Icons.lock, hex('#F468B7'), 'Privacy', 'System permission change'),
+        SettingsItem(
+            Icons.menu, hex('#FEC85C'), 'General', 'Basic functional settings'),
+        SettingsItem(Icons.notifications, hex('#5FD0D3'), 'Notifications',
+            'Take over the news in time'),
+        SettingsItem(Icons.question_answer, hex('#BFACAA'), 'Support',
+            'We are here to help'),
+      ],
     );
   }
-
-  final ParentStyle settingsStyle = ParentStyle();
 }
 
 class SettingsItem extends StatefulWidget {
+  SettingsItem(this.icon, this.iconBgColor, this.title, this.description);
+
   final IconData icon;
   final Color iconBgColor;
   final String title;
   final String description;
-
-  SettingsItem(this.icon, this.iconBgColor, this.title, this.description);
 
   @override
   _SettingsItemState createState() => _SettingsItemState();
@@ -218,35 +212,28 @@ class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Parent(
-        style: settingsItemStyle(pressed),
-        gesture: GestureClass()
-          ..onTapDown((_) => setState(() => pressed = true))
-          ..onTapUp((_) => setState(() => pressed = false))
-          ..onTapCancel(() => setState(() => pressed = false)),
-        child: Row(
-          children: <Widget>[
-            Parent(
-              style: settingsItemIconStyle(widget.iconBgColor),
-              child: Icon(
-                widget.icon,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-            SizedBox(width: 10),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Txt(widget.title, style: itemTitleTextStyle),
-                SizedBox(
-                  height: 5,
-                ),
-                Txt(widget.description, style: itemDescriptionTextStyle),
-              ],
-            )
-          ],
-        ));
+      style: settingsItemStyle(pressed),
+      gesture: GestureClass()
+        ..isTap((isTapped) => setState(() => pressed = isTapped)),
+      child: Row(
+        children: <Widget>[
+          Parent(
+            style: settingsItemIconStyle(widget.iconBgColor),
+            child: Icon(widget.icon, color: Colors.white, size: 20),
+          ),
+          SizedBox(width: 10),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Txt(widget.title, style: itemTitleTextStyle),
+              SizedBox(height: 5),
+              Txt(widget.description, style: itemDescriptionTextStyle),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   final settingsItemStyle = (pressed) => ParentStyle()
