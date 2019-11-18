@@ -23,7 +23,7 @@ class _TestState extends State<Test> {
   bool active1 = false;
   bool active2 = false;
 
-  final TxtStyle inputField = TxtStyle()
+  final inputField = (bool isActive, TxtStyle activeStyle) => TxtStyle()
     ..textColor(Colors.black)
     ..textAlign.left()
     ..fontSize(16)
@@ -32,12 +32,31 @@ class _TestState extends State<Test> {
     ..borderRadius(all: 10)
     ..alignment.center()
     ..background.color(Colors.grey[200])
-    ..animate(300, Curves.easeOut);
+    ..animate(300, Curves.easeOut)
+    ..add(isActive ? activeStyle : null, override: true);
 
-  final TxtStyle inputFieldActive = TxtStyle()
+  final TxtStyle inputFieldActive =  TxtStyle()
     ..background.color(Colors.blue)
     ..bold(true)
     ..textColor(Colors.white);
+
+  final TxtStyle submitButtonStyle = TxtStyle()
+    ..textColor(Colors.white)
+    ..bold()
+    ..ripple(true, splashColor: Colors.white.withOpacity(0.1))
+    ..alignment.centerLeft()
+    ..width(150)
+    ..background.color(Colors.blue)
+    ..borderRadius(all: 10)
+    ..margin(top: 30, horizontal: 50)
+    ..padding(vertical: 15)
+    ..elevation(10, opacity: 0.5);
+
+  final titleStyle = TxtStyle()
+    ..fontSize(24)
+    ..bold()
+    ..margin(bottom: 30, horizontal: 50)
+    ..alignment.centerLeft();
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +64,12 @@ class _TestState extends State<Test> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         // Title
-        Txt(
-          'Login',
-          style: TxtStyle()
-            ..fontSize(24)
-            ..bold()
-            ..margin(bottom: 30, horizontal: 50)
-            ..alignment.centerLeft(),
-        ),
+        Txt('Login', style: titleStyle),
 
         // Username field
         Txt(
           '',
-          style: inputField.clone()
-            ..add(active1 ? inputFieldActive : null, override: true)
+          style: inputField(active1, inputFieldActive)
             ..editable(
               true,
               placeholder: 'enter username',
@@ -72,8 +83,7 @@ class _TestState extends State<Test> {
         // Password field
         Txt(
           '',
-          style: inputField.clone()
-            ..add(active2 ? inputFieldActive : null, override: true)
+          style: inputField(active2, inputFieldActive)
             ..editable(
               true,
               placeholder: 'enter password',
@@ -86,20 +96,7 @@ class _TestState extends State<Test> {
         ),
 
         // Submit button
-        Txt(
-          'Submit',
-          style: TxtStyle()
-            ..textColor(Colors.white)
-            ..bold()
-            ..ripple(true, splashColor: Colors.white.withOpacity(0.1))
-            ..alignment.centerLeft()
-            ..width(150)
-            ..background.color(Colors.blue)
-            ..borderRadius(all: 10)
-            ..margin(top: 30, horizontal: 50)
-            ..padding(vertical: 15)
-            ..elevation(10, opacity: 0.5),
-        )
+        Txt('Submit', style: submitButtonStyle)
       ],
     );
   }

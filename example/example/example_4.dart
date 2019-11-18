@@ -15,7 +15,8 @@ class Main extends StatelessWidget {
 }
 
 class ElevationDemo extends StatelessWidget {
-  final ParentStyle boxStyle = ParentStyle()
+  final boxStyle = (double elevation) => TxtStyle()
+    ..elevation(elevation)
     ..width(300)
     ..height(50)
     ..margin(vertical: 10.0)
@@ -23,63 +24,23 @@ class ElevationDemo extends StatelessWidget {
     ..alignmentContent.center()
     ..borderRadius(all: 15.0)
     ..background.hex('#eeeeee')
-    ..animate(2000, Curves.easeInOut);
+    ..animate(2000, Curves.easeInOut)
+    ..fontSize(18)
+    ..bold();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Parent(
-          style: ParentStyle()
-            ..elevation(0)
-            ..add(boxStyle),
-          child: text('Elevation: 0'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(5)
-            ..add(boxStyle),
-          child: text('Elevation: 5'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(10)
-            ..add(boxStyle),
-          child: text('Elevation: 10'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(20)
-            ..add(boxStyle),
-          child: text('Elevation: 20'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(30)
-            ..add(boxStyle),
-          child: text('Elevation: 30'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(40)
-            ..add(boxStyle),
-          child: text('Elevation: 40'),
-        ),
-        Parent(
-          style: ParentStyle()
-            ..elevation(50)
-            ..add(boxStyle),
-          child: text('Elevation: 50'),
-        ),
+        Txt('Elevation: 0', style: boxStyle(0)),
+        Txt('Elevation: 5', style: boxStyle(5)),
+        Txt('Elevation: 10', style: boxStyle(10)),
+        Txt('Elevation: 20', style: boxStyle(20)),
+        Txt('Elevation: 30', style: boxStyle(30)),
+        Txt('Elevation: 40', style: boxStyle(40)),
+        Txt('Elevation: 50', style: boxStyle(50)),
       ],
-    );
-  }
-
-  Text text(String text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
     );
   }
 }

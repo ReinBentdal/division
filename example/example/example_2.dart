@@ -50,11 +50,7 @@ class _FrostedWidgetState extends State<FrostedWidget> {
           'My frosted widget',
           style: cardStyle(pressed),
           gesture: GestureClass()
-            ..onTapDown((detials) => setState(() => pressed = true))
-            ..onTapUp((detials) => setState(() => pressed = false))
-            ..onTapCancel(
-              () => setState(() => pressed = false),
-            ),
+            ..isTap((isTapped) => setState(() => pressed = isTapped)),
         ),
       ],
     );

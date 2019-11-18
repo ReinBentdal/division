@@ -15,8 +15,10 @@ class Main extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  final ParentStyle titleBox = ParentStyle()
-    ..padding(vertical: 30.0, horizontal: 20.0);
+  final TxtStyle titleStyle = TxtStyle()
+    ..padding(vertical: 30.0, horizontal: 20.0)
+    ..bold()
+    ..fontSize(36);
 
   final ParentStyle tasksCard = ParentStyle()
     ..width(100)
@@ -33,33 +35,30 @@ class Home extends StatelessWidget {
     ..alignment.topCenter()
     ..margin(left: 10.0, right: 10.0, top: 10.0, bottom: 55.0);
 
-  Widget _buildTitle(String title) {
-    return Parent(
-      style: titleBox,
-      child: Text(
-        title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36.0),
-      ),
-    );
-  }
+  final TxtStyle searchBarStyle = TxtStyle()
+    ..width(300)
+    ..padding(horizontal: 20.0, vertical: 15.0)
+    ..margin(top: 0.0, bottom: 20.0)
+    ..borderRadius(all: 10.0)
+    ..alignment.center()
+    ..elevation(15, color: Colors.grey)
+    ..background.hex('#ffffff')
+    ..textColor(Colors.black54)
+    ..fontSize(18)
+    ..bold()
+    ..editable(true);
 
-  Widget _buildSearchBar() {
-    return Parent(
-      style: ParentStyle()
-        ..width(300)
-        ..padding(horizontal: 20.0, vertical: 15.0)
-        ..margin(top: 0.0, bottom: 20.0)
-        ..borderRadius(all: 10.0)
-        ..alignment.center()
-        ..elevation(15, color: Colors.grey)
-        ..background.hex('#ffffff'),
-      child: Text(
-        'Search..',
-        style: TextStyle(
-            color: Colors.black54, fontSize: 18.0, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
+  final TxtStyle undertitleStyle = TxtStyle()
+    ..margin(left: 20)
+    ..textColor(Colors.black.withOpacity(0.8))
+    ..bold()
+    ..fontSize(22)
+    ..textAlign.left();
+
+  final colorCardStyle =
+      (ParentStyle tasksCard, Color color) => tasksCard.clone()
+        ..background.color(color)
+        ..elevation(20, color: color.withOpacity(0.5));
 
   Widget _buildTasksCardRow() {
     return SizedBox(
@@ -67,35 +66,13 @@ class Home extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          _buildColoredCard(Color(0xFFFFB85D)),
-          _buildColoredCard(Color(0xFFFD5C63)),
-          _buildColoredCard(Color(0xFF828AFF)),
-          _buildColoredCard(Color(0xFF55ffff)),
+          Parent(style: colorCardStyle(tasksCard, Color(0xFFFFB85D))),
+          Parent(style: colorCardStyle(tasksCard, Color(0xFFFD5C63))),
+          Parent(style: colorCardStyle(tasksCard, Color(0xFF828AFF))),
+          Parent(style: colorCardStyle(tasksCard, Color(0xFF55ffff))),
         ],
       ),
     );
-  }
-
-  Widget _buildColoredCard(Color color) {
-    return Parent(
-      style: ParentStyle()
-        ..background.color(color)
-        ..elevation(20, color: color.withOpacity(0.5))
-        ..add(tasksCard),
-    );
-  }
-
-  Widget _buildUnderTitle(String title) {
-    return Parent(
-        style: ParentStyle()..margin(left: 20.0),
-        child: Text(
-          title,
-          style: TextStyle(
-              color: Colors.black.withOpacity(0.8),
-              fontWeight: FontWeight.bold,
-              fontSize: 22.0),
-          textAlign: TextAlign.left,
-        ));
   }
 
   Widget _buildCategoriesCardRow() {
@@ -104,15 +81,11 @@ class Home extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          _buildCategoriesCard(),
-          _buildCategoriesCard(),
+          Parent(style: categoriesCard),
+          Parent(style: categoriesCard),
         ],
       ),
     );
-  }
-
-  Widget _buildCategoriesCard() {
-    return Parent(style: categoriesCard);
   }
 
   @override
@@ -121,11 +94,11 @@ class Home extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildTitle('Home'),
-          _buildSearchBar(),
-          _buildUnderTitle('Tasks'),
+          Txt('Home', style: titleStyle),
+          Txt('Search..', style: searchBarStyle),
+          Txt('Tasks', style: undertitleStyle),
           _buildTasksCardRow(),
-          _buildUnderTitle('Categories'),
+          Txt('Categories', style: undertitleStyle),
           _buildCategoriesCardRow()
         ],
       ),
