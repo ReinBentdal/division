@@ -23,7 +23,7 @@ class _TestState extends State<Test> {
   bool active1 = false;
   bool active2 = false;
 
-  final inputField = (bool isActive, TxtStyle activeStyle) => TxtStyle()
+  final inputFieldStyle = (bool isActive, TxtStyle activeStyle) => TxtStyle()
     ..textColor(Colors.black)
     ..textAlign.left()
     ..fontSize(16)
@@ -35,7 +35,7 @@ class _TestState extends State<Test> {
     ..animate(300, Curves.easeOut)
     ..add(isActive ? activeStyle : null, override: true);
 
-  final TxtStyle inputFieldActive =  TxtStyle()
+  final TxtStyle inputFieldActiveStyle =  TxtStyle()
     ..background.color(Colors.blue)
     ..bold(true)
     ..textColor(Colors.white);
@@ -69,7 +69,7 @@ class _TestState extends State<Test> {
         // Username field
         Txt(
           '',
-          style: inputField(active1, inputFieldActive)
+          style: inputFieldStyle(active1, inputFieldActiveStyle)
             ..editable(
               true,
               placeholder: 'enter username',
@@ -83,7 +83,7 @@ class _TestState extends State<Test> {
         // Password field
         Txt(
           '',
-          style: inputField(active2, inputFieldActive)
+          style: inputFieldStyle(active2, inputFieldActiveStyle)
             ..editable(
               true,
               placeholder: 'enter password',
