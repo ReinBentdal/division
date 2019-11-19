@@ -1,6 +1,11 @@
+## 0.8.5
+* [Fix] Text resetting to default value after editing when using `Txt` with `editable` enabled
+* Changed placeholder FontWeight to normal when using `Txt` with `editable` enabled
+* Improved performance when using `Txt` with `editable` enabled
+
 ## 0.8.4
 * Added animation support for `fontSize`, `textColor`, `maxLines`, `letterSpacing` and `wordSpacing`
-* Addedd `textDirection` method to `TxtStyle`
+* Added `textDirection` method to `TxtStyle`
 
 ## 0.8.3+1
 * [fix] `isTap` not working correctly
