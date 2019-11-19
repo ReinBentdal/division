@@ -1,4 +1,5 @@
 # Division
+<img src="https://img.shields.io/pub/v/division" />
 
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
