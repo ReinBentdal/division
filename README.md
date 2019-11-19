@@ -4,7 +4,7 @@ A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
 - **[Getting started](#getting-started)**
 - **[Basic example](#basic-example)**
-- **[Widgets](#widgets)**
+- **[Documentation](#documentation)**
   - [StyleClass](#styleclass)
   - [GestureClass](#gestureclass)
   - [Parent](#parent)
@@ -75,7 +75,7 @@ Widget build(BuildContext context) {
 #### Result
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/basic_example.gif" width="300">
 
-## Widgets
+## Documentation
 The fundament of styling with `division` is the `StyleClass` widget. This is an abstract class which all the other styling widgets extends. Therefore all the styling properties this widget has will also be available to the others, like `TxtStyle` and `ParentStyle`
 
 ### StyleClass
