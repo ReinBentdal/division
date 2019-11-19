@@ -1,5 +1,5 @@
 # Division
-<img src="https://img.shields.io/pub/v/division" />
+<a href="https://pub.dev/packages/division"><img src="https://img.shields.io/pub/v/division?color=blue&label=division" /></a>
 
 A simple to use yet powerfull styling widget with syntax inspired by CSS.
 
