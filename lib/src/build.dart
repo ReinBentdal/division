@@ -70,8 +70,6 @@ class ParentBuild extends StatelessWidget {
                 : null,
             alignment: styleModel?.alignmentContent ?? Alignment.topCenter);
         break;
-      default:
-        break;
     }
 
     if (styleModel?.ripple != null && styleModel?.ripple?.enable == true) {
