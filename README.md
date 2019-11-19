@@ -1,7 +1,9 @@
 # Division
 <a href="https://pub.dev/packages/division"><img src="https://img.shields.io/pub/v/division?color=blue&label=division" /></a>
 
-A simple to use yet powerfull styling widget with syntax inspired by CSS.
+> A simple to use yet powerfull style widgets with syntax inspired by CSS.
+
+The true power of this package is a combination of its features. Flutter widgets are designed to combine both the styling widgets and the structural widgets together when building apps. This package tries to decouple style from structure. This results in much more readable code. Another strong point of this package is the ease of animations. 
 
 - **[Getting started](#getting-started)**
 - **[Basic example](#basic-example)**
