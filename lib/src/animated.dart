@@ -22,7 +22,7 @@ class ParentAnimated extends ImplicitlyAnimatedWidget {
 
 class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
   AlignmentGeometryTween _alignment;
-  AlignmentGeometryTween _alignmentChild;
+  AlignmentGeometryTween _alignmentContent;
   EdgeInsetsGeometryTween _padding;
   DecorationTween _decoration;
   BoxConstraintsTween _constraints;
@@ -35,8 +35,8 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _alignment = visitor(_alignment, widget.styleModel?.alignment,
         (dynamic value) => AlignmentGeometryTween(begin: value));
-    _alignmentChild = visitor(
-        _alignmentChild,
+    _alignmentContent = visitor(
+        _alignmentContent,
         widget.styleModel?.alignmentContent,
         (dynamic value) => AlignmentGeometryTween(begin: value));
     _padding = visitor(_padding, widget.styleModel?.padding,
@@ -62,7 +62,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
     if (_styleModel != null) {
       _styleModel
         ..alignment = _alignment?.evaluate(animation)
-        ..alignmentContent = _alignmentChild?.evaluate(animation)
+        ..alignmentContent = _alignmentContent?.evaluate(animation)
         ..padding = _padding?.evaluate(animation)
         ..setBoxConstraints = _constraints?.evaluate(animation)
         ..setBoxDecoration = _decoration?.evaluate(animation)

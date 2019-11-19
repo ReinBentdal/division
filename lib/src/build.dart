@@ -202,34 +202,53 @@ class TxtBuild extends StatelessWidget {
 }
 
 class TxtBuildEditable extends StatefulWidget {
-  TxtBuildEditable({@required this.text, @required this.textModel});
+  TxtBuildEditable({@required this.text, @required this.textModel})
+      : this.textStyle = textModel?.textStyle,
+        this.placeholderController =
+            TextEditingController(text: textModel?.placeholder);
 
   final String text;
   final TextModel textModel;
+  final TextStyle textStyle;
+  final TextEditingController placeholderController;
 
   @override
   _TxtBuildEditableState createState() => _TxtBuildEditableState();
 }
 
 class _TxtBuildEditableState extends State<TxtBuildEditable> {
+  String _initialTextValue;
   TextEditingController _controller;
   FocusNode _focusNode;
+  TextStyle _placeholderTextStyle;
 
   @override
   void initState() {
     super.initState();
+    _initialTextValue = widget.text;
     _controller = TextEditingController(text: widget.text);
+    _updatePlaceholderTextStyle();
     _initializeFocusNode();
+  }
+
+  void _updatePlaceholderTextStyle() {
+    _placeholderTextStyle = widget.textStyle?.copyWith(
+      color: widget.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
+      fontWeight: FontWeight.normal,
+    );
   }
 
   @override
   void didUpdateWidget(TxtBuildEditable oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.text != _controller.text) {
-      setState(() {
-        _controller = TextEditingController(text: widget.text);
-      });
+    if (widget.textStyle != oldWidget.textStyle) {
+      _updatePlaceholderTextStyle();
+    }
+
+    if (widget.text != _initialTextValue) {
+      _initialTextValue = widget.text;
+      _controller = TextEditingController(text: widget.text);
     }
   }
 
@@ -246,42 +265,25 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   @override
   void dispose() {
     super.dispose();
-
     _focusNode?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _placeholderStyle;
-    TextEditingController _placehodlerController;
-    bool _placeholder = false;
+    bool _showPlaceholder = false;
 
     // placeholder
-    if (_controller.text.length == 0 && _focusNode.hasFocus == false) {
-      _placeholder = true;
-      _placeholderStyle = TextStyle(
-        fontWeight: widget.textModel?.textStyle?.fontWeight,
-        fontSize: widget.textModel?.textStyle?.fontSize,
-        color:
-            widget.textModel?.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
-        fontStyle: widget.textModel?.textStyle?.fontStyle ?? FontStyle.normal,
-        fontFamily: widget.textModel?.textStyle?.fontFamily,
-        fontFamilyFallback: widget.textModel?.textStyle?.fontFamilyFallback,
-        letterSpacing: widget.textModel?.textStyle?.letterSpacing,
-        wordSpacing: widget.textModel?.textStyle?.wordSpacing,
-      );
-      _placehodlerController =
-          TextEditingController(text: widget.textModel?.placeholder);
-    }
+    if (_controller.text.length == 0 && _focusNode.hasFocus == false)
+      _showPlaceholder = true;
 
     return EditableText(
-      obscureText: _placeholder ? false : widget.textModel?.obscureText,
+      obscureText: _showPlaceholder ? false : widget.textModel?.obscureText,
       cursorOpacityAnimates: true,
-      style: _placeholderStyle ?? widget.textModel?.textStyle,
+      style: _showPlaceholder ? _placeholderTextStyle : widget.textStyle,
       textAlign: widget.textModel?.textAlign ?? TextAlign.center,
       maxLines: widget.textModel?.maxLines,
       textDirection: widget.textModel?.textDirection,
-      controller: _placehodlerController ?? _controller,
+      controller: _showPlaceholder ? widget.placeholderController : _controller,
       focusNode: _focusNode,
       backgroundCursorColor: Colors.grey,
       cursorColor: Colors.black,
