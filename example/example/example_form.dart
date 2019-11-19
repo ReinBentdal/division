@@ -35,7 +35,7 @@ class _TestState extends State<Test> {
     ..animate(300, Curves.easeOut)
     ..add(isActive ? activeStyle : null, override: true);
 
-  final TxtStyle inputFieldActiveStyle =  TxtStyle()
+  final TxtStyle inputFieldActiveStyle = TxtStyle()
     ..background.color(Colors.blue)
     ..bold(true)
     ..textColor(Colors.white);
