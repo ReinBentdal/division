@@ -16,7 +16,7 @@ The true power of this package is a combination of its features. Flutter widgets
   - [TxtStyle](#txtstyle)
 - **[Examples and best practices](#examples-and-best-practices)**
 
-⚠️**If you encounter a issue or have any feedback which you think could improve Division, please open a issue [here](https://github.com/ReinBentdal/division/issues)**
+⚠️ **If you encounter an issue or have any feedback which you think could improve Division, please open an issue [here](https://github.com/ReinBentdal/division/issues)**
 
 ### Built with Division
 | [App designer](https://dribbble.com/shots/6459693-Creative-layout-design),  [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_1.dart) | [Code](https://github.com/ReinBentdal/division/blob/master/example/example/example_form.dart) |
