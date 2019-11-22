@@ -20,8 +20,8 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  bool active1 = false;
-  bool active2 = false;
+  bool _isUsernameFieldActive = false;
+  bool _isPasswordFieldActive = false;
 
   final inputFieldStyle = (bool isActive, TxtStyle activeStyle) => TxtStyle()
     ..textColor(Colors.black)
@@ -69,29 +69,27 @@ class _TestState extends State<Test> {
         // Username field
         Txt(
           '',
-          style: inputFieldStyle(active1, inputFieldActiveStyle)
+          style: inputFieldStyle(_isUsernameFieldActive, inputFieldActiveStyle)
             ..editable(
-              true,
               placeholder: 'enter username',
-              onFocusChange: (focus) {
-                if (focus != active1) setState(() => active1 = focus);
+              onFocusChange: (hasFocus) {
+                if (hasFocus != _isUsernameFieldActive)
+                  setState(() => _isUsernameFieldActive = hasFocus);
               },
-              onChange: (data) => print(data),
             ),
         ),
 
         // Password field
         Txt(
           '',
-          style: inputFieldStyle(active2, inputFieldActiveStyle)
+          style: inputFieldStyle(_isPasswordFieldActive, inputFieldActiveStyle)
             ..editable(
-              true,
               placeholder: 'enter password',
               obscureText: true,
-              onFocusChange: (focus) {
-                if (focus != active2) setState(() => active2 = focus);
+              onFocusChange: (hasFocus) {
+                if (hasFocus != _isPasswordFieldActive)
+                  setState(() => _isPasswordFieldActive = hasFocus);
               },
-              onChange: (data) => print(data),
             ),
         ),
 

@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
     ..textColor(Colors.black54)
     ..fontSize(18)
     ..bold()
-    ..editable(true);
+    ..editable();
 
   final TxtStyle undertitleStyle = TxtStyle()
     ..margin(left: 20)

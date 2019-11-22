@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'model.dart';
 
-class ParentBuild extends StatelessWidget {
-  ParentBuild(
+class CoreBuild extends StatelessWidget {
+  CoreBuild(
       {@required this.child,
       @required this.styleModel,
       @required this.gestureModel})
@@ -177,6 +177,13 @@ class ParentBuild extends StatelessWidget {
   }
 }
 
+class ParentBuild extends StatelessWidget {
+  ParentBuild({@required this.child});
+  final Widget child;
+  @override
+  Widget build(BuildContext context) => child;
+}
+
 class TxtBuild extends StatelessWidget {
   TxtBuild({this.text, this.textModel});
 
@@ -184,19 +191,13 @@ class TxtBuild extends StatelessWidget {
   final TextModel textModel;
 
   @override
-  Widget build(BuildContext context) {
-    Widget widgetTree;
-
-    widgetTree = Text(
-      text,
-      style: textModel?.textStyle,
-      textAlign: textModel?.textAlign ?? TextAlign.center,
-      maxLines: textModel?.maxLines,
-      textDirection: textModel?.textDirection,
-    );
-
-    return widgetTree;
-  }
+  Widget build(BuildContext context) => Text(
+        text,
+        style: textModel?.textStyle,
+        textAlign: textModel?.textAlign ?? TextAlign.start,
+        maxLines: textModel?.maxLines,
+        textDirection: textModel?.textDirection,
+      );
 }
 
 class TxtBuildEditable extends StatefulWidget {
@@ -219,6 +220,8 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   TextEditingController _controller;
   FocusNode _focusNode;
   TextStyle _placeholderTextStyle;
+  bool _showPlaceholder = true;
+  bool _hasFocus = false;
 
   @override
   void initState() {
@@ -227,13 +230,6 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
     _controller = TextEditingController(text: widget.text);
     _updatePlaceholderTextStyle();
     _initializeFocusNode();
-  }
-
-  void _updatePlaceholderTextStyle() {
-    _placeholderTextStyle = widget.textStyle?.copyWith(
-      color: widget.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
-      fontWeight: FontWeight.normal,
-    );
   }
 
   @override
@@ -250,35 +246,50 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
     }
   }
 
-  void _initializeFocusNode() {
-    if (_focusNode == null)
-      _focusNode = widget.textModel?.focusNode ?? FocusNode();
-
-    _focusNode?.addListener(() {
-      if (widget.textModel?.onFocusChange != null)
-        widget.textModel?.onFocusChange(_focusNode?.hasFocus);
-    });
-  }
-
   @override
   void dispose() {
     super.dispose();
     _focusNode?.dispose();
   }
 
+  void _updatePlaceholderTextStyle() {
+    _placeholderTextStyle = widget.textStyle?.copyWith(
+      color: widget.textStyle?.color?.withOpacity(0.7) ?? Colors.grey,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
+  void _initializeFocusNode() {
+    if (_focusNode == null)
+      _focusNode = widget.textModel?.focusNode ?? FocusNode();
+
+    _focusNode?.addListener(() {
+      // only when focus changes
+      bool hasFocus = _focusNode?.hasFocus;
+      if (hasFocus != _hasFocus) {
+        _hasFocus = hasFocus;
+        _shouldShowPlaceholder();
+        if (widget.textModel?.onFocusChange != null)
+          widget.textModel?.onFocusChange(_hasFocus);
+      }
+    });
+  }
+
+  void _shouldShowPlaceholder() {
+    if (_controller?.text?.length == 0 &&
+        _hasFocus == false &&
+        _showPlaceholder == false)
+      setState(() => _showPlaceholder = true);
+    else if (_showPlaceholder == true) setState(() => _showPlaceholder = false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool _showPlaceholder = false;
-
-    // placeholder
-    if (_controller.text.length == 0 && _focusNode.hasFocus == false)
-      _showPlaceholder = true;
-
     return EditableText(
       obscureText: _showPlaceholder ? false : widget.textModel?.obscureText,
       cursorOpacityAnimates: true,
       style: _showPlaceholder ? _placeholderTextStyle : widget.textStyle,
-      textAlign: widget.textModel?.textAlign ?? TextAlign.center,
+      textAlign: widget.textModel?.textAlign ?? TextAlign.start,
       maxLines: widget.textModel?.maxLines,
       textDirection: widget.textModel?.textDirection,
       controller: _showPlaceholder ? widget.placeholderController : _controller,

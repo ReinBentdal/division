@@ -7,9 +7,9 @@ import 'function/angleToRadians.dart';
 
 enum AngleFormat { degree, radians, cycles }
 
-abstract class StyleClass {
+abstract class _CoreStyle {
   /// Styling for the `Division` widget
-  StyleClass({this.angleFormat = AngleFormat.cycles}) {
+  _CoreStyle({this.angleFormat = AngleFormat.cycles}) {
     _addListeners();
   }
 
@@ -17,17 +17,14 @@ abstract class StyleClass {
   _addListeners() {
     alignment
       ..addListener(() => _styleModel?.alignment = alignment?.getAlignment);
-
     alignmentContent
       ..addListener(
           () => _styleModel?.alignmentContent = alignmentContent?.getAlignment);
-
     background
       ..addListener(() => _styleModel
         ..backgroundColor = background?.exportBackgroundColor
         ..backgroundBlur = background?.exportBackgroundBlur
         ..backgroundImage = background?.exportBackgroundImage);
-
     overflow
       ..addListener(() => _styleModel
         ..overflow = overflow?.getOverflow
@@ -332,7 +329,7 @@ abstract class StyleClass {
   StyleModel get exportStyle => _styleModel;
 }
 
-class ParentStyle extends StyleClass {
+class ParentStyle extends _CoreStyle {
   ParentStyle({this.angleFormat = AngleFormat.cycles})
       : super(angleFormat: angleFormat);
 
@@ -357,7 +354,110 @@ class ParentStyle extends StyleClass {
   ParentStyle clone() => ParentStyle(angleFormat: angleFormat)..add(this);
 }
 
-class GestureClass {
+class TxtStyle extends _CoreStyle {
+  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
+      : super(angleFormat: angleFormat);
+
+  @override
+  void _addListeners() {
+    super._addListeners();
+    textAlign
+      ..addListener(() {
+        _textModel?.textAlign = textAlign?.exportTextAlign;
+      });
+  }
+
+  final TextModel _textModel = TextModel();
+
+  final TextAlignModel textAlign = TextAlignModel();
+
+  void bold([bool enable = true]) {
+    if (enable == true) _textModel?.fontWeight = FontWeight.bold;
+  }
+
+  void italic([bool enable = true]) {
+    if (enable == true) _textModel?.fontStyle = FontStyle.italic;
+  }
+
+  void fontWeight(FontWeight weight) => _textModel?.fontWeight = weight;
+
+  void fontSize(double fontSize) => _textModel?.fontSize = fontSize;
+
+  void fontFamily(String font, {List<String> fontFamilyFallback}) {
+    _textModel?.fontFamily = font;
+    _textModel?.fontFamilyFallback = fontFamilyFallback;
+  }
+
+  void textColor(Color textColor) => _textModel?.textColor = textColor;
+
+  // void textAlign(TextAlign textAlign) => _textModel?.textAlign = textAlign;
+
+  void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
+
+  void letterSpacing(double space) => _textModel?.letterSpacing = space;
+
+  void wordSpacing(double space) => _textModel?.wordSpacing = space;
+
+  void textDecoration(TextDecoration decoration) =>
+      _textModel?.textDecoration = decoration;
+
+  void textDirection(TextDirection textDirection) =>
+      _textModel?.textDirection = textDirection;
+
+  /// Make the widget editable just like a TextField.
+  ///
+  /// If `focusNode` isnt spesified an internal `focusNode` will be created.
+  void editable(
+      {bool enable = true,
+      TextInputType keyboardType,
+      String placeholder,
+      bool obscureText = false,
+      int maxLines,
+      void Function(String) onChange,
+      void Function(bool focus) onFocusChange,
+      void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
+      void Function() onEditingComplete,
+      FocusNode focusNode}) {
+    if (enable == true)
+      _textModel
+        ..editable = true
+        ..keyboardType = keyboardType
+        ..placeholder = placeholder
+        ..obscureText = obscureText
+        ..maxLines = maxLines
+        ..onChange = onChange
+        ..onFocusChange = onFocusChange
+        ..onSelectionChanged = onSelectionChanged
+        ..onEditingComplete = onEditingComplete
+        ..focusNode = focusNode;
+  }
+
+  /// Combines style from another StyleClass
+  /// ```dart
+  /// ..add(TxtStyle()..width(100));
+  /// ```
+  void add(TxtStyle txtStyle, {bool override = false}) {
+    if (txtStyle != null) {
+      _styleModel?.inject(txtStyle?._styleModel, override);
+      _textModel?.inject(txtStyle?._textModel, override);
+    }
+  }
+
+  /// Clone object
+  /// ```dart
+  /// Txt(
+  ///   'some text',
+  ///   style: myStyle.clone()
+  ///     ..width(100)
+  ///     // etc..
+  /// )
+  /// ```
+  TxtStyle clone() => TxtStyle(angleFormat: angleFormat)..add(this);
+
+  TextModel get exportTextStyle => _textModel;
+}
+
+class Gestures {
   /// Responsible for all the gestures for the `Division` widget
   ///
   /// ```dart
@@ -373,7 +473,7 @@ class GestureClass {
   ///   child: Text('Some text'),
   /// )
   /// ```
-  GestureClass(
+  Gestures(
       {this.behavior,
       this.excludeFromSemantics = false,
       this.dragStartBehavior = DragStartBehavior.start})
@@ -529,105 +629,4 @@ class GestureClass {
       gestureModel?.onScaleUpdate = function;
 
   GestureModel get exportGesture => gestureModel;
-}
-
-class TxtStyle extends StyleClass {
-  TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
-      : super(angleFormat: angleFormat);
-
-  @override
-  void _addListeners() {
-    super._addListeners();
-    textAlign
-      ..addListener(() {
-        _textModel?.textAlign = textAlign?.exportTextAlign;
-      });
-  }
-
-  final TextModel _textModel = TextModel();
-
-  final TextAlignModel textAlign = TextAlignModel();
-
-  void bold([bool enable = true]) {
-    if (enable == true) _textModel?.fontWeight = FontWeight.bold;
-  }
-
-  void italic([bool enable = true]) {
-    if (enable == true) _textModel?.fontStyle = FontStyle.italic;
-  }
-
-  void fontWeight(FontWeight weight) => _textModel?.fontWeight = weight;
-
-  void fontSize(double fontSize) => _textModel?.fontSize = fontSize;
-
-  void fontFamily(String font, {List<String> fontFamilyFallback}) {
-    _textModel?.fontFamily = font;
-    _textModel?.fontFamilyFallback = fontFamilyFallback;
-  }
-
-  void textColor(Color textColor) => _textModel?.textColor = textColor;
-
-  // void textAlign(TextAlign textAlign) => _textModel?.textAlign = textAlign;
-
-  void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
-
-  void letterSpacing(double space) => _textModel?.letterSpacing = space;
-
-  void wordSpacing(double space) => _textModel?.wordSpacing = space;
-
-  void textDecoration(TextDecoration decoration) =>
-      _textModel?.textDecoration = decoration;
-
-  void textDirection(TextDirection textDirection) =>
-      _textModel?.textDirection = textDirection;
-
-  /// Make the widget editable just like a TextField.
-  ///
-  /// If `focusNode` isnt spesified an internal `focusNode` will be created.
-  void editable(bool enable,
-      {TextInputType keyboardType,
-      String placeholder,
-      bool obscureText = false,
-      int maxLines,
-      void Function(String) onChange,
-      void Function(bool focus) onFocusChange,
-      void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
-      void Function() onEditingComplete,
-      FocusNode focusNode}) {
-    _textModel
-      ..editable = enable
-      ..keyboardType = keyboardType
-      ..placeholder = placeholder
-      ..obscureText = obscureText
-      ..maxLines = maxLines
-      ..onChange = onChange
-      ..onFocusChange = onFocusChange
-      ..onSelectionChanged = onSelectionChanged
-      ..onEditingComplete = onEditingComplete
-      ..focusNode = focusNode;
-  }
-
-  /// Combines style from another StyleClass
-  /// ```dart
-  /// ..add(TxtStyle()..width(100));
-  /// ```
-  void add(TxtStyle txtStyle, {bool override = false}) {
-    if (txtStyle != null) {
-      _styleModel?.inject(txtStyle?._styleModel, override);
-      _textModel?.inject(txtStyle?._textModel, override);
-    }
-  }
-
-  /// Clone object
-  /// ```dart
-  /// Txt(
-  ///   'some text',
-  ///   style: myStyle.clone()
-  ///     ..width(100)
-  ///     // etc..
-  /// )
-  /// ```
-  TxtStyle clone() => TxtStyle(angleFormat: angleFormat)..add(this);
-
-  TextModel get exportTextStyle => _textModel;
 }

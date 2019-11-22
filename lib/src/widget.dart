@@ -10,24 +10,25 @@ class Parent extends StatelessWidget {
 
   final Widget child;
   final ParentStyle style;
-  final GestureClass gesture;
+  final Gestures gesture;
 
   @override
   Widget build(BuildContext context) {
-    Widget widgetTree = this.child;
     StyleModel styleModel = style?.exportStyle;
     GestureModel gestureModel = gesture?.exportGesture;
 
+    Widget widgetTree = ParentBuild(child: child);
+
     if (styleModel?.duration != null) {
       //animated
-      widgetTree = ParentAnimated(
+      widgetTree = CoreAnimated(
         styleModel: styleModel,
         gestureModel: gestureModel,
         child: widgetTree,
       );
     } else {
       // static
-      widgetTree = ParentBuild(
+      widgetTree = CoreBuild(
         styleModel: styleModel,
         gestureModel: gestureModel,
         child: widgetTree,
@@ -43,7 +44,7 @@ class Txt extends StatelessWidget {
 
   final String text;
   final TxtStyle style;
-  final GestureClass gesture;
+  final Gestures gesture;
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +73,13 @@ class Txt extends StatelessWidget {
     }
 
     if (styleModel?.duration != null) {
-      return ParentAnimated(
+      return CoreAnimated(
         child: widgetTree,
         gestureModel: gestureModel,
         styleModel: styleModel,
       );
     } else {
-      return ParentBuild(
+      return CoreBuild(
         child: widgetTree,
         gestureModel: gestureModel,
         styleModel: styleModel,

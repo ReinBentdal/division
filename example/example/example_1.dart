@@ -213,7 +213,7 @@ class _SettingsItemState extends State<SettingsItem> {
   Widget build(BuildContext context) {
     return Parent(
       style: settingsItemStyle(pressed),
-      gesture: GestureClass()
+      gesture: Gestures()
         ..isTap((isTapped) => setState(() => pressed = isTapped)),
       child: Row(
         children: <Widget>[

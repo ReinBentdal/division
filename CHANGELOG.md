@@ -1,3 +1,12 @@
+## 0.8.6
+* [Fix] `Txt` placeholder not working without a animation
+* [Fix] `onFocusChange` triggering when focus doesnt change.
+* Changed `boxShadow` offset property type from `List<double>` to `Offset`
+* Changed `enable` parameter in `editable` to named
+* removed `S` and `G` class
+* Changed default `textAlign` value to `start`
+* minor performance improvements
+
 ## 0.8.5
 * [Fix] Text resetting to default value after editing when using `Txt` with `editable` enabled
 * Changed placeholder FontWeight to normal when using `Txt` with `editable` enabled

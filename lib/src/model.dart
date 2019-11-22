@@ -49,7 +49,6 @@ class BackgroundModel with ChangeNotifier {
   /// ```
   /// Does not work together with `rotate()`.
   void blur(double blur) {
-    if (blur < 0) throw ('Blur cannot be negative: $blur');
     _blur = blur;
     notifyListeners();
   }
@@ -140,18 +139,23 @@ class OverflowModel with ChangeNotifier {
   Axis get getDirection => _direction;
   OverflowType get getOverflow => _overflow;
 
-  void hidden() => _updateOverflow(OverflowType.hidden);
+  // TODO: parameters named or unnamed?
 
-  void scrollable([Axis direction = Axis.vertical]) =>
-      _updateOverflow(OverflowType.scroll, direction);
+  void hidden([bool enable = true]) =>
+      _updateOverflow(OverflowType.hidden, null, enable);
 
-  void visible([Axis direction = Axis.vertical]) =>
-      _updateOverflow(OverflowType.visible, direction);
+  void scrollable([Axis direction = Axis.vertical, bool enable = true]) =>
+      _updateOverflow(OverflowType.scroll, direction, enable);
 
-  void _updateOverflow(OverflowType overflow, [Axis direction]) {
-    _overflow = overflow;
-    if (direction != null) _direction = direction;
-    notifyListeners();
+  void visible([Axis direction = Axis.vertical, bool enable = true]) =>
+      _updateOverflow(OverflowType.visible, direction, enable);
+
+  void _updateOverflow(OverflowType overflow, Axis direction, bool enable) {
+    if (enable == true) {
+      _overflow = overflow;
+      if (direction != null) _direction = direction;
+      notifyListeners();
+    }
   }
 }
 

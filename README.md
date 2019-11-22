@@ -8,12 +8,10 @@ The true power of this package is a combination of its features. Flutter widgets
 - **[Getting started](#getting-started)**
 - **[Basic example](#basic-example)**
 - **[Documentation](#documentation)**
-  - [StyleClass](#styleclass)
-  - [GestureClass](#gestureclass)
+  - [Core style methods](#core-style-methods)
   - [Parent](#parent)
-  - [ParentStyle](#parentstyle)
   - [Txt](#txt)
-  - [TxtStyle](#txtstyle)
+  - [Gestures](#gestures)
 - **[Examples and best practices](#examples-and-best-practices)**
 
 ⚠️ **If you encounter an issue or have any feedback which you think could improve Division, please open an issue [here](https://github.com/ReinBentdal/division/issues)**
@@ -24,10 +22,7 @@ The true power of this package is a combination of its features. Flutter widgets
 | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/demo_app.gif" width="250"> | <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/form_demo.gif" width="250"> |
 
 ## Getting Started
-This package includes at the moment a `Parent` widget and a `Txt` widget.
-
-As the name suggests the `Parent` widget takes a `child` along its `Division` properties.
-
+This is the two main widgets included in Division
 ```dart
 Parent(
   child: Widget,
@@ -35,12 +30,9 @@ Parent(
   gesture: GestureClass,
 );
 ```
-
-The `Txt` widget is a styled widget just like the `Parent` widget but it is specialized with styling text.
-
 ```dart
 Txt(
-  'Some text',
+  String,
   style: TxtStyle,
   gesture: GestureClass,
 );
@@ -65,8 +57,8 @@ final buttonStyle = (pressed) => TxtStyle()
   ..ripple(true)
   ..animate(150, Curves.easeOut);
 
-GestureClass buttonGestures() =>
-    GestureClass()..isTap((isPressed) => setState(() => pressed = isPressed));
+Gestures buttonGestures() =>
+    Gestures()..isTap((isPressed) => setState(() => pressed = isPressed));
 
 @override
 Widget build(BuildContext context) {
@@ -81,302 +73,317 @@ Widget build(BuildContext context) {
 <img src="https://raw.githubusercontent.com/ReinBentdal/division/master/example/assets/basic_example.gif" width="300">
 
 ## Documentation
-The fundament of styling with `division` is the `StyleClass` widget. This is an abstract class which all the other styling widgets extends. Therefore all the styling properties this widget has will also be available to the others, like `TxtStyle` and `ParentStyle`
+All current and future Division widgets share a common style base.
+### Core style methods
 
-### StyleClass
-The fundamental styling widget.
+<details>
+  <summary>Animate</summary>
 
-#### Alignment
+  ```dart
+  ..animate([int duration, Curve curve = Curves.linear])
+  ```
+  A powerful style method. Whenever a style property changes, the widget will animate between the two states (given the style property is compatibel with animations).
+  `duration` in ms
+</details>
+
+<details>
+  <summary>Alignment</summary>
+
 ```dart
 ..alignment.[alignment] // alignment.topCenter()
 ```
-Alignment of the widget itself, not the child.
+The widget alignment
+</details>
 
+<details>
+  <summary>Content alignment</summary>
 
-#### Align content
-```dart
-..alignmentContent.[alignment] // alignment.topCenter()
-```
-Alignment of the child.
+  ```dart
+  ..alignmentContent.[alignment] // alignment.topCenter()
+  ```
+  Alignment of the child.
+</details>
 
-#### Padding
-```dart
-..padding({double all, 
-      double horizontal, 
-      double vertical, 
-      double top, 
-      double bottom, 
-      double left, 
-      double right})
-```
-All properties work together. `padding(all: 10, top: 30)` is equivilent to `padding(top: 30, bottom: 10, left: 10, right: 10)`
+<details>
+  <summary>Padding</summary>
 
-#### Margin
-```dart
-..margin({double all,
-      double horizontal,
-      double vertical,
-      double top,
-      double bottom,
-      double left,
-      double right})
-```
-All properties work together. `margin(all: 10, top: 30)` is equivilent to `margin(top: 30, bottom: 10, left: 10, right: 10)`
+  ```dart
+  ..padding({double all, 
+        double horizontal, 
+        double vertical, 
+        double top, 
+        double bottom, 
+        double left, 
+        double right})
+  ```
+  All properties work together. `padding(all: 10, top: 30)` is equivilent to `padding(top: 30, bottom: 10, left: 10, right: 10)`
+</details>
 
-#### Background color
-```dart
-..background.color(Color)
-..background.hex(xxxxxx)
-..background.rgba(int, int, int, [double])
-```
-`color` format options: hex('#xxxxxx'), rgba(int, int, int, double) or [Color].
+<details>
+  <summary>Margin</summary>
 
-#### Background image
-```dart
-..background.image(
-      {String url, 
-      String path, 
-      ColorFilter colorFilter, 
-      ImageProvider<dynamic> imageProveder,
-      BoxFit fit, 
-      AlignmentGeometry alignment = Alignment.center, 
-      ImageRepeat repeat = ImageRepeat.noRepeat})
-```
-Eighter the [url] or the [path] has to be specified.
-[url] is for network images and [path] is for local images.
+  ```dart
+  ..margin({double all,
+        double horizontal,
+        double vertical,
+        double top,
+        double bottom,
+        double left,
+        double right})
+  ```
+  All properties work together. `margin(all: 10, top: 30)` is equivilent to `margin(top: 30, bottom: 10, left: 10, right: 10)`
+</details>
 
-#### Background blur
-```dart
-..background.blur(double blur)
-```
-Blurs the background. Can be used for example to achieve a "frosted glass" effect:
+<details>
+  <summary>Background color</summary>
 
-```dart
-StyleClass()
-  ..background.blur(10)
-  ..background.rgba(255,255,255,0.15)
-```
-Does not work together with `rotate()`.
+  ```dart
+  ..background.color(Color)
+  ..background.hex(xxxxxx)
+  ..background.rgba(int, int, int, [double])
+  ```
+  `color` format options: hex('#xxxxxx'), rgba(int, int, int, double) or [Color].
+</details>
 
-#### Gradient
-```dart
-..linearGradient({AlignmentGeometry begin = Alignment.left,
-      AlignmentGeometry end = Alignment.right,
-      @required List<Color> colors,
-      TileMode tileMode = TileMode.clamp,
-      List<double> stops})
+<details>
+  <summary>Background image</summary>
 
-..radialGradient(
+  ```dart
+  ..background.image(
+        {String url, 
+        String path, 
+        ColorFilter colorFilter, 
+        ImageProvider<dynamic> imageProveder,
+        BoxFit fit, 
+        AlignmentGeometry alignment = Alignment.center, 
+        ImageRepeat repeat = ImageRepeat.noRepeat})
+  ```
+  Eighter the [url] or the [path] has to be specified.
+  [url] is for network images and [path] is for local images.
+</details>
+
+<details>
+  <summary>Background blur</summary>
+
+  ```dart
+  ..background.blur(double blur)
+  ```
+  Blurs the background. Can be used for example to achieve a "frosted glass" effect:
+
+  ```dart
+  StyleClass()
+    ..background.blur(10)
+    ..background.rgba(255,255,255,0.15)
+  ```
+  Does not work together with `rotate()`.
+</details>
+
+<details>
+  <summary>Linear gradient</summary>
+
+  ```dart
+  ..linearGradient({AlignmentGeometry begin = Alignment.left,
+        AlignmentGeometry end = Alignment.right,
+        @required List<Color> colors,
+        TileMode tileMode = TileMode.clamp,
+        List<double> stops})
+  ```
+
+</details>
+
+<details>
+  <summary>Radial gradient</summary>
+
+  ```dart
+  ..radialGradient(
       {AlignmentGeometry center = Alignment.center,
-      double radius = 0.5,
+      @required double radius,
       @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
+  ```
+</details>
 
-..sweepGradient(
+<details>
+  <summary>Sweep gradient</summary>
+
+  ```dart
+  ..sweepGradient(
       {AlignmentGeometry center = Alignment.center,
       double startAngle = 0.0,
-      double endAngle,
+      @required double endAngle,
       @required List<Color> colors,
       TileMode tileMode = TileMode.clamp,
       List<double> stops})
-```
-Choose between 3 gradient variants. 
-`sweepGradient()` by default does not use radians for the `startAngle` and the `endAngle`. By default 0.25 equals 45 degrees, 1 equals one full turn etc.
-To change to use radians do: `StyleClass(useRadians: true)..`.
+  ```
+  In the style widget constructor, specify what angle calculation format you want to use.
+</details>
 
-`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
+<details>
+  <summary>Opacity</summary>
 
-#### Opacity
-```dart
-..opacity(double opacity)
-```
-Opacity applied on the whole widget.
+  ```dart
+  ..opacity(double opacity)
+  ```
+  Opacity applied on the whole widget.
 
-Value must not be negative.
+  Value must not be negative.
+</details>
 
-#### Border
-```dart
-..border(
-      {double all,
-      double left,
-      double right,
-      double top,
-      double bottom,
-      Color color = const Color(0xFF000000),
-      BorderStyle style = BorderStyle.solid})
-```
-Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
-`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
+<details>
+  <summary>Border</summary>
 
-#### Border radius
-```dart
-..borderRadius(
-      {double all,
-      double topLeft,
-      double topRight,
-      double bottomLeft,
-      double bottomRight})
-```
-It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
+  ```dart
+  ..border(
+        {double all,
+        double left,
+        double right,
+        double top,
+        double bottom,
+        Color color = const Color(0xFF000000),
+        BorderStyle style = BorderStyle.solid})
+  ```
+  Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
+  `color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
+</details>
 
-#### Box shadow
-```dart
-..boxShadow(
-      {Color color = const Color(0x33000000),
-      double blur,
-      List<double> offset,
-      double spread})
-```
-`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
-If defined while the elevation property is defined, the last one defined will be the style applied.
-`offset` is given in the format `[double dx, double dy]`
+<details>
+  <summary>Border radius</summary>
 
-#### Elevation
-```dart
-..elevation(
-      double elevation,
-      {double angle = 0.0,
-      Color color = const Color(0x33000000),
-      double opacity = 1.0})
-```
-Elevates the widget with a boxShadow.
-If the elevation property is used at the same time as the boxShadow property, the last one
-defined will be the applied style.
+  ```dart
+  ..borderRadius(
+        {double all,
+        double topLeft,
+        double topRight,
+        double bottomLeft,
+        double bottomRight})
+  ```
+  It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
+</details>
 
-`color` format options: hex('#xxxxxx'), rgb(int, int, int), rgba(int, int, int, double) or [Color].
+<details>
+  <summary>Box shadow</summary>
 
-`angle` parameter takes a circular value. Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
-If `angle` equals [null] the shadow will be directly under the widget.
+  ```dart
+  ..boxShadow(
+        {Color color = const Color(0x33000000),
+        double blur = 0.0,
+        Offset offset = Offset.zero,
+        double spread = 0.0})
+  ```
+  See [elevation] for a different way of defining a box shadow.
+</details>
 
-`opacity` is a relative opacity constant. A value of 0.5 bisects the opacity value with a given elevation.
+<details>
+  <summary>Elevation</summary>
 
+  ```dart
+  ..elevation(
+        double elevation,
+        {double angle = 0.0,
+        Color color = const Color(0x33000000),
+        double opacity = 1.0})
+  ```
+  Elevates the widget with a boxShadow.
+  [opacity] is a relative constant
+</details>
 
-#### Scale
-```dart
-..scale(double ratio)
-```
-Scale the widget
+<details>
+  <summary>Scale</summary>
 
-#### Offset
-```dart
-..offset([double dx, double dy])
-```
-Offsets the widget
+  ```dart
+  ..scale(double ratio)
+  ```
+  Scale the widget
+</details>
 
-#### Rotate
-```dart
-..rotate(double angle)
-```
-Rotates the widget.
-By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)`.
+<details>
+  <summary>Offset</summary>
 
-#### Ripple
-```dart
-..ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
-```
-Material ripple effect.
+  ```dart
+  ..offset([double dx, double dy])
+  ```
+  Offsets the widget
+</details>
 
-#### Overflow
-```dart
-..overflow.visible({Axis direction = Axis.vertical})
-..overflow.scrollable({Axis direction = Axis.vertical})
-..overflow.hidden()
-```
-Change child overflow behaviour.
-Choose the overflow direction with the [direction] parameter.
+<details>
+  <summary>Rotate</summary>
 
-#### Animate
-```dart
-..animate([int duration, Curve curve = Curves.linear])
-```
-Animates the widget when one of its style properties changes.
-`duration` is given in milliseconds.
+  ```dart
+  ..rotate(double angle)
+  ```
+  Rotates the widget.
+  By default one turn equals the value 1.0. To change to radians: `StyleClass(useRadians: true)`.
+</details>
 
-#### Add
-```dart
-..add(StyleClass styleClass, {bool override = false})
-```
-Adds a `StyleClass` to a `StyleClass`.
-By default the added `StyleClass` does not override already set style. Change override to true, to override already set style.
+<details>
+  <summary>Ripple</summary>
 
-#### Width, minWidth, maxWidth, Height, minHeight, maxHeight
-```dart
-..[type](double dimension)
-```
+  ```dart
+  ..ripple(bool enable, {dynamic splashColor, dynamic highlightColor})
+  ```
+  Material ripple effect applied on tap.
+</details>
 
-### GestureClass
-There is also the option to use the class `G` as a shorthand.
+<details>
+  <summary>Overflow</summary>
 
-To add a style to the `GestureClass`, use the ..[gesture] syntax. The two dots is used to not return the [gesture], but the `GestureClass`.
+  ```dart
+  ..overflow.visible({Axis direction = Axis.vertical})
+  ..overflow.scrollable({Axis direction = Axis.vertical})
+  ..overflow.hidden()
+  ```
+  Change child overflow behaviour.
+  Choose the overflow direction with the [direction] parameter.
+</details>
 
-#### isTap
-```dart
-..isTap((isTapped) => setState(() => pressed = isTapped))
-```
-Called whenever the tap state on the widget changes.
-This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
+<details>
+  <summary>Width, minWidth, maxWidth, Height, minHeight, maxHeight</summary>
 
-#### Other
-```dart
-..onTap()
-..onTapUp()
-..onTapCancel()
-..onDoubleTap()
-..onTapDown()
-..onLongPress()
-..onLongPressStart()
-..onLongPressEnd()
-..onLongPressMoveUpdate()
-..onLongPressUp()
-..onVerticalDragStart()
-..onVerticalDragEnd()
-..onVerticalDragDown()
-..onVerticalDragCancel()
-..onVerticalDragUpdate()
-..onHorizontalDragStart()
-..onHorizontalDragEnd()
-..onHorizontalDragCancel()
-..onHorizontalDragUpdate()
-..onHorizontalDragDown()
-..onForcePressStart()
-..onForcePressEnd()
-..onForcePressPeak()
-..onForcePressUpdate()
-..onPanStart()
-..onPanEnd()
-..onPanCancel()
-..onPanDown()
-..onPanUpdate()
-..onScaleStart()
-..onScaleEnd()
-..onScaleUpdate()
-```
+  ```dart
+  ..[type](double dimension)
+  ```
+</details>
 
 ### Parent
 ```dart
 Parent(
   style: ParentStyle,
   gesture: GestureClass,
-  chil: Widget
+  child: Widget
 )
 ```
 As the name suggests this widget is a simple styled widget which takes a child.
 
 ### ParentStyle
-`ParentStyle` extends `StyleClass`
-
-#### Add
 ```dart
-..add(ParentStyle parentStyle, {bool override = false})
-```
-This adds together two `ParentStyle`s. The `override` property specifies if already defined properties should be overrided.
+// format
+ParentStyle()
+  ..[style method]
 
-#### Clone
-```dart
-..ParentStyle().clone()
+// example
+ParentStyle()
+  ..width(100)
+  ..padding(all: 10)
+  ..elevation(5)
 ```
-This will clone the `ParentStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+<details>
+  <summary>Add</summary>
+
+  ```dart
+  ..add(ParentStyle parentStyle, {bool override = false})
+  ```
+  Combines style from two styled widgets.
+</details>
+
+<details>
+  <summary>Clone</summary>
+
+  ```dart
+  ..ParentStyle().clone()
+  ```
+  This will clone the `ParentStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+</details>
 
 ### Txt
 ```dart
@@ -390,84 +397,179 @@ As the name suggests this widget is a simple styled widget which takes a `String
 This widget enables text styling with the `TxtStyle` widget. This also has the possibility to make the widget editable.
 
 ### TxtStyle
-`TxtStyle` extends `StyleClass`
+```dart
+// format
+TxtStyle()
+  ..[style method]
 
-#### Editable
-```dart
-..editable(bool enable,
-      {TextInputType keyboardType,
-      String placeholder,
-      bool obscureText = false,
-      int maxLines,
-      void Function(String) onChange,
-      void Function(bool focus) onFocusChange,
-      void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
-      void Function() onEditingComplete,
-      FocusNode focusNode})
+// example
+TxtStyle()
+  ..width(100)
+  ..padding(all: 10)
+  ..textColor(Colors.blue)
+  ..bold()
 ```
-This makes the widget editable, just like a `TextField`, its just much easier to style
-**NB: This is still a beta feature**
+<details>
+  <summary>Editable</summary>
 
-#### Text align
-```dart
-..textAlign.center()
-```
+  ```dart
+  ..editable(bool enable,
+        {TextInputType keyboardType,
+        String placeholder,
+        bool obscureText = false,
+        int maxLines,
+        void Function(String) onChange,
+        void Function(bool focus) onFocusChange,
+        void Function(TextSelection, SelectionChangedCause) onSelectionChanged,
+        void Function() onEditingComplete,
+        FocusNode focusNode})
+  ```
+  This makes the widget editable, just like a `TextField`, its just much easier to style
+</details>
 
-#### Font weight
-```dart
-..fontWeight(FontWeight fontWeight)
-```
-A shorthand to make the text bold:
-```dart
-..bold([bool enable])
-```
+<details>
+  <summary>Text align</summary>
 
-#### Italic text
-```dart
-..italic([bool enable])
-```
+  ```dart
+  ..textAlign.center()
+  ```
+</details>
 
-#### Font family
-```dart
-..fontFamily(String font, {List<String> fontFamilyFallback})
-```
+<details>
+  <summary>Font weight</summary>
 
-#### Text color
-```dart
-..textColor(Color textColor)
-```
+  ```dart
+  ..fontWeight(FontWeight fontWeight)
+  ```
+  A shorthand to make the text bold:
+  ```dart
+  ..bold([bool enable])
+  ```
+</details>
 
-#### Max lines
-```dart
-..maxLines(int maxLines)
-```
+<details>
+  <summary>Italic</summary>
 
-#### Letter spacing
-```dart
-..letterSpacing(double space)
-```
+  ```dart
+  ..italic([bool enable])
+  ```
+</details>
 
-#### Word spacing
-```dart
-..wordSpacing(double space)
-```
+<details>
+  <summary>Font family</summary>
 
-#### Text decoration
-```dart
-..textDecoration(TextDecoration decoration)
-```
+  ```dart
+  ..fontFamily(String font, {List<String> fontFamilyFallback})
+  ```
+</details>
 
-#### Add
-```dart
-..add(TxtStyle txtStyle, {bool override = false})
-```
-This adds together two `TxtStyle`s. The `override` property specifies if already defined properties should be overrided.
+<details>
+  <summary>Text color</summary>
 
-#### Clone
-```dart
-..TxtStyle().clone()
-```
-This will clone the `TxtStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+  ```dart
+  ..textColor(Color textColor)
+  ```
+</details>
+
+<details>
+  <summary>Max lines</summary>
+
+  ```dart
+  ..maxLines(int maxLines)
+  ```
+</details>
+
+<details>
+  <summary>Letter spacing</summary>
+
+  ```dart
+  ..letterSpacing(double space)
+  ```
+</details>
+
+<details>
+  <summary>Word spacing</summary>
+
+  ```dart
+  ..wordSpacing(double space)
+  ```
+</details>
+
+<details>
+  <summary>Text decoration</summary>
+
+  ```dart
+  ..textDecoration(TextDecoration decoration)
+  ```
+</details>
+
+<details>
+  <summary>Add</summary>
+
+  ```dart
+  ..add(TxtStyle txtStyle, {bool override = false})
+  ```
+  This adds together two `TxtStyle`s. The `override` property specifies if already defined properties should be overrided.
+</details>
+
+<details>
+  <summary>Clone</summary>
+
+  ```dart
+  ..TxtStyle().clone()
+  ```
+  This will clone the `TxtStyle` widget. This is usefull if you for example want to add more style to a widget without modifying the initial style.
+</details>
+
+### Gestures
+<details>
+  <summary>isTap</summary>
+
+  ```dart
+  ..isTap((isTapped) => setState(() => pressed = isTapped))
+  ```
+  Called whenever the tap state on the widget changes.
+  This replaces the use of `onTapDown`, `onTapUp` and `onTapCancel` together.
+</details>
+
+<details>
+  <summary>Other</summary>
+
+  ```dart
+  ..onTap()
+  ..onTapUp()
+  ..onTapCancel()
+  ..onDoubleTap()
+  ..onTapDown()
+  ..onLongPress()
+  ..onLongPressStart()
+  ..onLongPressEnd()
+  ..onLongPressMoveUpdate()
+  ..onLongPressUp()
+  ..onVerticalDragStart()
+  ..onVerticalDragEnd()
+  ..onVerticalDragDown()
+  ..onVerticalDragCancel()
+  ..onVerticalDragUpdate()
+  ..onHorizontalDragStart()
+  ..onHorizontalDragEnd()
+  ..onHorizontalDragCancel()
+  ..onHorizontalDragUpdate()
+  ..onHorizontalDragDown()
+  ..onForcePressStart()
+  ..onForcePressEnd()
+  ..onForcePressPeak()
+  ..onForcePressUpdate()
+  ..onPanStart()
+  ..onPanEnd()
+  ..onPanCancel()
+  ..onPanDown()
+  ..onPanUpdate()
+  ..onScaleStart()
+  ..onScaleEnd()
+  ..onScaleUpdate()
+  ```
+</details>
 
 ## Examples and best practices
 
@@ -525,7 +627,7 @@ final cardStyle = (pressed) => ParentStyle()
 Widget build(BuildContext context) {
   return Parent(
     style: cardStyle(pressed),
-    gesture: GestureClass()
+    gesture: Gestures()
       ..isTap((isPressed) => setState(() => pressed = isPressed)),
     child: Widget,
   );
@@ -544,7 +646,7 @@ final cardStyle = (pressed) => ParentStyle()
   ..background.color(pressed ? Colors.white : Colors.black)
   ..elevation(pressed ? 10 : 20);
 
-GestureClass cardGesture() => GestureClass()
+Gestures cardGesture() => Gestures()
   ..isTap((isPressed) => setState(() => pressed = isPressed));
 
 Widget build(BuildContext context) {

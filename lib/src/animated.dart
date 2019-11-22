@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 import 'build.dart';
 
-class ParentAnimated extends ImplicitlyAnimatedWidget {
-  ParentAnimated({
+class CoreAnimated extends ImplicitlyAnimatedWidget {
+  CoreAnimated({
     @required this.styleModel,
     @required this.gestureModel,
     @required this.child,
@@ -17,10 +17,10 @@ class ParentAnimated extends ImplicitlyAnimatedWidget {
   final GestureModel gestureModel;
 
   @override
-  _ParentAnimatedState createState() => _ParentAnimatedState();
+  _CoreAnimatedState createState() => _CoreAnimatedState();
 }
 
-class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
+class _CoreAnimatedState extends AnimatedWidgetBaseState<CoreAnimated> {
   AlignmentGeometryTween _alignment;
   AlignmentGeometryTween _alignmentContent;
   EdgeInsetsGeometryTween _padding;
@@ -72,7 +72,7 @@ class _ParentAnimatedState extends AnimatedWidgetBaseState<ParentAnimated> {
         ..opacity = _opacity?.evaluate(animation);
     }
 
-    return ParentBuild(
+    return CoreBuild(
       styleModel: _styleModel,
       gestureModel: widget.gestureModel,
       child: widget.child,

@@ -6,7 +6,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  division: ^0.8.5
+  # division: ^0.8.5
+  division:
+    path: ../..
 
 dev_dependencies:
   flutter_test:
