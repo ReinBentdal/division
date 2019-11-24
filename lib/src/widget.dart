@@ -19,7 +19,7 @@ class Parent extends StatelessWidget {
 
     Widget widgetTree;
 
-    if (child != null) ParentBuild(child: child);
+    if (child != null) widgetTree = ParentBuild(child: child);
 
     if (styleModel?.duration != null) {
       //animated
