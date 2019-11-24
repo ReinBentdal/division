@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'function/hex_color.dart';
+import 'style.dart';
 
 class RippleModel {
   final bool enable;
@@ -14,10 +16,12 @@ class BackgroundModel with ChangeNotifier {
   Color _color;
   double _blur;
   DecorationImage _image;
+  BlendMode _blendMode;
 
   Color get exportBackgroundColor => _color;
   double get exportBackgroundBlur => _blur;
   DecorationImage get exportBackgroundImage => _image;
+  BlendMode get exportBackgroundBlentMode => _blendMode;
 
   /// BackgroundColor
   void color(Color color) {
@@ -91,6 +95,8 @@ class BackgroundModel with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void blendMode(BlendMode blendMode) => _blendMode = blendMode;
 }
 
 class AlignmentModel with ChangeNotifier {
@@ -171,11 +177,13 @@ class StyleModel {
   Color backgroundColor;
   double backgroundBlur;
   DecorationImage backgroundImage;
+  BlendMode backgroundBlendMode;
   EdgeInsetsGeometry padding;
   EdgeInsetsGeometry margin;
   Gradient gradient;
   BoxBorder border;
   BorderRadiusGeometry borderRadius;
+  BoxShape boxShape;
   List<BoxShadow> boxShadow;
   double scale;
   double rotate;
@@ -207,11 +215,14 @@ class StyleModel {
         _replace(backgroundBlur, intruder?.backgroundBlur, override);
     backgroundImage =
         _replace(backgroundImage, intruder?.backgroundImage, override);
+    backgroundBlendMode =
+        _replace(backgroundBlendMode, intruder?.backgroundBlendMode, override);
     padding = _replace(padding, intruder?.padding, override);
     margin = _replace(margin, intruder?.margin, override);
     gradient = _replace(gradient, intruder?.gradient, override);
     border = _replace(border, intruder?.border, override);
     borderRadius = _replace(borderRadius, intruder?.borderRadius, override);
+    boxShape = _replace(boxShape, intruder?.boxShape, override);
     boxShadow = _replace(boxShadow, intruder?.boxShadow, override);
     scale = _replace(scale, intruder?.scale, override);
     rotate = _replace(rotate, intruder?.rotate, override);
@@ -261,7 +272,9 @@ class StyleModel {
             gradient ??
             border ??
             borderRadius ??
-            boxShadow) !=
+            boxShadow ??
+            boxShape ??
+            backgroundBlendMode) !=
         null) {
       BoxDecoration boxDecoration = BoxDecoration(
           color: backgroundColor,
@@ -269,6 +282,8 @@ class StyleModel {
           gradient: gradient,
           border: border,
           borderRadius: borderRadius,
+          shape: boxShape ?? BoxShape.rectangle,
+          backgroundBlendMode: backgroundBlendMode,
           boxShadow: boxShadow);
       return boxDecoration;
     }
@@ -405,6 +420,7 @@ class TextModel {
   double wordSpacing;
   TextDecoration textDecoration;
   TextDirection textDirection;
+  List<Shadow> textShadow;
 
   //editable
   bool editable;
@@ -433,6 +449,7 @@ class TextModel {
     textDecoration =
         _replace(textDecoration, textModel?.textDecoration, override);
     textDirection = _replace(textDirection, textModel?.textDirection, override);
+    textShadow = _replace(textShadow, textModel?.textShadow, override);
 
     editable = _replace(editable, textModel?.editable, override);
     keyboardType = _replace(keyboardType, textModel?.keyboardType, override);
@@ -463,6 +480,7 @@ class TextModel {
       letterSpacing: letterSpacing,
       wordSpacing: wordSpacing,
       decoration: textDecoration,
+      shadows: textShadow,
     );
   }
 }
@@ -486,5 +504,21 @@ class TextAlignModel with ChangeNotifier {
       _textAlign = textAlign;
       notifyListeners();
     }
+  }
+}
+
+class ThemeDataModel<T extends CoreStyle> {
+  static Map<dynamic, dynamic> _styleData = {};
+  T create(dynamic key) {
+    assert(!_styleData.containsKey(key), 'ThemeData key "$key" already exists');
+    if (T == ParentStyle)
+      _styleData[key] = ParentStyle();
+    else if (T == TxtStyle) _styleData[key] = TxtStyle();
+    return _styleData[key];
+  }
+
+  T use(dynamic key) {
+    assert(_styleData.containsKey(key), 'ThemeData key "$key" does not exist');
+    return _styleData[key];
   }
 }

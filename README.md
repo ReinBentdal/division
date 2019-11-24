@@ -179,6 +179,15 @@ The widget alignment
 </details>
 
 <details>
+  <summary>Background blend mode</summary>
+
+  ```dart
+  ..background.blendMode(BlendMode blendMode)
+  ```
+  Algorithms for blending background
+</details>
+
+<details>
   <summary>Linear gradient</summary>
 
   ```dart
@@ -259,6 +268,17 @@ The widget alignment
         double bottomRight})
   ```
   It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
+
+  See also [circle] for creating circular widgets.
+</details>
+
+<details>
+  <summary>Circle</summary>
+
+  ```dart
+  ..circle([bool enable = true])
+  ```
+  Makes the widget circular
 </details>
 
 <details>
@@ -500,6 +520,27 @@ TxtStyle()
 
   ```dart
   ..textDecoration(TextDecoration decoration)
+  ```
+</details>
+
+<details>
+  <summary>Text shadow</summary>
+
+  ```dart
+  ..textShadow({Color color = const Color(0x33000000),
+      double blur = 0.0,
+      Offset offset = Offset.zero})
+  ```
+</details>
+
+<details>
+  <summary>Text elevation</summary>
+
+  ```dart
+  ..textElevation(double elevation,
+      {double angle = 0.0,
+      Color color = const Color(0x33000000),
+      double opacity = 1.0})
   ```
 </details>
 

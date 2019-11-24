@@ -63,10 +63,7 @@ class _TestState extends State<Test> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        // Title
         Txt('Login', style: titleStyle),
-
-        // Username field
         Txt(
           '',
           style: inputFieldStyle(_isUsernameFieldActive, inputFieldActiveStyle)
@@ -78,8 +75,6 @@ class _TestState extends State<Test> {
               },
             ),
         ),
-
-        // Password field
         Txt(
           '',
           style: inputFieldStyle(_isPasswordFieldActive, inputFieldActiveStyle)
@@ -92,9 +87,7 @@ class _TestState extends State<Test> {
               },
             ),
         ),
-
-        // Submit button
-        Txt('Submit', style: submitButtonStyle)
+        Txt('Submit', style: submitButtonStyle),
       ],
     );
   }

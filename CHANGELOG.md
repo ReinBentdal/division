@@ -1,5 +1,14 @@
+## 0.8.7
+* Added `textShadow` method to `TxtStyle`
+* Added `textElevation` method to `TxtStyle`
+* Added `circle` method to `CoreStyle`
+* Added `background.blendMode` method to `CoreStyle`
+* [Fix] Error when `Parent` child is [null]
+* [Fix] `BoxShadow` all property not working corectly
+
 ## 0.8.6
-* [Fix] `Txt` placeholder not working without a animation
+* Renamed `GestureClass` widget to `Gestures`
+* [Fix] `Txt` placeholder not working without an animation
 * [Fix] `onFocusChange` triggering when focus doesnt change.
 * Changed `boxShadow` offset property type from `List<double>` to `Offset`
 * Changed `enable` parameter in `editable` to named

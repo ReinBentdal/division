@@ -17,7 +17,9 @@ class Parent extends StatelessWidget {
     StyleModel styleModel = style?.exportStyle;
     GestureModel gestureModel = gesture?.exportGesture;
 
-    Widget widgetTree = ParentBuild(child: child);
+    Widget widgetTree;
+
+    if (child != null) ParentBuild(child: child);
 
     if (styleModel?.duration != null) {
       //animated

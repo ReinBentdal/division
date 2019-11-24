@@ -7,9 +7,8 @@ import 'function/angleToRadians.dart';
 
 enum AngleFormat { degree, radians, cycles }
 
-abstract class _CoreStyle {
-  /// Styling for the `Division` widget
-  _CoreStyle({this.angleFormat = AngleFormat.cycles}) {
+abstract class CoreStyle {
+  CoreStyle({this.angleFormat = AngleFormat.cycles}) {
     _addListeners();
   }
 
@@ -24,7 +23,8 @@ abstract class _CoreStyle {
       ..addListener(() => _styleModel
         ..backgroundColor = background?.exportBackgroundColor
         ..backgroundBlur = background?.exportBackgroundBlur
-        ..backgroundImage = background?.exportBackgroundImage);
+        ..backgroundImage = background?.exportBackgroundImage
+        ..backgroundBlendMode = background?.exportBackgroundBlentMode);
     overflow
       ..addListener(() => _styleModel
         ..overflow = overflow?.getOverflow
@@ -166,16 +166,16 @@ abstract class _CoreStyle {
       Color color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
     _styleModel?.border = Border(
-      left: left == null
+      left: left ?? all == null
           ? BorderSide.none
           : BorderSide(color: color, width: left ?? all, style: style),
-      right: right == null
+      right: right ?? all == null
           ? BorderSide.none
           : BorderSide(color: color, width: right ?? all, style: style),
-      top: top == null
+      top: top ?? all == null
           ? BorderSide.none
           : BorderSide(color: color, width: top ?? all, style: style),
-      bottom: bottom == null
+      bottom: bottom ?? all == null
           ? BorderSide.none
           : BorderSide(color: color, width: bottom ?? all, style: style),
     );
@@ -196,6 +196,9 @@ abstract class _CoreStyle {
     );
   }
 
+  void circle([enable = true]) =>
+      enable ? _styleModel?.boxShape = BoxShape.circle : null;
+
   /// If defined while the elevation method is defined, the last one defined will be the one applied.
   void boxShadow(
       {Color color = const Color(0x33000000),
@@ -213,17 +216,10 @@ abstract class _CoreStyle {
   }
 
   /// Elevates the widget with a boxShadow.
-  ///
-  /// [angle] parameter takes a circular value.
-  /// Eighter radians or not, depending on what is specified in the `StyleClass` constructor. 0.0 is down.
-  /// If [angle] equals [null] the shadow will be directly under the widget.
-  /// [opacity] is a relative opacity constant. A value of 0.5 bisects the opacity value with a given elevation.
+  /// [angle] format depends on what is specified in the style widget`s constructor.
   /// ```dart
-  /// ..elevation(30.0, color: '#f5f5f5', angle: 0.0)
+  /// ..elevation(30.0, color: Colors.grey, angle: 0.0)
   /// ```
-  ///
-  /// If the elevation property is used at the same time as the boxShadow property, the last one
-  /// defined will be the one applied.
   void elevation(double elevation,
       {double angle = 0.0,
       Color color = const Color(0x33000000),
@@ -261,42 +257,24 @@ abstract class _CoreStyle {
 
   void maxHeight(double maxHeight) => _styleModel?.maxHeight = maxHeight;
 
-  /// Must not be negative.
-  /// 1 corresponds to normal size. 2 corresponds to double the size.
-  /// ```dart
-  /// ..scale(0.7);
-  /// ```
   void scale(double ratio) => _styleModel?.scale = ratio;
 
-  /// Offsetts the widget.
-  /// ```dart
-  /// ..offset(10.0, 5.0);
-  /// ```
   void offset(double dx, double dy) => _styleModel?.offset = Offset(dx, dy);
 
-  /// Widget rotation
-  /// ```dart
-  /// StyleClass(userRadians = false)..rotate(0.75);
   ///
-  /// StyleClass(useRadians = true)..rotate(0.75 * pi * 2)
+  /// ```dart
+  /// StyleClass(angleFormat: AngleFormat.cycles)
+  ///   ..rotate(0.75);
+  ///
+  /// StyleClass(angleFormat: AngleFormat.radians)
+  ///   ..rotate(0.75 * pi * 2)
   /// ```
-  /// Choose to calculate angles with radians or not through [useRadians] `StyleClass` parameter. 0.0 - 1.0 or 0.0 - 2 * pi
   void rotate(double angle) =>
       _styleModel?.rotate = angleToRadians(angle, angleFormat);
 
-  /// Opacity applied to the whole widget
-  ///
-  /// Can not be higher than 1.0 or lower than 0.0
-  ///
-  /// ```dart
-  /// ..opacity(0.7);
-  /// ```
   void opacity(double opacity) => _styleModel?.opacity = opacity;
 
   /// Material ripple effect
-  /// ```dart
-  /// ..ripple(true);
-  /// ```
   void ripple(bool enable, {Color splashColor, Color highlightColor}) {
     _styleModel?.ripple = RippleModel(
       enable: enable,
@@ -318,24 +296,30 @@ abstract class _CoreStyle {
   ///   thisStyle..backgroundColor(rgb(255,255,0));
   ///
   ///   // Trigger the setState with a delay
-  ///   Future.delayed(Duration(milliseconds: 500)).then((value) => setState(() {}));
+  ///   Future.delayed(Duration(milliseconds: 500)).then((_) => setState(() {}));
   /// })
   /// ```
   void animate([int duration = 500, Curve curve = Curves.linear]) => _styleModel
     ..duration = Duration(milliseconds: duration)
     ..curve = curve;
 
+  // void add<T extends CoreStyle>(T style, {bool override = false}) =>
+  //   _styleModel?.inject(style?._styleModel, override);
+
   // export raw styledata
   StyleModel get exportStyle => _styleModel;
 }
 
-class ParentStyle extends _CoreStyle {
+class ParentStyle extends CoreStyle {
   ParentStyle({this.angleFormat = AngleFormat.cycles})
       : super(angleFormat: angleFormat);
 
   final AngleFormat angleFormat;
 
-  /// Combines style from another StyleClass
+  // TODO: implement
+  // static ThemeDataModel<ParentStyle> themeData = ThemeDataModel<ParentStyle>();
+
+  /// Combines style from another style instance
   /// ```dart
   /// ..add(ParentStyle()..width(100));
   /// ```
@@ -354,7 +338,7 @@ class ParentStyle extends _CoreStyle {
   ParentStyle clone() => ParentStyle(angleFormat: angleFormat)..add(this);
 }
 
-class TxtStyle extends _CoreStyle {
+class TxtStyle extends CoreStyle {
   TxtStyle({AngleFormat angleFormat = AngleFormat.cycles})
       : super(angleFormat: angleFormat);
 
@@ -366,6 +350,9 @@ class TxtStyle extends _CoreStyle {
         _textModel?.textAlign = textAlign?.exportTextAlign;
       });
   }
+
+  // TODO: implemet
+  // static ThemeDataModel<TxtStyle> themeData = ThemeDataModel<TxtStyle>();
 
   final TextModel _textModel = TextModel();
 
@@ -390,8 +377,6 @@ class TxtStyle extends _CoreStyle {
 
   void textColor(Color textColor) => _textModel?.textColor = textColor;
 
-  // void textAlign(TextAlign textAlign) => _textModel?.textAlign = textAlign;
-
   void maxLines(int maxLines) => _textModel?.maxLines = maxLines;
 
   void letterSpacing(double space) => _textModel?.letterSpacing = space;
@@ -404,9 +389,51 @@ class TxtStyle extends _CoreStyle {
   void textDirection(TextDirection textDirection) =>
       _textModel?.textDirection = textDirection;
 
+  void textShadow(
+      {Color color = const Color(0x33000000),
+      double blur = 0.0,
+      Offset offset = Offset.zero}) {
+    _textModel?.textShadow = [
+      Shadow(
+        color: color,
+        blurRadius: blur,
+        offset: offset,
+      ),
+    ];
+  }
+
+  /// Elevates the text with a shadow.
+  /// [angle] format depends on what is specified in the style widget`s constructor.
+  /// ```dart
+  /// ..textElevation(30.0, color: Colors.grey, angle: 0.0)
+  /// ```
+  void textElevation(double elevation,
+      {double angle = 0.0,
+      Color color = const Color(0x33000000),
+      double opacity = 1.0}) {
+    if (elevation == 0) return;
+
+    angle = angleToRadians(angle, angleFormat);
+    final double offsetX = sin(angle) * elevation;
+    final double offsetY = cos(angle) * elevation;
+
+    // custom curve defining the opacity
+    double calculatedOpacity = (0.5 - (sqrt(elevation) / 19)) * opacity;
+    if (calculatedOpacity < 0.0) calculatedOpacity = 0.0;
+
+    final Color colorWithOpacity = color.withOpacity(calculatedOpacity);
+
+    _textModel?.textShadow = [
+      Shadow(
+          color: colorWithOpacity,
+          blurRadius: elevation,
+          offset: Offset(offsetX, offsetY))
+    ];
+  }
+
   /// Make the widget editable just like a TextField.
   ///
-  /// If `focusNode` isnt spesified an internal `focusNode` will be created.
+  /// If `focusNode` isnt spesified an internal `focusNode` will be initiated.
   void editable(
       {bool enable = true,
       TextInputType keyboardType,
@@ -432,7 +459,7 @@ class TxtStyle extends _CoreStyle {
         ..focusNode = focusNode;
   }
 
-  /// Combines style from another StyleClass
+  /// Combines style from another style instance
   /// ```dart
   /// ..add(TxtStyle()..width(100));
   /// ```
@@ -458,16 +485,10 @@ class TxtStyle extends _CoreStyle {
 }
 
 class Gestures {
-  /// Responsible for all the gestures for the `Division` widget
-  ///
+  /// Apply gestures to a Division widgets
   /// ```dart
   /// Parent(
-  ///   style: ParentStyle()
-  ///     ..width(100)
-  ///     ..height(150)
-  ///     ..borderRadius(all: 30.0)
-  ///     ..background.color(Colors.blue),
-  ///   gesture: GestureClass()
+  ///   gesture: Gestures()
   ///     ..onTap(() => print('Widget pressed!'))
   ///     ..onLongPress(() => print('Widget longpress)),
   ///   child: Text('Some text'),
