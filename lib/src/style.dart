@@ -166,16 +166,16 @@ abstract class _CoreStyle {
       Color color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
     _styleModel?.border = Border(
-      left: left == null
+      left: left == null && all == null
           ? BorderSide.none
           : BorderSide(color: color, width: left ?? all, style: style),
-      right: right == null
+      right: right == null && all == null
           ? BorderSide.none
           : BorderSide(color: color, width: right ?? all, style: style),
-      top: top == null
+      top: top == null && all == null
           ? BorderSide.none
           : BorderSide(color: color, width: top ?? all, style: style),
-      bottom: bottom == null
+      bottom: bottom == null && all == null
           ? BorderSide.none
           : BorderSide(color: color, width: bottom ?? all, style: style),
     );
