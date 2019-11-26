@@ -27,14 +27,14 @@ This is the two main widgets included in Division
 Parent(
   child: Widget,
   style: ParentStyle, 
-  gesture: GestureClass,
+  gesture: Gestures,
 );
 ```
 ```dart
 Txt(
   String,
   style: TxtStyle,
-  gesture: GestureClass,
+  gesture: Gestures,
 );
 ```
 
@@ -369,7 +369,7 @@ The widget alignment
 ```dart
 Parent(
   style: ParentStyle,
-  gesture: GestureClass,
+  gesture: Gestures,
   child: Widget
 )
 ```
@@ -410,7 +410,7 @@ ParentStyle()
 Txt(
   String,
   style: TxtStyle,
-  gesture: GestureClass,
+  gesture: Gestures,
 )
 ```
 As the name suggests this widget is a simple styled widget which takes a `String` as its child.
