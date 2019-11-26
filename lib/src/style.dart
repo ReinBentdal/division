@@ -166,16 +166,16 @@ abstract class CoreStyle {
       Color color = const Color(0xFF000000),
       BorderStyle style = BorderStyle.solid}) {
     _styleModel?.border = Border(
-      left: left ?? all == null
+      left: (left ?? all) == null
           ? BorderSide.none
           : BorderSide(color: color, width: left ?? all, style: style),
-      right: right ?? all == null
+      right: (right ?? all) == null
           ? BorderSide.none
           : BorderSide(color: color, width: right ?? all, style: style),
-      top: top ?? all == null
+      top: (top ?? all) == null
           ? BorderSide.none
           : BorderSide(color: color, width: top ?? all, style: style),
-      bottom: bottom ?? all == null
+      bottom: (bottom ?? all) == null
           ? BorderSide.none
           : BorderSide(color: color, width: bottom ?? all, style: style),
     );
@@ -199,21 +199,21 @@ abstract class CoreStyle {
   void circle([enable = true]) =>
       enable ? _styleModel?.boxShape = BoxShape.circle : null;
 
+  // TODO: add posibility to append box shadow instead of replacing. bool append = true
   /// If defined while the elevation method is defined, the last one defined will be the one applied.
   void boxShadow(
-      {Color color = const Color(0x33000000),
-      double blur = 0.0,
-      Offset offset = Offset.zero,
-      double spread = 0.0}) {
-    _styleModel?.boxShadow = [
-      BoxShadow(
-        color: color,
-        blurRadius: blur,
-        spreadRadius: spread,
-        offset: offset,
-      ),
-    ];
-  }
+          {Color color = const Color(0x33000000),
+          double blur = 0.0,
+          Offset offset = Offset.zero,
+          double spread = 0.0}) =>
+      _styleModel?.boxShadow = [
+        BoxShadow(
+          color: color,
+          blurRadius: blur,
+          spreadRadius: spread,
+          offset: offset,
+        ),
+      ];
 
   /// Elevates the widget with a boxShadow.
   /// [angle] format depends on what is specified in the style widget`s constructor.
