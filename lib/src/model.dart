@@ -427,6 +427,7 @@ class TextModel {
   TextInputType keyboardType;
   String placeholder;
   bool obscureText;
+  bool autoFocus;
 
   void Function(String) onChange;
   void Function(bool focus) onFocusChange;
@@ -460,6 +461,7 @@ class TextModel {
     onEditingComplete =
         _replace(onEditingComplete, textModel?.onEditingComplete, override);
     focusNode = _replace(focusNode, textModel?.focusNode, override);
+    autoFocus = _replace(autoFocus, textModel?.autoFocus, override);
   }
 
   dynamic _replace(dynamic current, dynamic intruder, bool override) {

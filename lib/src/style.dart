@@ -439,6 +439,7 @@ class TxtStyle extends CoreStyle {
       TextInputType keyboardType,
       String placeholder,
       bool obscureText = false,
+      bool autoFocus = false,
       int maxLines,
       void Function(String) onChange,
       void Function(bool focus) onFocusChange,
@@ -451,6 +452,7 @@ class TxtStyle extends CoreStyle {
         ..keyboardType = keyboardType
         ..placeholder = placeholder
         ..obscureText = obscureText
+        ..autoFocus = autoFocus
         ..maxLines = maxLines
         ..onChange = onChange
         ..onFocusChange = onFocusChange

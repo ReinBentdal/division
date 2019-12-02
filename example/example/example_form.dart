@@ -45,6 +45,7 @@ class _TestState extends State<Test> {
     ..bold()
     ..ripple(true, splashColor: Colors.white.withOpacity(0.1))
     ..alignment.centerLeft()
+    ..textAlign.center()
     ..width(150)
     ..background.color(Colors.blue)
     ..borderRadius(all: 10)
@@ -68,6 +69,7 @@ class _TestState extends State<Test> {
           '',
           style: inputFieldStyle(_isUsernameFieldActive, inputFieldActiveStyle)
             ..editable(
+              autoFocus: true,
               placeholder: 'enter username',
               onFocusChange: (hasFocus) {
                 if (hasFocus != _isUsernameFieldActive)

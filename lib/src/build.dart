@@ -287,6 +287,7 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   Widget build(BuildContext context) {
     return EditableText(
       obscureText: _showPlaceholder ? false : widget.textModel?.obscureText,
+      autofocus: widget.textModel?.autoFocus ?? false,
       cursorOpacityAnimates: true,
       style: _showPlaceholder ? _placeholderTextStyle : widget.textStyle,
       textAlign: widget.textModel?.textAlign ?? TextAlign.start,
