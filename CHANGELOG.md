@@ -1,4 +1,4 @@
-## 0.8.8
+## 0.8.8 [work in progress]
 * Added `autoFocus` parameter to the `editable` method in `TxtStyle`
 
 ## 0.8.7
