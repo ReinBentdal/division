@@ -1,3 +1,6 @@
+## 0.8.8
+* Added `autoFocus` parameter to the `editable` method in `TxtStyle`
+
 ## 0.8.7
 * Added `textShadow` method to `TxtStyle`
 * Added `textElevation` method to `TxtStyle`
