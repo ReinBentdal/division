@@ -3,6 +3,8 @@
 <a href="https://www.buymeacoffee.com/tOTWBs7"><img src="https://camo.githubusercontent.com/be06971baed9105260e0ed5c03746108c30b527f/68747470733a2f2f63646e2e6275796d6561636f666665652e636f6d2f627574746f6e732f64656661756c742d6f72616e67652e706e67" alt="Buy Me A Coffee" data-canonical-src="https://cdn.buymeacoffee.com/buttons/default-orange.png" width="150px" /></a>
 > Simple to use yet powerfull style widgets with syntax inspired by CSS.
 
+### Please check out [styled_widget](https://github.com/ReinBentdal/styled_widget) which is a replacement of Division!
+
 The true power of this package is a combination of its features. Flutter widgets are designed to combine both the styling widgets and the structural widgets together when building apps. This package tries to decouple style from structure. This results in much more readable code. Another strong point of this package is the ease of animations. 
 
 - **[Getting started](#getting-started)**
