@@ -421,7 +421,8 @@ class TextModel {
   TextDecoration textDecoration;
   TextDirection textDirection;
   List<Shadow> textShadow;
-
+  TextOverflow textOverflow;
+  
   //editable
   bool editable;
   TextInputType keyboardType;
