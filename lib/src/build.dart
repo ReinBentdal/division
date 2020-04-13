@@ -197,6 +197,7 @@ class TxtBuild extends StatelessWidget {
         textAlign: textModel?.textAlign ?? TextAlign.start,
         maxLines: textModel?.maxLines,
         textDirection: textModel?.textDirection,
+        overflow: textModel?.textOverflow,
       );
 }
 
