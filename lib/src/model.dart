@@ -463,6 +463,7 @@ class TextModel {
         _replace(onEditingComplete, textModel?.onEditingComplete, override);
     focusNode = _replace(focusNode, textModel?.focusNode, override);
     autoFocus = _replace(autoFocus, textModel?.autoFocus, override);
+    textOverflow = _replace(textOverflow, textModel?.textOverflow, override);
   }
 
   dynamic _replace(dynamic current, dynamic intruder, bool override) {
