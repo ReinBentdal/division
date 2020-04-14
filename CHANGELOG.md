@@ -1,5 +1,6 @@
 ## 0.8.8 [work in progress]
 * Added `autoFocus` parameter to the `editable` method in `TxtStyle`
+* Added `textOverflow` method to `TxtStyle`
 
 ## 0.8.7
 * Added `textShadow` method to `TxtStyle`
