@@ -389,6 +389,8 @@ class TxtStyle extends CoreStyle {
   void textDirection(TextDirection textDirection) =>
       _textModel?.textDirection = textDirection;
 
+  void textOverflow(TextOverflow textOverflow) => _textModel?.textOverflow = textOverflow;
+
   void textShadow(
       {Color color = const Color(0x33000000),
       double blur = 0.0,
@@ -484,6 +486,9 @@ class TxtStyle extends CoreStyle {
   TxtStyle clone() => TxtStyle(angleFormat: angleFormat)..add(this);
 
   TextModel get exportTextStyle => _textModel;
+
+
+
 }
 
 class Gestures {
