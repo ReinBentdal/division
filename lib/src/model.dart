@@ -422,7 +422,7 @@ class TextModel {
   TextDirection textDirection;
   List<Shadow> textShadow;
   TextOverflow textOverflow;
-  
+
   //editable
   bool editable;
   TextInputType keyboardType;
@@ -511,18 +511,18 @@ class TextAlignModel with ChangeNotifier {
   }
 }
 
-class ThemeDataModel<T extends CoreStyle> {
-  static Map<dynamic, dynamic> _styleData = {};
-  T create(dynamic key) {
-    assert(!_styleData.containsKey(key), 'ThemeData key "$key" already exists');
-    if (T == ParentStyle)
-      _styleData[key] = ParentStyle();
-    else if (T == TxtStyle) _styleData[key] = TxtStyle();
-    return _styleData[key];
-  }
+// class ThemeDataModel<T extends CoreStyle> {
+//   static Map<dynamic, dynamic> _styleData = {};
+//   T create(dynamic key) {
+//     assert(!_styleData.containsKey(key), 'ThemeData key "$key" already exists');
+//     if (T == ParentStyle)
+//       _styleData[key] = ParentStyle();
+//     else if (T == TxtStyle) _styleData[key] = TxtStyle();
+//     return _styleData[key];
+//   }
 
-  T use(dynamic key) {
-    assert(_styleData.containsKey(key), 'ThemeData key "$key" does not exist');
-    return _styleData[key];
-  }
-}
+//   T use(dynamic key) {
+//     assert(_styleData.containsKey(key), 'ThemeData key "$key" does not exist');
+//     return _styleData[key];
+//   }
+// }
