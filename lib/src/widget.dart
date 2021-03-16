@@ -6,22 +6,22 @@ import 'model.dart';
 import 'style.dart';
 
 class Parent extends StatelessWidget {
-  const Parent({this.child, this.style, this.gesture});
+  const Parent({this.child, required this.style, this.gesture});
 
-  final Widget child;
+  final Widget? child;
   final ParentStyle style;
-  final Gestures gesture;
+  final Gestures? gesture;
 
   @override
   Widget build(BuildContext context) {
-    StyleModel styleModel = style?.exportStyle;
-    GestureModel gestureModel = gesture?.exportGesture;
+    StyleModel? styleModel = style.exportStyle;
+    GestureModel? gestureModel = gesture?.exportGesture;
 
-    Widget widgetTree;
+    Widget? widgetTree;
 
-    if (child != null) widgetTree = ParentBuild(child: child);
+    if (child != null) widgetTree = ParentBuild(child: child!);
 
-    if (styleModel?.duration != null) {
+    if (styleModel.duration != null) {
       //animated
       widgetTree = CoreAnimated(
         styleModel: styleModel,
@@ -45,27 +45,27 @@ class Txt extends StatelessWidget {
   const Txt(this.text, {this.style, this.gesture});
 
   final String text;
-  final TxtStyle style;
-  final Gestures gesture;
+  final TxtStyle? style;
+  final Gestures? gesture;
 
   @override
   Widget build(BuildContext context) {
     Widget widgetTree;
-    StyleModel styleModel = style?.exportStyle;
-    TextModel textModel = style?.exportTextStyle;
-    GestureModel gestureModel = gesture?.exportGesture;
+    StyleModel? styleModel = style?.exportStyle;
+    TextModel? textModel = style?.exportTextStyle;
+    GestureModel? gestureModel = gesture?.exportGesture;
 
-    if (styleModel?.duration != null) {
+    if (styleModel?.curve != null && styleModel?.duration != null) {
       widgetTree = TxtAnimated(
         text: text,
         textModel: textModel,
-        curve: styleModel?.curve,
-        duration: styleModel?.duration,
+        curve: styleModel!.curve!,
+        duration: styleModel.duration!,
       );
     } else if (textModel?.editable != null && textModel?.editable == true) {
       widgetTree = TxtBuildEditable(
         text: text,
-        textModel: textModel,
+        textModel: textModel!,
       );
     } else {
       widgetTree = TxtBuild(
