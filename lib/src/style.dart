@@ -18,7 +18,7 @@ abstract class CoreStyle {
       ..addListener(() => _styleModel.alignment = alignment.getAlignment);
     alignmentContent
       ..addListener(
-              () => _styleModel.alignmentContent = alignmentContent.getAlignment);
+          () => _styleModel.alignmentContent = alignmentContent.getAlignment);
     background
       ..addListener(() => _styleModel
         ..backgroundColor = background.exportBackgroundColor
@@ -60,12 +60,12 @@ abstract class CoreStyle {
   /// ```
   void padding(
       {double? all,
-        double? horizontal,
-        double? vertical,
-        double? top,
-        double? bottom,
-        double? left,
-        double? right}) {
+      double? horizontal,
+      double? vertical,
+      double? top,
+      double? bottom,
+      double? left,
+      double? right}) {
     _styleModel.padding = EdgeInsets.only(
         top: top ?? vertical ?? all ?? 0.0,
         bottom: bottom ?? vertical ?? all ?? 0.0,
@@ -81,12 +81,12 @@ abstract class CoreStyle {
   /// ```
   void margin(
       {double? all,
-        double? horizontal,
-        double? vertical,
-        double? top,
-        double? bottom,
-        double? left,
-        double? right}) {
+      double? horizontal,
+      double? vertical,
+      double? top,
+      double? bottom,
+      double? left,
+      double? right}) {
     _styleModel.margin = EdgeInsets.only(
         top: top ?? vertical ?? all ?? 0.0,
         bottom: bottom ?? vertical ?? all ?? 0.0,
@@ -99,10 +99,10 @@ abstract class CoreStyle {
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void linearGradient(
       {AlignmentGeometry begin = Alignment.centerLeft,
-        AlignmentGeometry end = Alignment.centerRight,
-        required List<Color> colors,
-        TileMode tileMode = TileMode.clamp,
-        List<double>? stops}) {
+      AlignmentGeometry end = Alignment.centerRight,
+      required List<Color> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double>? stops}) {
     _styleModel.gradient = LinearGradient(
         begin: begin,
         end: end,
@@ -116,10 +116,10 @@ abstract class CoreStyle {
   /// The [colors] argument must not be null. If [stops] is non-null, it must have the same length as [colors].
   void radialGradient(
       {AlignmentGeometry center = Alignment.center,
-        required double radius,
-        required List<Color> colors,
-        TileMode tileMode = TileMode.clamp,
-        List<double>? stops}) {
+      required double radius,
+      required List<Color> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double>? stops}) {
     _styleModel.gradient = RadialGradient(
       center: center,
       radius: radius,
@@ -137,11 +137,11 @@ abstract class CoreStyle {
   /// [end] default to 1.0 if [useRadians] is false and 2 * pi if [useRadians] is true,
   void sweepGradient(
       {AlignmentGeometry center = Alignment.center,
-        double startAngle = 0.0,
-        required double endAngle,
-        required List<Color> colors,
-        TileMode tileMode = TileMode.clamp,
-        List<double>? stops}) {
+      double startAngle = 0.0,
+      required double endAngle,
+      required List<Color> colors,
+      TileMode tileMode = TileMode.clamp,
+      List<double>? stops}) {
     _styleModel.gradient = SweepGradient(
       center: center,
       startAngle: angleToRadians(startAngle, angleFormat),
@@ -159,12 +159,12 @@ abstract class CoreStyle {
   /// Choose between `all`, `left`, `right`, `top` and `bottom`. `all` works together with the other properties.
   void border(
       {double? all,
-        double? left,
-        double? right,
-        double? top,
-        double? bottom,
-        Color color = const Color(0xFF000000),
-        BorderStyle style = BorderStyle.solid}) {
+      double? left,
+      double? right,
+      double? top,
+      double? bottom,
+      Color color = const Color(0xFF000000),
+      BorderStyle style = BorderStyle.solid}) {
     _styleModel.border = Border(
       left: (left ?? all) == null
           ? BorderSide.none
@@ -184,10 +184,10 @@ abstract class CoreStyle {
   /// It is valid to use `all` together with single sided properties. Single sided properties will trump over the `all` property.
   void borderRadius(
       {double? all,
-        double? topLeft,
-        double? topRight,
-        double? bottomLeft,
-        double? bottomRight}) {
+      double? topLeft,
+      double? topRight,
+      double? bottomLeft,
+      double? bottomRight}) {
     _styleModel.borderRadius = BorderRadius.only(
       topLeft: Radius.circular(topLeft ?? all ?? 0.0),
       topRight: Radius.circular(topRight ?? all ?? 0.0),
@@ -202,10 +202,10 @@ abstract class CoreStyle {
   // TODO: add posibility to append box shadow instead of replacing. bool append = true
   /// If defined while the elevation method is defined, the last one defined will be the one applied.
   void boxShadow(
-      {Color color = const Color(0x33000000),
-        double blur = 0.0,
-        Offset offset = Offset.zero,
-        double spread = 0.0}) =>
+          {Color color = const Color(0x33000000),
+          double blur = 0.0,
+          Offset offset = Offset.zero,
+          double spread = 0.0}) =>
       _styleModel.boxShadow = [
         BoxShadow(
           color: color,
@@ -222,8 +222,8 @@ abstract class CoreStyle {
   /// ```
   void elevation(double elevation,
       {double angle = 0.0,
-        Color color = const Color(0x33000000),
-        double opacity = 1.0}) {
+      Color color = const Color(0x33000000),
+      double opacity = 1.0}) {
     if (elevation == 0) return;
 
     angle = angleToRadians(angle, angleFormat);
@@ -394,8 +394,8 @@ class TxtStyle extends CoreStyle {
 
   void textShadow(
       {Color color = const Color(0x33000000),
-        double blur = 0.0,
-        Offset offset = Offset.zero}) {
+      double blur = 0.0,
+      Offset offset = Offset.zero}) {
     _textModel.textShadow = [
       Shadow(
         color: color,
@@ -412,8 +412,8 @@ class TxtStyle extends CoreStyle {
   /// ```
   void textElevation(double elevation,
       {double angle = 0.0,
-        Color color = const Color(0x33000000),
-        double opacity = 1.0}) {
+      Color color = const Color(0x33000000),
+      double opacity = 1.0}) {
     if (elevation == 0) return;
 
     angle = angleToRadians(angle, angleFormat);
@@ -439,16 +439,16 @@ class TxtStyle extends CoreStyle {
   /// If `focusNode` isnt spesified an internal `focusNode` will be initiated.
   void editable(
       {bool enable = true,
-        TextInputType? keyboardType,
-        String? placeholder,
-        bool obscureText = false,
-        bool autoFocus = false,
-        int? maxLines,
-        void Function(String)? onChange,
-        void Function(bool? focus)? onFocusChange,
-        void Function(TextSelection, SelectionChangedCause?)? onSelectionChanged,
-        void Function()? onEditingComplete,
-        FocusNode? focusNode}) {
+      TextInputType? keyboardType,
+      String? placeholder,
+      bool obscureText = false,
+      bool autoFocus = false,
+      int? maxLines,
+      void Function(String)? onChange,
+      void Function(bool? focus)? onFocusChange,
+      void Function(TextSelection, SelectionChangedCause?)? onSelectionChanged,
+      void Function()? onEditingComplete,
+      FocusNode? focusNode}) {
     if (enable == true)
       _textModel
         ..editable = true
@@ -501,12 +501,12 @@ class Gestures {
   /// ```
   Gestures(
       {this.behavior,
-        this.excludeFromSemantics = false,
-        this.dragStartBehavior = DragStartBehavior.start})
+      this.excludeFromSemantics = false,
+      this.dragStartBehavior = DragStartBehavior.start})
       : this.gestureModel = GestureModel(
-      behavior: behavior,
-      excludeFromSemantics: excludeFromSemantics,
-      dragStartBehavior: dragStartBehavior);
+            behavior: behavior,
+            excludeFromSemantics: excludeFromSemantics,
+            dragStartBehavior: dragStartBehavior);
 
   /// How this gesture detector should behave during hit testing.
   ///
@@ -582,7 +582,7 @@ class Gestures {
       gestureModel.onLongPressEnd = function;
 
   void onLongPressMoveUpdate(
-      void Function(LongPressMoveUpdateDetails) function) =>
+          void Function(LongPressMoveUpdateDetails) function) =>
       gestureModel.onLongPressMoveUpdate = function;
 
   void onLongPressUp(void Function() function) =>

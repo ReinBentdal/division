@@ -34,25 +34,30 @@ class _CoreAnimatedState extends AnimatedWidgetBaseState<CoreAnimated> {
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _alignment = visitor(_alignment, widget.styleModel?.alignment,
-            (dynamic value) => AlignmentGeometryTween(begin: value)) as AlignmentGeometryTween?;
+            (dynamic value) => AlignmentGeometryTween(begin: value))
+        as AlignmentGeometryTween?;
     _alignmentContent = visitor(
-        _alignmentContent,
-        widget.styleModel?.alignmentContent,
-            (dynamic value) => AlignmentGeometryTween(begin: value)) as AlignmentGeometryTween?;
+            _alignmentContent,
+            widget.styleModel?.alignmentContent,
+            (dynamic value) => AlignmentGeometryTween(begin: value))
+        as AlignmentGeometryTween?;
     _padding = visitor(_padding, widget.styleModel?.padding,
-            (dynamic value) => EdgeInsetsGeometryTween(begin: value)) as EdgeInsetsGeometryTween?;
+            (dynamic value) => EdgeInsetsGeometryTween(begin: value))
+        as EdgeInsetsGeometryTween?;
     _decoration = visitor(_decoration, widget.styleModel?.decoration,
-            (dynamic value) => DecorationTween(begin: value)) as DecorationTween?;
+        (dynamic value) => DecorationTween(begin: value)) as DecorationTween?;
     _constraints = visitor(_constraints, widget.styleModel?.constraints,
-            (dynamic value) => BoxConstraintsTween(begin: value)) as BoxConstraintsTween?;
+            (dynamic value) => BoxConstraintsTween(begin: value))
+        as BoxConstraintsTween?;
     _margin = visitor(_margin, widget.styleModel?.margin,
-            (dynamic value) => EdgeInsetsGeometryTween(begin: value)) as EdgeInsetsGeometryTween?;
+            (dynamic value) => EdgeInsetsGeometryTween(begin: value))
+        as EdgeInsetsGeometryTween?;
     _transform = visitor(_transform, widget.styleModel?.transform,
-            (dynamic value) => Matrix4Tween(begin: value)) as Matrix4Tween?;
+        (dynamic value) => Matrix4Tween(begin: value)) as Matrix4Tween?;
     _blur = visitor(_blur, widget.styleModel?.backgroundBlur,
-            (dynamic value) => Tween<double>(begin: value)) as Tween<double?>?;
+        (dynamic value) => Tween<double>(begin: value)) as Tween<double?>?;
     _opacity = visitor(_opacity, widget.styleModel?.opacity,
-            (dynamic value) => Tween<double>(begin: value)) as Tween<double?>?;
+        (dynamic value) => Tween<double>(begin: value)) as Tween<double?>?;
   }
 
   @override
@@ -106,15 +111,15 @@ class _TxtAnimatedState extends AnimatedWidgetBaseState<TxtAnimated> {
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _fontSize = visitor(_fontSize, widget.textModel?.fontSize,
-            (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
+        (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
     _textColor = visitor(_textColor, widget.textModel?.textColor,
-            (dynamic value) => ColorTween(begin: value)) as ColorTween?;
+        (dynamic value) => ColorTween(begin: value)) as ColorTween?;
     _maxLines = visitor(_maxLines, widget.textModel?.maxLines,
-            (dynamic value) => Tween<int>(begin: value)) as Tween<int>?;
+        (dynamic value) => Tween<int>(begin: value)) as Tween<int>?;
     _letterSpacing = visitor(_letterSpacing, widget.textModel?.letterSpacing,
-            (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
+        (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
     _wordSpacing = visitor(_wordSpacing, widget.textModel?.wordSpacing,
-            (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
+        (dynamic value) => Tween<double>(begin: value)) as Tween<double>?;
   }
 
   @override

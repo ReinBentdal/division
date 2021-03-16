@@ -57,8 +57,8 @@ class Home extends StatelessWidget {
 
   final colorCardStyle =
       (ParentStyle tasksCard, Color color) => tasksCard.clone()
-    ..background.color(color)
-    ..elevation(20, color: color.withOpacity(0.5));
+        ..background.color(color)
+        ..elevation(20, color: color.withOpacity(0.5));
 
   Widget _buildTasksCardRow() {
     return SizedBox(

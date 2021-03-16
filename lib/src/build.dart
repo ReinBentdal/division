@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 
 class CoreBuild extends StatelessWidget {
-  CoreBuild(
-      {this.child,
-        this.styleModel,
-        this.gestureModel})
+  CoreBuild({this.child, this.styleModel, this.gestureModel})
       : decoration = styleModel?.decoration,
         constraints = styleModel?.constraints;
 
@@ -57,8 +54,8 @@ class CoreBuild extends StatelessWidget {
         break;
       case OverflowType.hidden:
         widgetTree = ClipRRect(
-            borderRadius:
-            decoration?.borderRadius as BorderRadius? ?? BorderRadius.circular(0.0),
+            borderRadius: decoration?.borderRadius as BorderRadius? ??
+                BorderRadius.circular(0.0),
             child: widgetTree);
         break;
       case OverflowType.visible:
@@ -181,7 +178,9 @@ class CoreBuild extends StatelessWidget {
 
 class ParentBuild extends StatelessWidget {
   ParentBuild({required this.child});
+
   final Widget child;
+
   @override
   Widget build(BuildContext context) => child;
 }
@@ -194,20 +193,20 @@ class TxtBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-    text!,
-    style: textModel?.textStyle,
-    textAlign: textModel?.textAlign ?? TextAlign.start,
-    maxLines: textModel?.maxLines,
-    textDirection: textModel?.textDirection,
-    overflow: textModel?.textOverflow,
-  );
+        text!,
+        style: textModel?.textStyle,
+        textAlign: textModel?.textAlign ?? TextAlign.start,
+        maxLines: textModel?.maxLines,
+        textDirection: textModel?.textDirection,
+        overflow: textModel?.textOverflow,
+      );
 }
 
 class TxtBuildEditable extends StatefulWidget {
   TxtBuildEditable({required this.text, this.textModel})
       : this.textStyle = textModel?.textStyle,
         this.placeholderController =
-        TextEditingController(text: textModel?.placeholder);
+            TextEditingController(text: textModel?.placeholder);
 
   final String text;
   final TextModel? textModel;
@@ -289,14 +288,17 @@ class _TxtBuildEditableState extends State<TxtBuildEditable> {
   @override
   Widget build(BuildContext context) {
     return EditableText(
-      obscureText: _showPlaceholder ? false : widget.textModel?.obscureText ?? false,
+      obscureText:
+          _showPlaceholder ? false : widget.textModel?.obscureText ?? false,
       autofocus: widget.textModel?.autoFocus ?? false,
       cursorOpacityAnimates: true,
-      style: (_showPlaceholder ? _placeholderTextStyle : widget.textStyle) ?? TextStyle(),
+      style: (_showPlaceholder ? _placeholderTextStyle : widget.textStyle) ??
+          TextStyle(),
       textAlign: widget.textModel?.textAlign ?? TextAlign.start,
       maxLines: widget.textModel?.maxLines ?? 1,
       textDirection: widget.textModel?.textDirection,
-      controller: _showPlaceholder ? widget.placeholderController : _controller!,
+      controller:
+          _showPlaceholder ? widget.placeholderController : _controller!,
       focusNode: _focusNode!,
       backgroundCursorColor: Colors.grey,
       cursorColor: Colors.black,

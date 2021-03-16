@@ -19,8 +19,11 @@ class BackgroundModel with ChangeNotifier {
   BlendMode? _blendMode;
 
   Color? get exportBackgroundColor => _color;
+
   double? get exportBackgroundBlur => _blur;
+
   DecorationImage? get exportBackgroundImage => _image;
+
   BlendMode? get exportBackgroundBlendMode => _blendMode;
 
   /// BackgroundColor
@@ -69,12 +72,12 @@ class BackgroundModel with ChangeNotifier {
   /// ```
   void image(
       {String? url,
-        String? path,
-        ImageProvider<dynamic>? imageProveder,
-        ColorFilter? colorFilter,
-        BoxFit? fit,
-        AlignmentGeometry alignment = Alignment.center,
-        ImageRepeat repeat = ImageRepeat.noRepeat}) {
+      String? path,
+      ImageProvider<dynamic>? imageProveder,
+      ColorFilter? colorFilter,
+      BoxFit? fit,
+      AlignmentGeometry alignment = Alignment.center,
+      ImageRepeat repeat = ImageRepeat.noRepeat}) {
     if ((url ?? path ?? imageProveder) == null)
       throw ('Either the [imageProvider], [url] or the [path] has to be provided');
 
@@ -106,22 +109,28 @@ class AlignmentModel with ChangeNotifier {
 
   void topLeft([bool enable = true]) =>
       _updateAlignment(Alignment.topLeft, enable);
+
   void topCenter([bool enable = true]) =>
       _updateAlignment(Alignment.topCenter, enable);
+
   void topRight([bool enable = true]) =>
       _updateAlignment(Alignment.topRight, enable);
 
   void bottomLeft([bool enable = true]) =>
       _updateAlignment(Alignment.bottomLeft, enable);
+
   void bottomCenter([bool enable = true]) =>
       _updateAlignment(Alignment.bottomCenter, enable);
+
   void bottomRight([bool enable = true]) =>
       _updateAlignment(Alignment.bottomRight, enable);
 
   void centerLeft([bool enable = true]) =>
       _updateAlignment(Alignment.centerLeft, enable);
+
   void center([bool enable = true]) =>
       _updateAlignment(Alignment.center, enable);
+
   void centerRight([bool enable = true]) =>
       _updateAlignment(Alignment.centerRight, enable);
 
@@ -143,6 +152,7 @@ class OverflowModel with ChangeNotifier {
   late OverflowType _overflow;
 
   Axis get getDirection => _direction;
+
   OverflowType get getOverflow => _overflow;
 
   // TODO: parameters named or unnamed?
@@ -258,7 +268,7 @@ class StyleModel {
     }
     boxConstraints = (width != null || height != null)
         ? boxConstraints?.tighten(width: width, height: height) ??
-        BoxConstraints.tightFor(width: width, height: height)
+            BoxConstraints.tightFor(width: width, height: height)
         : boxConstraints;
 
     return boxConstraints;
@@ -268,13 +278,13 @@ class StyleModel {
     if (_decoration != null) return _decoration;
 
     if ((backgroundColor ??
-        backgroundImage ??
-        gradient ??
-        border ??
-        borderRadius ??
-        boxShadow ??
-        boxShape ??
-        backgroundBlendMode) !=
+            backgroundImage ??
+            gradient ??
+            border ??
+            borderRadius ??
+            boxShadow ??
+            boxShape ??
+            backgroundBlendMode) !=
         null) {
       BoxDecoration boxDecoration = BoxDecoration(
           color: backgroundColor,
@@ -306,8 +316,10 @@ class StyleModel {
 
   set setBoxDecoration(BoxDecoration? boxDecoration) =>
       _decoration = boxDecoration;
+
   set setBoxConstraints(BoxConstraints? boxConstraints) =>
       _constraints = boxConstraints;
+
   set setTransform(Matrix4? transform) => _transform = transform;
 }
 
@@ -495,12 +507,17 @@ class TextAlignModel with ChangeNotifier {
   TextAlign? get exportTextAlign => _textAlign;
 
   void left([bool enable = true]) => _updateAlignment(TextAlign.left, enable);
+
   void right([bool enable = true]) => _updateAlignment(TextAlign.right, enable);
+
   void center([bool enable = true]) =>
       _updateAlignment(TextAlign.center, enable);
+
   void justify([bool enable = true]) =>
       _updateAlignment(TextAlign.justify, enable);
+
   void start([bool enable = true]) => _updateAlignment(TextAlign.start, enable);
+
   void end([bool enable = true]) => _updateAlignment(TextAlign.end, enable);
 
   _updateAlignment(TextAlign textAlign, bool enable) {
