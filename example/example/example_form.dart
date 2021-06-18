@@ -31,7 +31,7 @@ class _TestState extends State<Test> {
     ..margin(horizontal: 50, vertical: 10)
     ..borderRadius(all: 10)
     ..alignment.center()
-    ..background.color(Colors.grey[200])
+    ..background.color(Colors.grey[200]!)
     ..animate(300, Curves.easeOut)
     ..add(isActive ? activeStyle : null, override: true);
 
@@ -73,7 +73,8 @@ class _TestState extends State<Test> {
               placeholder: 'enter username',
               onFocusChange: (hasFocus) {
                 if (hasFocus != _isUsernameFieldActive)
-                  setState(() => _isUsernameFieldActive = hasFocus);
+                  setState(() => _isUsernameFieldActive =
+                      hasFocus ?? _isUsernameFieldActive);
               },
             ),
         ),
@@ -85,7 +86,8 @@ class _TestState extends State<Test> {
               obscureText: true,
               onFocusChange: (hasFocus) {
                 if (hasFocus != _isPasswordFieldActive)
-                  setState(() => _isPasswordFieldActive = hasFocus);
+                  setState(() => _isPasswordFieldActive =
+                      hasFocus ?? _isPasswordFieldActive);
               },
             ),
         ),
