@@ -148,12 +148,12 @@ class AlignmentModel with ChangeNotifier {
 enum OverflowType { hidden, scroll, visible }
 
 class OverflowModel with ChangeNotifier {
-  late Axis _direction;
-  late OverflowType _overflow;
+  Axis? _direction;
+  OverflowType? _overflow;
 
-  Axis get getDirection => _direction;
+  Axis? get getDirection => _direction;
 
-  OverflowType get getOverflow => _overflow;
+  OverflowType? get getOverflow => _overflow;
 
   // TODO: parameters named or unnamed?
 
