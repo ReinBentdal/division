@@ -73,7 +73,7 @@ class BackgroundModel with ChangeNotifier {
   void image(
       {String? url,
       String? path,
-      ImageProvider<dynamic>? imageProveder,
+      ImageProvider<dynamic>? imageProvider,
       ColorFilter? colorFilter,
       BoxFit? fit,
       AlignmentGeometry alignment = Alignment.center,
