@@ -72,18 +72,18 @@ class BackgroundModel with ChangeNotifier {
   /// ```
   void image(
       {String? url,
-      String? path,
+      String? path,Provider
       ImageProvider<dynamic>? imageProvider,
       ColorFilter? colorFilter,
       BoxFit? fit,
       AlignmentGeometry alignment = Alignment.center,
       ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path ?? imageProveder) == null)
+    if ((url ?? path ?? imageProvider) == null)
       throw ('Either the [imageProvider], [url] or the [path] has to be provided');
 
     ImageProvider<dynamic> image;
-    if (imageProveder != null)
-      image = imageProveder;
+    if (imageProvider != null)
+      image = imageProvider;
     else if (path != null)
       image = AssetImage(path);
     else
